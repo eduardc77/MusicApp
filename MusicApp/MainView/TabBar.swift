@@ -8,23 +8,21 @@
 import SwiftUI
 
 struct TabBar: View {
-    @State var selection = 0
     @State var expand = false
     @Namespace var animation
     
     var body: some View {
         ZStack(alignment: .bottom) {
-            TabView(selection: $selection) {
-                ListenNowView().tabItem { Label("Listen Now", systemImage: "play.circle.fill").padding() }
-                BrowseView().tabItem { Label("Browse", systemImage: "square.grid.2x2.fill").padding() }
-                RadioView().tabItem { Label("Radio", systemImage: "dot.radiowaves.left.and.right").padding() }
-                LibraryView().tabItem { Label("Library", systemImage: "square.stack.fill").padding() }
-                SearchView().tabItem { Label("Search", systemImage: "magnifyingglass").padding() }
+            TabView {
+                ListenNowView().tabItem { Label("Listen Now", systemImage: "play.circle.fill") }
+                BrowseView().tabItem { Label("Browse", systemImage: "square.grid.2x2.fill") }
+                RadioView().tabItem { Label("Radio", systemImage: "dot.radiowaves.left.and.right") }
+                LibraryView().tabItem { Label("Library", systemImage: "square.stack.fill") }
+                SearchView().tabItem { Label("Search", systemImage: "magnifyingglass") }
             }
             .accentColor(.red)
 
             PlayerView(animation: animation, expand: $expand)
-            
         }
         .ignoresSafeArea(.keyboard)
     }

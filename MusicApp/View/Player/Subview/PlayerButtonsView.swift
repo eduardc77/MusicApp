@@ -27,12 +27,12 @@ struct PlayerButtonsView: View {
                     label: {
                 isPlaying ?
                 Image(systemName: "play.fill")
-                    .font(.largeTitle)
+                    .font(.system(size: 48))
                     .foregroundColor(.primary)
                     .matchedGeometryEffect(id: "Play", in: animation, properties: .position, anchor: .trailing)
                 :
                 Image(systemName: "pause.fill")
-                    .font(.largeTitle)
+                    .font(.system(size: 48))
                     .foregroundColor(.primary)
                     .matchedGeometryEffect(id: "Pause", in: animation, properties: .position, anchor: .trailing)
                 }

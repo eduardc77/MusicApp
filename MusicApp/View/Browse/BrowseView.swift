@@ -22,15 +22,10 @@ struct BrowseView: View {
                 
                 VerticalMusicListView(items: radioStations)
             }
-            .padding(.bottom, Metric.playerHeight)
+            
+          
             .navigationTitle(title)
         }
-    }
-}
-
-extension BrowseView {
-    enum Metric {
-        static let playerHeight: CGFloat = 80
     }
 }
 

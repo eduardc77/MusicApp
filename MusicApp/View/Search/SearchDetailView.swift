@@ -13,7 +13,7 @@ struct SearchDetailView: View {
     
     var body: some View {
             ScrollView(.vertical, showsIndicators: true) {
-                VStack(spacing: 5) {
+                VStack() {
                     Text(category.title)
                         .font(.largeTitle).bold()
                         .lineLimit(2)

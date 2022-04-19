@@ -23,7 +23,7 @@ struct VolumeView: View {
                 .padding(.trailing)
         }
         
-        BottomToolbar()
+        BottomToolbar().padding(.bottom, 30)
     }
 }
 

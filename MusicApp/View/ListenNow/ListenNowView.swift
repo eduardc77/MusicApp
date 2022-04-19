@@ -22,7 +22,7 @@ struct ListenNowView: View {
                 
                 VerticalMusicListView(items: radioStations)
             }
-            .padding(.bottom, Metric.playerHeight)
+//            .padding(.bottom, Metric.playerHeight)
             .navigationTitle(title)
         }
     }

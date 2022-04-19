@@ -20,7 +20,7 @@ struct HorizontalMusicListView: View {
                         Image(item.image)
                             .resizable()
                             .frame(width: Metric.imageSize, height: Metric.imageSize, alignment: .leading)
-                            .cornerRadius(5)
+                            .cornerRadius(6)
                         
                         Text(item.name)
                             .frame(maxWidth: Metric.imageSize, alignment: .leading)

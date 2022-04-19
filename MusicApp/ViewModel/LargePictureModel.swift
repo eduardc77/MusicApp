@@ -37,5 +37,75 @@ var selectedMusic = [
     [
         LargePictureModel(type: "Placeholder", name: "Placeholder", description: "Placeholder", image: "bigradio1"),
         LargePictureModel(type: "Placeholder", name: "Placeholder", description: "Placeholder", image: "bigradio2")
+    ],
+    [
+        LargePictureModel(type: "Placeholder", name: "Placeholder", description: "Placeholder", image: "bigradio2"),
+        LargePictureModel(type: "Placeholder", name: "Placeholder", description: "AppleMusic", image: "bigradio3")
+    ],
+    
+    [
+        LargePictureModel(type: "Placeholder", name: "Placeholder", description: "AppleMusic", image: "bigradio4"),
+        LargePictureModel(type: "Placeholder", name: "Placeholder", description: "AppleMusic", image: "bigradio5")
+    ],
+    
+    [
+        LargePictureModel(type: "Placeholder", name: "Placeholder", description: "Placeholder", image: "bigradio1"),
+        LargePictureModel(type: "Placeholder", name: "Placeholder", description: "Placeholder", image: "bigradio2")
+    ],
+    [
+        LargePictureModel(type: "Placeholder", name: "Placeholder", description: "Placeholder", image: "bigradio2"),
+        LargePictureModel(type: "Placeholder", name: "Placeholder", description: "AppleMusic", image: "bigradio3")
+    ],
+    
+    [
+        LargePictureModel(type: "Placeholder", name: "Placeholder", description: "AppleMusic", image: "bigradio4"),
+        LargePictureModel(type: "Placeholder", name: "Placeholder", description: "AppleMusic", image: "bigradio5")
+    ],
+    
+    [
+        LargePictureModel(type: "Placeholder", name: "Placeholder", description: "Placeholder", image: "bigradio1"),
+        LargePictureModel(type: "Placeholder", name: "Placeholder", description: "Placeholder", image: "bigradio2")
+    ],
+    [
+        LargePictureModel(type: "Placeholder", name: "Placeholder", description: "Placeholder", image: "bigradio2"),
+        LargePictureModel(type: "Placeholder", name: "Placeholder", description: "AppleMusic", image: "bigradio3")
+    ],
+    
+    [
+        LargePictureModel(type: "Placeholder", name: "Placeholder", description: "AppleMusic", image: "bigradio4"),
+        LargePictureModel(type: "Placeholder", name: "Placeholder", description: "AppleMusic", image: "bigradio5")
+    ],
+    
+    [
+        LargePictureModel(type: "Placeholder", name: "Placeholder", description: "Placeholder", image: "bigradio1"),
+        LargePictureModel(type: "Placeholder", name: "Placeholder", description: "Placeholder", image: "bigradio2")
+    ],
+    [
+        LargePictureModel(type: "Placeholder", name: "Placeholder", description: "Placeholder", image: "bigradio2"),
+        LargePictureModel(type: "Placeholder", name: "Placeholder", description: "AppleMusic", image: "bigradio3")
+    ],
+    
+    [
+        LargePictureModel(type: "Placeholder", name: "Placeholder", description: "AppleMusic", image: "bigradio4"),
+        LargePictureModel(type: "Placeholder", name: "Placeholder", description: "AppleMusic", image: "bigradio5")
+    ],
+    
+    [
+        LargePictureModel(type: "Placeholder", name: "Placeholder", description: "Placeholder", image: "bigradio1"),
+        LargePictureModel(type: "Placeholder", name: "Placeholder", description: "Placeholder", image: "bigradio2")
+    ],
+    [
+        LargePictureModel(type: "Placeholder", name: "Placeholder", description: "Placeholder", image: "bigradio2"),
+        LargePictureModel(type: "Placeholder", name: "Placeholder", description: "AppleMusic", image: "bigradio3")
+    ],
+    
+    [
+        LargePictureModel(type: "Placeholder", name: "Placeholder", description: "AppleMusic", image: "bigradio4"),
+        LargePictureModel(type: "Placeholder", name: "Placeholder", description: "AppleMusic", image: "bigradio5")
+    ],
+    
+    [
+        LargePictureModel(type: "Placeholder", name: "Placeholder", description: "Placeholder", image: "bigradio1"),
+        LargePictureModel(type: "Placeholder", name: "Placeholder", description: "Placeholder", image: "bigradio2")
     ]
 ]

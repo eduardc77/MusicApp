@@ -48,6 +48,110 @@ var musicPlaylists = [
         SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder"),
         SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder XXI Placeholder"),
         SmallPictureModel(image: "smallradio2", name: "John Legend Placeholder", description: "Placeholder")
+    ],
+    [
+        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder Placeholder Placeholder"),
+        SmallPictureModel(image: "smallradio2", name: "John Legend", description: "Placeholder"),
+        SmallPictureModel(image: "smallradio3", name: "Placeholder", description: "Placeholder"),
+        SmallPictureModel(image: "smallradio4", name: "Placeholder Placeholder", description: "Placeholder Placeholder Placeholder"),
+        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
+        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder")
+    ],
+    
+    [
+        SmallPictureModel(image: "smallradio2", name: "John Legend", description: "Placeholder"),
+        SmallPictureModel(image: "smallradio3", name: "Placeholder", description: "Placeholder"),
+        SmallPictureModel(image: "smallradio4", name: "Placeholder", description: "Placeholder Placeholder Placeholder"),
+        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
+        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder"),
+        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder XXI Placeholder")
+    ],
+    
+    [
+        SmallPictureModel(image: "smallradio3", name: "Placeholder Placeholder", description: "Placeholder"),
+        SmallPictureModel(image: "smallradio4", name: "Placeholder Placeholder", description: "Placeholder Placeholder Placeholder"),
+        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
+        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder"),
+        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder XXI Placeholder"),
+        SmallPictureModel(image: "smallradio2", name: "John Legend Placeholder", description: "Placeholder")
+    ],
+    [
+        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder Placeholder Placeholder"),
+        SmallPictureModel(image: "smallradio2", name: "John Legend", description: "Placeholder"),
+        SmallPictureModel(image: "smallradio3", name: "Placeholder", description: "Placeholder"),
+        SmallPictureModel(image: "smallradio4", name: "Placeholder Placeholder", description: "Placeholder Placeholder Placeholder"),
+        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
+        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder")
+    ],
+    
+    [
+        SmallPictureModel(image: "smallradio2", name: "John Legend", description: "Placeholder"),
+        SmallPictureModel(image: "smallradio3", name: "Placeholder", description: "Placeholder"),
+        SmallPictureModel(image: "smallradio4", name: "Placeholder", description: "Placeholder Placeholder Placeholder"),
+        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
+        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder"),
+        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder XXI Placeholder")
+    ],
+    
+    [
+        SmallPictureModel(image: "smallradio3", name: "Placeholder Placeholder", description: "Placeholder"),
+        SmallPictureModel(image: "smallradio4", name: "Placeholder Placeholder", description: "Placeholder Placeholder Placeholder"),
+        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
+        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder"),
+        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder XXI Placeholder"),
+        SmallPictureModel(image: "smallradio2", name: "John Legend Placeholder", description: "Placeholder")
+    ],
+    [
+        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder Placeholder Placeholder"),
+        SmallPictureModel(image: "smallradio2", name: "John Legend", description: "Placeholder"),
+        SmallPictureModel(image: "smallradio3", name: "Placeholder", description: "Placeholder"),
+        SmallPictureModel(image: "smallradio4", name: "Placeholder Placeholder", description: "Placeholder Placeholder Placeholder"),
+        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
+        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder")
+    ],
+    
+    [
+        SmallPictureModel(image: "smallradio2", name: "John Legend", description: "Placeholder"),
+        SmallPictureModel(image: "smallradio3", name: "Placeholder", description: "Placeholder"),
+        SmallPictureModel(image: "smallradio4", name: "Placeholder", description: "Placeholder Placeholder Placeholder"),
+        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
+        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder"),
+        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder XXI Placeholder")
+    ],
+    
+    [
+        SmallPictureModel(image: "smallradio3", name: "Placeholder Placeholder", description: "Placeholder"),
+        SmallPictureModel(image: "smallradio4", name: "Placeholder Placeholder", description: "Placeholder Placeholder Placeholder"),
+        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
+        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder"),
+        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder XXI Placeholder"),
+        SmallPictureModel(image: "smallradio2", name: "John Legend Placeholder", description: "Placeholder")
+    ],
+    [
+        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder Placeholder Placeholder"),
+        SmallPictureModel(image: "smallradio2", name: "John Legend", description: "Placeholder"),
+        SmallPictureModel(image: "smallradio3", name: "Placeholder", description: "Placeholder"),
+        SmallPictureModel(image: "smallradio4", name: "Placeholder Placeholder", description: "Placeholder Placeholder Placeholder"),
+        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
+        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder")
+    ],
+    
+    [
+        SmallPictureModel(image: "smallradio2", name: "John Legend", description: "Placeholder"),
+        SmallPictureModel(image: "smallradio3", name: "Placeholder", description: "Placeholder"),
+        SmallPictureModel(image: "smallradio4", name: "Placeholder", description: "Placeholder Placeholder Placeholder"),
+        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
+        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder"),
+        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder XXI Placeholder")
+    ],
+    
+    [
+        SmallPictureModel(image: "smallradio3", name: "Placeholder Placeholder", description: "Placeholder"),
+        SmallPictureModel(image: "smallradio4", name: "Placeholder Placeholder", description: "Placeholder Placeholder Placeholder"),
+        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
+        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder"),
+        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder XXI Placeholder"),
+        SmallPictureModel(image: "smallradio2", name: "John Legend Placeholder", description: "Placeholder")
     ]
 ]
 
