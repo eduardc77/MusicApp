@@ -9,8 +9,8 @@ import Foundation
 
 struct SearchQuery: Query {
     var term: String
-    var media: MediaType
-    var limit: Int = 10
+    var media: MediaKind
+    var limit: Int = 16
     var offset: Int = 0
 
     var toDictionary: [String: String] {

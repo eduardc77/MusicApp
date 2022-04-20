@@ -18,7 +18,7 @@ class SearchViewModel: ObservableObject {
     @Published var showErrorAlert = false
     @Published var isLoadingMore = false
     @Published var isFetchingInitialResults = false
-    @Published var mediaType = MediaType.song {
+    @Published var mediaType = MediaKind.song {
         didSet {
             search(searchTerm)
         }
@@ -147,7 +147,7 @@ extension SearchViewModel {
         for item in results where resultIds[item.id] != item.id {
             resultIds[item.id] = item.id
             newResults.append(item)
-            sendImageRequest(url: item.imageUrl)
+            sendImageRequest(url: item.artworkUrl100)
         }
 
         guard newResults.count > 0 else {
@@ -171,7 +171,7 @@ extension SearchViewModel {
     private func resetSearch() {
         searchResults = []
         resultIds = [:]
-        noResultsFound = false
+//        noResultsFound = false
         errorMessage = nil
         previousQuery = nil
         isLoadingMore = false

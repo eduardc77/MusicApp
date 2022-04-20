@@ -10,15 +10,17 @@ import AVKit
 
 struct MediaDetailView: View {
     var media: Media
-    var imageData: Data
+    var imageData: Data?
 
     var body: some View {
         GeometryReader { proxy in
             ScrollView {
                 VStack(alignment: .leading) {
-                    Text(media.name)
-                        .bold()
-                        .font(.headline)
+                    Text(media.trackName)
+                        .font(.headline).bold()
+                        .lineLimit(2)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.horizontal)
 
                     if let previewUrl = media.previewUrl {
                         VideoPlayer(player: AVPlayer(url: previewUrl))
@@ -27,8 +29,8 @@ struct MediaDetailView: View {
                         detailsForVideo
                     } else {
                         HStack(spacing: 40) {
-                            image
-                            detailsWithImage
+                            mediaImage
+                            mediaImageDetails
                         }
                     }
 
@@ -40,17 +42,18 @@ struct MediaDetailView: View {
 
                     Text(media.description)
                         .padding([.bottom], 16)
+                        .navigationBarTitleDisplayMode(.inline)
                 }
                 .padding()
             }
-            .navigationBarTitleDisplayMode(.inline)
+            
         }
     }
 
-    var detailsWithImage: some View {
+    var mediaImageDetails: some View {
         VStack(alignment: .leading, spacing: 10) {
             Text("Price: ").bold() +
-            Text(media.price)
+            Text(media.trackPrice)
 
             if #available(iOS 15.0, *) {
                 Text("Published: ").bold() +
@@ -70,7 +73,7 @@ struct MediaDetailView: View {
 
             HStack(spacing: 10) {
                 Text("Price: ").bold() +
-                Text(media.price)
+                Text(media.trackPrice)
 
                 if #available(iOS 15.0, *) {
                     Text("Published: ").bold() +
@@ -87,14 +90,11 @@ struct MediaDetailView: View {
     }
 
     @ViewBuilder
-    var image: some View {
-        if let uiImage = UIImage(data: imageData) {
-            Image(uiImage: uiImage)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(maxWidth: 100)
+    var mediaImage: some View {
+        if let imageData = imageData, let uiImage = UIImage(data: imageData) {
+            MediaImageView(image:Image(uiImage: uiImage))
         } else {
-            ImagePlaceholderView()
+            MediaImageView()
         }
     }
 

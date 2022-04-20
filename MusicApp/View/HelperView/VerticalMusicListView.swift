@@ -40,9 +40,3 @@ struct VerticalMusicListView: View {
         }
     }
 }
-
-extension VerticalMusicListView {
-    enum Metric {
-        static let imageSize: CGFloat = 100
-    }
-}

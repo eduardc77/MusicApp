@@ -22,7 +22,7 @@ struct TabBar: View {
             }
             .accentColor(.red)
 
-            PlayerView(animation: animation, expand: $expand)
+            PlayerView(expand: $expand, animation: animation)
         }
         .ignoresSafeArea(.keyboard)
     }

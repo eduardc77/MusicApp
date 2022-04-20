@@ -13,7 +13,7 @@ struct CategoryGridView: View {
     
     var body: some View {
         GeometryReader { geometry in
-            ScrollView() {
+            ScrollView {
                 Divider().padding(.horizontal)
                 
                     Text("Browse Categories")
@@ -23,17 +23,10 @@ struct CategoryGridView: View {
                     
                     LazyVGrid(columns: columns) {
                         ForEach(categories, id: \.self) { category in
-                            NavigationLink(destination:
-                                            SearchDetailView(category: category)
-                                .navigationBarTitleDisplayMode(.inline)
-                            )
-                            {
+                            NavigationLink(destination: SearchDetailView(category: category))
+{
                                 ZStack(alignment: Alignment(horizontal: .leading, vertical: .bottom)) {
-                                Image(category.image)
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: geometry.size.width / 2.29)
-                                    .cornerRadius(6)
+                                    MediaImageView(image: Image(category.image), size: (width: geometry.size.width / 2.29, height: nil))
 //
 //                                        Text(category.title)
 //                                            .padding()

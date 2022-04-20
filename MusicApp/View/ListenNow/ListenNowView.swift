@@ -28,12 +28,6 @@ struct ListenNowView: View {
     }
 }
 
-extension ListenNowView {
-    enum Metric {
-        static let playerHeight: CGFloat = 80
-    }
-}
-
 struct ListenNowView_Previews: PreviewProvider {
     static var previews: some View {
         ListenNowView()

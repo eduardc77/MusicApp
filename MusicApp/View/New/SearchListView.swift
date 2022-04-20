@@ -9,45 +9,29 @@ import SwiftUI
 
 struct SearchListView: View {
     @ObservedObject var searchViewModel: SearchViewModel
-
+    
     var body: some View {
-        Group {
-            ScrollView {
-                LazyVStack(alignment: .leading) {
-                    ForEach(searchViewModel.searchResults) { item in
-                        Section(footer: footer(for: item)) {
-                            SearchListRowItem(
-                                media: item,
-                                imageData: searchViewModel.imagesData[item.imageUrl] ?? Data()
-                            )
-
-                            Divider()
-                                .onAppear {
-                                    if item == searchViewModel.searchResults.last {
-                                        searchViewModel.loadMore()
-                                    }
-                                }
-                        }
+        List(searchViewModel.searchResults, id: \.id) { item in
+            NavigationLink(destination: MediaDetailView(media: item, imageData: searchViewModel.imagesData[item.artworkUrl100])) {
+                SearchListRowItem(
+                    media: item,
+                    imageData: searchViewModel.imagesData[item.artworkUrl100]
+                    
+                ).onAppear {
+                    if item == searchViewModel.searchResults.last {
+                        searchViewModel.loadMore()
                     }
                 }
-                .padding([.all], 16)
             }
+            footer(for: item)
         }
     }
-
+    
     @ViewBuilder
     func footer(for media: Media) -> some View {
         if searchViewModel.isLoadingMore, media == searchViewModel.searchResults.last {
-            HStack {
-                Spacer()
-
-                ProgressView("Loading...")
-                    .padding([.top, .bottom], 10)
-
-                Spacer()
-            }
-        }  else {
-            EmptyView()
+                ProgressView()
+                    .padding()
         }
     }
 }
@@ -58,7 +42,7 @@ struct SearchListView_Previews: PreviewProvider {
         viewModel.searchResults = Media.sampleData
         return viewModel
     }()
-
+    
     static var previews: some View {
         SearchListView(searchViewModel: searchViewModel)
     }

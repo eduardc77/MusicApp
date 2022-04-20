@@ -12,30 +12,32 @@ struct SearchDetailView: View {
     var category: SearchCategoryModel
     
     var body: some View {
-            ScrollView(.vertical, showsIndicators: true) {
-                VStack() {
-                    Text(category.title)
-                        .font(.largeTitle).bold()
-                        .lineLimit(2)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.horizontal)
-                        
-                    HighlightsView(items: selectedMusic[category.tag])
-
-                    HStack {
-                        Text("Placeholder")
-                            .font(.title2).bold()
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                        
-                        Button("Placeholder") {}
-                        .foregroundColor(.red)
-                    }
+        ScrollView(.vertical, showsIndicators: true) {
+            VStack() {
+                Text(category.title)
+                    .font(.largeTitle).bold()
+                    .lineLimit(2)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.horizontal)
+                
+                HighlightsView(items: selectedMusic[category.tag])
+                
+                HStack {
+                    Text("Placeholder")
+                        .font(.title2).bold()
+                        .frame(maxWidth: .infinity, alignment: .leading)
                     
-                    HorizontalMusicListView(items: musicPlaylists[category.tag])
+                    Button("Placeholder") {}
+                        .foregroundColor(.red)
                 }
+                .padding(.horizontal)
+                
+                HorizontalMusicListView(items: musicPlaylists[category.tag])
+                
+                    .navigationBarTitleDisplayMode(.inline)
             }
-            .padding(.bottom, Metric.playerHeight)
+        }
+        .padding(.bottom, Metric.playerHeight)
     }
 }
 

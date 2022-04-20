@@ -7,22 +7,36 @@
 
 import SwiftUI
 
-struct ImagePlaceholderView: View {
+struct MediaImageView: View {
+    var image: Image?
+    var size: (width: CGFloat?, height: CGFloat?) = (width: 30, height: 30)
+    var cornerRadius: CGFloat = 6
+    
     var body: some View {
         ZStack {
+            if let image = image {
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: size.width, height: size.height)
+                    .cornerRadius(6)
+                    .shadow(radius: 6, x: 0, y: 3)
+            } else {
             Rectangle()
-                .fill(Color.secondary.opacity(0.2))
-                .frame(width: 50, height: 50)
-                .cornerRadius(5)
-                .shadow(radius: 5)
+                .fill(Color.secondary.opacity(0.6))
+                .frame(width: size.width, height: size.height)
+                .cornerRadius(cornerRadius)
+                .shadow(radius: 6, x: 0, y: 3)
+            
             Image(systemName: "music.note")
                 .foregroundColor(Color.secondary)
+            }
         }
     }
 }
 
-struct ImagePlaceholderView_Previews: PreviewProvider {
+struct MediaImageView_Previews: PreviewProvider {
     static var previews: some View {
-        ImagePlaceholderView()
+        MediaImageView()
     }
 }

@@ -9,60 +9,50 @@ import SwiftUI
 
 struct SearchView: View {
     @StateObject private var searchViewModel = SearchViewModel()
-    @State private var searchText = ""
+    @State private var searchTerm = ""
+    @State private var isSearchActive: Bool = false
     @State private var selectedIndex = 0
-    
     @State var music = searchMusic
     
     var body: some View {
         NavigationView {
-            CategoryGridView()
-                .padding(.bottom)
-                .navigationTitle("Search")
-            
-            // Search Field
-                .searchable(text: $searchText,
-                            placement:.navigationBarDrawer(displayMode:.always),
-                            prompt: "Artists, Songs, Lyrics, and More") {
+            VStack {
+                if searchTerm.isEmpty {
+                    CategoryGridView()
+                        .navigationTitle("Search")
+                } else {
                     
-                    Picker("Search In", selection: $selectedIndex) {
-                        Text("Apple Music").tag(0)
-                        Text("Your Library").tag(1)
-                    }
-                    .pickerStyle(.segmented)
-                    
-                    ZStack {
+                        Picker("Search In", selection: $selectedIndex) {
+                            Text("Apple Music").tag(0)
+                            Text("Your Library").tag(1)
+                        }
+                        .pickerStyle(.segmented)
+                        
                         SearchListView(searchViewModel: searchViewModel)
-                        
-                        if searchViewModel.isFetchingInitialResults {
-                            ProgressView()
-                        }
-                        
-                        if searchViewModel.noResultsFound {
-                            Text("No results found.")
-                                .bold()
-                        }
-                    }
                     
-                    .onChange(of: searchText) { searchText in
-                        searchViewModel.search(searchText)
-                    }
-                }.alert(isPresented: $searchViewModel.showErrorAlert) {
-                    let message = searchViewModel.errorMessage
-                    searchViewModel.errorMessage = nil
                     
-                    return Alert(
-                        title: Text("Error"),
-                        message: Text(message ?? APIError.generic.localizedDescription)
-                    )
                 }
+            }
+            
         }
-    }
-}
-
-extension SearchView {
-    enum Metric {
-        static let playerHeight: CGFloat = 80
+        .searchable(text: $searchTerm,
+                    placement:.navigationBarDrawer(displayMode:.always),
+                    prompt: "Artists, Songs, Lyrics, and More")
+    
+        .onChange(of: searchTerm) { searchText in
+            searchViewModel.search(searchText)
+            
+        }
+        .alert(isPresented: $searchViewModel.showErrorAlert) {
+            let message = searchViewModel.errorMessage
+            searchViewModel.errorMessage = nil
+            
+            return Alert(
+                title: Text("Error"),
+                message: Text(message ?? APIError.generic.localizedDescription)
+            )
+        }
+        
     }
 }
 

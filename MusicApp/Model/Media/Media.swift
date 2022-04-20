@@ -9,12 +9,13 @@ import Foundation
 
 struct Media: Identifiable {
     var id: String
-    var name: String
+    var trackName: String
+    var artistName: String
     var description: String
-    var type: MediaType
+    var kind: MediaKind
     var genres: [String]
-    var price: String
-    var imageUrl: URL
+    var trackPrice: String
+    var artworkUrl100: URL
     var previewUrl: URL?
     var releaseDate: Date
 }
@@ -27,20 +28,18 @@ extension Media: Equatable {
 
 extension Media: Codable {
     enum CodingKeys: String, CodingKey {
-        case genres, releaseDate, description, previewUrl
+        case genres, releaseDate, description, previewUrl, kind, trackName, trackPrice, artworkUrl100, artistName
         case id = "trackId"
-        case name = "trackName"
-        case type = "kind"
-        case price = "formattedPrice"
-        case imageUrl = "artworkUrl100"
     }
 
     enum AdditionalKeys: String, CodingKey {
         case longDescription
         case primaryGenreName
+        case wrapperType
         case trackPrice
         case collectionId
         case collectionName
+        case collectionPrice
     }
 
     init(from decoder: Decoder) throws {
@@ -50,23 +49,23 @@ extension Media: Codable {
         if let id = try? container.decode(Int.self, forKey: .id) {
             self.id = String(id)
         } else {
-            id = String(try additionalContainer.decode(Int.self, forKey: .collectionId))
+            self.id = String(try additionalContainer.decode(Int.self, forKey: .collectionId))
         }
 
-        if let name = try? container.decode(String.self, forKey: .name) {
-            self.name = name
+        if let name = try? container.decode(String.self, forKey: .trackName) {
+            trackName = name
         } else {
-            name = try additionalContainer.decode(String.self, forKey: .collectionName)
+            trackName = try additionalContainer.decode(String.self, forKey: .collectionName)
         }
 
-        if let kind = try? container.decode(String.self, forKey: .type),
-           let mediaKind = Kind(rawValue: kind) {
-            type = mediaKind.mediaType
+        if let kind = try? container.decode(String.self, forKey: .kind) {
+            self.kind = MediaKind(rawValue: kind) ?? .artist
         } else {
-            type = .ebook
+            let wrapperType = try additionalContainer.decode(String.self, forKey: .wrapperType)
+            self.kind = MediaKind(rawValue: wrapperType) ?? .artist
         }
-
-        imageUrl = try container.decode(URL.self, forKey: .imageUrl)
+        artistName = try container.decode(String.self, forKey: .artistName)
+        artworkUrl100 = try container.decode(URL.self, forKey: .artworkUrl100)
         previewUrl = (try? container.decode(URL.self, forKey: .previewUrl)) ?? nil
         releaseDate = try container.decode(Date.self, forKey: .releaseDate)
 
@@ -86,14 +85,14 @@ extension Media: Codable {
             genres = []
         }
 
-        if let price = try? container.decode(String.self, forKey: .price) {
-            self.price = price
+        if let price = try? container.decode(String.self, forKey: .trackPrice) {
+            self.trackPrice = price
         } else if let price = try? additionalContainer.decode(String.self, forKey: .trackPrice) {
-            self.price = price
-        } else if let number = (try? additionalContainer.decode(Double.self, forKey: .trackPrice)) {
-            self.price = "$\(number)"
+            self.trackPrice = price
+        } else if let number = (try? additionalContainer.decode(Double.self, forKey: .collectionPrice)) {
+            self.trackPrice = "$\(number)"
         } else {
-            price = ""
+            trackPrice = ""
         }
     }
 }
@@ -103,7 +102,8 @@ extension Media {
     static let sampleData: [Media] = (0...6).map { _ in Media.singleMedia }
     static let singleMedia = Media(
         id: "1436991868",
-        name: "Run from Ruin",
+        trackName: "Run from Ruin",
+        artistName: "Steven King",
         description:
         """
         They’re not undead; they’re just angry…  \
@@ -120,10 +120,10 @@ extension Media {
         they’re fighting to stay alive; but little do they know, \
         they’re fighting to save mankind.
         """,
-        type: .ebook,
+        kind: .ebook,
         genres: ["Horror", "Books", "Fiction & Literature", "Sci-Fi & Fantasy"],
-        price: "Free",
-        imageUrl: URL(string: "https://is5-ssl.mzstatic.com/image/thumb/Publication125/v4/0d/b4/db/0db4db25-4fc4-52f0-492c-95d3d3daec86/9780463068281.jpg/100x100bb.jpg")!,
+        trackPrice: "Free",
+        artworkUrl100: URL(string: "https://is5-ssl.mzstatic.com/image/thumb/Publication125/v4/0d/b4/db/0db4db25-4fc4-52f0-492c-95d3d3daec86/9780463068281.jpg/100x100bb.jpg")!,
         previewUrl: nil,
         releaseDate: Date().addingTimeInterval(-1 * 3 * 365 * 24 * 60 * 60))
 }

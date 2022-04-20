@@ -12,7 +12,7 @@ struct BrowseView: View {
     
     var body: some View {
         NavigationView {
-            ScrollView(.vertical, showsIndicators: true) {
+            ScrollView() {
                 HighlightsView(items: selectedStatiions)
 
                 Text(title)

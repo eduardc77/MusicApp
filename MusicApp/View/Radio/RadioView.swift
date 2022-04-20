@@ -11,7 +11,7 @@ struct RadioView: View {
     
     var body: some View {
         NavigationView {
-            ScrollView(.vertical, showsIndicators: true) {
+            ScrollView {
                 HighlightsView(items: selectedStatiions)
 
                 Text("Radio")
@@ -24,12 +24,6 @@ struct RadioView: View {
 //            .padding(.bottom, Metric.playerHeight)
             .navigationTitle("Radio")
         }
-    }
-}
-
-extension RadioView {
-    enum Metric {
-        static let playerHeight: CGFloat = 80
     }
 }
 
