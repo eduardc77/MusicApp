@@ -63,7 +63,7 @@
 /* Begin PBXFileReference section */
 		EA734CC0280F1C7D00FCD2EE /* Metric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Metric.swift; sourceTree = "<group>"; };
 		EA7695E4280E21BB00726012 /* CategoryGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryGridView.swift; sourceTree = "<group>"; };
-		EAD152F5280D56A8005FD971 /* Music App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Music App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EAD152F5280D56A8005FD971 /* Music.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Music.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAD152F8280D56A8005FD971 /* MusicAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicAppApp.swift; sourceTree = "<group>"; };
 		EAD152FA280D56A8005FD971 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		EAD152FC280D56A8005FD971 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -145,7 +145,7 @@
 		EAD152F6280D56A8005FD971 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				EAD152F5280D56A8005FD971 /* Music App.app */,
+				EAD152F5280D56A8005FD971 /* Music.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -369,7 +369,7 @@
 			);
 			name = MusicApp;
 			productName = MusicApp;
-			productReference = EAD152F5280D56A8005FD971 /* Music App.app */;
+			productReference = EAD152F5280D56A8005FD971 /* Music.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -613,7 +613,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.eliogalart.MusicApp;
-				PRODUCT_NAME = "Music App";
+				PRODUCT_NAME = Music;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -642,7 +642,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.eliogalart.MusicApp;
-				PRODUCT_NAME = "Music App";
+				PRODUCT_NAME = Music;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
