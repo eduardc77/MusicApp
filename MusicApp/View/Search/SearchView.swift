@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SearchView: View {
-    @StateObject private var searchViewModel = SearchViewModel()
+    @StateObject private var searchViewModel = SearchObservableObject()
     @State private var searchTerm = ""
     @State private var isSearchActive: Bool = false
     @State private var selectedIndex = 0
@@ -19,40 +19,60 @@ struct SearchView: View {
             VStack {
                 if searchTerm.isEmpty {
                     CategoryGridView()
-                        .navigationTitle("Search")
+                        .animation(.default, value: searchTerm)
                 } else {
-                    
+                    VStack {
                         Picker("Search In", selection: $selectedIndex) {
                             Text("Apple Music").tag(0)
                             Text("Your Library").tag(1)
                         }
                         .pickerStyle(.segmented)
                         
-                        SearchListView(searchViewModel: searchViewModel)
-                    
-                    
+                        ZStack {
+                            SearchListView(searchViewModel: searchViewModel)
+                                
+                                .animation(.default, value: searchTerm)
+                            
+                            if searchViewModel.noResultsFound {
+                                VStack {
+                                    Text("No Results")
+                                        .font(.title2).bold()
+                                        .foregroundColor(.primary)
+                                    Text("Try a new search.")
+                                        .foregroundColor(.secondary)
+                                        .font(.body)
+                                }
+                                .padding(.bottom)
+                            }
+                        }
+                    }.padding()
                 }
             }
+            .navigationTitle("Search")
             
+            .alert(isPresented: $searchViewModel.showErrorAlert) {
+                let message = searchViewModel.errorMessage
+                searchViewModel.errorMessage = nil
+                
+                return Alert(
+                    title: Text("Error"),
+                    message: Text(message ?? APIError.generic.localizedDescription)
+                )
+            }
         }
         .searchable(text: $searchTerm,
                     placement:.navigationBarDrawer(displayMode:.always),
                     prompt: "Artists, Songs, Lyrics, and More")
-    
-        .onChange(of: searchTerm) { searchText in
-            searchViewModel.search(searchText)
-            
-        }
-        .alert(isPresented: $searchViewModel.showErrorAlert) {
-            let message = searchViewModel.errorMessage
-            searchViewModel.errorMessage = nil
-            
-            return Alert(
-                title: Text("Error"),
-                message: Text(message ?? APIError.generic.localizedDescription)
-            )
-        }
         
+        .onChange(of: searchTerm) { term in
+            searchViewModel.searchTerm = term
+            searchViewModel.search()
+            
+        }
+        //        .onSubmit {
+        //            searchViewModel.searchTerm = searchTerm
+        //            searchViewModel.search()
+        //        }
     }
 }
 

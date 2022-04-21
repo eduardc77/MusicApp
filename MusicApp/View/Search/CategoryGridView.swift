@@ -36,7 +36,9 @@ struct CategoryGridView: View {
                             }
                         }
                     }
+//                    .padding(.bottom, Metric.playerHeight)
                 .padding(.horizontal)
+                
             }
     }
     }

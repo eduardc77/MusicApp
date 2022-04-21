@@ -21,7 +21,7 @@ struct VerticalMusicListView: View {
                 HStack {
                     Image(item.image)
                         .resizable()
-                        .frame(width: Metric.imageSize, height: Metric.imageSize, alignment: .leading)
+                        .frame(width: Metric.searchResultImageSize, height: Metric.searchResultImageSize, alignment: .leading)
                         .cornerRadius(5)
                     VStack {
                         Text(item.name)

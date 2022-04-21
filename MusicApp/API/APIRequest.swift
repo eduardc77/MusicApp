@@ -69,7 +69,7 @@ extension APIRequest where Response: Decodable {
         return urlSession.dataTaskPublisher(for: urlRequest)
             .mapError { _ in APIError.network }
             .tryMap({ (data, response) in
-                guard (response as? HTTPURLResponse)?.statusCode == 200 else {
+                guard (response as? HTTPURLResponse)?.statusCode == 200 || (response as? HTTPURLResponse)?.statusCode == 204 else {
                     throw APIError.server
                 }
                 

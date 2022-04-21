@@ -41,12 +41,6 @@ struct SearchDetailView: View {
     }
 }
 
-extension SearchDetailView {
-    enum Metric {
-        static let playerHeight: CGFloat = 80
-    }
-}
-
 struct SearchDetailView_Previews: PreviewProvider {
     static var previews: some View {
         SearchDetailView(category: SearchCategoryModel.example)

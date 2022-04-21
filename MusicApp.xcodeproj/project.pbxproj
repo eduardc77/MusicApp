@@ -44,7 +44,7 @@
 		EAD15351280D5DC6005FD971 /* SearchListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD15350280D5DC6005FD971 /* SearchListItemView.swift */; };
 		EAD15354280D5DFD005FD971 /* SearchListRowItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD15353280D5DFD005FD971 /* SearchListRowItem.swift */; };
 		EAD15356280D5E09005FD971 /* SearchListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD15355280D5E09005FD971 /* SearchListView.swift */; };
-		EAD15358280D5E19005FD971 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD15357280D5E19005FD971 /* SearchViewModel.swift */; };
+		EAD15358280D5E19005FD971 /* SearchObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD15357280D5E19005FD971 /* SearchObservableObject.swift */; };
 		EAD1535A280D5E8B005FD971 /* LibraryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD15359280D5E8B005FD971 /* LibraryListView.swift */; };
 		EAD1535D280D6252005FD971 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD1535C280D6252005FD971 /* CoreDataManager.swift */; };
 		EAD1535F280D626E005FD971 /* FavoriteMedia+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD1535E280D626E005FD971 /* FavoriteMedia+CoreDataClass.swift */; };
@@ -99,7 +99,7 @@
 		EAD15350280D5DC6005FD971 /* SearchListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchListItemView.swift; sourceTree = "<group>"; };
 		EAD15353280D5DFD005FD971 /* SearchListRowItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchListRowItem.swift; sourceTree = "<group>"; };
 		EAD15355280D5E09005FD971 /* SearchListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchListView.swift; sourceTree = "<group>"; };
-		EAD15357280D5E19005FD971 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		EAD15357280D5E19005FD971 /* SearchObservableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchObservableObject.swift; sourceTree = "<group>"; };
 		EAD15359280D5E8B005FD971 /* LibraryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryListView.swift; sourceTree = "<group>"; };
 		EAD1535C280D6252005FD971 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		EAD1535E280D626E005FD971 /* FavoriteMedia+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavoriteMedia+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -155,7 +155,7 @@
 			children = (
 				EAD15362280D635F005FD971 /* API */,
 				EAD1530B280D5783005FD971 /* MainView */,
-				EAD1531A280D589D005FD971 /* ViewModel */,
+				EAD1531A280D589D005FD971 /* Remove These */,
 				EAD15323280D5AED005FD971 /* View */,
 				EAD1530E280D57C2005FD971 /* Model */,
 				EAD152F8280D56A8005FD971 /* MusicAppApp.swift */,
@@ -205,7 +205,7 @@
 			path = Media;
 			sourceTree = "<group>";
 		};
-		EAD1531A280D589D005FD971 /* ViewModel */ = {
+		EAD1531A280D589D005FD971 /* Remove These */ = {
 			isa = PBXGroup;
 			children = (
 				EAD1531B280D58C1005FD971 /* LibraryListModel.swift */,
@@ -213,7 +213,7 @@
 				EAD1531F280D5901005FD971 /* SmallPictureModel.swift */,
 				EAD15321280D5A84005FD971 /* SearchCategoryModel.swift */,
 			);
-			path = ViewModel;
+			path = "Remove These";
 			sourceTree = "<group>";
 		};
 		EAD15323280D5AED005FD971 /* View */ = {
@@ -224,7 +224,7 @@
 				EAD15343280D5D4F005FD971 /* Radio */,
 				EAD15346280D5D61005FD971 /* Library */,
 				EAD15349280D5D8E005FD971 /* Search */,
-				EAD15352280D5DD8005FD971 /* New */,
+				EAD15352280D5DD8005FD971 /* Remove These */,
 				EAD1532E280D5B89005FD971 /* Player */,
 				EAD15342280D5D02005FD971 /* HelperView */,
 			);
@@ -300,22 +300,22 @@
 			isa = PBXGroup;
 			children = (
 				EAD1534A280D5D9E005FD971 /* SearchView.swift */,
-				EAD1534C280D5DAD005FD971 /* SearchRowView.swift */,
+				EAD15357280D5E19005FD971 /* SearchObservableObject.swift */,
+				EAD15355280D5E09005FD971 /* SearchListView.swift */,
 				EAD1534E280D5DB6005FD971 /* SearchDetailView.swift */,
-				EAD15350280D5DC6005FD971 /* SearchListItemView.swift */,
 				EA7695E4280E21BB00726012 /* CategoryGridView.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
 		};
-		EAD15352280D5DD8005FD971 /* New */ = {
+		EAD15352280D5DD8005FD971 /* Remove These */ = {
 			isa = PBXGroup;
 			children = (
+				EAD1534C280D5DAD005FD971 /* SearchRowView.swift */,
+				EAD15350280D5DC6005FD971 /* SearchListItemView.swift */,
 				EAD15353280D5DFD005FD971 /* SearchListRowItem.swift */,
-				EAD15355280D5E09005FD971 /* SearchListView.swift */,
-				EAD15357280D5E19005FD971 /* SearchViewModel.swift */,
 			);
-			path = New;
+			path = "Remove These";
 			sourceTree = "<group>";
 		};
 		EAD1535B280D6144005FD971 /* CoreData */ = {
@@ -424,7 +424,7 @@
 			files = (
 				EAD1535F280D626E005FD971 /* FavoriteMedia+CoreDataClass.swift in Sources */,
 				EAD15348280D5D71005FD971 /* LibraryView.swift in Sources */,
-				EAD15358280D5E19005FD971 /* SearchViewModel.swift in Sources */,
+				EAD15358280D5E19005FD971 /* SearchObservableObject.swift in Sources */,
 				EAD15361280D6280005FD971 /* FavoriteMedia+CoreDataProperties.swift in Sources */,
 				EAD15337280D5BDB005FD971 /* BottomToolbar.swift in Sources */,
 				EAD15302280D56A9005FD971 /* Persistence.swift in Sources */,
@@ -596,6 +596,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MusicApp/Preview Content\"";
@@ -614,6 +615,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.eliogalart.MusicApp;
 				PRODUCT_NAME = Music;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -625,6 +627,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MusicApp/Preview Content\"";
@@ -643,6 +646,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.eliogalart.MusicApp;
 				PRODUCT_NAME = Music;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

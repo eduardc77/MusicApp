@@ -14,6 +14,7 @@ struct PlayerButtonsView: View {
     var body: some View {
         HStack() {
             Spacer()
+            
             Button(action: {}) {
                 Image(systemName: "backward.fill")
                     .font(.largeTitle)
@@ -21,30 +22,31 @@ struct PlayerButtonsView: View {
             }.padding()
             
             Spacer()
-            Button(action: {
-                    isPlaying.toggle()
-            },
-                    label: {
+            
+            Button(action: { isPlaying.toggle() },
+                   label: {
                 isPlaying ?
                 Image(systemName: "play.fill")
+                    .matchedGeometryEffect(id: "Play", in: animation, properties: .position)
                     .font(.system(size: 48))
                     .foregroundColor(.primary)
-                    .matchedGeometryEffect(id: "Play", in: animation, properties: .position, anchor: .trailing)
                 :
                 Image(systemName: "pause.fill")
+                    .matchedGeometryEffect(id: "Pause", in: animation, properties: .position)
                     .font(.system(size: 48))
                     .foregroundColor(.primary)
-                    .matchedGeometryEffect(id: "Pause", in: animation, properties: .position, anchor: .trailing)
-                }
-            )
+            })
+        
             Spacer()
+            
             Button(action: {}) {
                 Image(systemName: "forward.fill")
+                    .matchedGeometryEffect(id: "Forward", in: animation, properties: .position)
                     .font(.largeTitle)
                     .foregroundColor(.secondary)
-                    .matchedGeometryEffect(id: "Forward", in: animation, properties: .position, anchor: .trailing)
             }.padding()
+            
             Spacer()
-        }.animation(.linear(duration: 0.16), value: animation)
+        }
     }
 }

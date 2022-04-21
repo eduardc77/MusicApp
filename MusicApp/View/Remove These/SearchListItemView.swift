@@ -8,7 +8,7 @@
 import SwiftUI
 
 //struct SearchListItemView: View {
-//    var listSong : SearchViewModel
+//    var listSong : SearchObservableObject
 //    var body: some View {
 //        NavigationLink {
 //            SongDetailView(detailSongId: listSong.id)

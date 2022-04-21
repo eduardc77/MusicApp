@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SearchListView: View {
-    @ObservedObject var searchViewModel: SearchViewModel
+    @ObservedObject var searchViewModel: SearchObservableObject
     
     var body: some View {
         List(searchViewModel.searchResults, id: \.id) { item in
@@ -16,29 +16,22 @@ struct SearchListView: View {
                 SearchListRowItem(
                     media: item,
                     imageData: searchViewModel.imagesData[item.artworkUrl100]
-                    
-                ).onAppear {
-                    if item == searchViewModel.searchResults.last {
-                        searchViewModel.loadMore()
-                    }
+                )
+                .onAppear {
+                    guard item == searchViewModel.searchResults.last else { return }
+                    searchViewModel.loadMore()
+                        
                 }
+                
             }
-            footer(for: item)
         }
-    }
-    
-    @ViewBuilder
-    func footer(for media: Media) -> some View {
-        if searchViewModel.isLoadingMore, media == searchViewModel.searchResults.last {
-                ProgressView()
-                    .padding()
-        }
+        .listStyle(.plain)
     }
 }
 
 struct SearchListView_Previews: PreviewProvider {
-    static let searchViewModel: SearchViewModel = {
-        let viewModel = SearchViewModel()
+    static let searchViewModel: SearchObservableObject = {
+        let viewModel = SearchObservableObject()
         viewModel.searchResults = Media.sampleData
         return viewModel
     }()

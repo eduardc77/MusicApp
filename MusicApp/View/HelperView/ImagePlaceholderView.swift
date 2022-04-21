@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MediaImageView: View {
     var image: Image?
-    var size: (width: CGFloat?, height: CGFloat?) = (width: 30, height: 30)
+    var size: (width: CGFloat?, height: CGFloat?) = (width: Metric.searchResultImageSize, height: Metric.searchResultImageSize)
     var cornerRadius: CGFloat = 6
     
     var body: some View {
@@ -19,14 +19,14 @@ struct MediaImageView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: size.width, height: size.height)
-                    .cornerRadius(6)
-                    .shadow(radius: 6, x: 0, y: 3)
+                    .cornerRadius(cornerRadius)
+                    .shadow(radius: 2, x: 0, y: 2)
             } else {
             Rectangle()
                 .fill(Color.secondary.opacity(0.6))
                 .frame(width: size.width, height: size.height)
                 .cornerRadius(cornerRadius)
-                .shadow(radius: 6, x: 0, y: 3)
+                .shadow(radius: 2, x: 0, y: 2)
             
             Image(systemName: "music.note")
                 .foregroundColor(Color.secondary)

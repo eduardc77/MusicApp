@@ -22,24 +22,38 @@ struct LibraryView: View {
                     }
                     else {
                         VStack {
-                            Text("Library")
-                                .font(.title3)
-                                .fontWeight(.bold)
-                                .padding(.bottom, 1)
-                                
-                            Text("Placeholder Placeholder iTunes Store Placeholder.")
-                                .foregroundColor(.secondary)
+                            Text("Add Music to Your Library")
+                                .font(.title2).bold()
                                 .multilineTextAlignment(.center)
-                                .padding(.horizontal, 50)
+                                .foregroundColor(.primary)
+                            
+                            Text("Browse millions of songs and collect your favorites here.")
+                                .font(.body)
+                                .multilineTextAlignment(.center)
+                                .foregroundColor(.secondary)
+                                .padding(.horizontal)
+                            
+                            Button { } label: {
+                                Text("Browse Apple Music")
+                                    .font(.title3)
+                                    .bold()
+                                    .padding(.vertical)
+                                    .frame(maxWidth: .infinity)
+                                    .foregroundColor(.white)
+                                    .background(.red)
+                                    .cornerRadius(8)
+                                    .padding(.horizontal, 50)
+                            }
                         }
-                        .frame(width: geometry.size.width, height: geometry.size.height, alignment: .center)
+                        .padding(.bottom, 50)
+                        .frame(width: geometry.size.width, height: geometry.size.height)
                     }
                 }
             }
             .navigationTitle("Library")
             .navigationBarItems(trailing: Button(action: {
                 withAnimation {
-                showOptions.toggle()
+                    showOptions.toggle()
                 }
             }) {
                 showOptions ? Text("Placeholder") : Text("PlaceholderOption")

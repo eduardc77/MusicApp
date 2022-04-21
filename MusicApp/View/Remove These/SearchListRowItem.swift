@@ -14,7 +14,7 @@ struct SearchListRowItem: View {
     var body: some View {
         HStack() {
             if let imageData = imageData, let uiImage = UIImage(data: imageData) {
-                MediaImageView(image: Image(uiImage: uiImage))
+                MediaImageView(image: Image(uiImage: uiImage), cornerRadius: Metric.searchResultCornerRadius)
             } else {
                 MediaImageView()
             }
