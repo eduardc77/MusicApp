@@ -16,31 +16,30 @@ struct CategoryGridView: View {
             ScrollView {
                 Divider().padding(.horizontal)
                 
-                    Text("Browse Categories")
-                        .font(.title2).bold()
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.leading)
-                    
-                    LazyVGrid(columns: columns) {
-                        ForEach(categories, id: \.self) { category in
-                            NavigationLink(destination: SearchDetailView(category: category))
-{
-                                ZStack(alignment: Alignment(horizontal: .leading, vertical: .bottom)) {
-                                    MediaImageView(image: Image(category.image), size: (width: geometry.size.width / 2.29, height: nil))
-//
-//                                        Text(category.title)
-//                                            .padding()
-//                                            .foregroundColor(.white)
-//                                            .font(.body.bold())
-                                }
+                Text("Browse Categories")
+                    .font(.title2).bold()
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.leading)
+                
+                LazyVGrid(columns: columns) {
+                    ForEach(categories, id: \.self) { category in
+                        NavigationLink(destination: SearchDetailView(category: category))
+                        {
+                            ZStack(alignment: Alignment(horizontal: .leading, vertical: .bottom)) {
+                                MediaImageView(image: Image(category.image), size: (width: geometry.size.width / 2.29, height: nil))
+                                //
+                                //                                        Text(category.title)
+                                //                                            .padding()
+                                //                                            .foregroundColor(.white)
+                                //                                            .font(.body.bold())
                             }
                         }
                     }
-//                    .padding(.bottom, Metric.playerHeight)
+                }
                 .padding(.horizontal)
-                
+                Spacer(minLength: Metric.playerHeight) 
             }
-    }
+        }
     }
 }
 

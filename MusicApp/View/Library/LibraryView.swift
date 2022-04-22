@@ -8,11 +8,12 @@
 import SwiftUI
 
 struct LibraryView: View {
+    @Binding var tabSelection: Int
     @State var showOptions = false
     var body: some View {
         NavigationView {
             GeometryReader { geometry in
-                ScrollView(.vertical, showsIndicators: false) {
+                ScrollView {
                     if showOptions {
                         LibraryListView()
                             .transition(.asymmetric(
@@ -33,7 +34,7 @@ struct LibraryView: View {
                                 .foregroundColor(.secondary)
                                 .padding(.horizontal)
                             
-                            Button { } label: {
+                            Button { tabSelection = 1 } label: {
                                 Text("Browse Apple Music")
                                     .font(.title3)
                                     .bold()
@@ -45,9 +46,9 @@ struct LibraryView: View {
                                     .padding(.horizontal, 50)
                             }
                         }
-                        .padding(.bottom, 50)
                         .frame(width: geometry.size.width, height: geometry.size.height)
                     }
+                    Spacer(minLength: Metric.playerHeight)
                 }
             }
             .navigationTitle("Library")
@@ -64,6 +65,6 @@ struct LibraryView: View {
 
 struct LibraryView_Previews: PreviewProvider {
     static var previews: some View {
-        LibraryView()
+        LibraryView(tabSelection: .constant(0))
     }
 }

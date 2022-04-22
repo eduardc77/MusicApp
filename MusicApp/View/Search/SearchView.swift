@@ -27,11 +27,11 @@ struct SearchView: View {
                             Text("Your Library").tag(1)
                         }
                         .pickerStyle(.segmented)
+                        .background(.ultraThinMaterial)
                         
                         ZStack {
                             SearchListView(searchViewModel: searchViewModel)
-                                
-                                .animation(.default, value: searchTerm)
+
                             
                             if searchViewModel.noResultsFound {
                                 VStack {

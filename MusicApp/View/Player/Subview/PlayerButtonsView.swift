@@ -9,8 +9,7 @@ import SwiftUI
 
 struct PlayerButtonsView: View {
     @Binding var isPlaying: Bool
-    var animation: Namespace.ID
-    
+
     var body: some View {
         HStack() {
             Spacer()
@@ -26,13 +25,11 @@ struct PlayerButtonsView: View {
             Button(action: { isPlaying.toggle() },
                    label: {
                 isPlaying ?
-                Image(systemName: "play.fill")
-                    .matchedGeometryEffect(id: "Play", in: animation, properties: .position)
+                Image(systemName: "pause.fill")
                     .font(.system(size: 48))
                     .foregroundColor(.primary)
                 :
-                Image(systemName: "pause.fill")
-                    .matchedGeometryEffect(id: "Pause", in: animation, properties: .position)
+                Image(systemName: "play.fill")
                     .font(.system(size: 48))
                     .foregroundColor(.primary)
             })
@@ -41,7 +38,6 @@ struct PlayerButtonsView: View {
             
             Button(action: {}) {
                 Image(systemName: "forward.fill")
-                    .matchedGeometryEffect(id: "Forward", in: animation, properties: .position)
                     .font(.largeTitle)
                     .foregroundColor(.secondary)
             }.padding()

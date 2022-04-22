@@ -10,7 +10,7 @@ import SwiftUI
 struct MediaImageView: View {
     var image: Image?
     var size: (width: CGFloat?, height: CGFloat?) = (width: Metric.searchResultImageSize, height: Metric.searchResultImageSize)
-    var cornerRadius: CGFloat = 6
+    var cornerRadius: CGFloat = 4
     
     var body: some View {
         ZStack {

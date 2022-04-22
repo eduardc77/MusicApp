@@ -23,12 +23,12 @@ struct SearchListRowItem: View {
                 Text(media.trackName)
                     .foregroundColor(.primary)
                     .font(.callout)
-                    .lineLimit(2)
+                    .lineLimit(1)
                 
                 Text(media.artistName)
                     .foregroundColor(.secondary)
                     .font(.callout)
-                    .lineLimit(4)
+                    .lineLimit(1)
             }
         }
     }

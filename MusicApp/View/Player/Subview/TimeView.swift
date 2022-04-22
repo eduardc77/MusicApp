@@ -8,16 +8,14 @@
 import SwiftUI
 
 struct TimeView: View {
-    let songTime: Int
     @Binding var songTimePosition: Int
-
     @State var xOffset: CGFloat = 0
     @State var lastOffset: CGFloat = 0
-
     @State var isDragging = false
-
     @State var timeBegin: Int = 0
     @State var timeRemain: Int = 0
+    
+    let songTime: Int
 
     init(songTime: Int, songTimePosition: Binding<Int>) {
         self._songTimePosition = songTimePosition

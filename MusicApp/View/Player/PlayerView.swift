@@ -12,31 +12,31 @@ struct PlayerView: View {
     @State var songTimePosition: Int = 0
     @State var volume: CGFloat = 0
     @State var offset: CGFloat = 0
-    @State var isPlaying = true
-    
+    @State var isPlaying = false
+   
     var animation: Namespace.ID
     
     var body: some View {
         VStack {
+            
+            Capsule()
+                .fill(Color.secondary.opacity(0.5))
+                .frame(width: expand ? Metric.capsuleWidth : 0, height: expand ? Metric.capsuleHeight : 0)
+                .opacity(expand ? 1 : 0)
+                .padding(.top, expand ? 20 : 0)
             VStack {
-                Capsule()
-                    .frame(width: expand ? Metric.capsuleWidth : 0, height: expand ? Metric.capsuleHeight : 0)
-                    .opacity(expand ? 1 : 0)
-                    .padding(.top, expand ? 18 : 0)
-                    .padding(.vertical, expand ? 30 : 0)
-                
-                // mini Player
-                HStack() {
+                // Mini Player
+                HStack {
                     if expand { Spacer() }
                     
-                    MediaImageView(image: Image("elton"), size: (width: expand ? Metric.largeMediaImage : Metric.playerSmallImageSize, height: expand ? Metric.largeMediaImage : Metric.playerSmallImageSize), cornerRadius: expand ? 20 : 6)
-                    
+                    MediaImageView(image: Image("elton"), size: (width: expand ? Metric.largeMediaImage : Metric.playerSmallImageSize, height: expand ? Metric.largeMediaImage : Metric.playerSmallImageSize), cornerRadius: expand ? 10 : Metric.searchResultCornerRadius)
+                        .scaleEffect((isPlaying && expand) ? 1.33 : 1)
+                        .animation(.spring(response: 0.5, dampingFraction: 0.5, blendDuration: 0.3), value: isPlaying)
                     // Or PlaceholderImage
                     // MediaImageView(size: (width: expand ? height : Metric.imageSize, height: expand ? height : Metric.imageSize), cornerRadius: expand ? 20 : 6)
                     
                     if !expand {
                         Text(ExampleMusic.songName)  // ?? Text("Not Playing")
-                            .matchedGeometryEffect(id: "MediaTitle", in: animation, properties: .position)
                             .font(.body)
                             .foregroundColor(.primary)
                     }
@@ -49,14 +49,12 @@ struct PlayerView: View {
                             },
                                    label: {
                                 isPlaying ?
-                                Image(systemName: "play.fill")
-                                    .matchedGeometryEffect(id: "Play", in: animation, properties: .position)
+                                Image(systemName: "pause.fill")
                                     .font(.title)
                                     .foregroundColor(.primary)
                                 
                                 :
-                                Image(systemName: "pause.fill")
-                                    .matchedGeometryEffect(id: "Pause", in: animation, properties: .position)
+                                Image(systemName: "play.fill")
                                     .font(.title)
                                     .foregroundColor(.primary)
                             }
@@ -66,7 +64,6 @@ struct PlayerView: View {
                             Button(action: {},
                                    label: {
                                 Image(systemName: "forward.fill")
-                                    .matchedGeometryEffect(id: "Forward", in: animation, properties: .position)
                                     .font(.title2)
                                     .foregroundColor(.secondary)
                             }
@@ -75,11 +72,12 @@ struct PlayerView: View {
                     }
                 }
             }
-            //            .frame(height: expand ? UIScreen.main.bounds.height / 2 :  Metric.playerHeight)
+            .frame(height: expand ? UIScreen.main.bounds.height / 2.5 :  Metric.playerHeight)
             .padding()
             
-            // full screen Player
-            VStack() {
+            // Full Screen Player
+            VStack {
+            
                 HStack {
                     VStack(alignment: .leading) {
                         Text(ExampleMusic.songName)
@@ -102,11 +100,11 @@ struct PlayerView: View {
                 
                 TimeView(songTime: ExampleMusic.songTime, songTimePosition: $songTimePosition)
                 
-                PlayerButtonsView(isPlaying: $isPlaying, animation: animation)
+                PlayerButtonsView(isPlaying: $isPlaying)
                 
                 VolumeView()
             }
-            .frame(height: expand ? nil : 0)
+            .frame(height: expand ? UIScreen.main.bounds.height / 2.5 : 0)
             .opacity(expand ? 1 : 0)
         }
         .frame(maxHeight: expand ? .infinity : Metric.playerHeight)
@@ -115,9 +113,11 @@ struct PlayerView: View {
                 if expand {
                     ZStack {
                         BlurView()
-                        
+                       
                         LinearGradient(
-                            gradient: Gradient(colors: [.pink.opacity(0.6), .blue.opacity(0.6), .secondary]),
+                            gradient: Gradient(colors: [.gray.opacity(0.6),
+                                                        .blue.opacity(0.6),
+                                                        .pink.opacity(0.6)]),
                             startPoint: .topTrailing,
                             endPoint: .bottomLeading)
                     }
@@ -132,7 +132,7 @@ struct PlayerView: View {
                     }
                 }
         )
-        .cornerRadius(expand ? 36 : 0)
+        .cornerRadius(expand ? (UIDevice.current.hasTopNotch ? 36 : 0) : 0)
         .offset(y: expand ? 0 : Metric.yOffset)
         .offset(y: offset)
         .gesture(DragGesture()
@@ -148,9 +148,7 @@ struct PlayerView: View {
             offset = value.translation.height
         }
     }
-    //response: 0.5,
-    //dampingFraction: 0.95,
-    //blendDuration: 0.95
+  
     func onEnded(value: DragGesture.Value) {
         withAnimation(.interactiveSpring(response: 0.3, dampingFraction: 0.98, blendDuration: 0.69)) {
             if value.translation.height > UIScreen.main.bounds.height / 12 {
@@ -182,7 +180,14 @@ struct BlurView: UIViewRepresentable {
     }
 }
 
-
+extension UIDevice {
+    var hasTopNotch: Bool {
+        if #available(iOS 11.0, tvOS 11.0, *) {
+            return UIApplication.shared.windows.first?.safeAreaInsets.top ?? 0 > 20
+        }
+        return false
+    }
+}
 
 //public extension View {
 //    func animationObserver<Value: VectorArithmetic>(for value: Value,

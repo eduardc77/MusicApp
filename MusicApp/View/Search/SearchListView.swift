@@ -11,21 +11,26 @@ struct SearchListView: View {
     @ObservedObject var searchViewModel: SearchObservableObject
     
     var body: some View {
-        List(searchViewModel.searchResults, id: \.id) { item in
-            NavigationLink(destination: MediaDetailView(media: item, imageData: searchViewModel.imagesData[item.artworkUrl100])) {
-                SearchListRowItem(
-                    media: item,
-                    imageData: searchViewModel.imagesData[item.artworkUrl100]
-                )
-                .onAppear {
-                    guard item == searchViewModel.searchResults.last else { return }
-                    searchViewModel.loadMore()
-                        
+        ScrollView {
+            LazyVStack(alignment: .leading) {
+                Divider()
+                ForEach(searchViewModel.searchResults, id: \.id) { item in
+                    NavigationLink {
+                        MediaDetailView(media: item, imageData: searchViewModel.imagesData[item.artworkUrl100])
+                    } label: {
+                        SearchListRowItem(
+                            media: item,
+                            imageData: searchViewModel.imagesData[item.artworkUrl100]
+                        )
+                        .onAppear {
+                            guard item == searchViewModel.searchResults[searchViewModel.searchResults.count - 1] else { return }
+                            searchViewModel.loadMore()
+                        }
+                    }
+                    Divider()
                 }
-                
             }
         }
-        .listStyle(.plain)
     }
 }
 

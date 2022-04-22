@@ -20,8 +20,8 @@ struct RadioView: View {
                     .padding(.horizontal)
                 
                 VerticalMusicListView(items: radioStations)
+                Spacer(minLength: Metric.playerHeight)
             }
-//            .padding(.bottom, Metric.playerHeight)
             .navigationTitle("Radio")
         }
     }

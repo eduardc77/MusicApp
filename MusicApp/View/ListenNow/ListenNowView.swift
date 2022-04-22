@@ -12,7 +12,7 @@ struct ListenNowView: View {
     
     var body: some View {
         NavigationView {
-            ScrollView(.vertical, showsIndicators: true) {
+            ScrollView {
                 HighlightsView(items: selectedStatiions)
 
                 Text(title)
@@ -21,10 +21,11 @@ struct ListenNowView: View {
                     .padding(.horizontal)
                 
                 VerticalMusicListView(items: radioStations)
+                Spacer(minLength: Metric.playerHeight)
             }
-//            .padding(.bottom, Metric.playerHeight)
             .navigationTitle(title)
         }
+        
     }
 }
 
