@@ -6,42 +6,60 @@
 //
 
 import SwiftUI
+import MediaPlayer
 
 struct SearchListView: View {
-    @ObservedObject var searchViewModel: SearchObservableObject
+    @ObservedObject var searchObservableObject: SearchObservableObject
+    @StateObject private var searchListObservableObject: SearchListObservableObject = SearchListObservableObject()
+    var player: MPMusicPlayerController = MPMusicPlayerController.applicationMusicPlayer
+    
+    var columns = [GridItem(.flexible(), alignment: .leading)]
     
     var body: some View {
         ScrollView {
-            LazyVStack(alignment: .leading) {
+            LazyVGrid(columns: columns) {
                 Divider()
-                ForEach(searchViewModel.searchResults, id: \.id) { item in
-                    NavigationLink {
-                        MediaDetailView(media: item, imageData: searchViewModel.imagesData[item.artworkUrl100])
-                    } label: {
-                        SearchListRowItem(
-                            media: item,
-                            imageData: searchViewModel.imagesData[item.artworkUrl100]
-                        )
-                        .onAppear {
-                            guard item == searchViewModel.searchResults[searchViewModel.searchResults.count - 1] else { return }
-                            searchViewModel.loadMore()
-                        }
+                ForEach(searchObservableObject.searchResults, id: \.id) { item in
+                    SearchListRowItem(
+                        media: item,
+                        imageData: searchObservableObject.imagesData[item.artworkUrl100 ?? URL(fileURLWithPath: "")]
+                    )
+                    .onAppear {
+                        guard item == searchObservableObject.searchResults[searchObservableObject.searchResults.count - 1] else { return }
+                        searchObservableObject.loadMore()
                     }
+                    .onTapGesture {
+                        searchListObservableObject.media = item
+                        searchListObservableObject.playSongAt(songIndex: 1)
+                    }
+                    
                     Divider()
                 }
-            }
+            }.padding(.horizontal)
         }
     }
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
 struct SearchListView_Previews: PreviewProvider {
-    static let searchViewModel: SearchObservableObject = {
+    static let searchObservableObject: SearchObservableObject = {
         let viewModel = SearchObservableObject()
         viewModel.searchResults = Media.sampleData
         return viewModel
     }()
     
     static var previews: some View {
-        SearchListView(searchViewModel: searchViewModel)
+        SearchListView(searchObservableObject: searchObservableObject)
     }
 }

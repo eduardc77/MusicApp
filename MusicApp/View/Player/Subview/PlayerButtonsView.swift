@@ -8,41 +8,38 @@
 import SwiftUI
 
 struct PlayerButtonsView: View {
-    @Binding var isPlaying: Bool
+    @StateObject var playerObservableObject: PlayerObservableObject
 
     var body: some View {
         HStack() {
             Spacer()
-            
             Button(action: {}) {
                 Image(systemName: "backward.fill")
                     .font(.largeTitle)
                     .foregroundColor(.secondary)
-            }.padding()
-            
+            }.padding(.horizontal, 40)
             Spacer()
-            
-            Button(action: { isPlaying.toggle() },
+           
+            Button(action: {
+                guard playerObservableObject.nowPlayingItem != nil else { return }
+                playerObservableObject.playbackState == .playing ? playerObservableObject.player.pause() : playerObservableObject.player.play()
+            },
                    label: {
-                isPlaying ?
-                Image(systemName: "pause.fill")
+                (playerObservableObject.playbackState == .playing ? Image(systemName: "pause.fill") : Image(systemName: "play.fill"))
                     .font(.system(size: 48))
-                    .foregroundColor(.primary)
-                :
-                Image(systemName: "play.fill")
-                    .font(.system(size: 48))
-                    .foregroundColor(.primary)
+                   .foregroundColor(.primary)
+                   
             })
-        
             Spacer()
             
             Button(action: {}) {
                 Image(systemName: "forward.fill")
                     .font(.largeTitle)
                     .foregroundColor(.secondary)
-            }.padding()
+            }.padding(.horizontal, 40)
             
             Spacer()
         }
+        .padding(.top)
     }
 }

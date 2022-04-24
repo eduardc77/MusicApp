@@ -8,51 +8,50 @@
 import SwiftUI
 
 struct SearchView: View {
-    @StateObject private var searchViewModel = SearchObservableObject()
+    @StateObject private var searchObservableObject = SearchObservableObject()
     @State private var searchTerm = ""
-    @State private var isSearchActive: Bool = false
     @State private var selectedIndex = 0
-    @State var music = searchMusic
     
     var body: some View {
         NavigationView {
             VStack {
                 if searchTerm.isEmpty {
                     CategoryGridView()
-                        .animation(.default, value: searchTerm)
                 } else {
-                    VStack {
-                        Picker("Search In", selection: $selectedIndex) {
-                            Text("Apple Music").tag(0)
-                            Text("Your Library").tag(1)
-                        }
-                        .pickerStyle(.segmented)
-                        .background(.ultraThinMaterial)
-                        
-                        ZStack {
-                            SearchListView(searchViewModel: searchViewModel)
-
-                            
-                            if searchViewModel.noResultsFound {
-                                VStack {
-                                    Text("No Results")
-                                        .font(.title2).bold()
-                                        .foregroundColor(.primary)
-                                    Text("Try a new search.")
-                                        .foregroundColor(.secondary)
-                                        .font(.body)
-                                }
-                                .padding(.bottom)
+                    
+//                    ZStack {
+//
+//                    Picker("Search In", selection: $selectedIndex) {
+//                        Text("Apple Music").tag(0)
+//                        Text("Your Library").tag(1)
+//                    }
+//                    .navigationBarTitleDisplayMode(.inline)
+//                    .pickerStyle(.segmented)
+//                    .padding(.horizontal)
+//                    }
+                    ZStack {
+                        if searchObservableObject.noResultsFound {
+                            VStack {
+                                Text("No Results")
+                                    .font(.title2).bold()
+                                    .foregroundColor(.primary)
+                                Text("Try a new search.")
+                                    .foregroundColor(.secondary)
+                                    .font(.body)
                             }
+                            .padding(.bottom)
+                        } else {
+                            
+                            SearchListView(searchObservableObject: searchObservableObject)
                         }
-                    }.padding()
+                    }
                 }
             }
             .navigationTitle("Search")
             
-            .alert(isPresented: $searchViewModel.showErrorAlert) {
-                let message = searchViewModel.errorMessage
-                searchViewModel.errorMessage = nil
+            .alert(isPresented: $searchObservableObject.showErrorAlert) {
+                let message = searchObservableObject.errorMessage
+                searchObservableObject.errorMessage = nil
                 
                 return Alert(
                     title: Text("Error"),
@@ -62,19 +61,23 @@ struct SearchView: View {
         }
         .searchable(text: $searchTerm,
                     placement:.navigationBarDrawer(displayMode:.always),
-                    prompt: "Artists, Songs, Lyrics, and More")
-        
-        .onChange(of: searchTerm) { term in
-            searchViewModel.searchTerm = term
-            searchViewModel.search()
-            
+                    prompt: "Artists, Songs, Lyrics, and More") {
+            //            ForEach(searchViewModel.searchResults) { suggestion in
+            //                Text(suggestion.trackName)
+            //            }.searchCompletion(searchTerm)
         }
-        //        .onSubmit {
-        //            searchViewModel.searchTerm = searchTerm
-        //            searchViewModel.search()
-        //        }
+                    .onSubmit(of: .search) {
+                        searchObservableObject.searchTerm = searchTerm
+                        searchObservableObject.search()
+                    }
+                    .onChange(of: searchTerm) { term in
+                        searchObservableObject.searchTerm = term
+                        searchObservableObject.search()
+                    }
+                    
     }
 }
+
 
 struct SearchView_Previews: PreviewProvider {
     static var previews: some View {

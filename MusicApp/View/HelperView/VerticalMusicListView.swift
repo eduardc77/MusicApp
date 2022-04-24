@@ -32,7 +32,6 @@ struct VerticalMusicListView: View {
                             .font(.subheadline)
                             .foregroundColor(.secondary)
                     }
-                    .padding()
                 }
                 Divider()
             }
@@ -40,3 +39,5 @@ struct VerticalMusicListView: View {
         }
     }
 }
+
+

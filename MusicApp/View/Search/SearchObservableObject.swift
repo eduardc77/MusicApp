@@ -23,7 +23,7 @@ class SearchObservableObject: ObservableObject {
     private var requestSubscription: AnyCancellable?
     private var resultIds: [String: String] = [:]
     private var previousQuery: SearchQuery?
-    private var queryLimit: Int = 30
+    private var queryLimit: Int = 16
     private var loadingMoreComplete = false
     
     var urlSession: URLSession
@@ -99,8 +99,8 @@ private extension SearchObservableObject {
             }
     }
     
-    func sendImageRequest(url: URL) {
-        guard imagesData[url] == nil else { return }
+    func sendImageRequest(url: URL?) {
+        guard let url = url, imagesData[url] == nil else { return }
         
         let apiManager = APIManager<Void>(
             path: .image(url),

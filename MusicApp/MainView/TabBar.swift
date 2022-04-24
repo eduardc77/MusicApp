@@ -6,8 +6,10 @@
 //
 
 import SwiftUI
+import MediaPlayer
 
 struct TabBar: View {
+    private var player = MPMusicPlayerController.applicationMusicPlayer
     @State var tabSelection: Int = 0
     @State var expand = false
     @Namespace var animation
@@ -24,7 +26,7 @@ struct TabBar: View {
                 RadioView()
                     .tabItem { Label("Radio", systemImage: "dot.radiowaves.left.and.right") }
                     .tag(2)
-                LibraryView(tabSelection: $tabSelection)
+                LibraryView()
                     .tabItem { Label("Library", systemImage: "square.stack.fill") }
                     .tag(3)
                 SearchView()
@@ -32,8 +34,9 @@ struct TabBar: View {
                     .tag(4)
             }
             .accentColor(.red)
-
-            PlayerView(expand: $expand, animation: animation)
+            
+            PlayerView(player: player, expand: $expand, animation: animation)
+        
         }
         .ignoresSafeArea(.keyboard)
     }

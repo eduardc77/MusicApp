@@ -27,8 +27,7 @@ struct BottomToolbar: View {
                     .font(.title2)
                     .foregroundColor(.primary)
             }
-        }
-        .padding()
+        }.padding(.top)
     }
 }
 

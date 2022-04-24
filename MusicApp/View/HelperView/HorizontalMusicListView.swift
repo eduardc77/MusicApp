@@ -40,9 +40,3 @@ struct HorizontalMusicListView: View {
     }
 }
 
-extension HorizontalMusicListView {
-    enum Metric {
-        static let imageSize: CGFloat = 170
-        static let rowHeight: CGFloat = 220
-    }
-}

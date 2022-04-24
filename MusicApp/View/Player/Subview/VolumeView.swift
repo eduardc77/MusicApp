@@ -11,19 +11,23 @@ struct VolumeView: View {
     @State var volume: CGFloat = 0
     
     var body: some View {
-        HStack() {
-            Image(systemName: "speaker.fill")
-                .foregroundColor(.secondary)
-                .padding(.leading)
+        VStack {
+            HStack {
+                Image(systemName: "speaker.fill")
+                    .foregroundColor(.secondary)
+                    .padding(.leading)
+                
+                Slider(value: $volume)
+                    .accentColor(.secondary)
+                    .controlSize(.mini)
+                
+                Image(systemName: "speaker.wave.2.fill")
+                    .foregroundColor(.secondary)
+                    .padding(.trailing)
+            }.padding(.top)
             
-            Slider(value: $volume,  in: 1...10).accentColor(.secondary)
-
-            Image(systemName: "speaker.wave.2.fill")
-                .foregroundColor(.secondary)
-                .padding(.trailing)
+            BottomToolbar()
         }
-        
-        BottomToolbar().padding(.bottom, 30)
     }
 }
 
@@ -39,3 +43,21 @@ extension VolumeView {
         static let buttonsSpacing: CGFloat = 70
     }
 }
+
+
+
+//struct VolumeSlider: UIViewRepresentable {
+//    func makeUIView(context: Context) -> UIView {
+//
+//
+//        let view = MPVolumeView(frame: .zero)
+//        view.setVolumeThumbImage(UIImage(systemName: "circle.fill"), for: .normal)
+//        view.showsRouteButton = false
+//        view.tintColor = .white
+//        return view
+//    }
+//
+//    func updateUIView(_ view: UIView, context: Context) {
+//
+//    }
+//}

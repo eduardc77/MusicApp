@@ -12,7 +12,7 @@ struct SearchListRowItem: View {
     var imageData: Data?
     
     var body: some View {
-        HStack() {
+        HStack {
             if let imageData = imageData, let uiImage = UIImage(data: imageData) {
                 MediaImageView(image: Image(uiImage: uiImage), cornerRadius: Metric.searchResultCornerRadius)
             } else {
@@ -20,12 +20,12 @@ struct SearchListRowItem: View {
             }
             
             VStack(alignment: .leading) {
-                Text(media.trackName)
+                Text(media.trackName ?? "")
                     .foregroundColor(.primary)
                     .font(.callout)
                     .lineLimit(1)
                 
-                Text(media.artistName)
+                Text(media.artistName ?? "")
                     .foregroundColor(.secondary)
                     .font(.callout)
                     .lineLimit(1)

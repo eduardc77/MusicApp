@@ -17,7 +17,7 @@ struct LibraryListView: View {
             ForEach(options, id: \.self) { option in
                 HStack {
                     Image(systemName: option.icon)
-                        .frame(width: Metric.imageSize, height: Metric.imageSize)
+                        .frame(width: 66, height: 66)
                         .foregroundColor(.red)
                     Text(option.title)
                 }
@@ -33,12 +33,6 @@ struct LibraryListView: View {
     
     func move(from source: IndexSet, to destination: Int) {
         self.options.move(fromOffsets: source, toOffset: destination)
-    }
-}
-
-extension LibraryListView {
-    enum Metric {
-        static let imageSize: CGFloat = 20
     }
 }
 

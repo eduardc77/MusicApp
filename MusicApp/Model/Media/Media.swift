@@ -5,19 +5,22 @@
 //  Created by Eduard Caziuc on 18.04.2022.
 //
 
-import Foundation
+import SwiftUI
 
 struct Media: Identifiable {
     var id: String
-    var trackName: String
-    var artistName: String
-    var description: String
-    var kind: MediaKind
-    var genres: [String]
-    var trackPrice: String
-    var artworkUrl100: URL
+    var trackName: String?
+    var artistName: String?
+    var description: String?
+    var kind: MediaKind?
+    var genres: [String]?
+    var trackPrice: String?
+    var artworkUrl100: URL?
+    var artwork: UIImage?
     var previewUrl: URL?
-    var releaseDate: Date
+    var collectionName: String?
+    var trackTimeMillis: Double?
+    var releaseDate: Date?
 }
 
 extension Media: Equatable {
@@ -28,7 +31,7 @@ extension Media: Equatable {
 
 extension Media: Codable {
     enum CodingKeys: String, CodingKey {
-        case genres, releaseDate, description, previewUrl, kind, trackName, trackPrice, artworkUrl100, artistName
+        case genres, releaseDate, description, previewUrl, kind, trackName, trackPrice, artworkUrl100, artistName, trackTimeMillis, collectionName
         case id = "trackId"
     }
 
@@ -67,6 +70,8 @@ extension Media: Codable {
         artistName = try container.decode(String.self, forKey: .artistName)
         artworkUrl100 = try container.decode(URL.self, forKey: .artworkUrl100)
         previewUrl = (try? container.decode(URL.self, forKey: .previewUrl)) ?? nil
+        trackTimeMillis = try container.decode(Double.self, forKey: .trackTimeMillis)
+        collectionName = try container.decode(String.self, forKey: .collectionName)
         releaseDate = try container.decode(Date.self, forKey: .releaseDate)
 
         if let description = try? container.decode(String.self, forKey: .description) {
@@ -125,5 +130,11 @@ extension Media {
         trackPrice: "Free",
         artworkUrl100: URL(string: "https://is5-ssl.mzstatic.com/image/thumb/Publication125/v4/0d/b4/db/0db4db25-4fc4-52f0-492c-95d3d3daec86/9780463068281.jpg/100x100bb.jpg")!,
         previewUrl: nil,
+        collectionName: "Album",
+        trackTimeMillis: 1000,
         releaseDate: Date().addingTimeInterval(-1 * 3 * 365 * 24 * 60 * 60))
+}
+
+enum DefaultString {
+    static let undefined = "Undefined"
 }

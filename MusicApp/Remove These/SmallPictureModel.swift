@@ -14,12 +14,13 @@ struct SmallPictureModel: Hashable, Identifiable {
     var description: String
 }
 var radioStations = [
-    SmallPictureModel(image: "smallradio1", name: "Placeholder", description: "Placeholder"),
-    SmallPictureModel(image: "smallradio2", name: "John Legend", description: "Placeholder"),
-    SmallPictureModel(image: "smallradio3", name: "Placeholder", description: "Placeholder"),
-    SmallPictureModel(image: "smallradio4", name: "Placeholder", description: "Placeholder"),
-    SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
-    SmallPictureModel(image: "smallradio6", name: "Boston", description: "Placeholder")
+    SmallPictureModel(image: "smallradio0", name: "Up Next", description: "Apple Music"),
+    SmallPictureModel(image: "smallradio1", name: "Africa Now", description: "Apple Music"),
+    SmallPictureModel(image: "smallradio2", name: "John Legend", description: "Apple Music"),
+    SmallPictureModel(image: "smallradio3", name: "Placeholder", description: "Apple Music"),
+    SmallPictureModel(image: "smallradio4", name: "Billie Eilish", description: "Apple Music"),
+    SmallPictureModel(image: "smallradio5", name: "Placeholder", description: "Apple Music"),
+    SmallPictureModel(image: "smallradio6", name: "Placeholder", description: "Apple Music")
 ]
 
 var musicPlaylists = [
