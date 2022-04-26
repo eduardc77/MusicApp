@@ -20,6 +20,17 @@ enum Metric {
     static let largeMediaImage: CGFloat = UIScreen.main.bounds.height / 3.33
     
     //Horizontal List and Library List
-    static let imageSize: CGFloat = 170
-    static let rowHeight: CGFloat = 220
+    static let smallImageSize: CGFloat = 50
+    static let mediumImageSize: CGFloat = 162
+    static let largeImageSize: CGFloat = 186
+    
+    static let smallRowHeight: CGFloat = 55
+    static let mediumRowHeight: CGFloat = 220
+    static let largeRowHeight: CGFloat = UIScreen.main.bounds.height * 0.373
+}
+
+enum ImageSizeType {
+    case small
+    case medium
+    case large
 }

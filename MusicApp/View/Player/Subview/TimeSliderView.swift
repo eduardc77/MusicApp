@@ -6,8 +6,11 @@
 //
 
 import SwiftUI
+import MediaPlayer
+import Combine
 
 struct TimeSliderView: View {
+    @StateObject var playerObservableObject: PlayerObservableObject
     @Binding var songTimePosition: Int
     @State var xOffset: CGFloat = 0
     @State var lastOffset: CGFloat = 0
@@ -15,11 +18,15 @@ struct TimeSliderView: View {
     @State var timeBegin: Int = 0
     @State var timeRemain: Int = 0
     
+    private var player: MPMusicPlayerController?
     let songTime: Int
 
-    init(songTime: Int, songTimePosition: Binding<Int>) {
+    init(songTime: Int, songTimePosition: Binding<Int>, player: MPMusicPlayerController) {
         self._songTimePosition = songTimePosition
         self.songTime = songTime
+        self.player = player
+        
+        _playerObservableObject = StateObject(wrappedValue: PlayerObservableObject(player: player))
         _timeBegin = State(wrappedValue: $songTimePosition.wrappedValue)
         _timeRemain = State(initialValue: songTime - timeBegin)
     }
@@ -29,10 +36,10 @@ struct TimeSliderView: View {
             VStack(spacing: 0) {
                 ZStack(alignment: .leading) {
                     Capsule()
-                        .fill(Color.secondary.opacity(0.2))
+                        .fill(Color.lightGrayColor2)
                         .frame(height: Metric.timeLineHeight)
                     Capsule()
-                        .fill(Color.secondary)
+                        .fill(Color.lightGrayColor)
                         .frame(width: CGFloat(songTimePosition) / CGFloat(songTime) * geometry.size.width, height: Metric.timeLineHeight)
                     Circle()
                         .fill(.white)
@@ -50,6 +57,8 @@ struct TimeSliderView: View {
                         .gesture(
                             DragGesture(minimumDistance: 0)
                                 .onChanged { value in
+                                    guard player != nil else { return }
+
                                      isDragging = true
 
                                     if abs(value.translation.width) < 0.1 {
@@ -66,22 +75,31 @@ struct TimeSliderView: View {
                                     timeBegin = songTimePosition
                                     timeRemain = songTime - timeBegin
                                 }
-                                .onEnded { _ in isDragging = false }
+                                .onEnded {
+                                    _ in isDragging = false
+                                    player?.currentPlaybackTime = TimeInterval(songTimePosition)
+                                }
                             
-                        ).animation(.linear(duration: 0.16), value: isDragging)
+                        )
+                        .animation(.linear(duration: 0.16), value: isDragging)
+                }
+                .onReceive(PlayerView.timer) { _ in
+                    guard let currentPlaybackTime = player?.currentPlaybackTime, let currentPlaybackDuration = player?.nowPlayingItem?.playbackDuration else { return }
+                    timeBegin = Int(currentPlaybackTime)
+                    timeRemain = Int(currentPlaybackDuration)
                 }
                 .frame(height: Metric.largePoint)
 
                 HStack() {
                     Text(timeBegin.toTime())
-                        .font(.footnote)
-                        .foregroundColor(.secondary)
+                        .font(.caption2).bold()
+                        .foregroundColor(Color.lightGrayColor2)
 
                     Spacer()
 
                     Text("-" + timeRemain.toTime())
-                        .font(.footnote)
-                        .foregroundColor(.secondary)
+                        .font(.caption2).bold()
+                        .foregroundColor(Color.lightGrayColor2)
                 }
             }
         }.padding([.horizontal, .bottom])
@@ -95,21 +113,14 @@ struct TimeView_Previews: PreviewProvider {
         
         var body: some View {
             VStack {
-            TimeSliderView(songTime: 215, songTimePosition: $songTimePosition)
+                TimeSliderView(songTime: 215, songTimePosition: $songTimePosition, player: MPMusicPlayerController.applicationMusicPlayer)
             }
-            .background(.thickMaterial)
+            .background(.gray)
         }
     }
     static var previews: some View {
         TimeView()
             .previewDevice("iPhone 11 Pro")
-    }
-}
-
-// MARK: - Extensions
-extension Int {
-    func toTime() -> String {
-        return String(format: "%1d:%02d", self / 60, self - self / 60 * 60)
     }
 }
 

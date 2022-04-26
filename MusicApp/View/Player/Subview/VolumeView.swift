@@ -8,24 +8,25 @@
 import SwiftUI
 
 struct VolumeView: View {
-    @State var volume: CGFloat = 0
-    
     var body: some View {
         VStack {
             HStack {
                 Image(systemName: "speaker.fill")
-                    .foregroundColor(.secondary)
+                    .foregroundColor(.lightGrayColor)
                     .padding(.leading)
                 
-                Slider(value: $volume)
-                    .accentColor(.secondary)
+                VolumeSlider()
+                    .accentColor(.lightGrayColor)
                     .controlSize(.mini)
+                    .frame(width: UIScreen.main.bounds.width / 1.4, height: 18)
                 
                 Image(systemName: "speaker.wave.2.fill")
-                    .foregroundColor(.secondary)
+                    .foregroundColor(.lightGrayColor)
                     .padding(.trailing)
-            }.padding(.top)
+            }
+            .padding(.vertical)
             
+            Spacer()
             BottomToolbar()
         }
     }
@@ -36,28 +37,3 @@ struct VolumeView_Previews: PreviewProvider {
         VolumeView()
     }
 }
-
-extension VolumeView {
-    enum Metric {
-        static let regularSpacing: CGFloat = 16
-        static let buttonsSpacing: CGFloat = 70
-    }
-}
-
-
-
-//struct VolumeSlider: UIViewRepresentable {
-//    func makeUIView(context: Context) -> UIView {
-//
-//
-//        let view = MPVolumeView(frame: .zero)
-//        view.setVolumeThumbImage(UIImage(systemName: "circle.fill"), for: .normal)
-//        view.showsRouteButton = false
-//        view.tintColor = .white
-//        return view
-//    }
-//
-//    func updateUIView(_ view: UIView, context: Context) {
-//
-//    }
-//}

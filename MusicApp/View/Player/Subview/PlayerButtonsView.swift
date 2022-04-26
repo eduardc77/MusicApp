@@ -13,10 +13,15 @@ struct PlayerButtonsView: View {
     var body: some View {
         HStack() {
             Spacer()
-            Button(action: {}) {
+            Button(action: {
+                guard playerObservableObject.nowPlayingItem != nil else { return }
+                
+                print("Backward Button Tapped")
+                
+            }) {
                 Image(systemName: "backward.fill")
                     .font(.largeTitle)
-                    .foregroundColor(.secondary)
+                    .foregroundColor(playerObservableObject.nowPlayingItem != nil ? .white : .lightGrayColor2)
             }.padding(.horizontal, 40)
             Spacer()
            
@@ -26,20 +31,26 @@ struct PlayerButtonsView: View {
             },
                    label: {
                 (playerObservableObject.playbackState == .playing ? Image(systemName: "pause.fill") : Image(systemName: "play.fill"))
-                    .font(.system(size: 48))
-                   .foregroundColor(.primary)
+                    .resizable()
+                    .frame(width: 36, height: 40)
+                   .foregroundColor(.white)
                    
             })
             Spacer()
             
-            Button(action: {}) {
+            Button(action: {
+                guard playerObservableObject.nowPlayingItem != nil else { return }
+                
+                print("Forward Button Tapped")
+                
+            }) {
                 Image(systemName: "forward.fill")
                     .font(.largeTitle)
-                    .foregroundColor(.secondary)
+                    .foregroundColor(playerObservableObject.nowPlayingItem != nil ? .white : .lightGrayColor2)
             }.padding(.horizontal, 40)
             
             Spacer()
         }
-        .padding(.top)
+        .padding(.vertical)
     }
 }

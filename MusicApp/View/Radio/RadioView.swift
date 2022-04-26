@@ -12,14 +12,15 @@ struct RadioView: View {
     var body: some View {
         NavigationView {
             ScrollView {
-                HighlightsView(items: selectedStatiions)
+                Divider()
+                HighlightsView(items: selectedStations, imageSize: .large)
 
                 Text("Radio")
                     .font(.title2).bold()
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.horizontal)
                 
-                VerticalMusicListView(items: radioStations)
+                VerticalMusicListView(items: radioStations, imageSize: .small)
                 Spacer(minLength: Metric.playerHeight)
             }
             .navigationTitle("Radio")

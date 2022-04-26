@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct LargePictureModel: Hashable {
+struct LargePictureModel: Hashable, Identifiable {
     var id = UUID()
     var type: String
     var name: String
@@ -15,13 +15,15 @@ struct LargePictureModel: Hashable {
     var image: String
 }
 
-var selectedStatiions = [
-    LargePictureModel(type: "Live", name: "Beats1 Live", description: "AppleMusic", image: "bigradio1"),
-    LargePictureModel(type: "Dance", name: "Record", description: "AppleMusic", image: "bigradio2"),
-    LargePictureModel(type: "Hip-Hop", name: "Classic", description: "AppleMusic", image: "bigradio3"),
-    LargePictureModel(type: "Classic", name: "Mega Hits", description: "AppleMusic", image: "bigradio4"),
-    LargePictureModel(type: "Pop", name: "Like FM", description: "AppleMusic", image: "bigradio5"),
-    LargePictureModel(type: "Laid-Back", name: "Chill", description: "AppleMusic", image: "bigradio6")
+var selectedStations = [
+    LargePictureModel(type: "podcast", name: "Music1 Live", description: "Apple Music", image: "bigradio0"),
+    LargePictureModel(type: "podcast", name: "Beats1 Live", description: "Apple Music", image: "bigradio1"),
+    LargePictureModel(type: "mix", name: "Record", description: "Apple Music", image: "bigradio2"),
+    LargePictureModel(type: "podcast", name: "Classic", description: "Apple Music", image: "bigradio3"),
+    LargePictureModel(type: "album", name: "Mega Hits", description: "Apple Music", image: "bigradio4"),
+    LargePictureModel(type: "artist", name: "Like FM", description: "Apple Music", image: "bigradio5"),
+    LargePictureModel(type: "podcast", name: "Chill", description: "Apple Music", image: "bigradio6"),
+    LargePictureModel(type: "mix", name: "Rock", description: "Apple Music", image: "bigradio7")
 ]
 
 var selectedMusic = [

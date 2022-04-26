@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct LibraryListView: View {
-    
+    @Binding var editMode: EditMode 
     @State var selection: Set<LibraryListModel> = []
     @State var options = libraryList
    
@@ -25,7 +25,7 @@ struct LibraryListView: View {
             .onMove(perform: move)
             .listRowBackground(Color.white)
         }
-        .environment(\.editMode, .constant(.active))
+        .environment(\.editMode, $editMode)
         .accentColor(.red)
         
         .listStyle(.plain)
@@ -36,8 +36,17 @@ struct LibraryListView: View {
     }
 }
 
-struct MediaListView_Previews: PreviewProvider {
+struct LibraryListView_Previews: PreviewProvider {
+    struct LibraryListViewExample: View {
+        @State var editMode: EditMode = .active
+       
+        var body: some View {
+            LibraryListView(editMode: $editMode)
+        }
+    }
+    
+    
     static var previews: some View {
-        LibraryListView()
+        LibraryListViewExample()
     }
 }

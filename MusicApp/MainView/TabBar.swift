@@ -27,7 +27,7 @@ struct TabBar: View {
                     .tabItem { Label("Radio", systemImage: "dot.radiowaves.left.and.right") }
                     .tag(2)
                 LibraryView()
-                    .tabItem { Label("Library", systemImage: "square.stack.fill") }
+                    .tabItem { Label("Library", image: "library") }
                     .tag(3)
                 SearchView()
                     .tabItem { Label("Search", systemImage: "magnifyingglass") }

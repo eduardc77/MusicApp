@@ -8,36 +8,31 @@
 import SwiftUI
 
 struct VerticalMusicListView: View {
-    
     @State var items = [SmallPictureModel]()
+    var imageSize: ImageSizeType
     
     var columns = [
         GridItem(.flexible(), alignment: .leading)
-        ]
+    ]
     
     var body: some View {
-        LazyVGrid(columns: columns) {
-            ForEach(items, id: \.self) { item in
-                HStack {
-                    Image(item.image)
-                        .resizable()
-                        .frame(width: Metric.searchResultImageSize, height: Metric.searchResultImageSize, alignment: .leading)
-                        .cornerRadius(5)
-                    VStack {
-                        Text(item.name)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .font(.headline)
-                        Text(item.description)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .font(.subheadline)
-                            .foregroundColor(.secondary)
+        ScrollView(showsIndicators: false) {
+            LazyVGrid(columns: columns) {
+                ForEach(items, id: \.self) { item in
+                    let media = Media(id: "", trackName: item.name, artistName: item.description, description: item.description, artwork: UIImage(named: item.image))
+                    Divider()
+                    switch imageSize {
+                    case .small:
+                        SearchResultsRowItem(media: media)
+                    case .medium:
+                        MediumMediaRowItem(media: media)
+                    case .large:
+                        LargeMediaRowItem(media: media)
                     }
+                    
                 }
-                Divider()
-            }
-            .padding(.horizontal)
+                
+            }.padding([.horizontal, .bottom])
         }
     }
 }
-
-

@@ -13,14 +13,15 @@ struct BrowseView: View {
     var body: some View {
         NavigationView {
             ScrollView() {
-                HighlightsView(items: selectedStatiions)
+                Divider()
+                HighlightsView(items: selectedStations, imageSize: .large)
 
                 Text(title)
                     .font(.title2).bold()
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.horizontal)
                 
-                VerticalMusicListView(items: radioStations)
+                HorizontalMusicListView(items: musicPlaylists[2], imageSize: .small, rowCount: 4)
                 Spacer(minLength: Metric.playerHeight)
             }
             .navigationTitle(title)

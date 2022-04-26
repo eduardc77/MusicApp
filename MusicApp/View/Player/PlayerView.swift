@@ -10,12 +10,13 @@ import MediaPlayer
 
 struct PlayerView: View {
     @StateObject private var playerObservableObject: PlayerObservableObject
-
+    
     @Binding var expand: Bool
     @State var songTimePosition: Double = 0
-    @State var offset: CGFloat = 0
+    @State var offset: CGFloat = 0 
     
     var animation: Namespace.ID
+    static let timer = Timer.publish(every: 0.5, tolerance: 0.05, on: .main, in: .common).autoconnect()
     
     init(player: MPMusicPlayerController, expand: Binding<Bool>, animation: Namespace.ID) {
         _playerObservableObject = StateObject(wrappedValue: PlayerObservableObject(player: player))
@@ -27,22 +28,23 @@ struct PlayerView: View {
         VStack {
             
             Capsule()
-                .fill(Color.secondary.opacity(0.5))
+                .fill(Color.lightGrayColor)
                 .frame(width: expand ? Metric.capsuleWidth : 0, height: expand ? Metric.capsuleHeight : 0)
                 .opacity(expand ? 1 : 0)
+                .offset(y: expand ? -12 : 0)
             
             VStack {
                 // Mini Player
                 HStack {
                     if expand { Spacer() }
-                   
+                    
                     if let artwork = playerObservableObject.nowPlayingItem?.artwork {
                         MediaImageView(image: Image(uiImage: artwork), size: Size(width: expand ? Metric.largeMediaImage : Metric.playerSmallImageSize, height: expand ? Metric.largeMediaImage : Metric.playerSmallImageSize), cornerRadius: expand ? 10 : Metric.searchResultCornerRadius)
-                        .scaleEffect((playerObservableObject.playbackState == .playing && expand) ? 1.33 : 1)
-                        .animation(.spring(response: 0.5, dampingFraction: 0.5, blendDuration: 0.3), value: playerObservableObject.playbackState)
+                            .scaleEffect((playerObservableObject.playbackState == .playing && expand) ? 1.33 : 1)
+                            .animation(.spring(response: 0.5, dampingFraction: 0.5, blendDuration: 0.3), value: playerObservableObject.playbackState)
                     } else {
-                    // Or PlaceholderImage
-                     MediaImageView(size: Size(width: expand ? Metric.largeMediaImage : Metric.playerSmallImageSize, height: expand ? Metric.largeMediaImage : Metric.playerSmallImageSize), cornerRadius: expand ? 10 : Metric.searchResultCornerRadius)
+                        // Or PlaceholderImage
+                        MediaImageView(size: Size(width: expand ? Metric.largeMediaImage : Metric.playerSmallImageSize, height: expand ? Metric.largeMediaImage : Metric.playerSmallImageSize), cornerRadius: expand ? 10 : Metric.searchResultCornerRadius)
                             .scaleEffect((playerObservableObject.playbackState == .playing && expand) ? 1.33 : 1)
                             .animation(.spring(response: 0.5, dampingFraction: 0.5, blendDuration: 0.3), value: playerObservableObject.playbackState)
                     }
@@ -93,27 +95,32 @@ struct PlayerView: View {
                     VStack(alignment: .leading) {
                         Text(playerObservableObject.nowPlayingItem?.trackName ?? "Not Playing")
                             .font(.title2).bold()
-                            .foregroundColor(.primary)
+                            .foregroundColor(.white.opacity(0.9))
                         Text(playerObservableObject.nowPlayingItem?.artistName ?? "")
-                            .foregroundColor(.secondary)
-                            .font(.title3)
+                            .foregroundColor(.lightGrayColor)
+                            .font(.title2)
                     }
                     Spacer()
                     
                     Button(action: {}) {
                         Image(systemName: "ellipsis.circle.fill")
                             .font(.title)
-                            .foregroundStyle(.white, .gray.opacity(0.3))
+                            .foregroundStyle(.white, Color.lightGrayColor3)
                     }
                 }
                 .padding(.horizontal)
+                
                
-                TimeSliderView(songTime: playerObservableObject.player.nowPlayingItem?.playbackDuration.inSeconds ?? Int(playerObservableObject.noTrackTime), songTimePosition: $playerObservableObject.progressRate)
-    
+                TimeSliderView(songTime: playerObservableObject.player.nowPlayingItem?.playbackDuration.toInt ?? Int(playerObservableObject.noTrackTime), songTimePosition: $playerObservableObject.progressRate, player: playerObservableObject.player)
+                
+                    .onReceive(PlayerView.timer) { _ in
+                        playerObservableObject.progressRate = playerObservableObject.player.currentPlaybackTime.toInt
+                    }
+                
                 PlayerButtonsView(playerObservableObject: playerObservableObject)
-                Spacer()
+                
                 VolumeView()
-                Spacer()
+                
             }
             
             .frame(height: expand ? UIScreen.main.bounds.height / 2.8 : 0)
@@ -134,15 +141,6 @@ struct PlayerView: View {
                         } else {
                             Color(.gray)
                         }
-//                        if let artworkUrl = playerObservableObject.nowPlayingItem?.artworkUrl100, let mediaArtwork = UIImage(contentsOfFile: artworkUrl.path) {
-//                            BlurView()
-//                            LinearGradient(
-//                                gradient: Gradient(colors: [Color(mediaArtwork.firstAverageColor()).opacity(0.8), Color(mediaArtwork.secondAverageColor()).opacity(0.8)]),
-//                                startPoint: .topTrailing,
-//                                endPoint: .bottomLeading)
-//                        } else {
-//                            Color(.gray)
-//                        }
                     }
                 } else {
                     BlurView()
@@ -172,7 +170,7 @@ struct PlayerView: View {
                 playerObservableObject.makeNowPlaying()
                 return
             }
-            playerObservableObject.progressRate = playerObservableObject.player.currentPlaybackTime.inSeconds
+            playerObservableObject.progressRate = playerObservableObject.player.currentPlaybackTime.toInt
             playerObservableObject.makeNowPlaying(media: mediaItem)
         }
         .onAppear {
@@ -219,44 +217,7 @@ struct PlayerView_Previews: PreviewProvider {
     }
     static var previews: some View {
         PlayerViewExample()
-            .previewDevice("iPod touch (7th generation)")
+            .previewDevice("iPhone 13 Pro Max")
     }
 }
 
-extension UIImage {
-    func firstAverageColor() -> UIColor {
-        var bitmap = [UInt8](repeating: 0, count: 4)
-        
-        // Create 1x1 context that interpolates pixels when drawing to it.
-        let context = CGContext(data: &bitmap, width: 1, height: 1, bitsPerComponent: 8, bytesPerRow: 4, space: CGColorSpaceCreateDeviceRGB(), bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue)!
-        let inputImage = cgImage ?? CIContext().createCGImage(ciImage!, from: ciImage!.extent)
-        
-        // Render to bitmap.
-        context.draw(inputImage!, in: CGRect(x: 0, y: 0, width: 1, height: 1))
-        
-        // Compute result.
-        let result = UIColor(red: CGFloat(bitmap[0]) / 255.0, green: CGFloat(bitmap[1]) / 255.0, blue: CGFloat(bitmap[2]) / 255.0, alpha: 1)
-        return result
-    }
-    
-    func secondAverageColor() -> UIColor {
-        var bitmap = [UInt8](repeating: 0, count: 4)
-        
-        let context = CIContext()
-        let inputImage: CIImage = ciImage ?? CoreImage.CIImage(cgImage: cgImage!)
-        let extent = inputImage.extent
-        let inputExtent = CIVector(x: extent.origin.x, y: extent.origin.y, z: extent.size.width, w: extent.size.height)
-        let filter = CIFilter(name: "CIAreaAverage", parameters: [kCIInputImageKey: inputImage, kCIInputExtentKey: inputExtent])!
-        let outputImage = filter.outputImage!
-        let outputExtent = outputImage.extent
-        assert(outputExtent.size.width == 1 && outputExtent.size.height == 1)
-        
-        // Render to bitmap.
-        context.render(outputImage, toBitmap: &bitmap, rowBytes: 4, bounds: CGRect(x: 0, y: 0, width: 1, height: 1), format: CIFormat.RGBA8, colorSpace: CGColorSpaceCreateDeviceRGB())
-        
-        // Compute result.
-        let result = UIColor(red: CGFloat(bitmap[0]) / 255.0, green: CGFloat(bitmap[1]) / 255.0, blue: CGFloat(bitmap[2]) / 255.0, alpha: 1)
-        return result
-    }
-    
-}

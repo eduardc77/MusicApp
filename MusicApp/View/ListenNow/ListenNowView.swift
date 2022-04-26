@@ -13,15 +13,34 @@ struct ListenNowView: View {
     var body: some View {
         NavigationView {
             ScrollView {
-                HighlightsView(items: selectedStatiions)
-
-                Text(title)
-                    .font(.title2).bold()
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.horizontal)
-                
-                VerticalMusicListView(items: radioStations)
-                Spacer(minLength: Metric.playerHeight)
+                VStack {
+                    HighlightsView(items: selectedStations, imageSize: .large)
+                    
+                    Text("Best New Songs")
+                        .font(.title2).bold()
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.horizontal)
+                    HorizontalMusicListView(items: musicPlaylists[0], imageSize: .small, rowCount: 4)
+                    
+                    Text("You Gotta Hear")
+                        .font(.title2).bold()
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.horizontal)
+                    HorizontalMusicListView(items: musicPlaylists[0], imageSize: .medium, rowCount: 1)
+                   
+                    Text("Stations for You")
+                        .font(.title2).bold()
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.horizontal)
+                    VerticalMusicListView(items: musicPlaylists[1], imageSize: .small)
+                    
+                    Text("New Releases")
+                        .font(.title2).bold()
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.horizontal)
+                    HorizontalMusicListView(items: musicPlaylists[0], imageSize: .medium, rowCount: 2)
+                }
+                    Spacer(minLength: Metric.playerHeight)
             }
             .navigationTitle(title)
         }

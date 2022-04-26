@@ -13,21 +13,22 @@ struct BottomToolbar: View {
             Button(action: {}) {
                 Image(systemName: "quote.bubble")
                     .font(.title2)
-                    .foregroundColor(.primary)
+                    .foregroundColor(.lightGrayColor)
             }
             
             Button(action: {}) {
                 Image(systemName: "airplayaudio")
                     .font(.title2)
-                    .foregroundColor(.primary)
+                    .foregroundColor(.lightGrayColor)
             }
             
             Button(action: {}) {
                 Image(systemName: "list.bullet")
                     .font(.title2)
-                    .foregroundColor(.primary)
+                    .foregroundColor(.lightGrayColor)
             }
-        }.padding(.top)
+        }
+        
     }
 }
 
@@ -39,6 +40,6 @@ struct BottomToolBar_Previews: PreviewProvider {
 
 extension BottomToolbar {
     enum Metric {
-        static let buttonsSpacing: CGFloat = 70
+        static let buttonsSpacing: CGFloat = 80
     }
 }

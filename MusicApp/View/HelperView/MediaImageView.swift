@@ -17,7 +17,7 @@ struct MediaImageView: View {
             if let image = image {
                 image
                     .resizable()
-                    .aspectRatio(contentMode: .fit)
+                    .aspectRatio(contentMode: .fill)
                     .frame(width: size.width, height: size.height)
                     .cornerRadius(cornerRadius)
                     .shadow(radius: 2, x: 0, y: 2)
@@ -43,6 +43,7 @@ struct MediaImageView_Previews: PreviewProvider {
 }
 
 struct Size {
-    var width: CGFloat? = Metric.searchResultImageSize
-    var height: CGFloat? = Metric.searchResultImageSize
+    var width: CGFloat? = nil
+    var height: CGFloat? = nil
+    
 }

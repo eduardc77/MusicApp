@@ -16,7 +16,7 @@ struct LibraryView: View {
     var body: some View {
         NavigationView {
             ScrollView {
-                LazyVGrid(columns: columns, alignment: .center, spacing: 20) {
+                LazyVGrid(columns: columns) {
                     ForEach(0 ..< libraryObservableObject.getAlbumsCount(), id: \.self) { index in
                         NavigationLink(destination: AlbumDetailView(media: libraryObservableObject.getAlbum(at: index), player: player)) {
                             
@@ -49,7 +49,6 @@ struct makeAlbumItemContents: View {
     
     var body: some View {
         VStack{
-            
             MediaImageView(image: Image(uiImage: libraryObservableObject.getAlbum(at: index).artwork ?? UIImage(named: "musicLogo")!), size: Size(width: 160, height: 160))
   
             VStack {
@@ -64,7 +63,6 @@ struct makeAlbumItemContents: View {
             }
             
         }
-        .cornerRadius(20)
     }
 }
 
@@ -73,14 +71,10 @@ struct makeGridAlbumItem: View {
     @StateObject var libraryObservableObject: LibraryObservableObject
     
     var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 20)
-                .fill(.white)
-                .shadow(radius: 3)
-                .frame(minHeight: 100, idealHeight: 200, maxHeight: 350, alignment: .center)
-            makeAlbumItemContents(index: index, libraryObservableObject: libraryObservableObject)
-        }
-        .padding(5)
+ 
+        makeAlbumItemContents(index: index, libraryObservableObject: libraryObservableObject)
+       
+        .padding()
     }
 }
 //

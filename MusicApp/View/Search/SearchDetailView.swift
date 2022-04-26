@@ -20,7 +20,7 @@ struct SearchDetailView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.horizontal)
                 
-                HighlightsView(items: selectedMusic[category.tag])
+                HighlightsView(items: selectedMusic[category.tag], imageSize: .large, rowCount: 2)
                 
                 HStack {
                     Text("Placeholder")
@@ -32,7 +32,7 @@ struct SearchDetailView: View {
                 }
                 .padding(.horizontal)
                 
-                HorizontalMusicListView(items: musicPlaylists[category.tag])
+                HorizontalMusicListView(items: musicPlaylists[category.tag], imageSize: .medium)
                 
                     .navigationBarTitleDisplayMode(.inline)
             }

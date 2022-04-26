@@ -70,7 +70,7 @@ struct AlbumControllView: View {
                     .resizable()
                     .frame(width: 100, height: 100, alignment: .leading)
                     .aspectRatio(contentMode: .fit)
-                    .cornerRadius(10)
+                    .cornerRadius(4)
                     .padding()
                 
                 VStack(alignment: .leading, spacing: 0) {

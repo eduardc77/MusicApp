@@ -20,7 +20,7 @@ struct SearchListView: View {
             LazyVGrid(columns: columns) {
                 Divider()
                 ForEach(searchObservableObject.searchResults, id: \.id) { item in
-                    SearchListRowItem(
+                    SearchResultsRowItem(
                         media: item,
                         imageData: searchObservableObject.imagesData[item.artworkUrl100 ?? URL(fileURLWithPath: "")]
                     )

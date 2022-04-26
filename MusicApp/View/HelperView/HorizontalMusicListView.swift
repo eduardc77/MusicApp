@@ -9,34 +9,52 @@ import SwiftUI
 
 struct HorizontalMusicListView: View {
     @State var items = [SmallPictureModel]()
+    var imageSize: ImageSizeType
+    var gridRows: [GridItem]
     
-    let rows: [GridItem] = Array(repeating: .init(.fixed(Metric.rowHeight)), count: 2)
+    init(items: [SmallPictureModel], imageSize: ImageSizeType, rowCount: Int = 1) {
+        self.items = items
+        self.imageSize = imageSize
+        
+        switch imageSize {
+        case .small:
+            gridRows = Array(repeating: .init(.fixed(Metric.smallRowHeight), spacing: 2), count: rowCount)
+        case .medium:
+            gridRows = Array(repeating: .init(.fixed(Metric.mediumRowHeight)), count: rowCount)
+        case .large:
+            gridRows = Array(repeating: .init(.fixed(Metric.largeRowHeight)), count: rowCount)
+        }
+    }
     
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            LazyHGrid(rows: rows) {
+            LazyHGrid(rows: gridRows, spacing: 12) {
                 ForEach(items, id: \.self) { item in
-                    VStack {
-                        Image(item.image)
-                            .resizable()
-                            .frame(width: Metric.imageSize, height: Metric.imageSize, alignment: .leading)
-                            .cornerRadius(6)
-                        
-                        Text(item.name)
-                            .frame(maxWidth: Metric.imageSize, alignment: .leading)
-                            .lineLimit(1)
-                            .font(.subheadline)
-                        
-                        Text(item.description)
-                            .frame(maxWidth: Metric.imageSize, alignment: .leading)
-                            .font(.subheadline)
-                            .foregroundColor(.secondary)
-                            .lineLimit(1)
+                    let media = Media(id: "", trackName: item.name, artistName: item.description, description: item.description, artwork: UIImage(named: item.image), collectionName: item.name)
+                    
+                    switch imageSize {
+                    case .small:
+                        SmallMediaRowItem(media: media)
+                    case .medium:
+                        MediumMediaRowItem(media: media)
+                    case .large:
+                        LargeMediaRowItem(media: media)
                     }
                 }
+                
             }
-            .padding(.horizontal)
+            .padding([.horizontal])
         }
+        
+        Divider()
+            .padding([.horizontal])
     }
 }
 
+struct HorizontalMusicListView_Previews: PreviewProvider {
+    
+    
+    static var previews: some View {
+        HorizontalMusicListView(items: musicPlaylists[0], imageSize: .medium, rowCount: 1)
+    }
+}
