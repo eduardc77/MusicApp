@@ -48,19 +48,17 @@ struct TimeSliderView: View {
                         )
                         .background {
                             Circle()
-                                .fill(.primary)
+                                .fill(.white.opacity(0.01))
                                 .frame(width: Metric.largePoint, height: Metric.largePoint)
-                                .opacity(0.01)
-
                         }
                         .offset(x: CGFloat(songTimePosition) / CGFloat(songTime) * geometry.size.width - (isDragging ? Metric.largePoint / 2 : Metric.smallPoint / 2))
                         .gesture(
                             DragGesture(minimumDistance: 0)
                                 .onChanged { value in
                                     guard player != nil else { return }
-
+                                    
                                      isDragging = true
-
+                                    
                                     if abs(value.translation.width) < 0.1 {
                                         lastOffset = CGFloat(songTimePosition) / CGFloat(songTime) * geometry.size.width
                                     }
@@ -75,8 +73,8 @@ struct TimeSliderView: View {
                                     timeBegin = songTimePosition
                                     timeRemain = songTime - timeBegin
                                 }
-                                .onEnded {
-                                    _ in isDragging = false
+                                .onEnded { _ in
+                                    isDragging = false
                                     player?.currentPlaybackTime = TimeInterval(songTimePosition)
                                 }
                             
@@ -84,9 +82,9 @@ struct TimeSliderView: View {
                         .animation(.linear(duration: 0.16), value: isDragging)
                 }
                 .onReceive(PlayerView.timer) { _ in
-                    guard let currentPlaybackTime = player?.currentPlaybackTime, let currentPlaybackDuration = player?.nowPlayingItem?.playbackDuration else { return }
+                    guard let currentPlaybackTime = player?.currentPlaybackTime else { return }
                     timeBegin = Int(currentPlaybackTime)
-                    timeRemain = Int(currentPlaybackDuration)
+                    timeRemain = songTime - timeBegin
                 }
                 .frame(height: Metric.largePoint)
 

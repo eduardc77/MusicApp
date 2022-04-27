@@ -17,7 +17,7 @@ struct VolumeView: View {
                 
                 VolumeSlider()
                     .accentColor(.lightGrayColor)
-                    .controlSize(.mini)
+                    .controlSize(.regular)
                     .frame(width: UIScreen.main.bounds.width / 1.4, height: 18)
                 
                 Image(systemName: "speaker.wave.2.fill")

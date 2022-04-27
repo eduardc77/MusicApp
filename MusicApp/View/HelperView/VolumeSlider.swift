@@ -13,7 +13,6 @@ struct VolumeSlider: UIViewRepresentable {
         let view = MPVolumeView(frame: .zero)
         view.setVolumeThumbImage(UIImage(systemName: "circle.fill")?.withTintColor(.white, renderingMode: .alwaysOriginal), for: .normal)
         view.showsRouteButton = false
-       
         
         return view
     }
