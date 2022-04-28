@@ -25,9 +25,7 @@ struct LibraryView: View {
                     }
                 }
                 .navigationTitle("Library")
-                .padding()
             }
-           
             .onAppear {
                 libraryObservableObject.refreshAlbums()
                 if UserDefaults.standard.array(forKey: UserDefaultsKey.queueDefault) == nil || player.nowPlayingItem == nil {
@@ -60,7 +58,6 @@ struct makeAlbumItemContents: View {
                     .foregroundColor(.secondary)
                     .lineLimit(1)
             }
-            
         }
     }
 }

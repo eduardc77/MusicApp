@@ -9,35 +9,43 @@ import SwiftUI
 import MediaPlayer
 
 struct TabBar: View {
-    private var player = MPMusicPlayerController.applicationMusicPlayer
-    @State var tabSelection: Int = 0
+    @State var selection: Tab = .listenNow
     @State var expand = false
     @Namespace var animation
     
+    enum Tab {
+        case listenNow
+        case browse
+        case radio
+        case library
+        case search
+    }
+    
+    private var player = MPMusicPlayerController.applicationMusicPlayer
+    
     var body: some View {
         ZStack(alignment: .bottom) {
-            TabView(selection: $tabSelection) {
+            TabView(selection: $selection) {
                 ListenNowView()
                     .tabItem { Label("Listen Now", systemImage: "play.circle.fill") }
-                    .tag(0)
+                    .tag(Tab.listenNow)
                 BrowseView()
                     .tabItem { Label("Browse", systemImage: "square.grid.2x2.fill") }
-                    .tag(1)
+                    .tag(Tab.browse)
                 RadioView()
                     .tabItem { Label("Radio", systemImage: "dot.radiowaves.left.and.right") }
-                    .tag(2)
+                    .tag(Tab.radio)
                 LibraryView()
                     .tabItem { Label("Library", image: "library") }
-                    .tag(3)
+                    .tag(Tab.library)
                 SearchView()
                     .tabItem { Label("Search", systemImage: "magnifyingglass") }
-                    .tag(4)
+                    .tag(Tab.search)
             }
             .accentColor(.appAccentColor)
             
             PlayerView(player: player, expand: $expand, animation: animation)
         }
-        .ignoresSafeArea(.keyboard)
     }
 }
 
