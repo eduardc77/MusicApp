@@ -78,7 +78,7 @@ struct PlayerView: View {
                                    label: {
                                 Image(systemName: "forward.fill")
                                     .font(.title2)
-                                    .foregroundColor(.secondary)
+                                    .foregroundColor(playerObservableObject.nowPlayingItem != nil ? .primary : .secondary)
                             }
                             )
                         }

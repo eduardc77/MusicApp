@@ -12,12 +12,13 @@ struct MediaImageView: View {
     var size = Size()
     var cornerRadius: CGFloat = 4
     var isLargeArtworkSize: Bool = false
+    var contentMode: ContentMode = .fit
     
     var body: some View {
         if let image = image {
             image
                 .resizable()
-                .aspectRatio(contentMode: .fill)
+                .aspectRatio(contentMode: contentMode)
                 .frame(width: size.width, height: size.height)
                 .cornerRadius(cornerRadius)
                 .shadow(radius: isLargeArtworkSize ? 16 : 2, x: isLargeArtworkSize ? -6 : 0, y: isLargeArtworkSize ? 6 : 2)
