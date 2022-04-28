@@ -6,6 +6,7 @@
 //
 
 import MediaPlayer
+import SwiftUI
 
 final class LibraryObservableObject: ObservableObject {
     private var albumsItemCollection: [MPMediaItemCollection]?
@@ -27,8 +28,12 @@ final class LibraryObservableObject: ObservableObject {
         albums.removeAll()
         albumsItemCollection?.forEach({ libraryAlbumItemCollection in
             let libraryAlbum = libraryAlbumItemCollection.representativeItem
-          
-            let newLibraryAlbum = Media(id: libraryAlbum?.albumPersistentID.description ?? "", trackName: libraryAlbum?.title, artistName: libraryAlbum?.artist, description: libraryAlbum?.description, trackPrice: "", artworkUrl100: libraryAlbum?.assetURL, artwork: libraryAlbum?.artwork?.image(at: CGSize(width: 1000, height: 1000)), collectionName: libraryAlbum?.albumTitle, trackTimeMillis: libraryAlbum?.playbackDuration, releaseDate: libraryAlbum?.releaseDate)
+            var image: UIImage? = nil
+            if let artwork = libraryAlbum?.artwork?.image(at: CGSize(width: 1024, height: 1024)) {
+                image = artwork
+            }
+            
+            let newLibraryAlbum = Media(id: libraryAlbum?.albumPersistentID.description ?? "", trackName: libraryAlbum?.title, artistName: libraryAlbum?.artist, description: libraryAlbum?.description, trackPrice: "", artworkUrl100: libraryAlbum?.assetURL, artwork: image == nil ? nil : Image(uiImage: image ?? UIImage()), collectionName: libraryAlbum?.albumTitle, trackTimeMillis: libraryAlbum?.playbackDuration, releaseDate: libraryAlbum?.releaseDate)
             albums.append(newLibraryAlbum)
         })
     }

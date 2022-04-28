@@ -11,7 +11,7 @@ struct LibraryListView: View {
     @Binding var editMode: EditMode 
     @State var selection: Set<LibraryListModel> = []
     @State var options = libraryList
-   
+    
     var body: some View {
         List(selection: $selection) {
             ForEach(options, id: \.self) { option in
@@ -39,7 +39,7 @@ struct LibraryListView: View {
 struct LibraryListView_Previews: PreviewProvider {
     struct LibraryListViewExample: View {
         @State var editMode: EditMode = .active
-       
+        
         var body: some View {
             LibraryListView(editMode: $editMode)
         }

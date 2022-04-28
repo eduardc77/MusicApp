@@ -33,10 +33,9 @@ struct TabBar: View {
                     .tabItem { Label("Search", systemImage: "magnifyingglass") }
                     .tag(4)
             }
-            .accentColor(.red)
+            .accentColor(.appAccentColor)
             
             PlayerView(player: player, expand: $expand, animation: animation)
-        
         }
         .ignoresSafeArea(.keyboard)
     }

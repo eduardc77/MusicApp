@@ -33,7 +33,7 @@ struct LargeMediaRowItem: View {
                 if let imageData = imageData, let uiImage = UIImage(data: imageData) {
                     MediaImageView(image: Image(uiImage: uiImage), size: Size(width: geometry.size.width, height: geometry.size.height))
                 } else if let artworkImage = media.artwork {
-                    MediaImageView(image: Image(uiImage: artworkImage), size: Size(width: geometry.size.width, height: geometry.size.height))
+                    MediaImageView(image: artworkImage, size: Size(width: geometry.size.width, height: geometry.size.height))
                 } else {
                     MediaImageView(size: Size(width: geometry.size.width, height: geometry.size.height))
                 }
@@ -44,7 +44,7 @@ struct LargeMediaRowItem: View {
 
 struct LargeMediaRowItem_Previews: PreviewProvider {
     struct LargeMediaRowItemExample: View {
-        let media = Media(id: "", artistName: "Placeholder Artist", description: "Placeholder Description", artwork: UIImage(named: "bigradio1"), collectionName: "Placeholder Name")
+        let media = Media(id: "", artistName: "Placeholder Artist", description: "Placeholder Description", artwork: Image("bigradio1"), collectionName: "Placeholder Name")
         
         var body: some View {
             LargeMediaRowItem(media: media)

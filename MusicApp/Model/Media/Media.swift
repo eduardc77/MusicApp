@@ -16,7 +16,7 @@ struct Media: Identifiable {
     var genres: [String]?
     var trackPrice: String?
     var artworkUrl100: URL?
-    var artwork: UIImage?
+    var artwork: Image?
     var previewUrl: URL?
     var collectionName: String?
     var trackTimeMillis: Double?

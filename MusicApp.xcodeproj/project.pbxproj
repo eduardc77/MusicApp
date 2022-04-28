@@ -13,7 +13,7 @@
 		EA23ECF728159A700040BB58 /* LargeMediaRowItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA23ECF628159A700040BB58 /* LargeMediaRowItem.swift */; };
 		EA23ED132815C8290040BB58 /* SnapCarousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA23ED122815C8290040BB58 /* SnapCarousel.swift */; };
 		EA3FA34F2817251500F84B09 /* SmallMediaRowItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3FA34E2817251500F84B09 /* SmallMediaRowItem.swift */; };
-		EA3FA3532817697200F84B09 /* Color+UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3FA3522817697200F84B09 /* Color+UIColor.swift */; };
+		EA3FA3532817697200F84B09 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3FA3522817697200F84B09 /* Color.swift */; };
 		EA3FA3552817783B00F84B09 /* VolumeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3FA3542817783B00F84B09 /* VolumeSlider.swift */; };
 		EA59D3122813555C00D58213 /* UIDevice+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA59D3112813555C00D58213 /* UIDevice+Extension.swift */; };
 		EA59D31428135B4C00D58213 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA59D31328135B4C00D58213 /* BlurView.swift */; };
@@ -26,6 +26,8 @@
 		EAC53D7E2814BA1B00785395 /* LibraryObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC53D7D2814BA1B00785395 /* LibraryObservableObject.swift */; };
 		EAC53D802814C40500785395 /* AlbumDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC53D7F2814C40500785395 /* AlbumDetailView.swift */; };
 		EAC53D822814C44A00785395 /* AlbumDetailObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC53D812814C44A00785395 /* AlbumDetailObservableObject.swift */; };
+		EACA1C3C2819B29800CD7E4F /* View+HideKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACA1C3B2819B29800CD7E4F /* View+HideKeyboard.swift */; };
+		EACA1C402819BCDA00CD7E4F /* MainButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACA1C3F2819BCDA00CD7E4F /* MainButton.swift */; };
 		EAD152F9280D56A8005FD971 /* MusicAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD152F8280D56A8005FD971 /* MusicAppApp.swift */; };
 		EAD152FB280D56A8005FD971 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD152FA280D56A8005FD971 /* ContentView.swift */; };
 		EAD152FD280D56A8005FD971 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EAD152FC280D56A8005FD971 /* Assets.xcassets */; };
@@ -81,7 +83,7 @@
 		EA23ECF628159A700040BB58 /* LargeMediaRowItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeMediaRowItem.swift; sourceTree = "<group>"; };
 		EA23ED122815C8290040BB58 /* SnapCarousel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapCarousel.swift; sourceTree = "<group>"; };
 		EA3FA34E2817251500F84B09 /* SmallMediaRowItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallMediaRowItem.swift; sourceTree = "<group>"; };
-		EA3FA3522817697200F84B09 /* Color+UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+UIColor.swift"; sourceTree = "<group>"; };
+		EA3FA3522817697200F84B09 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		EA3FA3542817783B00F84B09 /* VolumeSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeSlider.swift; sourceTree = "<group>"; };
 		EA59D3112813555C00D58213 /* UIDevice+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extension.swift"; sourceTree = "<group>"; };
 		EA59D31328135B4C00D58213 /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
@@ -95,6 +97,8 @@
 		EAC53D7D2814BA1B00785395 /* LibraryObservableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryObservableObject.swift; sourceTree = "<group>"; };
 		EAC53D7F2814C40500785395 /* AlbumDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDetailView.swift; sourceTree = "<group>"; };
 		EAC53D812814C44A00785395 /* AlbumDetailObservableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDetailObservableObject.swift; sourceTree = "<group>"; };
+		EACA1C3B2819B29800CD7E4F /* View+HideKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+HideKeyboard.swift"; sourceTree = "<group>"; };
+		EACA1C3F2819BCDA00CD7E4F /* MainButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainButton.swift; sourceTree = "<group>"; };
 		EAD152F5280D56A8005FD971 /* Music.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Music.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAD152F8280D56A8005FD971 /* MusicAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicAppApp.swift; sourceTree = "<group>"; };
 		EAD152FA280D56A8005FD971 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -161,6 +165,27 @@
 				EA734CC0280F1C7D00FCD2EE /* Metric.swift */,
 			);
 			path = Helper;
+			sourceTree = "<group>";
+		};
+		EACA1C3D2819BB5F00CD7E4F /* Subview */ = {
+			isa = PBXGroup;
+			children = (
+				EAD15355280D5E09005FD971 /* SearchListView.swift */,
+				EAC53D7B2814956000785395 /* SearchListObservableObject.swift */,
+				EAD1534E280D5DB6005FD971 /* SearchDetailView.swift */,
+				EA7695E4280E21BB00726012 /* CategoryGridView.swift */,
+			);
+			path = Subview;
+			sourceTree = "<group>";
+		};
+		EACA1C3E2819BB7400CD7E4F /* Subview */ = {
+			isa = PBXGroup;
+			children = (
+				EAD15359280D5E8B005FD971 /* LibraryListView.swift */,
+				EAC53D7F2814C40500785395 /* AlbumDetailView.swift */,
+				EAC53D812814C44A00785395 /* AlbumDetailObservableObject.swift */,
+			);
+			path = Subview;
 			sourceTree = "<group>";
 		};
 		EAD152EC280D56A7005FD971 = {
@@ -311,6 +336,7 @@
 				EAD1532C280D5B39005FD971 /* MediaImageView.swift */,
 				EA59D31328135B4C00D58213 /* BlurView.swift */,
 				EA3FA3542817783B00F84B09 /* VolumeSlider.swift */,
+				EACA1C3F2819BCDA00CD7E4F /* MainButton.swift */,
 			);
 			path = HelperView;
 			sourceTree = "<group>";
@@ -328,9 +354,7 @@
 			children = (
 				EAD15347280D5D71005FD971 /* LibraryView.swift */,
 				EAC53D7D2814BA1B00785395 /* LibraryObservableObject.swift */,
-				EAD15359280D5E8B005FD971 /* LibraryListView.swift */,
-				EAC53D7F2814C40500785395 /* AlbumDetailView.swift */,
-				EAC53D812814C44A00785395 /* AlbumDetailObservableObject.swift */,
+				EACA1C3E2819BB7400CD7E4F /* Subview */,
 			);
 			path = Library;
 			sourceTree = "<group>";
@@ -340,10 +364,7 @@
 			children = (
 				EAD1534A280D5D9E005FD971 /* SearchView.swift */,
 				EAD15357280D5E19005FD971 /* SearchObservableObject.swift */,
-				EAD15355280D5E09005FD971 /* SearchListView.swift */,
-				EAC53D7B2814956000785395 /* SearchListObservableObject.swift */,
-				EAD1534E280D5DB6005FD971 /* SearchDetailView.swift */,
-				EA7695E4280E21BB00726012 /* CategoryGridView.swift */,
+				EACA1C3D2819BB5F00CD7E4F /* Subview */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -376,7 +397,8 @@
 			isa = PBXGroup;
 			children = (
 				EAD15370280D6403005FD971 /* Collection+Grouped.swift */,
-				EA3FA3522817697200F84B09 /* Color+UIColor.swift */,
+				EA3FA3522817697200F84B09 /* Color.swift */,
+				EACA1C3B2819B29800CD7E4F /* View+HideKeyboard.swift */,
 				EAD15372280D640E005FD971 /* Date+DateFormatter.swift */,
 				EAD15374280D6416005FD971 /* String+StripHTML.swift */,
 				EA59D3112813555C00D58213 /* UIDevice+Extension.swift */,
@@ -482,6 +504,7 @@
 				EAD1532B280D5B2B005FD971 /* MediaDetailView.swift in Sources */,
 				EAD1533E280D5CB8005FD971 /* ListenNowView.swift in Sources */,
 				EA59D31428135B4C00D58213 /* BlurView.swift in Sources */,
+				EACA1C402819BCDA00CD7E4F /* MainButton.swift in Sources */,
 				EA23ECF728159A700040BB58 /* LargeMediaRowItem.swift in Sources */,
 				EAD15331280D5BA9005FD971 /* TimeSliderView.swift in Sources */,
 				EAD15368280D6386005FD971 /* APIRequest.swift in Sources */,
@@ -493,8 +516,9 @@
 				EAD1534F280D5DB6005FD971 /* SearchDetailView.swift in Sources */,
 				EAC53D802814C40500785395 /* AlbumDetailView.swift in Sources */,
 				EAC53D7528145B2600785395 /* PlayerObservableObject.swift in Sources */,
+				EACA1C3C2819B29800CD7E4F /* View+HideKeyboard.swift in Sources */,
 				EAD15356280D5E09005FD971 /* SearchListView.swift in Sources */,
-				EA3FA3532817697200F84B09 /* Color+UIColor.swift in Sources */,
+				EA3FA3532817697200F84B09 /* Color.swift in Sources */,
 				EAD1532D280D5B39005FD971 /* MediaImageView.swift in Sources */,
 				EAD15315280D5835005FD971 /* MediaKind.swift in Sources */,
 				EAD15325280D5AFD005FD971 /* HighlightsView.swift in Sources */,

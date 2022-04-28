@@ -28,7 +28,7 @@ struct AlbumDetailView: View {
 }
 
 struct AlbumSongListView: View {
-    @StateObject fileprivate var albumDetailObservableObject: AlbumDetailObservableObject
+    @ObservedObject fileprivate var albumDetailObservableObject: AlbumDetailObservableObject
     
     var body: some View {
         List {
@@ -61,16 +61,12 @@ struct AlbumSongListView: View {
 }
 
 struct AlbumControllView: View {
-    @StateObject fileprivate var albumDetailObservableObject: AlbumDetailObservableObject
+    @ObservedObject fileprivate var albumDetailObservableObject: AlbumDetailObservableObject
     
     var body: some View {
         VStack {
             HStack {
-                Image(uiImage: (albumDetailObservableObject.media.artwork ?? UIImage(named: "musicLogo")!))
-                    .resizable()
-                    .frame(width: 100, height: 100, alignment: .leading)
-                    .aspectRatio(contentMode: .fit)
-                    .cornerRadius(4)
+                MediaImageView(image: albumDetailObservableObject.media.artwork, size: Size(width: 100, height: 100))
                     .padding()
                 
                 VStack(alignment: .leading, spacing: 0) {
@@ -95,40 +91,28 @@ struct AlbumControllView: View {
             .fixedSize()
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.trailing)
+            
             Divider()
+            
             HStack {
                 Spacer()
-                Button {
+                MainButton(title: "Play", image: Image(systemName: "play.fill")) {
                     if !albumDetailObservableObject.waitingForPrepare {
                         albumDetailObservableObject.allSongsPlayButtonPressed(isShuffle: false)
                     }
-                } label: {
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 10)
-                            .frame(height: 40, alignment: .center)
-                            .foregroundColor(.primary)
-                        Image(systemName: "play.fill")
-                            .foregroundColor(.primary)
-                            .font(.headline)
-                    }
                 }
+
                 Spacer()
-                Button {
+                
+                MainButton(title: "Shuffle", image: Image(systemName: "shuffle")) {
                     if !albumDetailObservableObject.waitingForPrepare {
                         albumDetailObservableObject.allSongsPlayButtonPressed(isShuffle: true)
                     }
-                } label: {
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 10)
-                            .frame(height: 40, alignment: .center)
-                            .foregroundColor(.primary)
-                        Image(systemName: "shuffle")
-                            .foregroundColor(.primary)
-                            .font(.headline)
-                    }
                 }
+                
                 Spacer()
             }
+            .frame(maxWidth: .infinity)
             .padding()
         }
     }

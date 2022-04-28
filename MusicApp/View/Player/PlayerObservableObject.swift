@@ -86,7 +86,11 @@ final class PlayerObservableObject: ObservableObject {
             
             return
         }
-        nowPlayingItem = Media(id: media.playbackStoreID, trackName: media.title, artistName: media.artist, description: media.description, kind: MediaKind(rawValue: "\(media.mediaType)"), artwork: media.artwork?.image(at: CGSize(width: 600, height: 600)), collectionName: media.albumTitle, trackTimeMillis: media.playbackDuration, releaseDate: media.releaseDate)
+        var image: UIImage? = nil
+        if let artwork = media.artwork?.image(at: CGSize(width: 1024, height: 1024)) {
+            image = artwork
+        }
+        nowPlayingItem = Media(id: media.playbackStoreID, trackName: media.title, artistName: media.artist, description: media.description, kind: MediaKind(rawValue: "\(media.mediaType)"), artwork: image == nil ? nil : Image(uiImage: image ?? UIImage()), collectionName: media.albumTitle, trackTimeMillis: media.playbackDuration, releaseDate: media.releaseDate)
         
         nowPlayingItem?.trackName = media.title ?? ""
         nowPlayingItem?.artworkUrl100 = media.assetURL ?? URL(fileURLWithPath: "")

@@ -12,6 +12,8 @@ enum Metric {
     static let searchResultImageSize: CGFloat = 56
     static let searchResultCornerRadius: CGFloat = 4
     
+    static let screenHeight: CGFloat = UIScreen.main.bounds.height
+    static let screenWidth: CGFloat = UIScreen.main.bounds.width
     static let playerHeight: CGFloat = 66
     static let regularSpacing: CGFloat = 16
     static let yOffset: CGFloat = -48
@@ -33,4 +35,10 @@ enum ImageSizeType {
     case small
     case medium
     case large
+}
+
+struct Size {
+    var width: CGFloat? = nil
+    var height: CGFloat? = nil
+    
 }

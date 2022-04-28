@@ -11,8 +11,8 @@ import MediaPlayer
 struct SearchListView: View {
     @ObservedObject var searchObservableObject: SearchObservableObject
     @StateObject private var searchListObservableObject: SearchListObservableObject = SearchListObservableObject()
-    var player: MPMusicPlayerController = MPMusicPlayerController.applicationMusicPlayer
     
+    var player: MPMusicPlayerController = MPMusicPlayerController.applicationMusicPlayer
     var columns = [GridItem(.flexible(), alignment: .leading)]
     
     var body: some View {
@@ -31,6 +31,15 @@ struct SearchListView: View {
                     .onTapGesture {
                         searchListObservableObject.media = item
                         searchListObservableObject.playSongAt(songIndex: 1)
+                    }
+                    
+                    .simultaneousGesture(
+                        DragGesture()
+                            .onChanged({ _ in
+                                hideKeyboard()
+                            }))
+                    .onTapGesture {
+                        hideKeyboard()
                     }
                     
                     Divider()

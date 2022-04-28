@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PlayerButtonsView: View {
-    @StateObject var playerObservableObject: PlayerObservableObject
+    @ObservedObject var playerObservableObject: PlayerObservableObject
 
     var body: some View {
         HStack() {

@@ -19,7 +19,7 @@ struct VerticalMusicListView: View {
         ScrollView(showsIndicators: false) {
             LazyVGrid(columns: columns) {
                 ForEach(items, id: \.self) { item in
-                    let media = Media(id: "", trackName: item.name, artistName: item.description, description: item.description, artwork: UIImage(named: item.image))
+                    let media = Media(id: "", trackName: item.name, artistName: item.description, description: item.description, artwork: Image(item.image))
                     Divider()
                     switch imageSize {
                     case .small:

@@ -27,11 +27,11 @@ struct CategoryGridView: View {
                         {
                             ZStack(alignment: Alignment(horizontal: .leading, vertical: .bottom)) {
                                 MediaImageView(image: Image(category.image), size: Size(width: geometry.size.width / 2.29, height: nil))
-                                //
-                                //                                        Text(category.title)
-                                //                                            .padding()
-                                //                                            .foregroundColor(.white)
-                                //                                            .font(.body.bold())
+                                
+                                Text(category.title)
+                                    .padding(10)
+                                    .foregroundColor(.white)
+                                    .font(.caption2.bold())
                             }
                         }
                     }

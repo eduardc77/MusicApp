@@ -10,7 +10,7 @@ import MediaPlayer
 import Combine
 
 struct TimeSliderView: View {
-    @StateObject var playerObservableObject: PlayerObservableObject
+    @ObservedObject var playerObservableObject: PlayerObservableObject
     @Binding var songTimePosition: Int
     @State var xOffset: CGFloat = 0
     @State var lastOffset: CGFloat = 0
@@ -21,12 +21,12 @@ struct TimeSliderView: View {
     private var player: MPMusicPlayerController?
     let songTime: Int
 
-    init(songTime: Int, songTimePosition: Binding<Int>, player: MPMusicPlayerController) {
-        self._songTimePosition = songTimePosition
+    init(playerObservableObject: PlayerObservableObject, songTime: Int, songTimePosition: Binding<Int>, player: MPMusicPlayerController) {
+        self.playerObservableObject = playerObservableObject
         self.songTime = songTime
+        self._songTimePosition = songTimePosition
         self.player = player
         
-        _playerObservableObject = StateObject(wrappedValue: PlayerObservableObject(player: player))
         _timeBegin = State(wrappedValue: $songTimePosition.wrappedValue)
         _timeRemain = State(initialValue: songTime - timeBegin)
     }
@@ -107,11 +107,12 @@ struct TimeSliderView: View {
 
 struct TimeView_Previews: PreviewProvider {
     struct TimeView: View {
+        @StateObject var playerObservableObject = PlayerObservableObject(player: MPMusicPlayerController.applicationMusicPlayer)
         @State var songTimePosition: Int = 0
         
         var body: some View {
             VStack {
-                TimeSliderView(songTime: 215, songTimePosition: $songTimePosition, player: MPMusicPlayerController.applicationMusicPlayer)
+                TimeSliderView(playerObservableObject: playerObservableObject, songTime: 215, songTimePosition: $songTimePosition, player: MPMusicPlayerController.applicationMusicPlayer)
             }
             .background(.gray)
         }

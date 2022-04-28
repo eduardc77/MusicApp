@@ -13,24 +13,25 @@ struct MediaImageView: View {
     var cornerRadius: CGFloat = 4
     
     var body: some View {
-        ZStack {
-            if let image = image {
-                image
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: size.width, height: size.height)
-                    .cornerRadius(cornerRadius)
-                    .shadow(radius: 2, x: 0, y: 2)
-            } else {
-            Rectangle()
-                .fill(Color.secondary.opacity(0.6))
+        if let image = image {
+            image
+                .resizable()
+                .aspectRatio(contentMode: .fill)
                 .frame(width: size.width, height: size.height)
                 .cornerRadius(cornerRadius)
                 .shadow(radius: 2, x: 0, y: 2)
-            
-            Image(systemName: "music.note")
-                .foregroundColor(Color.secondary)
-                .font(.system(size: size.height ?? Metric.searchResultImageSize))
+        } else {
+            ZStack {
+                Rectangle()
+                    .fill(Color.secondary.opacity(0.1))
+                    .frame(width: size.width, height: size.height)
+                    .cornerRadius(cornerRadius)
+                
+                Image("music.note")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .foregroundColor(Color.secondary.opacity(0.3))
+                    .frame(width: (size.height ?? Metric.mediumImageSize) / 1.6, height: (size.height ?? Metric.mediumImageSize) / 1.6)
             }
         }
     }
@@ -38,12 +39,7 @@ struct MediaImageView: View {
 
 struct MediaImageView_Previews: PreviewProvider {
     static var previews: some View {
-        MediaImageView()
+        MediaImageView(image: Image("p"), size: Size(width: 333, height: 333))
+            .preferredColorScheme(.dark)
     }
-}
-
-struct Size {
-    var width: CGFloat? = nil
-    var height: CGFloat? = nil
-    
 }

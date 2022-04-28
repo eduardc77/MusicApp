@@ -10,10 +10,9 @@ import MediaPlayer
 
 struct PlayerView: View {
     @StateObject private var playerObservableObject: PlayerObservableObject
-    
     @Binding var expand: Bool
     @State var songTimePosition: Double = 0
-    @State var offset: CGFloat = 0 
+    @State var offset: CGFloat = 0
     
     var animation: Namespace.ID
     static let timer = Timer.publish(every: 0.5, tolerance: nil, on: .main, in: .common).autoconnect()
@@ -26,7 +25,6 @@ struct PlayerView: View {
     
     var body: some View {
         VStack {
-            
             Capsule()
                 .fill(Color.lightGrayColor)
                 .frame(width: expand ? Metric.capsuleWidth : 0, height: expand ? Metric.capsuleHeight : 0)
@@ -39,7 +37,7 @@ struct PlayerView: View {
                     if expand { Spacer() }
                     
                     if let artwork = playerObservableObject.nowPlayingItem?.artwork {
-                        MediaImageView(image: Image(uiImage: artwork), size: Size(width: expand ? Metric.largeMediaImage : Metric.playerSmallImageSize, height: expand ? Metric.largeMediaImage : Metric.playerSmallImageSize), cornerRadius: expand ? 10 : Metric.searchResultCornerRadius)
+                        MediaImageView(image: artwork, size: Size(width: expand ? Metric.largeMediaImage : Metric.playerSmallImageSize, height: expand ? Metric.largeMediaImage : Metric.playerSmallImageSize), cornerRadius: expand ? 10 : Metric.searchResultCornerRadius)
                             .scaleEffect((playerObservableObject.playbackState == .playing && expand) ? 1.33 : 1)
                             .animation(.spring(response: 0.5, dampingFraction: 0.5, blendDuration: 0.3), value: playerObservableObject.playbackState)
                     } else {
@@ -85,57 +83,60 @@ struct PlayerView: View {
                             )
                         }
                     }
-                }.padding()
+                }
+                .padding()
             }
             .frame(height: expand ? UIScreen.main.bounds.height / 2.2 :  Metric.playerHeight)
             
             // Full Screen Player
-            VStack {
-                HStack {
-                    VStack(alignment: .leading) {
-                        Text(playerObservableObject.nowPlayingItem?.trackName ?? "Not Playing")
-                            .font(.title2).bold()
-                            .foregroundColor(.white.opacity(0.9))
-                        Text(playerObservableObject.nowPlayingItem?.artistName ?? "")
-                            .foregroundColor(.lightGrayColor)
-                            .font(.title2)
+            if expand {
+                VStack {
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Text(playerObservableObject.nowPlayingItem?.trackName ?? "Not Playing")
+                                .font(.title2).bold()
+                                .foregroundColor(.white.opacity(0.9))
+                            Text(playerObservableObject.nowPlayingItem?.artistName ?? "")
+                                .foregroundColor(.lightGrayColor)
+                                .font(.title2)
+                        }
+                        Spacer()
+                        
+                        Button(action: {}) {
+                            Image(systemName: "ellipsis.circle.fill")
+                                .font(.title)
+                                .foregroundStyle(.white, Color.lightGrayColor3)
+                        }
                     }
-                    Spacer()
+                    .padding(.horizontal)
                     
-                    Button(action: {}) {
-                        Image(systemName: "ellipsis.circle.fill")
-                            .font(.title)
-                            .foregroundStyle(.white, Color.lightGrayColor3)
+                    VStack {
+                        TimeSliderView(playerObservableObject: playerObservableObject, songTime: playerObservableObject.player.nowPlayingItem?.playbackDuration.toInt ?? Int(playerObservableObject.noTrackTime), songTimePosition: $playerObservableObject.progressRate, player: playerObservableObject.player)
+                        
+                            .onReceive(PlayerView.timer) { _ in
+                                playerObservableObject.progressRate = playerObservableObject.player.currentPlaybackTime.toInt
+                            }
+                        
+                        PlayerButtonsView(playerObservableObject: playerObservableObject)
+                        
+                        VolumeView()
                     }
                 }
+                .transition(.move(edge: .bottom))
+                .frame(height: expand ? UIScreen.main.bounds.height / 2.8 : 0)
                 .padding(.horizontal)
-                
-               
-                TimeSliderView(songTime: playerObservableObject.player.nowPlayingItem?.playbackDuration.toInt ?? Int(playerObservableObject.noTrackTime), songTimePosition: $playerObservableObject.progressRate, player: playerObservableObject.player)
-                
-                    .onReceive(PlayerView.timer) { _ in
-                        playerObservableObject.progressRate = playerObservableObject.player.currentPlaybackTime.toInt
-                    }
-                
-                PlayerButtonsView(playerObservableObject: playerObservableObject)
-                
-                VolumeView()
-                
             }
             
-            .frame(height: expand ? UIScreen.main.bounds.height / 2.8 : 0)
-            .opacity(expand ? 1 : 0)
-            .padding(.horizontal)
         }
         .frame(maxHeight: expand ? .infinity : Metric.playerHeight)
         .background(
             VStack(spacing: 0) {
                 if expand {
                     ZStack {
-                        if let artwork = playerObservableObject.nowPlayingItem?.artwork {
+                        if let artworkUrl = playerObservableObject.nowPlayingItem?.artworkUrl100, let artworkData = try? Data(contentsOf: artworkUrl) {
                             BlurView()
                             LinearGradient(
-                                gradient: Gradient(colors: [Color(artwork.firstAverageColor()), Color(artwork.secondAverageColor())]),
+                                gradient: Gradient(colors: [Color(UIImage(data: artworkData)?.firstAverageColor() ?? .gray), Color(UIImage(data: artworkData)?.firstAverageColor() ?? .gray)]),
                                 startPoint: .top,
                                 endPoint: .bottom)
                         } else {

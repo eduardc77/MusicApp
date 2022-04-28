@@ -16,7 +16,7 @@ struct SearchResultsRowItem: View {
             if let imageData = imageData, let uiImage = UIImage(data: imageData) {
                 MediaImageView(image: Image(uiImage: uiImage), size: Size(width: Metric.searchResultImageSize, height: Metric.searchResultImageSize))
             } else if let artworkImage = media.artwork {
-                MediaImageView(image: Image(uiImage: artworkImage), size: Size(width: Metric.searchResultImageSize, height: Metric.searchResultImageSize))
+                MediaImageView(image: artworkImage, size: Size(width: Metric.searchResultImageSize, height: Metric.searchResultImageSize))
             } else {
                 MediaImageView(size: Size(width: Metric.searchResultImageSize, height: Metric.searchResultImageSize))
             }
@@ -38,7 +38,7 @@ struct SearchResultsRowItem: View {
 
 struct SearchResultsRowItem_Previews: PreviewProvider {
     struct SearchResultsRowItemExample: View {
-        let media = Media(id: "", trackName: "Placeholder Name", artistName: "Placeholder Artist", description: "Placeholder Description", artwork: UIImage(named: "bigradio1"))
+        let media = Media(id: "", trackName: "Placeholder Name", artistName: "Placeholder Artist", description: "Placeholder Description", artwork: Image("bigradio1"))
         
         var body: some View {
             SearchResultsRowItem(media: media)

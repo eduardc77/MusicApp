@@ -25,7 +25,6 @@ struct LibraryView: View {
                     }
                 }
                 .navigationTitle("Library")
-                
                 .padding()
             }
            
@@ -45,11 +44,11 @@ struct LibraryView: View {
 
 struct makeAlbumItemContents: View {
     let index: Int
-    @StateObject var libraryObservableObject: LibraryObservableObject
+    @ObservedObject var libraryObservableObject: LibraryObservableObject
     
     var body: some View {
         VStack{
-            MediaImageView(image: Image(uiImage: libraryObservableObject.getAlbum(at: index).artwork ?? UIImage(named: "musicLogo")!), size: Size(width: 160, height: 160))
+            MediaImageView(image: libraryObservableObject.getAlbum(at: index).artwork, size: Size(width: 160, height: 160))
   
             VStack {
                 Text(libraryObservableObject.getAlbum(at: index).collectionName ?? "")
@@ -68,7 +67,7 @@ struct makeAlbumItemContents: View {
 
 struct makeGridAlbumItem: View {
     let index: Int
-    @StateObject var libraryObservableObject: LibraryObservableObject
+    @ObservedObject var libraryObservableObject: LibraryObservableObject
     
     var body: some View {
  

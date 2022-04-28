@@ -14,12 +14,8 @@ struct SmallMediaRowItem: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
+                MediaImageView(image: media.artwork, size: Size(width: Metric.smallImageSize, height: Metric.smallImageSize))
                 
-                Image(uiImage: media.artwork ?? UIImage())
-                    .resizable()
-                    .frame(width: Metric.smallImageSize, height: Metric.smallImageSize)
-                    .cornerRadius(4)
-               
                 VStack(alignment: .leading) {
                     Divider()
                     
@@ -44,9 +40,9 @@ struct SmallMediaRowItem: View {
                         Image(systemName: "ellipsis")
                             .padding(.trailing)
                     }
+                    
                     Spacer()
-                    }
-                
+                }
             }
         }
         .frame(width: UIScreen.main.bounds.width - 34)
@@ -54,11 +50,11 @@ struct SmallMediaRowItem: View {
 }
 
 
-    
+
 
 struct SmallMediaRowItem_Previews: PreviewProvider {
     struct SmallMediaRowItemExample: View {
-        let media = Media(id: "", trackName: "Placeholder Name", artistName: "Placeholder Artist", description: "Placeholder Description", artwork: UIImage(named: "bigradio1"))
+        let media = Media(id: "", trackName: "Placeholder Name", artistName: "Placeholder Artist", description: "Placeholder Description", artwork: Image("bigradio1"))
         
         var body: some View {
             SmallMediaRowItem(media: media)

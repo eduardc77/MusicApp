@@ -1,7 +1,6 @@
 {
   "images" : [
     {
-      "filename" : "IMG_1913.jpg",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -10,6 +9,7 @@
       "scale" : "2x"
     },
     {
+      "filename" : "IMG_1913.jpg",
       "idiom" : "universal",
       "scale" : "3x"
     }
