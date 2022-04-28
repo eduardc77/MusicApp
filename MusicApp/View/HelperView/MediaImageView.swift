@@ -11,6 +11,7 @@ struct MediaImageView: View {
     var image: Image?
     var size = Size()
     var cornerRadius: CGFloat = 4
+    var isLargeArtworkSize: Bool = false
     
     var body: some View {
         if let image = image {
@@ -19,7 +20,7 @@ struct MediaImageView: View {
                 .aspectRatio(contentMode: .fill)
                 .frame(width: size.width, height: size.height)
                 .cornerRadius(cornerRadius)
-                .shadow(radius: 2, x: 0, y: 2)
+                .shadow(radius: isLargeArtworkSize ? 16 : 2, x: isLargeArtworkSize ? -6 : 0, y: isLargeArtworkSize ? 6 : 2)
         } else {
             ZStack {
                 Rectangle()

@@ -26,17 +26,18 @@ struct CategoryGridView: View {
                         NavigationLink(destination: SearchDetailView(category: category))
                         {
                             ZStack(alignment: Alignment(horizontal: .leading, vertical: .bottom)) {
-                                MediaImageView(image: Image(category.image), size: Size(width: geometry.size.width / 2.29, height: nil))
+                                MediaImageView(image: Image(category.image), size: Size(width: geometry.size.width / 2.29, height: nil), cornerRadius: 9)
                                 
                                 Text(category.title)
                                     .padding(10)
                                     .foregroundColor(.white)
-                                    .font(.caption2.bold())
+                                    .font(.callout.bold())
                             }
                         }
                     }
                 }
                 .padding(.horizontal)
+                
                 Spacer(minLength: Metric.playerHeight) 
             }
         }

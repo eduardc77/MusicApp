@@ -37,7 +37,7 @@ struct PlayerView: View {
                     if expand { Spacer() }
                     
                     if let artwork = playerObservableObject.nowPlayingItem?.artwork {
-                        MediaImageView(image: artwork, size: Size(width: expand ? Metric.largeMediaImage : Metric.playerSmallImageSize, height: expand ? Metric.largeMediaImage : Metric.playerSmallImageSize), cornerRadius: expand ? 10 : Metric.searchResultCornerRadius)
+                        MediaImageView(image: artwork, size: Size(width: expand ? Metric.largeMediaImage : Metric.playerSmallImageSize, height: expand ? Metric.largeMediaImage : Metric.playerSmallImageSize), cornerRadius: expand ? 10 : Metric.searchResultCornerRadius, isLargeArtworkSize: expand ? true : false)
                             .scaleEffect((playerObservableObject.playbackState == .playing && expand) ? 1.33 : 1)
                             .animation(.spring(response: 0.5, dampingFraction: 0.5, blendDuration: 0.3), value: playerObservableObject.playbackState)
                     } else {
@@ -87,6 +87,8 @@ struct PlayerView: View {
                 .padding()
             }
             .frame(height: expand ? UIScreen.main.bounds.height / 2.2 :  Metric.playerHeight)
+            
+            if !expand { Spacer() }
             
             // Full Screen Player
             if expand {
