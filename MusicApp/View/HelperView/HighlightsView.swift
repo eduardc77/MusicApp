@@ -27,13 +27,12 @@ struct HighlightsView: View {
         case .large:
             gridRows = Array(repeating: .init(.fixed(Metric.largeRowHeight)), count: rowCount)
         }
-        
     }
     
     var body: some View {
         TabView {
             ForEach(items, id: \.self) { item in
-                    let media = Media(id: "", artistName: item.description, description: item.description, kind: MediaKind(rawValue: item.type), artwork: Image(item.image), collectionName: item.name)
+                let media = Media(id: item.id.uuidString, artistName: item.description, description: item.description, kind: MediaKind(rawValue: item.type), artwork: Image(item.image), collectionName: item.name)
                     
                     switch imageSize {
                     case .small:
@@ -43,8 +42,6 @@ struct HighlightsView: View {
                     case .large:
                         LargeMediaRowItem(media: media)
                     }
-                    
-                
             }
             .padding(.horizontal)
         }
@@ -54,9 +51,7 @@ struct HighlightsView: View {
         
         Divider()
             .padding(.horizontal)
-        
     }
-    
 }
 
 

@@ -11,7 +11,7 @@ import MediaPlayer
 struct AlbumDetailView: View {
     @StateObject private var albumDetailObservableObject: AlbumDetailObservableObject
     
-    init(media: Media, player: MPMusicPlayerController) {
+    init(media: Media) {
         _albumDetailObservableObject = StateObject(wrappedValue: AlbumDetailObservableObject(media: media))
     }
     

@@ -11,7 +11,6 @@ import MediaPlayer
 struct PlayerView: View {
     @StateObject private var playerObservableObject: PlayerObservableObject
     @Binding var expand: Bool
-    @State var songTimePosition: Double = 0
     @State var offset: CGFloat = 0
     
     var animation: Namespace.ID
@@ -41,7 +40,7 @@ struct PlayerView: View {
                             .scaleEffect((playerObservableObject.playbackState == .playing && expand) ? 1.33 : 1)
                             .animation(.spring(response: 0.5, dampingFraction: 0.5, blendDuration: 0.3), value: playerObservableObject.playbackState)
                     } else {
-                        // Or PlaceholderImage
+                        // Or Placeholder Image
                         MediaImageView(size: Size(width: expand ? Metric.largeMediaImage : Metric.playerSmallImageSize, height: expand ? Metric.largeMediaImage : Metric.playerSmallImageSize), cornerRadius: expand ? 10 : Metric.searchResultCornerRadius)
                             .scaleEffect((playerObservableObject.playbackState == .playing && expand) ? 1.33 : 1)
                             .animation(.spring(response: 0.5, dampingFraction: 0.5, blendDuration: 0.3), value: playerObservableObject.playbackState)
@@ -134,16 +133,17 @@ struct PlayerView: View {
         .background(
             VStack(spacing: 0) {
                 if expand {
-                    ZStack {
-                        if let artworkUrl = playerObservableObject.nowPlayingItem?.artworkUrl100, let artworkData = try? Data(contentsOf: artworkUrl) {
+                    if let artworkUIImage = playerObservableObject.nowPlayingItem?.artworkUIImage {
+                        ZStack {
                             BlurView()
+                            
                             LinearGradient(
-                                gradient: Gradient(colors: [Color(UIImage(data: artworkData)?.firstAverageColor() ?? .gray), Color(UIImage(data: artworkData)?.firstAverageColor() ?? .gray)]),
-                                startPoint: .top,
-                                endPoint: .bottom)
-                        } else {
-                            Color(.gray)
+                                gradient: Gradient(colors: [Color(artworkUIImage.firstAverageColor ?? .gray), Color(artworkUIImage.secondAverageColor ?? .gray)]),
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing)
                         }
+                    } else {
+                        Color(.gray)
                     }
                 } else {
                     BlurView()

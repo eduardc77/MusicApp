@@ -9,130 +9,131 @@ import SwiftUI
 import MediaPlayer
 
 struct LibraryView: View {
-    @StateObject fileprivate var libraryObservableObject = LibraryObservableObject()
-    fileprivate(set) var player: MPMusicPlayerController = MPMusicPlayerController.applicationMusicPlayer
-    let columns: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
+    @Binding var tabSelection: Tab
+    @State var editMode: EditMode = .inactive
+    @StateObject private var libraryObservableObject = LibraryObservableObject()
+    @ObservedObject private var libraryAuthorization = LibraryAuthorization()
     
     var body: some View {
         NavigationView {
-            ScrollView {
-                LazyVGrid(columns: columns) {
-                    ForEach(0 ..< libraryObservableObject.getAlbumsCount(), id: \.self) { index in
-                        NavigationLink(destination: AlbumDetailView(media: libraryObservableObject.getAlbum(at: index), player: player)) {
+            if libraryAuthorization.status == .permitted {
+                if !libraryObservableObject.albums.isEmpty {
+                    ScrollView {
+                        VStack {
+                            LibraryListView(editMode: $editMode)
                             
-                            makeGridAlbumItem(index: index, libraryObservableObject: libraryObservableObject)
+                            if !editMode.isEditing {
+                                VStack {
+                                    Text("Recently Added")
+                                        .font(.title2.bold())
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                        .padding(.horizontal)
+                                    
+                                    VerticalMusicListView(mediaItems: libraryObservableObject.albums, imageSize: .medium, rowCount: 2)
+                                }
+                            }
+                            
+                            Spacer(minLength: Metric.playerHeight)
                         }
                     }
+                    .navigationTitle("Library")
+                    .toolbar { EditButton() }
+                    .environment(\.editMode, $editMode)
+                    
+                } else {
+                    EmptyLibraryView(tabSelection: $tabSelection)
                 }
-                .navigationTitle("Library")
+            } else if libraryAuthorization.status == .notPermitted {
+                RequestAuthorizationView()
             }
-            .onAppear {
-                libraryObservableObject.refreshAlbums()
-                if UserDefaults.standard.array(forKey: UserDefaultsKey.queueDefault) == nil || player.nowPlayingItem == nil {
-                    if libraryObservableObject.getAlbumsCount() > 0 {
-                        player.setQueue(with: MPMediaQuery.songs())
-                        player.prepareToPlay()
-                        player.skipToBeginning()
-                    }
-                }
-            }
+        }.onAppear {
+            libraryObservableObject.refreshAlbums()
         }
     }
-}
-
-struct makeAlbumItemContents: View {
-    let index: Int
-    @ObservedObject var libraryObservableObject: LibraryObservableObject
     
-    var body: some View {
-        VStack{
-            MediaImageView(image: libraryObservableObject.getAlbum(at: index).artwork, size: Size(width: 160, height: 160))
-  
-            VStack {
-                Text(libraryObservableObject.getAlbum(at: index).collectionName ?? "")
-                    .font(.body)
+    struct RequestAuthorizationView: View {
+        @Environment(\.openURL) private var openURL
+        
+        var body: some View {
+            VStack(spacing: 2) {
+                Text("No Access to Your Library")
+                    .font(.title2).bold()
+                    .multilineTextAlignment(.center)
                     .foregroundColor(.primary)
-                    .lineLimit(1)
-                Text(libraryObservableObject.getAlbum(at: index).artistName ?? "")
+                
+                Text("Allow access to your media library to add your favorite songs and playlists.")
                     .font(.body)
+                    .multilineTextAlignment(.center)
                     .foregroundColor(.secondary)
-                    .lineLimit(1)
+                    .padding(.horizontal)
+                
+                Button {
+                    if let url = URL(string: UIApplication.openSettingsURLString) {
+                        openURL(url)
+                    }
+                } label: {
+                    Text("Open Settings")
+                        .font(.title3)
+                        .bold()
+                        .frame(maxWidth:.infinity)
+                        .padding(.vertical, 8)
+                }
+                .tint(.red)
+                .padding(.horizontal, 50)
+                .frame(maxWidth: .infinity)
+                .buttonStyle(.borderedProminent)
+                .padding(.top, 10)
+            }
+        }
+    }
+    
+    struct EmptyLibraryView: View {
+        @Binding var tabSelection: Tab
+        
+        var body: some View {
+            VStack {
+                Text("Add Music to Your Library")
+                    .font(.title2).bold()
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(.primary)
+                
+                Text("Browse millions of songs and collect your favorites here.")
+                    .font(.body)
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(.secondary)
+                    .padding(.horizontal)
+                
+                Spacer()
+                
+                Button { tabSelection = .browse } label: {
+                    Text("Browse Apple Music")
+                        .font(.title3)
+                        .bold()
+                        .frame(maxWidth:.infinity)
+                        .padding(.vertical, 8)
+                    
+                }
+                .tint(.red)
+                .padding(.horizontal, 50)
+                .frame(maxWidth: .infinity)
+                .buttonStyle(.borderedProminent)
             }
         }
     }
 }
 
-struct makeGridAlbumItem: View {
-    let index: Int
-    @ObservedObject var libraryObservableObject: LibraryObservableObject
+struct LibraryView_Previews: PreviewProvider {
+    struct LibraryViewExample: View {
+        @State var editMode: EditMode = .active
+        @State var tabSelection: Tab = .browse
+        
+        var body: some View {
+            LibraryView(tabSelection: $tabSelection)
+        }
+    }
     
-    var body: some View {
- 
-        makeAlbumItemContents(index: index, libraryObservableObject: libraryObservableObject)
-       
-        .padding()
+    
+    static var previews: some View {
+        LibraryViewExample()
     }
 }
-//
-//struct LibraryView: View {
-//    @Binding var tabSelection: Int
-//    @State var showOptions = false
-//    var body: some View {
-//        NavigationView {
-//            GeometryReader { geometry in
-//                ScrollView {
-//                    if showOptions {
-//                        LibraryListView()
-//                            .transition(.asymmetric(
-//                                insertion: .scale,
-//                                removal: .opacity))
-//                            .frame(width: geometry.size.width, height: geometry.size.height, alignment: .top)
-//                    }
-//                    else {
-//                        VStack {
-//                            Text("Add Music to Your Library")
-//                                .font(.title2).bold()
-//                                .multilineTextAlignment(.center)
-//                                .foregroundColor(.primary)
-//                            
-//                            Text("Browse millions of songs and collect your favorites here.")
-//                                .font(.body)
-//                                .multilineTextAlignment(.center)
-//                                .foregroundColor(.secondary)
-//                                .padding(.horizontal)
-//                            
-//                            Button { tabSelection = 1 } label: {
-//                                Text("Browse Apple Music")
-//                                    .font(.title3)
-//                                    .bold()
-//                                    .frame(maxWidth:.infinity)
-//                                    .padding(.vertical, 8)
-//                                    
-//                            }
-//                            .tint(.red)
-//                            .padding(.horizontal, 50)
-//                            .frame(maxWidth: .infinity)
-//                            .buttonStyle(.borderedProminent)
-//                        }
-//                        .frame(width: geometry.size.width, height: geometry.size.height)
-//                    }
-//                    Spacer(minLength: Metric.playerHeight)
-//                }
-//            }
-//            .navigationTitle("Library")
-//            .navigationBarItems(trailing: Button(action: {
-//                withAnimation {
-//                    showOptions.toggle()
-//                }
-//            }) {
-//                showOptions ? Text("Done") : Text("Edit")
-//            })
-//        }
-//    }
-//}
-//
-//struct LibraryView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        LibraryView(tabSelection: .constant(0))
-//    }
-//}

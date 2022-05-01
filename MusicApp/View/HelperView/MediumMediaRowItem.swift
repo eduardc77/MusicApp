@@ -12,37 +12,34 @@ struct MediumMediaRowItem: View {
     var imageData: Data?
     
     var body: some View {
-        HStack {
-            VStack(alignment: .leading) {
-                if let imageData = imageData, let uiImage = UIImage(data: imageData) {
-                    MediaImageView(image: Image(uiImage: uiImage), size: Size(width: Metric.mediumImageSize, height: Metric.mediumImageSize))
-                } else if let artworkImage = media.artwork {
-                    MediaImageView(image: artworkImage, size: Size(width: Metric.mediumImageSize, height: Metric.mediumImageSize))
-                } else {
-                    MediaImageView(size: Size(width: Metric.mediumImageSize, height: Metric.mediumImageSize))
-                }
-             
+        VStack(alignment: .leading) {
+            if let imageData = imageData, let uiImage = UIImage(data: imageData) {
+                MediaImageView(image: Image(uiImage: uiImage), size: Size(width: Metric.albumImageSize, height: Metric.albumImageSize))
+            } else if let artworkImage = media.artwork {
+                MediaImageView(image: artworkImage, size: Size(width: Metric.albumImageSize, height: Metric.albumImageSize))
+            } else if let artworkUIImage = media.artworkUIImage, let artwork = Image(uiImage: artworkUIImage) {
+                MediaImageView(image: artwork, size: Size(width: Metric.albumImageSize, height: Metric.albumImageSize))
+            } else {
+                MediaImageView(size: Size(width: Metric.albumImageSize, height: Metric.albumImageSize))
+            }
+ 
+            VStack {
                 Text(media.collectionName ?? "")
                     .foregroundColor(.primary)
-                    .font(.caption)
-                    .frame(maxWidth: Metric.mediumImageSize, alignment: .leading)
-                    .lineLimit(1)
-                    
-                
-                Text(media.description ?? "")
+                    .frame(maxWidth: Metric.albumImageSize, alignment: .leading)
+                Text(media.artistName ?? "")
                     .foregroundColor(.secondary)
-                    .font(.caption)
-                    .frame(maxWidth: Metric.mediumImageSize, alignment: .leading)
-                    .lineLimit(1)
+                    .frame(maxWidth: Metric.albumImageSize, alignment: .leading)
             }
+            .font(.caption)
+            .lineLimit(1)
         }
-        
     }
 }
 
 struct MediumMediaRowItem_Previews: PreviewProvider {
     struct MediumMediaRowItemExample: View {
-        let media = Media(id: "", artistName: "Placeholder Artist", description: "Placeholder Description", artwork: Image("bigradio1"), collectionName: "Placeholder Name")
+        let media = Media(id: "", artistName: "Placeholder Artist", description: "Placeholder Description", artwork: Image("p0"), collectionName: "Placeholder Name")
         
         var body: some View {
             MediumMediaRowItem(media: media)

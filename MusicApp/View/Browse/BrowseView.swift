@@ -14,6 +14,7 @@ struct BrowseView: View {
         NavigationView {
             ScrollView() {
                 Divider()
+                
                 HighlightsView(items: selectedStations, imageSize: .large)
 
                 Text(title)
@@ -22,6 +23,7 @@ struct BrowseView: View {
                     .padding(.horizontal)
                 
                 HorizontalMusicListView(items: musicPlaylists[2], imageSize: .small, rowCount: 4)
+
                 Spacer(minLength: Metric.playerHeight)
             }
             .navigationTitle(title)

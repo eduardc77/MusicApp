@@ -10,14 +10,7 @@ import SwiftUI
 
 final class LibraryObservableObject: ObservableObject {
     private var albumsItemCollection: [MPMediaItemCollection]?
-    @Published private var albums = [Media]()
-    
-    func getAlbum(at index: Int) -> Media {
-        if index < 0 || index >= albums.count {
-            return Media(id: DefaultString.undefined)
-        }
-        return albums[index]
-    }
+    @Published var albums = [Media]()
     
     func refreshAlbums() {
         self.makeAlbumsQuery()
@@ -27,13 +20,19 @@ final class LibraryObservableObject: ObservableObject {
     private func setAlbums() {
         albums.removeAll()
         albumsItemCollection?.forEach({ libraryAlbumItemCollection in
-            let libraryAlbum = libraryAlbumItemCollection.representativeItem
-            var image: UIImage? = nil
-            if let artwork = libraryAlbum?.artwork?.image(at: CGSize(width: 1024, height: 1024)) {
-                image = artwork
+            guard let libraryAlbum = libraryAlbumItemCollection.representativeItem else { return }
+            var image: Image?
+            var uiImage: UIImage?
+            if let artwork = libraryAlbum.artwork?.image(at: CGSize(width: 1024, height: 1024)) {
+                image = Image(uiImage: artwork)
+                uiImage = artwork
             }
             
-            let newLibraryAlbum = Media(id: libraryAlbum?.albumPersistentID.description ?? "", trackName: libraryAlbum?.title, artistName: libraryAlbum?.artist, description: libraryAlbum?.description, trackPrice: "", artworkUrl100: libraryAlbum?.assetURL, artwork: image == nil ? nil : Image(uiImage: image ?? UIImage()), collectionName: libraryAlbum?.albumTitle, trackTimeMillis: libraryAlbum?.playbackDuration, releaseDate: libraryAlbum?.releaseDate)
+            
+            let newLibraryAlbum = Media(id: libraryAlbum.persistentID.description, trackName: libraryAlbum.title, artistName: libraryAlbum.artist, description: libraryAlbum.description, trackPrice: "", artworkUrl100: libraryAlbum.assetURL, artwork: image, artworkUIImage: uiImage, collectionName: libraryAlbum.albumTitle, trackTimeMillis: libraryAlbum.playbackDuration, releaseDate: libraryAlbum.releaseDate)
+            
+            guard !newLibraryAlbum.id.isEmpty else { return }
+            
             albums.append(newLibraryAlbum)
         })
     }
@@ -48,10 +47,6 @@ final class LibraryObservableObject: ObservableObject {
             self.albumsItemCollection = nil
         }
         
-    }
-    
-    func getAlbumsCount() -> Int {
-        return albums.count
     }
 }
 

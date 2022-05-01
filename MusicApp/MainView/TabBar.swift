@@ -8,19 +8,19 @@
 import SwiftUI
 import MediaPlayer
 
+enum Tab {
+    case listenNow
+    case browse
+    case radio
+    case library
+    case search
+}
+
 struct TabBar: View {
     @State var selection: Tab = .listenNow
     @State var expand = false
     @Namespace var animation
-    
-    enum Tab {
-        case listenNow
-        case browse
-        case radio
-        case library
-        case search
-    }
-    
+
     private var player = MPMusicPlayerController.applicationMusicPlayer
     
     var body: some View {
@@ -35,7 +35,7 @@ struct TabBar: View {
                 RadioView()
                     .tabItem { Label("Radio", systemImage: "dot.radiowaves.left.and.right") }
                     .tag(Tab.radio)
-                LibraryView()
+                LibraryView(tabSelection: $selection)
                     .tabItem { Label("Library", image: "library") }
                     .tag(Tab.library)
                 SearchView()
@@ -44,8 +44,9 @@ struct TabBar: View {
             }
             .accentColor(.appAccentColor)
             
-            PlayerView(player: player, expand: $expand, animation: animation)
+            PlayerView(player: player, expand: $expand, animation: animation)  
         }
+        .ignoresSafeArea(.keyboard)
     }
 }
 
@@ -54,3 +55,4 @@ struct TabBar_Previews: PreviewProvider {
         TabBar()
     }
 }
+

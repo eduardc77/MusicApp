@@ -20,6 +20,7 @@ enum Metric {
     static let capsuleWidth: CGFloat = 36
     static let capsuleHeight: CGFloat = 5
     static let largeMediaImage: CGFloat = UIScreen.main.bounds.height / 3.33
+    static let albumImageSize: CGFloat = 158
     
     //Horizontal List and Library List
     static let smallImageSize: CGFloat = 50

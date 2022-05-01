@@ -1,3 +1,4 @@
+
 //
 //  SearchCategoryModel.swift
 //  MusicApp
@@ -12,8 +13,6 @@ struct SearchCategoryModel: Hashable {
     var image: String
     var title: String
     var tag: Int
-    
-    static let example = SearchCategoryModel(image: "category1", title: "Placeholder Placeholder", tag: 0)
 }
 
 var searchCategories = [

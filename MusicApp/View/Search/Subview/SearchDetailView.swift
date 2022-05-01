@@ -43,7 +43,7 @@ struct SearchDetailView: View {
 
 struct SearchDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        SearchDetailView(category: SearchCategoryModel.example)
+        SearchDetailView(category: searchCategories[0])
     }
 }
 

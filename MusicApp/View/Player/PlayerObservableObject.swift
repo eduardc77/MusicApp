@@ -23,6 +23,8 @@ enum UserDefaultsKey {
     static let repeatDefault = "repeatDefault"
     static let queueDefault = "queueDefault"
     static let shuffleDefault = "shuffleDefault"
+    static let libraryListSelection = "libraryListSelection"
+    static let orderedLibraryList = "orderedLibraryList"
 }
 
 final class PlayerObservableObject: ObservableObject {
@@ -31,7 +33,9 @@ final class PlayerObservableObject: ObservableObject {
     @Published var playbackState: MPMusicPlaybackState? = MPMusicPlayerController.applicationMusicPlayer.playbackState
     @Published var playerOption = PlayerOption()
     @Published var progressRate: Int = 0
+    
     let noTrackTime = 100.0
+    
     init(player: MPMusicPlayerController) {
         self.player = player
     }
@@ -90,11 +94,6 @@ final class PlayerObservableObject: ObservableObject {
         if let artwork = media.artwork?.image(at: CGSize(width: 1024, height: 1024)) {
             image = artwork
         }
-        nowPlayingItem = Media(id: media.playbackStoreID, trackName: media.title, artistName: media.artist, description: media.description, kind: MediaKind(rawValue: "\(media.mediaType)"), artwork: image == nil ? nil : Image(uiImage: image ?? UIImage()), collectionName: media.albumTitle, trackTimeMillis: media.playbackDuration, releaseDate: media.releaseDate)
-        
-        nowPlayingItem?.trackName = media.title ?? ""
-        nowPlayingItem?.artworkUrl100 = media.assetURL ?? URL(fileURLWithPath: "")
-        nowPlayingItem?.artistName = media.artist ?? ""
-        nowPlayingItem?.trackTimeMillis = player.nowPlayingItem?.playbackDuration ?? noTrackTime
+        nowPlayingItem = Media(id: media.persistentID.description, trackName: media.title, artistName: media.artist, description: media.description, kind: MediaKind(rawValue: "\(media.mediaType)"), artwork: image == nil ? nil : Image(uiImage: image ?? UIImage()), artworkUIImage: image, collectionName: media.albumTitle, trackTimeMillis: media.playbackDuration, releaseDate: media.releaseDate)
     }
 }

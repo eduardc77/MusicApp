@@ -8,55 +8,49 @@
 import SwiftUI
 
 struct ListenNowView: View {
-    @State private var navigationTitle = ""
-    
     var body: some View {
         NavigationView {
             ScrollView {
-                VStack {
-                    AppNavigationBar()
-                    
+                    Divider()
+        
                     VStack {
                         HighlightsView(items: selectedStations, imageSize: .large)
                         
                         Text("Best New Songs")
-                            .font(.title2).bold()
+                            .font(.title2.bold())
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.horizontal)
                         HorizontalMusicListView(items: musicPlaylists[0], imageSize: .small, rowCount: 4)
                         
                         Text("You Gotta Hear")
-                            .font(.title2).bold()
+                            .font(.title2.bold())
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.horizontal)
                         HorizontalMusicListView(items: musicPlaylists[0], imageSize: .medium, rowCount: 1)
                         
                         Text("Stations for You")
-                            .font(.title2).bold()
+                            .font(.title2.bold())
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.horizontal)
-                        VerticalMusicListView(items: musicPlaylists[1], imageSize: .small)
+                        VerticalMusicListView(mediaItems: [Media(id: "")], imageSize: .small)
                         
-                        Text("New Releases")
-                            .font(.title2).bold()
+                        Text("New Music")
+                            .font(.title2.bold())
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.horizontal)
                         HorizontalMusicListView(items: musicPlaylists[0], imageSize: .medium, rowCount: 2)
                     }
                     Spacer(minLength: Metric.playerHeight)
-                }
-                .background(GeometryReader {
-                    Color.clear.preference(key: ScrollViewOffsetPreferenceKey.self,
-                                           value: -$0.frame(in: .named("scroll")).origin.y)
-                })
-                .onPreferenceChange(ScrollViewOffsetPreferenceKey.self) { scrollOffset in
-                    navigationTitle = scrollOffset > 48 ? "Listen Now" : ""
-                }
-                .animation(.spring(), value: navigationTitle)
+                
+                    
             }
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationTitle(navigationTitle)
+            .toolbar(content: {
+                AccountNavigationItem()
+            })
+          
+            .navigationTitle("Listen Now")
             .coordinateSpace(name: "scroll")
+            
         }
     }
     

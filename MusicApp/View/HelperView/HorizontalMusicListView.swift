@@ -30,7 +30,7 @@ struct HorizontalMusicListView: View {
         ScrollView(.horizontal, showsIndicators: false) {
             LazyHGrid(rows: gridRows, spacing: 12) {
                 ForEach(items, id: \.self) { item in
-                    let media = Media(id: "", trackName: item.name, artistName: item.description, description: item.description, artwork: Image(item.image), collectionName: item.name)
+                    let media = Media(id: item.id.uuidString, trackName: item.name, artistName: item.description, description: item.description, artwork: Image(item.image), collectionName: item.name)
                     
                     switch imageSize {
                     case .small:
@@ -40,8 +40,7 @@ struct HorizontalMusicListView: View {
                     case .large:
                         LargeMediaRowItem(media: media)
                     }
-                }
-                
+                }  
             }
             .padding([.horizontal])
         }
@@ -52,8 +51,6 @@ struct HorizontalMusicListView: View {
 }
 
 struct HorizontalMusicListView_Previews: PreviewProvider {
-    
-    
     static var previews: some View {
         HorizontalMusicListView(items: musicPlaylists[0], imageSize: .medium, rowCount: 1)
     }
