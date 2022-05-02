@@ -83,10 +83,10 @@ final class PlayerObservableObject: ObservableObject {
     
     func makeNowPlaying(media: MPMediaItem? = nil) {
         guard let media = media else {
-            nowPlayingItem?.trackName = "Cold Heart"
-            nowPlayingItem?.artworkUrl100 = URL(fileURLWithPath: (Bundle.main.resourcePath ?? "") + "/elton")
-            nowPlayingItem?.artistName = "Elton John"
-            nowPlayingItem?.trackTimeMillis = 215
+            nowPlayingItem?.trackName = "Not Playing"
+            nowPlayingItem?.artwork = nil
+            nowPlayingItem?.artistName = nil
+            nowPlayingItem?.trackTimeMillis = 0
             
             return
         }
