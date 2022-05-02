@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct SearchDetailView: View {
-    
     var category: SearchCategoryModel
     
     var body: some View {
@@ -23,11 +22,11 @@ struct SearchDetailView: View {
                 HighlightsView(items: selectedMusic[category.tag], imageSize: .large, rowCount: 2)
                 
                 HStack {
-                    Text("Placeholder")
+                    Text("Featured Artists")
                         .font(.title2).bold()
                         .frame(maxWidth: .infinity, alignment: .leading)
                     
-                    Button("Placeholder") {}
+                    Button("See All") {}
                         .foregroundColor(.red)
                 }
                 .padding(.horizontal)

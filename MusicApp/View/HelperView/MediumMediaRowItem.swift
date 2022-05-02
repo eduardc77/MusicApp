@@ -39,7 +39,7 @@ struct MediumMediaRowItem: View {
 
 struct MediumMediaRowItem_Previews: PreviewProvider {
     struct MediumMediaRowItemExample: View {
-        let media = Media(id: "", artistName: "Placeholder Artist", description: "Placeholder Description", artwork: Image("p0"), collectionName: "Placeholder Name")
+        let media = Media(artistName: "Placeholder Artist", collectionName: "Placeholder Name", description: "Placeholder Description", artwork: Image("p0"))
         
         var body: some View {
             MediumMediaRowItem(media: media)

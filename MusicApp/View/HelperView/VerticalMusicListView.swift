@@ -30,7 +30,6 @@ struct VerticalMusicListView: View {
         ScrollView(showsIndicators: false) {
             LazyVGrid(columns: columns, spacing: 12) {
                 ForEach(mediaItems, id: \.self) { media in
-    
                     NavigationLink(destination: AlbumDetailView(media: media)) {
                         switch imageSize {
                         case .small:
@@ -42,9 +41,7 @@ struct VerticalMusicListView: View {
                         }
                     }
                 }
-                
             }.padding([.horizontal, .bottom])
-            
         }
     }
 }

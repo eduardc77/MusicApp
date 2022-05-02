@@ -20,7 +20,7 @@ struct LibraryView: View {
                 if !libraryObservableObject.albums.isEmpty {
                     ScrollView {
                         VStack {
-                            LibraryListView(editMode: $editMode)
+                            LibraryListView(libraryObservableObject: libraryObservableObject, editMode: $editMode)
                             
                             if !editMode.isEditing {
                                 VStack {
@@ -29,10 +29,9 @@ struct LibraryView: View {
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                         .padding(.horizontal)
                                     
-                                    VerticalMusicListView(mediaItems: libraryObservableObject.albums, imageSize: .medium, rowCount: 2)
+                                    VerticalMusicListView(mediaItems: libraryObservableObject.recentlyAdded, imageSize: .medium, rowCount: 2)
                                 }
                             }
-                            
                             Spacer(minLength: Metric.playerHeight)
                         }
                     }
@@ -46,8 +45,6 @@ struct LibraryView: View {
             } else if libraryAuthorization.status == .notPermitted {
                 RequestAuthorizationView()
             }
-        }.onAppear {
-            libraryObservableObject.refreshAlbums()
         }
     }
     

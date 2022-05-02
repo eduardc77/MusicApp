@@ -8,20 +8,60 @@
 import SwiftUI
 
 struct LibraryListDetailView: View {
-    var title: String
+    @ObservedObject var libraryObservableObject: LibraryObservableObject
+    var section: LibrarySection
+    @State var sort: SortOrder = .forward
     @State private var searchTerm = ""
     
     var body: some View {
         ScrollView {
             Divider()
+            
+            switch section {
+            case .playlists:
+                VerticalMusicListView(mediaItems: libraryObservableObject.playlists, imageSize: .medium, rowCount: 2)
+            case .artists:
+                VerticalMusicListView(mediaItems: libraryObservableObject.artists, imageSize: .medium, rowCount: 1)
+            case .albums:
+                VerticalMusicListView(mediaItems: libraryObservableObject.albums, imageSize: .medium, rowCount: 2)
+            case .songs:
+                VerticalMusicListView(mediaItems: libraryObservableObject.songs, imageSize: .medium, rowCount: 1)
+            case .madeForYou:
+                VerticalMusicListView(mediaItems: libraryObservableObject.madeForYou, imageSize: .medium, rowCount: 2)
+            case .tvAndMovies:
+                VerticalMusicListView(mediaItems: libraryObservableObject.tvAndMovies, imageSize: .medium, rowCount: 2)
+            case .musicVideos:
+                VerticalMusicListView(mediaItems: libraryObservableObject.musicVideos, imageSize: .medium, rowCount: 2)
+            case .genres:
+                VerticalMusicListView(mediaItems: libraryObservableObject.genres, imageSize: .medium, rowCount: 2)
+            case .compilations:
+                VerticalMusicListView(mediaItems: libraryObservableObject.compilations, imageSize: .medium, rowCount: 2)
+            case .composers:
+                VerticalMusicListView(mediaItems: libraryObservableObject.composers, imageSize: .medium, rowCount: 2)
+            case .downloaded:
+                VerticalMusicListView(mediaItems: libraryObservableObject.downloaded, imageSize: .medium, rowCount: 2)
+            case .homeSharing:
+                VerticalMusicListView(mediaItems: libraryObservableObject.homeSharing, imageSize: .medium, rowCount: 2)
+            }
+
+            Spacer(minLength: Metric.playerHeight)
         }
-        .navigationTitle(title)
-        .searchable(text: $searchTerm, prompt: "Find in \(title)")
+        .navigationTitle(section.title)
+        .searchable(text: $searchTerm, prompt: "Find in \(section.title)")
+        .toolbar {
+            Button(action: {}, label:
+            { Text("Sort") })
+        }
     }
 }
 
 struct LibraryListDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        LibraryListDetailView(title: "Library Detail View")
+        LibraryListDetailView(libraryObservableObject: LibraryObservableObject(), section: .albums)
     }
 }
+
+
+
+
+

@@ -42,7 +42,7 @@ struct LargeMediaRowItem: View {
 
 struct LargeMediaRowItem_Previews: PreviewProvider {
     struct LargeMediaRowItemExample: View {
-        let media = Media(id: "", artistName: "Placeholder Artist", description: "Placeholder Description", artwork: Image("bigradio1"), collectionName: "Placeholder Name")
+        let media = Media(artistName: "Placeholder Artist", collectionName: "Placeholder Name", description: "Placeholder Description", artwork: Image("bigradio1"))
         
         var body: some View {
             LargeMediaRowItem(media: media)

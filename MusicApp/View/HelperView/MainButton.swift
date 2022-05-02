@@ -11,7 +11,7 @@ struct MainButton: View {
     var title: String
     var font: Font = .headline
     var image: Image?
-    var forgroundColor: Color = .appAccentColor
+    var forgroundColor: Color = .accentColor
     var tint: Color = .secondary.opacity(0.16)
     var size: Size = Size(width: .infinity, height: 26)
     var action: () -> Void

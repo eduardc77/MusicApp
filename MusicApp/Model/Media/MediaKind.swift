@@ -8,7 +8,17 @@
 import Foundation
 
 enum MediaKind: String {
-    case album, song, artist, playlist, musicVideo, ebook, movie, tvSeason, audiobook, podcast, mix
+    case album
+    case song
+    case artist
+    case playlist
+    case musicVideo
+    case ebook
+    case movie
+    case tvSeason
+    case audiobook
+    case podcast
+    case mix
 
     var title: String {
         switch self {
@@ -38,11 +48,11 @@ enum MediaKind: String {
     }
 
     var entity: String {
-        return self.rawValue
+        self.rawValue
     }
     
     var entityUppercased: String {
-        return self.rawValue.uppercased()
+        self.rawValue.uppercased()
     }
 
     var id: String { self.rawValue }

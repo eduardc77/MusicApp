@@ -53,7 +53,7 @@ struct MediaDetailView: View {
     var mediaImageDetails: some View {
         VStack(alignment: .leading, spacing: 10) {
             Text("Price: ").bold() +
-            Text(media?.trackPrice ?? "")
+            Text(media?.trackPrice != nil ? "$\(media?.trackPrice ?? 0)" : "No Price")
 
             if #available(iOS 15.0, *) {
                 Text("Published: ").bold() +
@@ -73,7 +73,7 @@ struct MediaDetailView: View {
 
             HStack(spacing: 10) {
                 Text("Price: ").bold() +
-                Text(media?.trackPrice ?? "")
+                Text(media?.trackPrice != nil ? "$\(media?.trackPrice ?? 0)" : "No Price")
 
                 if #available(iOS 15.0, *) {
                     Text("Published: ").bold() +
@@ -100,6 +100,6 @@ struct MediaDetailView: View {
 
     var genres: some View {
         Text("Genre(s): ").bold() +
-        Text(media?.genres?.joined(separator: ", ") ?? "")
+        Text(media?.primaryGenreName ?? "No Genre")
     }
 }

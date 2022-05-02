@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		EA1BE0CA281DC1DF00A3A7A4 /* LibraryListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1BE0C9281DC1DF00A3A7A4 /* LibraryListItem.swift */; };
+		EA1BE0CA281DC1DF00A3A7A4 /* LibrarySection.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1BE0C9281DC1DF00A3A7A4 /* LibrarySection.swift */; };
 		EA1BE0CC281DC80900A3A7A4 /* LibraryListDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1BE0CB281DC80900A3A7A4 /* LibraryListDetailView.swift */; };
 		EA23ECF128156AD40040BB58 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA23ECF028156AD40040BB58 /* UIImage+Extension.swift */; };
 		EA23ECF328156F570040BB58 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA23ECF228156F570040BB58 /* Int+Extension.swift */; };
@@ -25,6 +25,7 @@
 		EA978846281B184A0032C3AD /* AccountSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA978845281B184A0032C3AD /* AccountSummary.swift */; };
 		EA978849281B18900032C3AD /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA978848281B18900032C3AD /* Account.swift */; };
 		EA97884B281B1FDD0032C3AD /* AccountNavigationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA97884A281B1FDD0032C3AD /* AccountNavigationItem.swift */; };
+		EAA2277E281F01FD00A8484F /* WrapperType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA2277D281F01FD00A8484F /* WrapperType.swift */; };
 		EAC53D7528145B2600785395 /* PlayerObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC53D7428145B2600785395 /* PlayerObservableObject.swift */; };
 		EAC53D7728145C7B00785395 /* Enum+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC53D7628145C7B00785395 /* Enum+Extension.swift */; };
 		EAC53D7A2814888400785395 /* TimeInterval+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC53D792814888400785395 /* TimeInterval+Extension.swift */; };
@@ -78,11 +79,11 @@
 		EAD1536E280D63A7005FD971 /* SearchQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD1536D280D63A7005FD971 /* SearchQuery.swift */; };
 		EAD15371280D6403005FD971 /* Collection+Grouped.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD15370280D6403005FD971 /* Collection+Grouped.swift */; };
 		EAD15373280D640E005FD971 /* Date+DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD15372280D640E005FD971 /* Date+DateFormatter.swift */; };
-		EAD15375280D6416005FD971 /* String+StripHTML.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD15374280D6416005FD971 /* String+StripHTML.swift */; };
+		EAD15375280D6416005FD971 /* String+stripHTML.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD15374280D6416005FD971 /* String+stripHTML.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		EA1BE0C9281DC1DF00A3A7A4 /* LibraryListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryListItem.swift; sourceTree = "<group>"; };
+		EA1BE0C9281DC1DF00A3A7A4 /* LibrarySection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibrarySection.swift; sourceTree = "<group>"; };
 		EA1BE0CB281DC80900A3A7A4 /* LibraryListDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryListDetailView.swift; sourceTree = "<group>"; };
 		EA23ECF028156AD40040BB58 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		EA23ECF228156F570040BB58 /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
@@ -100,6 +101,7 @@
 		EA978845281B184A0032C3AD /* AccountSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSummary.swift; sourceTree = "<group>"; };
 		EA978848281B18900032C3AD /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		EA97884A281B1FDD0032C3AD /* AccountNavigationItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountNavigationItem.swift; sourceTree = "<group>"; };
+		EAA2277D281F01FD00A8484F /* WrapperType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrapperType.swift; sourceTree = "<group>"; };
 		EAC53D7428145B2600785395 /* PlayerObservableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerObservableObject.swift; sourceTree = "<group>"; };
 		EAC53D7628145C7B00785395 /* Enum+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Enum+Extension.swift"; sourceTree = "<group>"; };
 		EAC53D78281480B300785395 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -155,7 +157,7 @@
 		EAD1536D280D63A7005FD971 /* SearchQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchQuery.swift; sourceTree = "<group>"; };
 		EAD15370280D6403005FD971 /* Collection+Grouped.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Grouped.swift"; sourceTree = "<group>"; };
 		EAD15372280D640E005FD971 /* Date+DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+DateFormatter.swift"; sourceTree = "<group>"; };
-		EAD15374280D6416005FD971 /* String+StripHTML.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+StripHTML.swift"; sourceTree = "<group>"; };
+		EAD15374280D6416005FD971 /* String+stripHTML.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+stripHTML.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,7 +174,7 @@
 		EA1BE0C8281DC1CE00A3A7A4 /* Library */ = {
 			isa = PBXGroup;
 			children = (
-				EA1BE0C9281DC1DF00A3A7A4 /* LibraryListItem.swift */,
+				EA1BE0C9281DC1DF00A3A7A4 /* LibrarySection.swift */,
 			);
 			path = Library;
 			sourceTree = "<group>";
@@ -290,6 +292,7 @@
 				EAD15310280D57FF005FD971 /* ItunesAPIResponse.swift */,
 				EAD15312280D581B005FD971 /* Media.swift */,
 				EAD15314280D5835005FD971 /* MediaKind.swift */,
+				EAA2277D281F01FD00A8484F /* WrapperType.swift */,
 				EAD15318280D5883005FD971 /* Path.swift */,
 			);
 			path = Media;
@@ -439,7 +442,7 @@
 				EA3FA3522817697200F84B09 /* Color.swift */,
 				EACA1C3B2819B29800CD7E4F /* View+HideKeyboard.swift */,
 				EAD15372280D640E005FD971 /* Date+DateFormatter.swift */,
-				EAD15374280D6416005FD971 /* String+StripHTML.swift */,
+				EAD15374280D6416005FD971 /* String+stripHTML.swift */,
 				EA59D3112813555C00D58213 /* UIDevice+Extension.swift */,
 				EAC53D7628145C7B00785395 /* Enum+Extension.swift */,
 				EAC53D792814888400785395 /* TimeInterval+Extension.swift */,
@@ -529,8 +532,9 @@
 				EAD1534B280D5D9E005FD971 /* SearchView.swift in Sources */,
 				EAD15329280D5B22005FD971 /* VerticalMusicListView.swift in Sources */,
 				EAD15339280D5C24005FD971 /* PlayerView.swift in Sources */,
+				EAA2277E281F01FD00A8484F /* WrapperType.swift in Sources */,
 				EA23ED132815C8290040BB58 /* SnapCarousel.swift in Sources */,
-				EAD15375280D6416005FD971 /* String+StripHTML.swift in Sources */,
+				EAD15375280D6416005FD971 /* String+stripHTML.swift in Sources */,
 				EAD15354280D5DFD005FD971 /* SearchResultsRowItem.swift in Sources */,
 				EAD152FB280D56A8005FD971 /* ContentView.swift in Sources */,
 				EAD1536A280D6394005FD971 /* LookupQuery.swift in Sources */,
@@ -564,7 +568,7 @@
 				EAD15315280D5835005FD971 /* MediaKind.swift in Sources */,
 				EAD15325280D5AFD005FD971 /* HighlightsView.swift in Sources */,
 				EAC53D822814C44A00785395 /* AlbumDetailObservableObject.swift in Sources */,
-				EA1BE0CA281DC1DF00A3A7A4 /* LibraryListItem.swift in Sources */,
+				EA1BE0CA281DC1DF00A3A7A4 /* LibrarySection.swift in Sources */,
 				EAC53D7E2814BA1B00785395 /* LibraryObservableObject.swift in Sources */,
 				EAD15333280D5BBA005FD971 /* PlayerButtonsView.swift in Sources */,
 				EAD1535D280D6252005FD971 /* CoreDataManager.swift in Sources */,

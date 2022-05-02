@@ -7,21 +7,47 @@
 
 import SwiftUI
 
-struct Media: Identifiable {
-    var id: String
-    var trackName: String?
-    var artistName: String?
-    var description: String?
+struct Media {
+    var id: String = UUID().uuidString
+    
+    var wrapperType: WrapperType?
     var kind: MediaKind?
-    var genres: [String]?
-    var trackPrice: String?
+    var artistId: Int?
+    var collectionId: Int?
+    var trackId: Int?
+    var artistName: String?
+    var collectionName: String?
+    var trackName: String?
+    var collectionCensoredName: String?
+    var artistViewUrl: URL?
+    var collectionViewUrl: URL?
+    var trackViewUrl: URL?
+    var previewUrl: URL?
+    var artworkUrl60: URL?
     var artworkUrl100: URL?
+    var collectionPrice: Double?
+    var trackPrice: Double?
+    var collectionExplicitness: String?
+    var trackExplicitness: String?
+    var discCount: Int?
+    var discNumber: Int?
+    var trackCount: Int?
+    var trackNumber: Int?
+    var trackTimeMillis: Double?
+    var country: String?
+    var currency: String?
+    var primaryGenreName: String?
+    
+    var description: String?
+    var longDescription: String?
+    
+    // Library Properties
     var artwork: Image?
     var artworkUIImage: UIImage?
-    var previewUrl: URL?
-    var collectionName: String?
-    var trackTimeMillis: Double?
+    var composer: String?
+    var isCompilation: Bool?
     var releaseDate: Date?
+    var dateAdded: Date?
 }
 
 extension Media: Equatable {
@@ -37,109 +63,69 @@ extension Media: Hashable {
 }
 
 extension Media: Codable {
-    enum CodingKeys: String, CodingKey {
-        case genres, releaseDate, description, previewUrl, kind, trackName, trackPrice, artworkUrl100, artistName, trackTimeMillis, collectionName
-        case id = "trackId"
+    private enum CodingKeys: String, CodingKey {
+        case wrapperType, kind, artistId, collectionId, trackId, artistName, collectionName, trackName, collectionCensoredName, artistViewUrl, collectionViewUrl, trackViewUrl, previewUrl, artworkUrl60, artworkUrl100, collectionPrice, trackPrice, collectionExplicitness, trackExplicitness, discCount, discNumber, trackCount, trackNumber, trackTimeMillis, country, currency, primaryGenreName, description, longDescription, releaseDate
+        
     }
-
-    enum AdditionalKeys: String, CodingKey {
-        case longDescription
-        case primaryGenreName
-        case wrapperType
-        case trackPrice
-        case collectionId
-        case collectionName
-        case collectionPrice
-    }
-
+    
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        let additionalContainer = try decoder.container(keyedBy: AdditionalKeys.self)
-
-        if let id = try? container.decode(Int.self, forKey: .id) {
-            self.id = String(id)
-        } else {
-            self.id = String(try additionalContainer.decode(Int.self, forKey: .collectionId))
-        }
-
-        if let name = try? container.decode(String.self, forKey: .trackName) {
-            trackName = name
-        } else {
-            trackName = try additionalContainer.decode(String.self, forKey: .collectionName)
-        }
-
-        if let kind = try? container.decode(String.self, forKey: .kind) {
-            self.kind = MediaKind(rawValue: kind) ?? .artist
-        } else {
-            let wrapperType = try additionalContainer.decode(String.self, forKey: .wrapperType)
-            self.kind = MediaKind(rawValue: wrapperType) ?? .artist
+    
+        wrapperType = WrapperType(rawValue: try container.decode(String.self, forKey: .wrapperType)) ?? .none
+        kind = MediaKind(rawValue: try container.decode(String.self, forKey: .kind)) ?? .none
+        
+        if let trackId = try? container.decode(Int.self, forKey: .trackId) {
+            id = String(trackId)
+            self.trackId = trackId
+        } else if let collectionId = try? container.decode(Int.self, forKey: .collectionId) {
+            id = String(collectionId)
+            self.collectionId = collectionId
+        } else if let artistId = try? container.decode(Int.self, forKey: .artistId) {
+            id = String(artistId)
+            self.artistId = artistId
         }
         artistName = try container.decode(String.self, forKey: .artistName)
-        artworkUrl100 = try container.decode(URL.self, forKey: .artworkUrl100)
-        previewUrl = (try? container.decode(URL.self, forKey: .previewUrl)) ?? nil
-        trackTimeMillis = try container.decode(Double.self, forKey: .trackTimeMillis)
         collectionName = try container.decode(String.self, forKey: .collectionName)
+        trackName = try container.decode(String.self, forKey: .trackName)
+        collectionCensoredName = try container.decode(String.self, forKey: .collectionCensoredName)
+        artistViewUrl = try container.decode(URL.self, forKey: .artistViewUrl)
+        collectionViewUrl = try container.decode(URL.self, forKey: .collectionViewUrl)
+        trackViewUrl = try container.decode(URL.self, forKey: .trackViewUrl)
+        previewUrl = (try? container.decode(URL.self, forKey: .previewUrl)) ?? nil
+        artworkUrl60 = (try? container.decode(URL.self, forKey: .artworkUrl60)) ?? nil
+        artworkUrl100 = try container.decode(URL.self, forKey: .artworkUrl100)
+        collectionPrice = try container.decode(Double.self, forKey: .collectionPrice)
+        trackPrice = try container.decode(Double.self, forKey: .trackPrice)
+        collectionExplicitness = try container.decode(String.self, forKey: .collectionExplicitness)
+        trackExplicitness = try container.decode(String.self, forKey: .trackExplicitness)
+        discCount = try container.decode(Int.self, forKey: .discCount)
+        discNumber = try container.decode(Int.self, forKey: .discNumber)
+        trackCount = try container.decode(Int.self, forKey: .trackCount)
+        trackNumber = try container.decode(Int.self, forKey: .trackNumber)
+        trackTimeMillis = try container.decode(Double.self, forKey: .trackTimeMillis)
+        country = try container.decode(String.self, forKey: .country)
+        currency = try container.decode(String.self, forKey: .currency)
+        primaryGenreName = try container.decode(String.self, forKey: .primaryGenreName)
         releaseDate = try container.decode(Date.self, forKey: .releaseDate)
-
+        
         if let description = try? container.decode(String.self, forKey: .description) {
             self.description = description.stripHTML()
-        } else if let description = try? additionalContainer.decode(String.self, forKey: .longDescription) {
-            self.description = description.stripHTML()
+        } else if let description = try? container.decode(String.self, forKey: .longDescription) {
+            self.longDescription = description.stripHTML()
         } else {
             description = "No description."
+            longDescription = ""
         }
-
-        if let genres = try? container.decode([String].self, forKey: .genres) {
-            self.genres = genres
-        } else if let genre = try? additionalContainer.decode(String.self, forKey: .primaryGenreName) {
-            genres = [genre]
+        
+        if let trackPrice = try? container.decode(Double.self, forKey: .trackPrice) {
+            self.trackPrice = trackPrice
+        } else if let collectionPrice = try? container.decode(Double.self, forKey: .collectionPrice) {
+            self.collectionPrice = collectionPrice
         } else {
-            genres = []
-        }
-
-        if let price = try? container.decode(String.self, forKey: .trackPrice) {
-            self.trackPrice = price
-        } else if let price = try? additionalContainer.decode(String.self, forKey: .trackPrice) {
-            self.trackPrice = price
-        } else if let number = (try? additionalContainer.decode(Double.self, forKey: .collectionPrice)) {
-            self.trackPrice = "$\(number)"
-        } else {
-            trackPrice = ""
+            trackPrice = 0.0
+            collectionPrice = 0.0
         }
     }
-}
-
-// MARK: Sample data for Media
-extension Media {
-    static let sampleData: [Media] = (0...6).map { _ in Media.singleMedia }
-    static let singleMedia = Media(
-        id: "1436991868",
-        trackName: "Run from Ruin",
-        artistName: "Steven King",
-        description:
-        """
-        They’re not undead; they’re just angry…  \
-        The DataMind meditation app has revolutionized the world, \
-        making people smarter, happier, and more productive. But a \
-        programming glitch in the final update causes billions of \
-        users to experience uncontrollable rage and aggression. \
-        <br /><br />Nick, an ordinary high school senior in Fairbanks \
-        Alaska, is suddenly thrust into this life or death arena. \
-        He and his brother must escape the zombie-like hordes of \
-        blood-thirsty maniacs and seek refuge north of the arctic \
-        circle.<br /><br />The four-hundred-mile journey tests the \
-        boys, their wits, and their trust in each other. They think \
-        they’re fighting to stay alive; but little do they know, \
-        they’re fighting to save mankind.
-        """,
-        kind: .ebook,
-        genres: ["Horror", "Books", "Fiction & Literature", "Sci-Fi & Fantasy"],
-        trackPrice: "Free",
-        artworkUrl100: URL(string: "https://is5-ssl.mzstatic.com/image/thumb/Publication125/v4/0d/b4/db/0db4db25-4fc4-52f0-492c-95d3d3daec86/9780463068281.jpg/100x100bb.jpg")!,
-        previewUrl: nil,
-        collectionName: "Album",
-        trackTimeMillis: 1000,
-        releaseDate: Date().addingTimeInterval(-1 * 3 * 365 * 24 * 60 * 60))
 }
 
 enum DefaultString {

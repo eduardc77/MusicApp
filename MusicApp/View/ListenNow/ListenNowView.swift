@@ -32,7 +32,7 @@ struct ListenNowView: View {
                             .font(.title2.bold())
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.horizontal)
-                        VerticalMusicListView(mediaItems: [Media(id: "")], imageSize: .small)
+                        VerticalMusicListView(mediaItems: [Media()], imageSize: .small)
                         
                         Text("New Music")
                             .font(.title2.bold())

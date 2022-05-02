@@ -30,7 +30,7 @@ struct HorizontalMusicListView: View {
         ScrollView(.horizontal, showsIndicators: false) {
             LazyHGrid(rows: gridRows, spacing: 12) {
                 ForEach(items, id: \.self) { item in
-                    let media = Media(id: item.id.uuidString, trackName: item.name, artistName: item.description, description: item.description, artwork: Image(item.image), collectionName: item.name)
+                    let media = Media(artistName: item.description, collectionName: item.name, trackName: item.name, description: item.description, artwork: Image(item.image))
                     
                     switch imageSize {
                     case .small:

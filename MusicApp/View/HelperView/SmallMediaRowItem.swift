@@ -54,7 +54,7 @@ struct SmallMediaRowItem: View {
 
 struct SmallMediaRowItem_Previews: PreviewProvider {
     struct SmallMediaRowItemExample: View {
-        let media = Media(id: "", trackName: "Placeholder Name", artistName: "Placeholder Artist", description: "Placeholder Description", artwork: Image("bigradio1"))
+        let media = Media(artistName: "Placeholder Artist", trackName: "Placeholder Name", description: "Placeholder Description", artwork: Image("bigradio1"))
         
         var body: some View {
             SmallMediaRowItem(media: media)

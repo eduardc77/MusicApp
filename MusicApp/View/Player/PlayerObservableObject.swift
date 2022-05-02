@@ -94,6 +94,23 @@ final class PlayerObservableObject: ObservableObject {
         if let artwork = media.artwork?.image(at: CGSize(width: 1024, height: 1024)) {
             image = artwork
         }
-        nowPlayingItem = Media(id: media.persistentID.description, trackName: media.title, artistName: media.artist, description: media.description, kind: MediaKind(rawValue: "\(media.mediaType)"), artwork: image == nil ? nil : Image(uiImage: image ?? UIImage()), artworkUIImage: image, collectionName: media.albumTitle, trackTimeMillis: media.playbackDuration, releaseDate: media.releaseDate)
+        
+        let kind: MediaKind
+        
+        switch media.mediaType.rawValue {
+        case 1: kind = MediaKind.song
+        case 2: kind = MediaKind.podcast
+        case 4: kind = MediaKind.audiobook
+        case 255: kind = MediaKind.song
+        case 256: kind = MediaKind.movie
+        case 512: kind = MediaKind.tvSeason
+        case 1024: kind = MediaKind.mix
+        case 2048: kind = MediaKind.musicVideo
+        case 4096: kind = MediaKind.musicVideo
+        case 65280: kind = MediaKind.musicVideo
+        default: kind = MediaKind.playlist
+        }
+        
+        nowPlayingItem = Media(kind: kind, artistName: media.artist, collectionName: media.albumTitle, trackName: media.title, trackTimeMillis: media.playbackDuration, description: media.description, artwork: image == nil ? nil : Image(uiImage: image ?? UIImage()), artworkUIImage: image, releaseDate: media.releaseDate)
     }
 }
