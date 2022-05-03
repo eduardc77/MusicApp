@@ -22,7 +22,7 @@ struct SearchResultsRowItem: View {
             }
             
             VStack(alignment: .leading) {
-                Text(media.trackName ?? "")
+                Text(media.trackName ?? media.collectionName ?? media.artistName ?? "")
                     .foregroundColor(.primary)
                     .font(.callout)
                     .lineLimit(1)

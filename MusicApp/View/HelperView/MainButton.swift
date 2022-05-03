@@ -11,7 +11,7 @@ struct MainButton: View {
     var title: String
     var font: Font = .headline
     var image: Image?
-    var forgroundColor: Color = .accentColor
+    var foregroundColor: Color = .accentColor
     var tint: Color = .secondary.opacity(0.16)
     var size: Size = Size(width: .infinity, height: 26)
     var action: () -> Void
@@ -26,11 +26,11 @@ struct MainButton: View {
                     .font(font)
                    
             }
-            .frame(maxWidth: .infinity, maxHeight: size.height)
+            .frame(maxWidth: .infinity, minHeight: size.height, maxHeight: .infinity)
         }
         
         .tint(tint)
-        .foregroundColor(forgroundColor)
+        .foregroundColor(foregroundColor)
         .buttonStyle(.borderedProminent)
     }
 }
@@ -40,3 +40,4 @@ struct MainButton_Previews: PreviewProvider {
         MainButton(title: "Button", image: Image(systemName: "shuffle"), action: {})
     }
 }
+

@@ -21,11 +21,11 @@ struct LibraryListDetailView: View {
             case .playlists:
                 VerticalMusicListView(mediaItems: libraryObservableObject.playlists, imageSize: .medium, rowCount: 2)
             case .artists:
-                VerticalMusicListView(mediaItems: libraryObservableObject.artists, imageSize: .medium, rowCount: 1)
+                VerticalMusicListView(mediaItems: libraryObservableObject.artists, imageSize: .small, rowCount: 1)
             case .albums:
                 VerticalMusicListView(mediaItems: libraryObservableObject.albums, imageSize: .medium, rowCount: 2)
             case .songs:
-                VerticalMusicListView(mediaItems: libraryObservableObject.songs, imageSize: .medium, rowCount: 1)
+                VerticalMusicListView(mediaItems: libraryObservableObject.songs, imageSize: .small, rowCount: 1)
             case .madeForYou:
                 VerticalMusicListView(mediaItems: libraryObservableObject.madeForYou, imageSize: .medium, rowCount: 2)
             case .tvAndMovies:
@@ -33,11 +33,11 @@ struct LibraryListDetailView: View {
             case .musicVideos:
                 VerticalMusicListView(mediaItems: libraryObservableObject.musicVideos, imageSize: .medium, rowCount: 2)
             case .genres:
-                VerticalMusicListView(mediaItems: libraryObservableObject.genres, imageSize: .medium, rowCount: 2)
+                VerticalMusicListView(mediaItems: libraryObservableObject.genres, imageSize: .small, rowCount: 1)
             case .compilations:
                 VerticalMusicListView(mediaItems: libraryObservableObject.compilations, imageSize: .medium, rowCount: 2)
             case .composers:
-                VerticalMusicListView(mediaItems: libraryObservableObject.composers, imageSize: .medium, rowCount: 2)
+                VerticalMusicListView(mediaItems: libraryObservableObject.composers, imageSize: .small, rowCount: 1)
             case .downloaded:
                 VerticalMusicListView(mediaItems: libraryObservableObject.downloaded, imageSize: .medium, rowCount: 2)
             case .homeSharing:

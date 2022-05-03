@@ -12,6 +12,8 @@ struct LibraryListView: View {
     @Binding var editMode: EditMode
     @State var selection: Set<LibrarySection> = []
     @State var currentSections = LibrarySection.allCases
+    
+    @State private var selectedFruit: String?
   
     var body: some View {
         List(selection: $selection) {
@@ -23,17 +25,18 @@ struct LibraryListView: View {
                         Image(systemName: section.systemImage)
                             .font(.title2)
                             .foregroundColor(.accentColor)
-                            .frame(width: 32)
+                            .frame(minWidth: 32)
                         Text(section.title)
                             .font(.title2)
                     }
-                    .frame(height: 36)
+                    .frame(minWidth: 36)
                 }
             }
             .onMove(perform: move)
+            .listRowBackground(Color.clear)
         }
         .listStyle(.plain)
-        .frame(idealHeight: CGFloat(50 * currentSections.count))
+        .frame(idealHeight: CGFloat(50 * currentSections.count), maxHeight: .infinity)
         
         .onChange(of: editMode, perform: { editMode in
             withAnimation {
@@ -74,7 +77,6 @@ struct LibraryListView_Previews: PreviewProvider {
             LibraryListView(libraryObservableObject: LibraryObservableObject(), editMode: $editMode)
         }
     }
-    
     
     static var previews: some View {
         LibraryListViewExample()

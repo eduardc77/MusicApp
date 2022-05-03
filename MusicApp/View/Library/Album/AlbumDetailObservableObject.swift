@@ -25,6 +25,24 @@ final class AlbumDetailObservableObject: ObservableObject {
         setIDsQueue()
     }
     
+    var albumDuration: Int {
+        var albumDuration: TimeInterval = 0
+        albumContents?.songs.forEach { song in
+            albumDuration += song.playbackDuration
+        }
+        
+        return Int((albumDuration / 60).truncatingRemainder(dividingBy: 60))
+    }
+    
+    var albumTrackCount: Int {
+        var albumTrackCount: Int = 0
+        albumContents?.songs.forEach { song in
+            albumTrackCount += 1
+        }
+        
+        return albumTrackCount
+    }
+    
     private func initSongsInAlbum() {
         setSongsInAlbumDetail(albumTitle: media.collectionName ?? "")
     }
@@ -32,9 +50,9 @@ final class AlbumDetailObservableObject: ObservableObject {
     private func setIDsQueue() {
         var stringQueue: [String] = []
         songIDsQueue.removeAll()
-        albumContents?.songs.forEach({ song in
+        albumContents?.songs.forEach { song in
             stringQueue.append(song.playbackStoreID)
-        })
+        }
         
         songIDsQueue = stringQueue
     }
