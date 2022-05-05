@@ -26,6 +26,7 @@ struct MediaDetailView: View {
                         VideoPlayer(player: AVPlayer(url: previewUrl))
                             .frame(width: proxy.size.width - 32, height: 250)
                             .padding([.bottom], 8)
+                        
                         detailsForVideo
                     } else {
                         HStack(spacing: 40) {
@@ -46,7 +47,6 @@ struct MediaDetailView: View {
                 }
                 .padding()
             }
-            
         }
     }
 

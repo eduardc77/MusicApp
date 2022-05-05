@@ -20,7 +20,7 @@ struct RadioView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.horizontal)
                 
-                VerticalMusicListView(mediaItems: [Media()], imageSize: .small)
+                VerticalMediaGridView(mediaItems: [Media()], imageSize: .small)
                 Spacer(minLength: Metric.playerHeight)
             }
             .navigationTitle("Radio")

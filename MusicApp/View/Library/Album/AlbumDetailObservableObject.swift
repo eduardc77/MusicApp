@@ -12,12 +12,12 @@ struct AlbumContents {
 }
 
 final class AlbumDetailObservableObject: ObservableObject {
-    private var player = MPMusicPlayerController.applicationMusicPlayer
+    var player = MPMusicPlayerController.applicationMusicPlayer
     private(set) var media: Media
     @Published private(set) var albumContents: AlbumContents?
     @Published private var songIDsQueue: [String] = []
     @Published private(set) var waitingForPrepare: Bool = false
-    
+
     init(media: Media) {
         self.media = media
         

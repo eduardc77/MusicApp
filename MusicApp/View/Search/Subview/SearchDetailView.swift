@@ -31,7 +31,7 @@ struct SearchDetailView: View {
                 }
                 .padding(.horizontal)
                 
-                HorizontalMusicListView(items: musicPlaylists[category.tag], imageSize: .medium)
+                HorizontalMediaGridView(items: musicPlaylists[category.tag], imageSize: .medium)
                 
                     .navigationBarTitleDisplayMode(.inline)
             }

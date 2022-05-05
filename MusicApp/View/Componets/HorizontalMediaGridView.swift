@@ -1,5 +1,5 @@
 //
-//  HorizontalMusicListView.swift
+//  HorizontalMediaGridView.swift
 //  MusicApp
 //
 //  Created by Eduard Caziuc on 18.04.2022.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct HorizontalMusicListView: View {
+struct HorizontalMediaGridView: View {
     @State var items = [SmallPictureModel]()
     var imageSize: ImageSizeType
     var gridRows: [GridItem]
@@ -52,6 +52,6 @@ struct HorizontalMusicListView: View {
 
 struct HorizontalMusicListView_Previews: PreviewProvider {
     static var previews: some View {
-        HorizontalMusicListView(items: musicPlaylists[0], imageSize: .medium, rowCount: 1)
+        HorizontalMediaGridView(items: musicPlaylists[0], imageSize: .medium, rowCount: 1)
     }
 }

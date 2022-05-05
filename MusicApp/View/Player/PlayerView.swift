@@ -12,6 +12,7 @@ struct PlayerView: View {
     @StateObject private var playerObservableObject: PlayerObservableObject
     @Binding var expand: Bool
     @State var offset: CGFloat = 0
+    @State private var visibleSide = FlipViewSide.front
     
     var animation: Namespace.ID
     static let timer = Timer.publish(every: 0.5, tolerance: nil, on: .main, in: .common).autoconnect()
@@ -36,9 +37,13 @@ struct PlayerView: View {
                     if expand { Spacer() }
                     
                     if let artwork = playerObservableObject.nowPlayingItem?.artwork {
-                        MediaImageView(image: artwork, size: Size(width: expand ? Metric.largeMediaImage : Metric.playerSmallImageSize, height: expand ? Metric.largeMediaImage : Metric.playerSmallImageSize), cornerRadius: expand ? 10 : Metric.searchResultCornerRadius, isLargeArtworkSize: expand ? true : false)
-                            .scaleEffect((playerObservableObject.playbackState == .playing && expand) ? 1.33 : 1)
-                            .animation(.spring(response: 0.5, dampingFraction: 0.5, blendDuration: 0.3), value: playerObservableObject.playbackState)
+                        MediaImageView(image: artwork, size: Size(width: expand ? Metric.largeMediaImage : Metric.playerSmallImageSize, height: expand ? Metric.largeMediaImage : Metric.playerSmallImageSize), cornerRadius: expand ? 10 : Metric.searchResultCornerRadius, isLargeArtworkSize: expand ? true : false, foregroundColor: .secondary, visibleSide: $visibleSide)
+                                .scaleEffect((playerObservableObject.playbackState == .playing && expand) ? 1.33 : 1)
+                                .animation(.spring(response: 0.5, dampingFraction: 0.5, blendDuration: 0.3), value: playerObservableObject.playbackState)
+                                .onTapGesture {
+                                    visibleSide.toggle()
+                                }
+                        
                     } else {
                         // Or Placeholder Image
                         MediaImageView(size: Size(width: expand ? Metric.largeMediaImage : Metric.playerSmallImageSize, height: expand ? Metric.largeMediaImage : Metric.playerSmallImageSize), cornerRadius: expand ? 10 : Metric.searchResultCornerRadius)
@@ -127,7 +132,6 @@ struct PlayerView: View {
                 .frame(height: expand ? UIScreen.main.bounds.height / 2.8 : 0)
                 .padding(.horizontal)
             }
-            
         }
         .frame(maxHeight: expand ? .infinity : Metric.playerHeight)
         .background(
@@ -166,7 +170,7 @@ struct PlayerView: View {
         .ignoresSafeArea()
         
         .onReceive(NotificationCenter.default.publisher(for: .MPMusicPlayerControllerPlaybackStateDidChange)){ _ in
-            playerObservableObject.playbackState = MPMusicPlayerController.applicationMusicPlayer.playbackState
+            playerObservableObject.playbackState = playerObservableObject.player.playbackState
         }
         .onReceive(NotificationCenter.default.publisher(for: .MPMusicPlayerControllerNowPlayingItemDidChange)){ _ in
             guard let mediaItem = playerObservableObject.player.nowPlayingItem else {

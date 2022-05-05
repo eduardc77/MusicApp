@@ -42,7 +42,6 @@ struct TabBar: View {
                     .tabItem { Label("Search", systemImage: "magnifyingglass") }
                     .tag(Tab.search)
             }
-            .accentColor(.appAccentColor)
             
             PlayerView(player: player, expand: $expand, animation: animation)  
         }

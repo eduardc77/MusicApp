@@ -12,7 +12,7 @@ import Combine
 protocol APIRequest {
     associatedtype Response
 
-    var path: Path { get }
+    var path: APIPath { get }
     var urlSession: URLSession { get }
     var jsonDecoder: JSONDecoder { get }
 }

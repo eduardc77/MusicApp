@@ -111,7 +111,7 @@ final class LibraryObservableObject: ObservableObject {
                 let newLibraryMedia = Media(wrapperType: wrapperType, kind: kind, artistName: libraryMedia.artist, collectionName: libraryMedia.albumTitle, trackName: libraryMedia.title, collectionViewUrl: libraryMedia.assetURL, trackViewUrl: libraryMedia.assetURL, discCount: libraryMedia.discCount, discNumber: libraryMedia.discNumber, trackCount: libraryMedia.albumTrackCount, trackNumber: libraryMedia.albumTrackNumber, trackTimeMillis: libraryMedia.playbackDuration, primaryGenreName: libraryMedia.genre, description: libraryMedia.description, artwork: image, artworkUIImage: uiImage, composer: libraryMedia.composer, isCompilation: libraryMedia.isCompilation, releaseDate: libraryMedia.releaseDate, dateAdded: libraryMedia.dateAdded)
                 
                 // Set Recently added albums
-                if librarySection == .albums, let oneYearBefore = Calendar.current.date(byAdding: .year, value: -1, to: Date()), libraryMedia.dateAdded >= oneYearBefore {
+                if librarySection == .albums, let oneYearBefore = Calendar.current.date(byAdding: .year, value: -2, to: Date()), libraryMedia.dateAdded >= oneYearBefore {
                     self.recentlyAdded.append(newLibraryMedia)
                 }
                 

@@ -8,6 +8,6 @@
 import Foundation
 
 struct APIManager<Response>: APIRequest {
-    var path: Path
+    var path: APIPath
     var urlSession: URLSession
 }

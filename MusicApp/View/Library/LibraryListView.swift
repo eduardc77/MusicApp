@@ -12,9 +12,7 @@ struct LibraryListView: View {
     @Binding var editMode: EditMode
     @State var selection: Set<LibrarySection> = []
     @State var currentSections = LibrarySection.allCases
-    
-    @State private var selectedFruit: String?
-  
+
     var body: some View {
         List(selection: $selection) {
             ForEach(currentSections, id: \.self) { section in
@@ -24,7 +22,7 @@ struct LibraryListView: View {
                     HStack {
                         Image(systemName: section.systemImage)
                             .font(.title2)
-                            .foregroundColor(.accentColor)
+                            .foregroundColor(.appAccentColor)
                             .frame(minWidth: 32)
                         Text(section.title)
                             .font(.title2)

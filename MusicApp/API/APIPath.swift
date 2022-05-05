@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Path {
+enum APIPath {
     case search(_ query: SearchQuery)
     case lookup(_ query: LookupQuery)
     case image(_ url: URL)

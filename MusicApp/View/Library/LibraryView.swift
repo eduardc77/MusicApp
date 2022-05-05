@@ -29,7 +29,7 @@ struct LibraryView: View {
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                         .padding(.horizontal)
                                     
-                                    VerticalMusicListView(mediaItems: libraryObservableObject.recentlyAdded, imageSize: .medium, rowCount: 2)
+                                    VerticalMediaGridView(mediaItems: libraryObservableObject.recentlyAdded, imageSize: .medium, rowCount: 2)
                                 }
                             }
                             Spacer(minLength: Metric.playerHeight)

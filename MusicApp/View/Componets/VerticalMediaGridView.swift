@@ -1,5 +1,5 @@
 //
-//  VerticalMusicListView.swift
+//  VerticalMediaGridView.swift
 //  MusicApp
 //
 //  Created by Eduard Caziuc on 18.04.2022.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct VerticalMusicListView: View {
+struct VerticalMediaGridView: View {
     @State var mediaItems = [Media]()
     var imageSize: ImageSizeType
     var columns: [GridItem]

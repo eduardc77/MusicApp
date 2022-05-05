@@ -20,37 +20,38 @@ struct ListenNowView: View {
                             .font(.title2.bold())
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.horizontal)
-                        HorizontalMusicListView(items: musicPlaylists[0], imageSize: .small, rowCount: 4)
+                        
+                        HorizontalMediaGridView(items: musicPlaylists[0], imageSize: .small, rowCount: 4)
                         
                         Text("You Gotta Hear")
                             .font(.title2.bold())
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.horizontal)
-                        HorizontalMusicListView(items: musicPlaylists[0], imageSize: .medium, rowCount: 1)
+                        
+                        HorizontalMediaGridView(items: musicPlaylists[0], imageSize: .medium, rowCount: 1)
                         
                         Text("Stations for You")
                             .font(.title2.bold())
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.horizontal)
-                        VerticalMusicListView(mediaItems: [Media()], imageSize: .small)
+                        
+                        VerticalMediaGridView(mediaItems: [Media()], imageSize: .small)
                         
                         Text("New Music")
                             .font(.title2.bold())
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.horizontal)
-                        HorizontalMusicListView(items: musicPlaylists[0], imageSize: .medium, rowCount: 2)
+                        
+                        HorizontalMediaGridView(items: musicPlaylists[0], imageSize: .medium, rowCount: 2)
                     }
-                    Spacer(minLength: Metric.playerHeight)
                 
-                    
+                    Spacer(minLength: Metric.playerHeight)
             }
             .toolbar(content: {
                 AccountNavigationItem()
             })
-          
             .navigationTitle("Listen Now")
             .coordinateSpace(name: "scroll")
-            
         }
     }
     

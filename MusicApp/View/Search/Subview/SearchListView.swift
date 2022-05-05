@@ -53,14 +53,6 @@ struct SearchListView: View {
 
 
 
-
-
-
-
-
-
-
-
 struct SearchListView_Previews: PreviewProvider {
     static let searchObservableObject: SearchObservableObject = {
         let viewModel = SearchObservableObject()
