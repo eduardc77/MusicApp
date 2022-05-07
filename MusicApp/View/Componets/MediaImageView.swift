@@ -68,7 +68,7 @@ struct MediaImageView: View {
         .contentShape(Rectangle())
         .animation(.flipCard, value: visibleSide)
     }
-
+    
 }
 
 struct MediaImageView_Previews: PreviewProvider {

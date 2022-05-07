@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PlayerButtonsView: View {
     @ObservedObject var playerObservableObject: PlayerObservableObject
-
+    
     var body: some View {
         HStack() {
             Spacer()
@@ -24,7 +24,7 @@ struct PlayerButtonsView: View {
                     .foregroundColor(playerObservableObject.nowPlayingItem != nil ? .white : .lightGrayColor2)
             }.padding(.horizontal, 40)
             Spacer()
-           
+            
             Button(action: {
                 guard playerObservableObject.nowPlayingItem != nil else { return }
                 playerObservableObject.playbackState == .playing ? playerObservableObject.player.pause() : playerObservableObject.player.play()
@@ -33,8 +33,8 @@ struct PlayerButtonsView: View {
                 (playerObservableObject.playbackState == .playing ? Image(systemName: "pause.fill") : Image(systemName: "play.fill"))
                     .resizable()
                     .frame(width: 36, height: 40)
-                   .foregroundColor(.white)
-                   
+                    .foregroundColor(.white)
+                
             })
             Spacer()
             

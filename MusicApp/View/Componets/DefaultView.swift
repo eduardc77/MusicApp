@@ -15,7 +15,8 @@ struct DefaultView: View {
     var body: some View {
         NavigationView {
             EmptyView()
-                .navigationBarTitle(title, displayMode: .inline)
+                .navigationTitle(title)
+                .navigationBarTitleDisplayMode(.inline)
                 .navigationBarItems(leading: DismissButton(title: "Done", presentationMode: _presentationMode))
         }
     }

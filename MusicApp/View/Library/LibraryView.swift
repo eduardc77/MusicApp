@@ -12,38 +12,34 @@ struct LibraryView: View {
     @Binding var tabSelection: Tab
     @State var editMode: EditMode = .inactive
     @StateObject private var libraryObservableObject = LibraryObservableObject()
-    @ObservedObject private var libraryAuthorization = LibraryAuthorization()
     
     var body: some View {
         NavigationView {
-            if libraryAuthorization.status == .permitted {
-                if !libraryObservableObject.albums.isEmpty {
-                    ScrollView {
-                        VStack {
-                            LibraryListView(libraryObservableObject: libraryObservableObject, editMode: $editMode)
-                            
-                            if !editMode.isEditing {
-                                VStack {
-                                    Text("Recently Added")
-                                        .font(.title2.bold())
-                                        .frame(maxWidth: .infinity, alignment: .leading)
-                                        .padding(.horizontal)
-                                    
-                                    VerticalMediaGridView(mediaItems: libraryObservableObject.recentlyAdded, imageSize: .medium, rowCount: 2)
+            if libraryObservableObject.refreshingLibrary {
+                ProgressView()
+            } else {
+                if libraryObservableObject.status == .permitted {
+                    if !libraryObservableObject.albums.isEmpty {
+                        ScrollView {
+                            VStack {
+                                LibraryListView(libraryObservableObject: libraryObservableObject, editMode: $editMode)
+                                
+                                if !editMode.isEditing {
+                                    VerticalMediaGridView(mediaItems: libraryObservableObject.recentlyAdded, title: "Recently Added", imageSize: .medium, rowCount: 2)
                                 }
                             }
-                            Spacer(minLength: Metric.playerHeight)
                         }
+                        .navigationTitle("Library")
+                        .toolbar { EditButton() }
+                        .environment(\.editMode, $editMode)
+                        
+                        
+                    } else {
+                        EmptyLibraryView(tabSelection: $tabSelection)
                     }
-                    .navigationTitle("Library")
-                    .toolbar { EditButton() }
-                    .environment(\.editMode, $editMode)
-                    
                 } else {
-                    EmptyLibraryView(tabSelection: $tabSelection)
+                    RequestAuthorizationView()
                 }
-            } else if libraryAuthorization.status == .notPermitted {
-                RequestAuthorizationView()
             }
         }
     }
@@ -53,6 +49,8 @@ struct LibraryView: View {
         
         var body: some View {
             VStack(spacing: 2) {
+                Spacer()
+                
                 Text("No Access to Your Library")
                     .font(.title2).bold()
                     .multilineTextAlignment(.center)
@@ -80,6 +78,8 @@ struct LibraryView: View {
                 .frame(maxWidth: .infinity)
                 .buttonStyle(.borderedProminent)
                 .padding(.top, 10)
+                
+                Spacer()
             }
         }
     }
@@ -89,6 +89,8 @@ struct LibraryView: View {
         
         var body: some View {
             VStack {
+                Spacer()
+                
                 Text("Add Music to Your Library")
                     .font(.title2).bold()
                     .multilineTextAlignment(.center)
@@ -99,8 +101,6 @@ struct LibraryView: View {
                     .multilineTextAlignment(.center)
                     .foregroundColor(.secondary)
                     .padding(.horizontal)
-                
-                Spacer()
                 
                 Button { tabSelection = .browse } label: {
                     Text("Browse Apple Music")
@@ -114,6 +114,8 @@ struct LibraryView: View {
                 .padding(.horizontal, 50)
                 .frame(maxWidth: .infinity)
                 .buttonStyle(.borderedProminent)
+                
+                Spacer()
             }
         }
     }

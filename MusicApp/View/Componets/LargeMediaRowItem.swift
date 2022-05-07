@@ -10,11 +10,10 @@ import SwiftUI
 struct LargeMediaRowItem: View {
     var media: Media
     var imageData: Data?
+    var spacing: CGFloat = 10
     
     var body: some View {
-        VStack {
-            Spacer()
-            
+        VStack(spacing: spacing) {
             VStack(alignment: .leading) {
                 Text(media.kind?.entityUppercased ?? "")
                     .font(.caption).bold()
@@ -32,13 +31,13 @@ struct LargeMediaRowItem: View {
             
             GeometryReader { geometry in
                 if let imageData = imageData, let uiImage = UIImage(data: imageData) {
-                    MediaImageView(image: Image(uiImage: uiImage), size: Size(width: geometry.size.width, height: geometry.size.height), contentMode: .fill)
+                    MediaImageView(image: Image(uiImage: uiImage), size: Size(width: geometry.size.width, height: geometry.size.height - spacing), contentMode: .fill)
                     
                 } else if let artworkImage = media.artwork {
-                    MediaImageView(image: artworkImage, size: Size(width: geometry.size.width, height: geometry.size.height), contentMode: .fill)
+                    MediaImageView(image: artworkImage, size: Size(width: geometry.size.width, height: geometry.size.height - spacing), contentMode: .fill)
                     
                 } else {
-                    MediaImageView(size: Size(width: geometry.size.width, height: geometry.size.height))
+                    MediaImageView(size: Size(width: geometry.size.width, height: geometry.size.height - spacing))
                 }
             }
         }

@@ -8,13 +8,16 @@
 import SwiftUI
 
 struct CategoryGridView: View {
+    @Environment(\.isSearching) private var isSearching
     @State var categories = searchCategories
     var columns: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
     
     var body: some View {
         GeometryReader { geometry in
             ScrollView {
-                Divider().padding(.horizontal)
+                if !isSearching {
+                    Divider().padding(.horizontal)
+                }
                 
                 Text("Browse Categories")
                     .font(.title2).bold()
@@ -23,7 +26,7 @@ struct CategoryGridView: View {
                 
                 LazyVGrid(columns: columns) {
                     ForEach(categories, id: \.self) { category in
-                        NavigationLink(destination: SearchDetailView(category: category))
+                        NavigationLink(destination: CategoryDetailView(category: category))
                         {
                             ZStack(alignment: Alignment(horizontal: .leading, vertical: .bottom)) {
                                 MediaImageView(image: Image(category.image), size: Size(width: geometry.size.width / 2.29, height: nil), cornerRadius: 9)

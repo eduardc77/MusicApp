@@ -52,7 +52,7 @@ struct AlbumHeaderView: View {
         HStack {
             MainButton(title: "Play", image: Image(systemName: "play.fill")) {
                 if !albumDetailObservableObject.waitingForPrepare {
-                    albumDetailObservableObject.allSongsPlayButtonPressed(isShuffle: false)
+                    albumDetailObservableObject.playAllTracks(isShuffle: false)
                 }
             }
             
@@ -60,7 +60,7 @@ struct AlbumHeaderView: View {
             
             MainButton(title: "Shuffle", image: Image(systemName: "shuffle")) {
                 if !albumDetailObservableObject.waitingForPrepare {
-                    albumDetailObservableObject.allSongsPlayButtonPressed(isShuffle: true)
+                    albumDetailObservableObject.playAllTracks(isShuffle: true)
                 }
             }
         }

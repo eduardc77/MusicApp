@@ -43,45 +43,45 @@ struct SnapCarousel<Content: View, T: Identifiable>: View {
             
             LazyHGrid(rows: gridRows) {
                 
-                    ForEach(list) { item in
-                        content(item)
-                            .frame(width: abs(proxy.size.width - trailingSpace))
+                ForEach(list) { item in
+                    content(item)
+                        .frame(width: abs(proxy.size.width - trailingSpace))
+                }
+                
+                
+                
+            }.offset(x: (CGFloat(currentIndex) * -width)
+                     + (currentIndex != 0 ? adjustmentWidth : 0)
+                     + offset)
+            .gesture(
+                DragGesture()
+                    .updating($offset) { value, output, _ in
+                        output = value.translation.width
                     }
-                    
-                
-                                    
-                }.offset(x: (CGFloat(currentIndex) * -width)
-                         + (currentIndex != 0 ? adjustmentWidth : 0)
-                         + offset)
-                .gesture(
-                    DragGesture()
-                        .updating($offset) { value, output, _ in
-                            output = value.translation.width
+                    .onEnded { value in
+                        currentIndex = index
+                    }
+                    .onChanged({ value in
+                        let offsetX: CGFloat = value.translation.width
+                        let progress: CGFloat = -offsetX / width
+                        let roundIndex: CGFloat
+                        
+                        
+                        switch progress.sign {
+                        case .minus:
+                            roundIndex = abs(progress) > 0.10 ? -1 : 0
+                        case .plus:
+                            roundIndex = abs(progress) > 0.10 ? 1 : 0
                         }
-                        .onEnded { value in
-                            currentIndex = index
-                        }
-                        .onChanged({ value in
-                            let offsetX: CGFloat = value.translation.width
-                            let progress: CGFloat = -offsetX / width
-                            let roundIndex: CGFloat
-                            
-                            
-                            switch progress.sign {
-                            case .minus:
-                                roundIndex = abs(progress) > 0.10 ? -1 : 0
-                            case .plus:
-                                roundIndex = abs(progress) > 0.10 ? 1 : 0
-                            }
-                            
-                            
-                            index = max(min(currentIndex + Int(roundIndex), listCount), 0)
-                        })
-                )
-                .padding(.horizontal, spacing)
-                
-                
-
+                        
+                        
+                        index = max(min(currentIndex + Int(roundIndex), listCount), 0)
+                    })
+            )
+            .padding(.horizontal, spacing)
+            
+            
+            
             
             
         }

@@ -11,41 +11,22 @@ struct ListenNowView: View {
     var body: some View {
         NavigationView {
             ScrollView {
-                    Divider()
-        
-                    VStack {
-                        HighlightsView(items: selectedStations, imageSize: .large)
-                        
-                        Text("Best New Songs")
-                            .font(.title2.bold())
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(.horizontal)
-                        
-                        HorizontalMediaGridView(items: musicPlaylists[0], imageSize: .small, rowCount: 4)
-                        
-                        Text("You Gotta Hear")
-                            .font(.title2.bold())
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(.horizontal)
-                        
-                        HorizontalMediaGridView(items: musicPlaylists[0], imageSize: .medium, rowCount: 1)
-                        
-                        Text("Stations for You")
-                            .font(.title2.bold())
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(.horizontal)
-                        
-                        VerticalMediaGridView(mediaItems: [Media()], imageSize: .small)
-                        
-                        Text("New Music")
-                            .font(.title2.bold())
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(.horizontal)
-                        
-                        HorizontalMediaGridView(items: musicPlaylists[0], imageSize: .medium, rowCount: 2)
-                    }
+                Divider()
+                    .padding(.horizontal)
                 
-                    Spacer(minLength: Metric.playerHeight)
+                VStack {
+                    HighlightsView(items: selectedStations, imageSize: .large)
+                    
+                    HorizontalMediaGridView(mediaItems: musicPlaylists2, title: "Best New Songs", imageSize: .small, rowCount: 4)
+                    
+                    HorizontalMediaGridView(mediaItems: musicPlaylists, title: "You Gotta Hear", imageSize: .medium, rowCount: 1)
+                    
+                    HorizontalMediaGridView(mediaItems: musicPlaylists, title: "Stations for You", imageSize: .small, rowCount: 4)
+                    
+                    HorizontalMediaGridView(mediaItems: musicPlaylists, title: "New Music", imageSize: .medium, rowCount: 2)
+                }
+                
+                Spacer(minLength: Metric.playerHeight)
             }
             .toolbar(content: {
                 AccountNavigationItem()

@@ -13,17 +13,17 @@ struct NavigationLinkList<Content: View, Enum: RawRepresentable & CaseIterable &
     
     var body: some View {
         GeometryReader { proxy in
-        List {
-            ForEach(rowItems.allCases, id: \.self) { rowTitle in
-                NavigationLink {
-                    content[rowTitle.rawValue]
-                } label: {
-                    Text(String(describing: rowTitle))
+            List {
+                ForEach(rowItems.allCases, id: \.self) { rowTitle in
+                    NavigationLink {
+                        content[rowTitle.rawValue]
+                    } label: {
+                        Text(String(describing: rowTitle))
+                    }
                 }
             }
-        }
-        .listStyle(.plain)
-        .frame(height: proxy.size.height)
+            .listStyle(.plain)
+            .frame(height: proxy.size.height)
         }
         
     }

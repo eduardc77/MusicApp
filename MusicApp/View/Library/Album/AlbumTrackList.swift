@@ -14,22 +14,22 @@ struct AlbumTrackList: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            ForEach(0 ..< albumDetailObservableObject.getSongsCount(), id: \.self) { songIndex in
+            ForEach(0 ..< albumDetailObservableObject.trackCount, id: \.self) { trackIndex in
                 HStack {
                     VStack {
                         HStack {
-                            if playing.0 == songIndex, playingStarted {
+                            if playing.0 == trackIndex, playingStarted {
                                 NowPlayingEqualizerBars(animating: $playing.1)
                                     .frame(width: 16, height: 8)
                             } else {
-                                Text("\(songIndex + 1)")
+                                Text("\(albumDetailObservableObject.albumContents?.tracks[trackIndex].albumTrackNumber ?? trackIndex + 1)")
                                     .font(.body)
                                     .foregroundColor(.secondary)
                                     .lineLimit(1)
                                     .frame(width: 16, height: 8)
                             }
-                        
-                            Text(albumDetailObservableObject.albumContents?.songs[songIndex].title ?? "")
+                            
+                            Text(albumDetailObservableObject.albumContents?.tracks[trackIndex].title ?? "")
                                 .font(.body)
                                 .foregroundColor(.primary)
                                 .lineLimit(1)
@@ -39,9 +39,9 @@ struct AlbumTrackList: View {
                             Image(systemName: "ellipsis")
                                 .padding(.trailing)
                         }
-                            .padding(.vertical, 8)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                            .background(.white.opacity(0.001))
+                        .padding(.vertical, 8)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .background(.white.opacity(0.001))
                         
                         Divider()
                             .padding(.leading, 24)
@@ -53,8 +53,8 @@ struct AlbumTrackList: View {
                 
                 .onTapGesture {
                     if !albumDetailObservableObject.waitingForPrepare {
-                        albumDetailObservableObject.specificSongPlayButtonPressed(songIndex: songIndex)
-                        playing.0 = songIndex
+                        albumDetailObservableObject.playTrack(at: trackIndex)
+                        playing.0 = trackIndex
                         playing.1.toggle()
                         playingStarted = true
                     }

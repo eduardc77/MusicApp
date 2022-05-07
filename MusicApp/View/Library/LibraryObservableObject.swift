@@ -9,34 +9,41 @@ import MediaPlayer
 import SwiftUI
 
 final class LibraryObservableObject: ObservableObject {
-    @Published var playlists = [Media]()
-    @Published var artists = [Media]()
-    @Published var albums = [Media]()
-    @Published var songs = [Media]()
-    @Published var madeForYou = [Media]()
-    @Published var tvAndMovies = [Media]()
-    @Published var musicVideos = [Media]()
-    @Published var genres = [Media]()
-    @Published var compilations = [Media]()
-    @Published var composers = [Media]()
-    @Published var downloaded = [Media]()
-    @Published var homeSharing = [Media]()
-    @Published var recentlyAdded = [Media]()
+    @Published private(set) var status: AuthorizationStatus = .notYetDetermined
+    @Published private(set) var refreshingLibrary: Bool = false
+    
+    // MARK: - Library Contents
+    
+    @Published private(set) var playlists = [Media]()
+    @Published private(set) var artists = [Media]()
+    @Published private(set) var albums = [Media]()
+    @Published private(set) var songs = [Media]()
+    @Published private(set) var madeForYou = [Media]()
+    @Published private(set) var tvAndMovies = [Media]()
+    @Published private(set) var musicVideos = [Media]()
+    @Published private(set) var genres = [Media]()
+    @Published private(set) var compilations = [Media]()
+    @Published private(set) var composers = [Media]()
+    @Published private(set) var downloaded = [Media]()
+    @Published private(set) var homeSharing = [Media]()
+    @Published private(set) var recentlyAdded = [Media]()
+    
+    // MARK: - Initialization
     
     init() {
-        LibrarySection.allCases.forEach { section in
-            refreshLibrary(for: section)
-        }
+        checkForLibraryAuthorization()
     }
-
+    
+    // MARK: - Public Methods
+    
     func refreshLibrary(for librarySection: LibrarySection) {
         switch librarySection {
+        case .albums:
+            albums = loadMedia(forSection: .albums)
         case .playlists:
             playlists = loadMedia(forSection: .playlists)
         case .artists:
             artists = loadMedia(forSection: .artists)
-        case .albums:
-            albums = loadMedia(forSection: .albums)
         case .songs:
             songs = loadMedia(forSection: .songs)
         case .madeForYou:
@@ -57,8 +64,47 @@ final class LibraryObservableObject: ObservableObject {
             homeSharing = loadMedia(forSection: .homeSharing)
         }
     }
+}
 
-    private func loadMedia(forSection librarySection: LibrarySection) -> [Media] {
+// MARK: - Private Methods
+
+private extension LibraryObservableObject {
+    func checkForLibraryAuthorization()  {
+        let status = MPMediaLibrary.authorizationStatus()
+        
+        switch status {
+        case .authorized:
+            self.status = .permitted
+            
+            self.refreshAllLibrary()
+        case .notDetermined:
+            MPMediaLibrary.requestAuthorization() { status in
+                if status == .authorized {
+                    self.refreshAllLibrary()
+                    self.status = .permitted
+                } else {
+                    self.status = .notPermitted
+                    
+                }
+            }
+        default:
+            self.status = .notPermitted
+        }
+    }
+    
+    func refreshAllLibrary() {
+        self.refreshingLibrary = true
+        
+        DispatchQueue.main.async {
+            LibrarySection.allCases.forEach { section in
+                self.refreshLibrary(for: section)
+            }
+            
+            self.refreshingLibrary = false
+        }
+    }
+    
+    func loadMedia(forSection librarySection: LibrarySection) -> [Media] {
         let collections: [MPMediaItemCollection]?
         
         switch librarySection {
@@ -107,7 +153,7 @@ final class LibraryObservableObject: ObservableObject {
                 case .songs: wrapperType = .track
                 default: wrapperType = .collection
                 }
-               
+                
                 let newLibraryMedia = Media(wrapperType: wrapperType, kind: kind, artistName: libraryMedia.artist, collectionName: libraryMedia.albumTitle, trackName: libraryMedia.title, collectionViewUrl: libraryMedia.assetURL, trackViewUrl: libraryMedia.assetURL, discCount: libraryMedia.discCount, discNumber: libraryMedia.discNumber, trackCount: libraryMedia.albumTrackCount, trackNumber: libraryMedia.albumTrackNumber, trackTimeMillis: libraryMedia.playbackDuration, primaryGenreName: libraryMedia.genre, description: libraryMedia.description, artwork: image, artworkUIImage: uiImage, composer: libraryMedia.composer, isCompilation: libraryMedia.isCompilation, releaseDate: libraryMedia.releaseDate, dateAdded: libraryMedia.dateAdded)
                 
                 // Set Recently added albums
@@ -120,5 +166,15 @@ final class LibraryObservableObject: ObservableObject {
         }
         
         return mediaList
+    }
+}
+
+// MARK: - Types
+
+extension LibraryObservableObject {
+    enum AuthorizationStatus {
+        case notYetDetermined
+        case permitted
+        case notPermitted
     }
 }

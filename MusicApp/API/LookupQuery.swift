@@ -9,7 +9,7 @@ import Foundation
 
 struct LookupQuery: Query {
     var id: String
-
+    
     var toDictionary: [String: String] {
         return [
             "id": id

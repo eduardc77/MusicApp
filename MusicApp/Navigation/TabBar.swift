@@ -20,7 +20,7 @@ struct TabBar: View {
     @State var selection: Tab = .listenNow
     @State var expand = false
     @Namespace var animation
-
+    
     private var player = MPMusicPlayerController.applicationMusicPlayer
     
     var body: some View {
@@ -46,6 +46,7 @@ struct TabBar: View {
             PlayerView(player: player, expand: $expand, animation: animation)  
         }
         .ignoresSafeArea(.keyboard)
+        .navigationViewStyle(.stack)
     }
 }
 

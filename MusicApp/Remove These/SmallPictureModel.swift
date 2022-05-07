@@ -5,7 +5,7 @@
 //  Created by Eduard Caziuc on 18.04.2022.
 //
 
-import Foundation
+import SwiftUI
 
 struct SmallPictureModel: Hashable, Identifiable {
     var id = UUID()
@@ -24,678 +24,81 @@ var radioStations = [
     SmallPictureModel(image: "smallradio6", name: "Placeholder", description: "Apple Music")
 ]
 
-var musicPlaylists = [
-    [
-        SmallPictureModel(image: "smallradio0", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio1", name: "Africa Now", description: "Apple Music"),
-        SmallPictureModel(image: "smallradio2", name: "John Legend", description: "Radio 2.0"),
-        SmallPictureModel(image: "smallradio3", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio4", name: "Billie Eilish", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio5", name: "Augstana", description: "Apple Music"),
-        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Radio Station"),
-        SmallPictureModel(image: "smallradio7", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio8", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio9", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio10", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio11", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio12", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio13", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio14", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio15", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio16", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio17", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio18", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio19", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio20", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio21", name: "Placeholder", description: "Listen Now"),
-    ],
-    
-    [
-        SmallPictureModel(image: "smallradio2", name: "John Legend", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio3", name: "Placeholder", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio4", name: "Placeholder", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder XXI Placeholder")
-    ],
-    
-    [
-        SmallPictureModel(image: "p0", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "p1", name: "Africa Now", description: "Apple Music"),
-        SmallPictureModel(image: "p2", name: "John Legend", description: "Radio 2.0"),
-        SmallPictureModel(image: "p3", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "p4", name: "Billie Eilish", description: "Placeholder"),
-        SmallPictureModel(image: "p5", name: "Augstana", description: "Apple Music"),
-        SmallPictureModel(image: "p6", name: "Placeholder: Boston", description: "Radio Station"),
-        SmallPictureModel(image: "p7", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "p8", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "p9", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "p10", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "p11", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "p12", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "p13", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "p14", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio14", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio15", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio16", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio17", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio18", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio19", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio20", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio21", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio14", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio15", name: "Placeholder", description: "Listen Now")
-        
-    ],
-    [
-        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio2", name: "John Legend", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio3", name: "Placeholder", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio4", name: "Placeholder Placeholder", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder")
-    ],
-    
-    [
-        SmallPictureModel(image: "smallradio2", name: "John Legend", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio3", name: "Placeholder", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio4", name: "Placeholder", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder XXI Placeholder")
-    ],
-    
-    [
-        SmallPictureModel(image: "smallradio3", name: "Placeholder Placeholder", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio4", name: "Placeholder Placeholder", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder XXI Placeholder"),
-        SmallPictureModel(image: "smallradio2", name: "John Legend Placeholder", description: "Placeholder")
-    ],
-    [
-        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio2", name: "John Legend", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio3", name: "Placeholder", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio4", name: "Placeholder Placeholder", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder")
-    ],
-    
-    [
-        SmallPictureModel(image: "smallradio2", name: "John Legend", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio3", name: "Placeholder", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio4", name: "Placeholder", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder XXI Placeholder")
-    ],
-    
-    [
-        SmallPictureModel(image: "smallradio3", name: "Placeholder Placeholder", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio4", name: "Placeholder Placeholder", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder XXI Placeholder"),
-        SmallPictureModel(image: "smallradio2", name: "John Legend Placeholder", description: "Placeholder")
-    ],
-    [
-        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio2", name: "John Legend", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio3", name: "Placeholder", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio4", name: "Placeholder Placeholder", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder")
-    ],
-    
-    [
-        SmallPictureModel(image: "smallradio2", name: "John Legend", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio3", name: "Placeholder", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio4", name: "Placeholder", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder XXI Placeholder")
-    ],
-    
-    [
-        SmallPictureModel(image: "smallradio3", name: "Placeholder Placeholder", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio4", name: "Placeholder Placeholder", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder XXI Placeholder"),
-        SmallPictureModel(image: "smallradio2", name: "John Legend Placeholder", description: "Placeholder")
-    ],
-    [
-        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio2", name: "John Legend", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio3", name: "Placeholder", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio4", name: "Placeholder Placeholder", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder")
-    ],
-    
-    [
-        SmallPictureModel(image: "smallradio2", name: "John Legend", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio3", name: "Placeholder", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio4", name: "Placeholder", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder XXI Placeholder")
-    ],
-    
-    [
-        SmallPictureModel(image: "smallradio3", name: "Placeholder Placeholder", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio4", name: "Placeholder Placeholder", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder XXI Placeholder"),
-        SmallPictureModel(image: "smallradio2", name: "John Legend Placeholder", description: "Placeholder")
-    ],
-    [
-        SmallPictureModel(image: "smallradio0", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio1", name: "Africa Now", description: "Apple Music"),
-        SmallPictureModel(image: "smallradio2", name: "John Legend", description: "Radio 2.0"),
-        SmallPictureModel(image: "smallradio3", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio4", name: "Billie Eilish", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio5", name: "Augstana", description: "Apple Music"),
-        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Radio Station"),
-        SmallPictureModel(image: "smallradio7", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio8", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio9", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio10", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio11", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio12", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio13", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio14", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio15", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio16", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio17", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio18", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio19", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio20", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio21", name: "Placeholder", description: "Listen Now"),
-    ],
-    
-    [
-        SmallPictureModel(image: "smallradio2", name: "John Legend", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio3", name: "Placeholder", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio4", name: "Placeholder", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder XXI Placeholder")
-    ],
-    
-    [
-        SmallPictureModel(image: "p0", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "p1", name: "Africa Now", description: "Apple Music"),
-        SmallPictureModel(image: "p2", name: "John Legend", description: "Radio 2.0"),
-        SmallPictureModel(image: "p3", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "p4", name: "Billie Eilish", description: "Placeholder"),
-        SmallPictureModel(image: "p5", name: "Augstana", description: "Apple Music"),
-        SmallPictureModel(image: "p6", name: "Placeholder: Boston", description: "Radio Station"),
-        SmallPictureModel(image: "p7", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "p8", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "p9", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "p10", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "p11", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "p12", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "p13", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "p14", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio14", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio15", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio16", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio17", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio18", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio19", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio20", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio21", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio14", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio15", name: "Placeholder", description: "Listen Now")
-        
-    ],
-    [
-        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio2", name: "John Legend", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio3", name: "Placeholder", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio4", name: "Placeholder Placeholder", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder")
-    ],
-    
-    [
-        SmallPictureModel(image: "smallradio2", name: "John Legend", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio3", name: "Placeholder", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio4", name: "Placeholder", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder XXI Placeholder")
-    ],
-    
-    [
-        SmallPictureModel(image: "smallradio3", name: "Placeholder Placeholder", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio4", name: "Placeholder Placeholder", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder XXI Placeholder"),
-        SmallPictureModel(image: "smallradio2", name: "John Legend Placeholder", description: "Placeholder")
-    ],
-    [
-        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio2", name: "John Legend", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio3", name: "Placeholder", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio4", name: "Placeholder Placeholder", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder")
-    ],
-    
-    [
-        SmallPictureModel(image: "smallradio2", name: "John Legend", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio3", name: "Placeholder", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio4", name: "Placeholder", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder XXI Placeholder")
-    ],
-    
-    [
-        SmallPictureModel(image: "smallradio3", name: "Placeholder Placeholder", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio4", name: "Placeholder Placeholder", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder XXI Placeholder"),
-        SmallPictureModel(image: "smallradio2", name: "John Legend Placeholder", description: "Placeholder")
-    ],
-    [
-        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio2", name: "John Legend", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio3", name: "Placeholder", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio4", name: "Placeholder Placeholder", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder")
-    ],
-    
-    [
-        SmallPictureModel(image: "smallradio2", name: "John Legend", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio3", name: "Placeholder", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio4", name: "Placeholder", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder XXI Placeholder")
-    ],
-    
-    [
-        SmallPictureModel(image: "smallradio3", name: "Placeholder Placeholder", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio4", name: "Placeholder Placeholder", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder XXI Placeholder"),
-        SmallPictureModel(image: "smallradio2", name: "John Legend Placeholder", description: "Placeholder")
-    ],
-    [
-        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio2", name: "John Legend", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio3", name: "Placeholder", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio4", name: "Placeholder Placeholder", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder")
-    ],
-    
-    [
-        SmallPictureModel(image: "smallradio2", name: "John Legend", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio3", name: "Placeholder", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio4", name: "Placeholder", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder XXI Placeholder")
-    ],
-    
-    [
-        SmallPictureModel(image: "smallradio3", name: "Placeholder Placeholder", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio4", name: "Placeholder Placeholder", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder XXI Placeholder"),
-        SmallPictureModel(image: "smallradio2", name: "John Legend Placeholder", description: "Placeholder")
-    ],
-    [
-        SmallPictureModel(image: "smallradio0", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio1", name: "Africa Now", description: "Apple Music"),
-        SmallPictureModel(image: "smallradio2", name: "John Legend", description: "Radio 2.0"),
-        SmallPictureModel(image: "smallradio3", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio4", name: "Billie Eilish", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio5", name: "Augstana", description: "Apple Music"),
-        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Radio Station"),
-        SmallPictureModel(image: "smallradio7", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio8", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio9", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio10", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio11", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio12", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio13", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio14", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio15", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio16", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio17", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio18", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio19", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio20", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio21", name: "Placeholder", description: "Listen Now"),
-    ],
-    
-    [
-        SmallPictureModel(image: "smallradio2", name: "John Legend", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio3", name: "Placeholder", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio4", name: "Placeholder", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder XXI Placeholder")
-    ],
-    
-    [
-        SmallPictureModel(image: "p0", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "p1", name: "Africa Now", description: "Apple Music"),
-        SmallPictureModel(image: "p2", name: "John Legend", description: "Radio 2.0"),
-        SmallPictureModel(image: "p3", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "p4", name: "Billie Eilish", description: "Placeholder"),
-        SmallPictureModel(image: "p5", name: "Augstana", description: "Apple Music"),
-        SmallPictureModel(image: "p6", name: "Placeholder: Boston", description: "Radio Station"),
-        SmallPictureModel(image: "p7", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "p8", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "p9", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "p10", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "p11", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "p12", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "p13", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "p14", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio14", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio15", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio16", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio17", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio18", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio19", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio20", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio21", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio14", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio15", name: "Placeholder", description: "Listen Now")
-        
-    ],
-    [
-        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio2", name: "John Legend", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio3", name: "Placeholder", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio4", name: "Placeholder Placeholder", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder")
-    ],
-    
-    [
-        SmallPictureModel(image: "smallradio2", name: "John Legend", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio3", name: "Placeholder", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio4", name: "Placeholder", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder XXI Placeholder")
-    ],
-    
-    [
-        SmallPictureModel(image: "smallradio3", name: "Placeholder Placeholder", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio4", name: "Placeholder Placeholder", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder XXI Placeholder"),
-        SmallPictureModel(image: "smallradio2", name: "John Legend Placeholder", description: "Placeholder")
-    ],
-    [
-        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio2", name: "John Legend", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio3", name: "Placeholder", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio4", name: "Placeholder Placeholder", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder")
-    ],
-    
-    [
-        SmallPictureModel(image: "smallradio2", name: "John Legend", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio3", name: "Placeholder", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio4", name: "Placeholder", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder XXI Placeholder")
-    ],
-    
-    [
-        SmallPictureModel(image: "smallradio3", name: "Placeholder Placeholder", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio4", name: "Placeholder Placeholder", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder XXI Placeholder"),
-        SmallPictureModel(image: "smallradio2", name: "John Legend Placeholder", description: "Placeholder")
-    ],
-    [
-        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio2", name: "John Legend", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio3", name: "Placeholder", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio4", name: "Placeholder Placeholder", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder")
-    ],
-    
-    [
-        SmallPictureModel(image: "smallradio2", name: "John Legend", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio3", name: "Placeholder", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio4", name: "Placeholder", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder XXI Placeholder")
-    ],
-    
-    [
-        SmallPictureModel(image: "smallradio3", name: "Placeholder Placeholder", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio4", name: "Placeholder Placeholder", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder XXI Placeholder"),
-        SmallPictureModel(image: "smallradio2", name: "John Legend Placeholder", description: "Placeholder")
-    ],
-    [
-        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio2", name: "John Legend", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio3", name: "Placeholder", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio4", name: "Placeholder Placeholder", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder")
-    ],
-    
-    [
-        SmallPictureModel(image: "smallradio2", name: "John Legend", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio3", name: "Placeholder", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio4", name: "Placeholder", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder XXI Placeholder")
-    ],
-    
-    [
-        SmallPictureModel(image: "smallradio3", name: "Placeholder Placeholder", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio4", name: "Placeholder Placeholder", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder XXI Placeholder"),
-        SmallPictureModel(image: "smallradio2", name: "John Legend Placeholder", description: "Placeholder")
-    ],
-    [
-        SmallPictureModel(image: "smallradio0", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio1", name: "Africa Now", description: "Apple Music"),
-        SmallPictureModel(image: "smallradio2", name: "John Legend", description: "Radio 2.0"),
-        SmallPictureModel(image: "smallradio3", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio4", name: "Billie Eilish", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio5", name: "Augstana", description: "Apple Music"),
-        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Radio Station"),
-        SmallPictureModel(image: "smallradio7", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio8", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio9", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio10", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio11", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio12", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio13", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio14", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio15", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio16", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio17", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio18", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio19", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio20", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio21", name: "Placeholder", description: "Listen Now"),
-    ],
-    
-    [
-        SmallPictureModel(image: "smallradio2", name: "John Legend", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio3", name: "Placeholder", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio4", name: "Placeholder", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder XXI Placeholder")
-    ],
-    
-    [
-        SmallPictureModel(image: "p0", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "p1", name: "Africa Now", description: "Apple Music"),
-        SmallPictureModel(image: "p2", name: "John Legend", description: "Radio 2.0"),
-        SmallPictureModel(image: "p3", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "p4", name: "Billie Eilish", description: "Placeholder"),
-        SmallPictureModel(image: "p5", name: "Augstana", description: "Apple Music"),
-        SmallPictureModel(image: "p6", name: "Placeholder: Boston", description: "Radio Station"),
-        SmallPictureModel(image: "p7", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "p8", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "p9", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "p10", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "p11", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "p12", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "p13", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "p14", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio14", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio15", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio16", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio17", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio18", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio19", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio20", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio21", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio14", name: "Placeholder", description: "Listen Now"),
-        SmallPictureModel(image: "smallradio15", name: "Placeholder", description: "Listen Now")
-        
-    ],
-    [
-        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio2", name: "John Legend", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio3", name: "Placeholder", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio4", name: "Placeholder Placeholder", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder")
-    ],
-    
-    [
-        SmallPictureModel(image: "smallradio2", name: "John Legend", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio3", name: "Placeholder", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio4", name: "Placeholder", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder XXI Placeholder")
-    ],
-    
-    [
-        SmallPictureModel(image: "smallradio3", name: "Placeholder Placeholder", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio4", name: "Placeholder Placeholder", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder XXI Placeholder"),
-        SmallPictureModel(image: "smallradio2", name: "John Legend Placeholder", description: "Placeholder")
-    ],
-    [
-        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio2", name: "John Legend", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio3", name: "Placeholder", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio4", name: "Placeholder Placeholder", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder")
-    ],
-    
-    [
-        SmallPictureModel(image: "smallradio2", name: "John Legend", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio3", name: "Placeholder", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio4", name: "Placeholder", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder XXI Placeholder")
-    ],
-    
-    [
-        SmallPictureModel(image: "smallradio3", name: "Placeholder Placeholder", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio4", name: "Placeholder Placeholder", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder XXI Placeholder"),
-        SmallPictureModel(image: "smallradio2", name: "John Legend Placeholder", description: "Placeholder")
-    ],
-    [
-        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio2", name: "John Legend", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio3", name: "Placeholder", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio4", name: "Placeholder Placeholder", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder")
-    ],
-    
-    [
-        SmallPictureModel(image: "smallradio2", name: "John Legend", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio3", name: "Placeholder", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio4", name: "Placeholder", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder XXI Placeholder")
-    ],
-    
-    [
-        SmallPictureModel(image: "smallradio3", name: "Placeholder Placeholder", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio4", name: "Placeholder Placeholder", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder XXI Placeholder"),
-        SmallPictureModel(image: "smallradio2", name: "John Legend Placeholder", description: "Placeholder")
-    ],
-    [
-        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio2", name: "John Legend", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio3", name: "Placeholder", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio4", name: "Placeholder Placeholder", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder")
-    ],
-    
-    [
-        SmallPictureModel(image: "smallradio2", name: "John Legend", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio3", name: "Placeholder", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio4", name: "Placeholder", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder XXI Placeholder")
-    ],
-    
-    [
-        SmallPictureModel(image: "smallradio3", name: "Placeholder Placeholder", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio4", name: "Placeholder Placeholder", description: "Placeholder Placeholder Placeholder"),
-        SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Placeholder"),
-        SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder XXI Placeholder"),
-        SmallPictureModel(image: "smallradio2", name: "John Legend Placeholder", description: "Placeholder")
-    ]
+var musicPlaylists: [Media] = [
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "Lil Peep", collectionName: "Essentials", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio0"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "Billie Eilish", collectionName: "Album", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio1"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "070 Shake", collectionName: "Honey", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio2"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "6ix9ine", collectionName: "Graduation Day", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio3"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "XXXTENTACION", collectionName: "?", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio4"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "Bob Dylan", collectionName: "The Freewheelin' Bob Dylan", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio5"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "Post Malone", collectionName: "Stoney", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio6"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "Lil Peep", collectionName: "Essentials", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio7"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "Billie Eilish", collectionName: "Album", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio8"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "070 Shake", collectionName: "Honey", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio9"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "6ix9ine", collectionName: "Graduation Day", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio10"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "XXXTENTACION", collectionName: "?", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio11"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "Bob Dylan", collectionName: "The Freewheelin' Bob Dylan", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio5"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "Post Malone", collectionName: "Stoney", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio12"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "Lil Peep", collectionName: "Essentials", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio13"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "Billie Eilish", collectionName: "Album", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio14"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "070 Shake", collectionName: "Honey", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio15"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "6ix9ine", collectionName: "Graduation Day", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio16"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "XXXTENTACION", collectionName: "?", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio17"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "Bob Dylan", collectionName: "The Freewheelin' Bob Dylan", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio18"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "Post Malone", collectionName: "Stoney", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio19"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "Lil Peep", collectionName: "Essentials", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio20"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "Billie Eilish", collectionName: "Album", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio21"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "070 Shake", collectionName: "Honey", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio2"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "6ix9ine", collectionName: "Graduation Day", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio3"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "XXXTENTACION", collectionName: "?", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio4"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "Bob Dylan", collectionName: "The Freewheelin' Bob Dylan", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio5"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "Post Malone", collectionName: "Stoney", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio6"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "Lil Peep", collectionName: "Essentials", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio0"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "Billie Eilish", collectionName: "Album", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio1"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "070 Shake", collectionName: "Honey", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio2"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "6ix9ine", collectionName: "Graduation Day", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio3"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "XXXTENTACION", collectionName: "?", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio4"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "Bob Dylan", collectionName: "The Freewheelin' Bob Dylan", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio5"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "Post Malone", collectionName: "Stoney", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio6"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "Lil Peep", collectionName: "Essentials", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio0"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "Billie Eilish", collectionName: "Album", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio1"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "070 Shake", collectionName: "Honey", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio2"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "6ix9ine", collectionName: "Graduation Day", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio3"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "XXXTENTACION", collectionName: "?", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio4"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "Bob Dylan", collectionName: "The Freewheelin' Bob Dylan", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio5"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "Post Malone", collectionName: "Stoney", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio6"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "Lil Peep", collectionName: "Essentials", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio0"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "Billie Eilish", collectionName: "Album", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio1"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "070 Shake", collectionName: "Honey", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio2"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "6ix9ine", collectionName: "Graduation Day", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio3"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "XXXTENTACION", collectionName: "?", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio4"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "Bob Dylan", collectionName: "The Freewheelin' Bob Dylan", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio5"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "Post Malone", collectionName: "Stoney", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio6"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "Lil Peep", collectionName: "Essentials", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio0"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "Billie Eilish", collectionName: "Album", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio1"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "070 Shake", collectionName: "Honey", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio2"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "6ix9ine", collectionName: "Graduation Day", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio3"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "XXXTENTACION", collectionName: "?", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio4"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "Bob Dylan", collectionName: "The Freewheelin' Bob Dylan", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio5"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "Post Malone", collectionName: "Stoney", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio6"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date())
 ]
 
-var searchMusic = [
-    SmallPictureModel(image: "smallradio1", name: "Placeholder 2.0", description: "Placeholder XXI Placeholder"),
-    SmallPictureModel(image: "smallradio2", name: "John Legend Placeholder", description: "Радио"),
-    SmallPictureModel(image: "smallradio3", name: "Placeholder Placeholder", description: "Радио"),
-    SmallPictureModel(image: "smallradio4", name: "Placeholder Placeholder", description: "Placeholder Placeholder Placeholder"),
-    SmallPictureModel(image: "smallradio5", name: "Billie Eilish", description: "Радио"),
-    SmallPictureModel(image: "smallradio6", name: "Placeholder: Boston", description: "Радио")
+var musicPlaylists2: [Media] = [
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "Bob Dylan", collectionName: "The Freewheelin' Bob Dylan", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio5"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "Post Malone", collectionName: "Stoney", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio6"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "Lil Peep", collectionName: "Essentials", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio0"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "Billie Eilish", collectionName: "Album", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio1"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "070 Shake", collectionName: "Honey", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio2"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "6ix9ine", collectionName: "Graduation Day", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio3"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "XXXTENTACION", collectionName: "?", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio4"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "Bob Dylan", collectionName: "The Freewheelin' Bob Dylan", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio5"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "Post Malone", collectionName: "Stoney", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio6"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "Lil Peep", collectionName: "Essentials", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio0"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "Billie Eilish", collectionName: "Album", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio1"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "070 Shake", collectionName: "Honey", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio2"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "6ix9ine", collectionName: "Graduation Day", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio3"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "XXXTENTACION", collectionName: "?", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio4"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "Bob Dylan", collectionName: "The Freewheelin' Bob Dylan", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio5"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date()),
+    Media(id: UUID().uuidString, wrapperType: .collection, kind: .album, artistName: "Post Malone", collectionName: "Stoney", trackName: "Apple Music", collectionPrice: 12, trackPrice: 12, discCount: 1, discNumber: 1, trackCount: 5, trackNumber: 1, trackTimeMillis: 400, country: "USA", primaryGenreName: "Rap", artwork: Image("smallradio6"), artworkUIImage: UIImage(named: "smallradio0"), releaseDate: Date(), dateAdded: Date())
+    
 ]

@@ -7,62 +7,95 @@
 
 import MediaPlayer
 
-struct AlbumContents {
-    var songs: [MPMediaItem] = []
-}
-
 final class AlbumDetailObservableObject: ObservableObject {
-    var player = MPMusicPlayerController.applicationMusicPlayer
-    private(set) var media: Media
+    @Published private var trackIDsQueue: [String] = []
     @Published private(set) var albumContents: AlbumContents?
-    @Published private var songIDsQueue: [String] = []
     @Published private(set) var waitingForPrepare: Bool = false
-
+    
+    private(set) var player = MPMusicPlayerController.applicationMusicPlayer
+    private(set) var media: Media
+    private(set) var albumDuration: Int = 0
+    private(set) var albumTrackCount: Int = 0
+    
+    var trackCount: Int {
+        albumContents?.tracks.count ?? 0
+    }
+    
+    // MARK: - Initialization
+    
     init(media: Media) {
         self.media = media
         
-        initSongsInAlbum()
-        setIDsQueue()
+        setAlbumContents()
+        configureAlbumDetails()
     }
     
-    var albumDuration: Int {
-        var albumDuration: TimeInterval = 0
-        albumContents?.songs.forEach { song in
-            albumDuration += song.playbackDuration
+    // MARK: - Public Methods
+    
+    func playTrack(at index: Int) {
+        waitingForPrepare = true
+        player.stop()
+        
+        player.setQueue(with: trackIDsQueue)
+        UserDefaults.standard.set(trackIDsQueue, forKey: UserDefaultsKey.queueDefault)
+        
+        player.shuffleMode = MPMusicShuffleMode.off
+        UserDefaults.standard.set(false, forKey: UserDefaultsKey.shuffleDefault)
+        
+        player.play()
+        player.nowPlayingItem = albumContents?.tracks[index]
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            self.waitingForPrepare = false
+        }
+    }
+    
+    func playAllTracks(isShuffle: Bool) {
+        waitingForPrepare = true
+        player.stop()
+        
+        player.setQueue(with: trackIDsQueue)
+        UserDefaults.standard.set(trackIDsQueue, forKey: UserDefaultsKey.queueDefault)
+        
+        if isShuffle {
+            player.shuffleMode = MPMusicShuffleMode.songs
+            UserDefaults.standard.set(true, forKey: UserDefaultsKey.shuffleDefault)
+            player.shuffleMode = MPMusicShuffleMode.songs
+        } else {
+            UserDefaults.standard.set(false, forKey: UserDefaultsKey.shuffleDefault)
+            player.shuffleMode = MPMusicShuffleMode.off
         }
         
-        return Int((albumDuration / 60).truncatingRemainder(dividingBy: 60))
+        player.play()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            self.waitingForPrepare = false
+        }
+    }
+}
+
+// MARK: - Private Methods
+
+private extension AlbumDetailObservableObject {
+    func setAlbumContents() {
+        albumContents = AlbumContents(tracks: getTracks(for: media.collectionName ?? ""))
     }
     
-    var albumTrackCount: Int {
-        var albumTrackCount: Int = 0
-        albumContents?.songs.forEach { song in
+    func configureAlbumDetails() {
+        var albumDuration: TimeInterval = 0
+        
+        trackIDsQueue.removeAll()
+        albumContents?.tracks.forEach { track in
+            trackIDsQueue.append(track.playbackStoreID)
+            albumDuration += track.playbackDuration
             albumTrackCount += 1
         }
         
-        return albumTrackCount
+        self.albumDuration = Int((albumDuration / 60).truncatingRemainder(dividingBy: 60))
     }
     
-    private func initSongsInAlbum() {
-        setSongsInAlbumDetail(albumTitle: media.collectionName ?? "")
-    }
-
-    private func setIDsQueue() {
-        var stringQueue: [String] = []
-        songIDsQueue.removeAll()
-        albumContents?.songs.forEach { song in
-            stringQueue.append(song.playbackStoreID)
-        }
-        
-        songIDsQueue = stringQueue
-    }
-    
-    private func setSongsInAlbumDetail(albumTitle: String) {
-        albumContents = AlbumContents(songs: getSongsFor(Album: albumTitle))
-    }
-    
-    private func getSongsFor(Album: String) -> [MPMediaItem] {
-        let albumTitleFilter = MPMediaPropertyPredicate(value: Album,
+    func getTracks(for album: String) -> [MPMediaItem] {
+        let albumTitleFilter = MPMediaPropertyPredicate(value: album,
                                                         forProperty: MPMediaItemPropertyAlbumTitle,
                                                         comparisonType: .equalTo)
         
@@ -72,42 +105,13 @@ final class AlbumDetailObservableObject: ObservableObject {
             return []
         }
     }
-    
-    func getSongsCount() -> Int {
-        return albumContents?.songs.count ?? 0
-    }
-    
-    func allSongsPlayButtonPressed(isShuffle: Bool) {
-        waitingForPrepare = true
-        player.stop()
-        player.setQueue(with: songIDsQueue)
-        UserDefaults.standard.set(songIDsQueue, forKey: UserDefaultsKey.queueDefault)
-        if isShuffle {
-            player.shuffleMode = MPMusicShuffleMode.songs
-            UserDefaults.standard.set(true, forKey: UserDefaultsKey.shuffleDefault)
-            player.shuffleMode = MPMusicShuffleMode.songs
-        } else {
-            UserDefaults.standard.set(false, forKey: UserDefaultsKey.shuffleDefault)
-            player.shuffleMode = MPMusicShuffleMode.off
-        }
-        player.play()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.waitingForPrepare = false
-        }
-    }
-    
-    func specificSongPlayButtonPressed(songIndex: Int) {
-        waitingForPrepare = true
-        player.stop()
-        player.setQueue(with: songIDsQueue)
-        UserDefaults.standard.set(songIDsQueue, forKey: UserDefaultsKey.queueDefault)
-        player.play()
-        player.nowPlayingItem = albumContents?.songs[songIndex]
-        UserDefaults.standard.set(false, forKey: UserDefaultsKey.shuffleDefault)
-        player.shuffleMode = MPMusicShuffleMode.off
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.waitingForPrepare = false
-        }
-    }
 }
 
+
+// MARK: - Types
+
+extension AlbumDetailObservableObject {
+    struct AlbumContents {
+        var tracks: [MPMediaItem] = []
+    }
+}

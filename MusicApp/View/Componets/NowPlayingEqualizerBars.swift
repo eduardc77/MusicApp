@@ -19,6 +19,7 @@ struct NowPlayingEqualizerBars: View {
         GeometryReader { (geo: GeometryProxy) in
             let barWidth = geo.size.width * barWidthScaleFactor
             let spacerWidth = barWidth * NowPlayingEqualizerBars.spacerWidthRatio
+            
             HStack(spacing: spacerWidth) {
                 ForEach(0..<NowPlayingEqualizerBars.numberOfBars, id: \.self) { index in
                     EqualizerBar(completion: animating ? 1 : 0)

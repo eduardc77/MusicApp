@@ -16,6 +16,6 @@ struct VolumeSlider: UIViewRepresentable {
         
         return view
     }
-
+    
     func updateUIView(_ view: UIView, context: Context) {}
 }

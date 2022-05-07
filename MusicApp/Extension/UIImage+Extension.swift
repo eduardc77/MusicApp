@@ -36,7 +36,7 @@ extension UIImage {
         
         // Create 1x1 context that interpolates pixels when drawing to it.
         let context = CGContext(data: &bitmap, width: 1, height: 1, bitsPerComponent: 8, bytesPerRow: 4, space: CGColorSpaceCreateDeviceRGB(), bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue)!
-      
+        
         // Render to bitmap.
         context.draw(inputImage, in: CGRect(x: 0, y: 0, width: 1, height: 1))
         

@@ -11,6 +11,17 @@ import Combine
 class SearchObservableObject: ObservableObject {
     typealias ImageInfo = (url: URL, data: Data)
     
+    // MARK: - Private Properties
+    
+    private var subscriptions = Set<AnyCancellable>()
+    private var requestSubscription: AnyCancellable?
+    private var resultIds: [String: String] = [:]
+    private var previousQuery: SearchQuery?
+    private var queryLimit: Int = 10
+    private var loadingMoreComplete = false
+    
+    // MARK: - Public Properties
+    
     @Published var searchTerm: String = ""
     @Published var searchResults: [Media] = []
     @Published var imagesData: [URL: Data] = [:]
@@ -19,23 +30,20 @@ class SearchObservableObject: ObservableObject {
     @Published var mediaType = MediaKind.song
     @Published var noResultsFound = false
     
-    private var subscriptions = Set<AnyCancellable>()
-    private var requestSubscription: AnyCancellable?
-    private var resultIds: [String: String] = [:]
-    private var previousQuery: SearchQuery?
-    private var queryLimit: Int = 16
-    private var loadingMoreComplete = false
-    
     var urlSession: URLSession
     var errorMessage: String?
+    
+    // MARK: - Initialization
     
     init(urlSession: URLSession = .shared) {
         self.urlSession = urlSession
     }
     
+    // MARK: - Public Methods
+    
     func search() {
         $searchTerm
-            .debounce(for: 0.6, scheduler: RunLoop.main) // debounces the string publisher, such that it delays the process of sending request to remote server.
+            .debounce(for: 0.3, scheduler: RunLoop.main) // debounces the string publisher, such that it delays the process of sending request to remote server.
             .removeDuplicates()
             .map({ (string) -> String? in
                 if string.count < 1 {
@@ -65,7 +73,7 @@ class SearchObservableObject: ObservableObject {
             .store(in: &subscriptions)
     }
     
-    func loadMore() {
+    func loadMore() async {
         guard !loadingMoreComplete, searchResults.count >= queryLimit else {
             stopLoadingMore()
             return
@@ -90,10 +98,8 @@ private extension SearchObservableObject {
             urlSession: urlSession
         )
         requestSubscription = apiManager.send()
-            .sink { [weak self] completion in
-                if case .failure(let error) = completion {
-                    self?.handleSearchError(error)
-                }
+            .sink { _ in
+                //
             } receiveValue: { [weak self] apiResponse in
                 self?.handleSearchResults(apiResponse.results)
             }

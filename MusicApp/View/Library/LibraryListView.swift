@@ -10,9 +10,9 @@ import SwiftUI
 struct LibraryListView: View {
     @ObservedObject var libraryObservableObject: LibraryObservableObject
     @Binding var editMode: EditMode
-    @State var selection: Set<LibrarySection> = []
+    @State var selection = Set<LibrarySection>()
     @State var currentSections = LibrarySection.allCases
-
+    
     var body: some View {
         List(selection: $selection) {
             ForEach(currentSections, id: \.self) { section in
@@ -34,7 +34,7 @@ struct LibraryListView: View {
             .listRowBackground(Color.clear)
         }
         .listStyle(.plain)
-        .frame(idealHeight: CGFloat(50 * currentSections.count), maxHeight: .infinity)
+        .frame(idealHeight: CGFloat(46 * currentSections.count), maxHeight: .infinity)
         
         .onChange(of: editMode, perform: { editMode in
             withAnimation {

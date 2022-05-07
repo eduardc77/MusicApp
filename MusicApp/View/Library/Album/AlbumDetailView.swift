@@ -45,3 +45,10 @@ struct AlbumDetailView: View {
         }
     }
 }
+
+
+struct AlbumDetailView_Previews: PreviewProvider {
+    static var previews: some View {
+        AlbumDetailView(media: Media())
+    }
+}

@@ -12,7 +12,7 @@ enum APIError: Error, LocalizedError {
     case network
     case server
     case generic
-
+    
     var errorDescription: String? {
         switch self {
         case .urlRequest:

@@ -33,21 +33,20 @@ struct HighlightsView: View {
         TabView {
             ForEach(items, id: \.self) { item in
                 let media = Media(kind: MediaKind(rawValue: item.type), artistName: item.description, collectionName: item.name, description: item.description, artwork: Image(item.image))
-                    
-                    switch imageSize {
-                    case .small:
-                        SmallMediaRowItem(media: media)
-                    case .medium:
-                        MediumMediaRowItem(media: media)
-                    case .large:
-                        LargeMediaRowItem(media: media)
-                    }
+                
+                switch imageSize {
+                case .small:
+                    SmallMediaRowItem(media: media)
+                case .medium:
+                    MediumMediaRowItem(media: media)
+                case .large:
+                    LargeMediaRowItem(media: media)
+                }
             }
             .padding(.horizontal)
         }
         .frame(height: Metric.largeRowHeight)
         .tabViewStyle(.page(indexDisplayMode: .never))
-        .padding(.bottom)
         
         Divider()
             .padding(.horizontal)

@@ -70,7 +70,7 @@ extension Media: Codable {
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-    
+        
         wrapperType = WrapperType(rawValue: try container.decode(String.self, forKey: .wrapperType)) ?? .none
         kind = MediaKind(rawValue: try container.decode(String.self, forKey: .kind)) ?? .none
         

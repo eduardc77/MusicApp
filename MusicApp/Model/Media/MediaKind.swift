@@ -19,7 +19,7 @@ enum MediaKind: String {
     case audiobook
     case podcast
     case mix
-
+    
     var title: String {
         switch self {
         case .album:
@@ -46,7 +46,7 @@ enum MediaKind: String {
             return "Mix"
         }
     }
-
+    
     var entity: String {
         self.rawValue
     }
@@ -54,7 +54,7 @@ enum MediaKind: String {
     var entityUppercased: String {
         self.rawValue.uppercased()
     }
-
+    
     var id: String { self.rawValue }
 }
 

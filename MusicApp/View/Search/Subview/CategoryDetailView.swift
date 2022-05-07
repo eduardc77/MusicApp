@@ -1,5 +1,5 @@
 //
-//  SearchDetailView.swift
+//  CategoryDetailView.swift
 //  MusicApp
 //
 //  Created by Eduard Caziuc on 18.04.2022.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SearchDetailView: View {
+struct CategoryDetailView: View {
     var category: SearchCategoryModel
     
     var body: some View {
@@ -21,18 +21,8 @@ struct SearchDetailView: View {
                 
                 HighlightsView(items: selectedMusic[category.tag], imageSize: .large, rowCount: 2)
                 
-                HStack {
-                    Text("Featured Artists")
-                        .font(.title2).bold()
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    
-                    Button("See All") {}
-                        .foregroundColor(.red)
-                }
-                .padding(.horizontal)
-                
-                HorizontalMediaGridView(items: musicPlaylists[category.tag], imageSize: .medium)
-                
+                HorizontalMediaGridView(mediaItems: musicPlaylists, title: "Best \(category.title) Music", imageSize: .medium)
+                //               mediaItems: musicPlaylists[category.tag]
                     .navigationBarTitleDisplayMode(.inline)
             }
         }
@@ -42,7 +32,7 @@ struct SearchDetailView: View {
 
 struct SearchDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        SearchDetailView(category: searchCategories[0])
+        CategoryDetailView(category: searchCategories[0])
     }
 }
 

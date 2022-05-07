@@ -12,7 +12,7 @@ struct SearchQuery: Query {
     var media: MediaKind
     var limit: Int = 16
     var offset: Int = 0
-
+    
     var toDictionary: [String: String] {
         return [
             "term": term,

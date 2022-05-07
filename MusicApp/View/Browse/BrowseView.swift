@@ -23,30 +23,20 @@ struct BrowseView: View {
         NavigationView {
             ScrollView() {
                 Divider()
-                
-                HighlightsView(items: selectedStations, imageSize: .large)
-
-                Text(title)
-                    .font(.title2).bold()
-                    .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.horizontal)
                 
-                HorizontalMediaGridView(items: musicPlaylists[2], imageSize: .small, rowCount: 4)
+                HighlightsView(items: selectedStations, imageSize: .large)
+                
+                HorizontalMediaGridView(mediaItems: musicPlaylists, title: "New Music", imageSize: .small, rowCount: 4)
                 
                 NavigationLinkList(rowItems: BrowseMoreToExplore.self, content: detailViews)
-
+                
                 Spacer(minLength: Metric.playerHeight)
             }
             .navigationTitle(title)
         }
     }
 }
-//
-//struct BrowseView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        BrowseView()
-//    }
-//}
 
 enum BrowseMoreToExplore: Int {
     case browseByCategory
@@ -77,5 +67,12 @@ enum BrowseMoreToExplore: Int {
 extension BrowseMoreToExplore: CaseIterable, Identifiable, Hashable {
     var id: String {
         UUID().uuidString
+    }
+}
+
+
+struct BrowseView_Previews: PreviewProvider {
+    static var previews: some View {
+        BrowseView()
     }
 }

@@ -16,9 +16,7 @@ struct AccountView: View {
     var body: some View {
         NavigationView {
             List {
-                Section {
-                    ProfileNavigationLink(username: "John Appleseed", email: "john.appleseed@icloud.com")
-                }
+                Section { ProfileNavigationLink(username: "John Appleseed", email: "john.appleseed@icloud.com") }
                 
                 Section {
                     RowButton(rowTitle: "Redeem Gift Card or Code", navigationTitle: "Redeem Code")
@@ -56,7 +54,8 @@ struct AccountView: View {
                 }
             }
             .listStyle(.grouped)
-            .navigationBarTitle("Account", displayMode: .inline)
+            .navigationTitle("Account")
+            .navigationBarTitleDisplayMode(.inline)
             .navigationBarItems(trailing: DismissButton(title: "Done", presentationMode: _presentationMode))
         }
     }

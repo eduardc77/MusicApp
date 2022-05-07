@@ -11,7 +11,7 @@ struct FlipView<Front: View, Back: View>: View {
     var visibleSide: FlipViewSide
     @ViewBuilder var front: Front
     @ViewBuilder var back: Back
-
+    
     var body: some View {
         ZStack {
             front
@@ -25,7 +25,7 @@ struct FlipView<Front: View, Back: View>: View {
 enum FlipViewSide {
     case front
     case back
-
+    
     mutating func toggle() {
         self = self == .front ? .back : .front
     }
@@ -53,7 +53,7 @@ struct FlipModifier: AnimatableModifier {
             return flipProgress > 0.5
         }
     }
-
+    
     public func body(content: Content) -> some View {
         ZStack {
             content
@@ -63,7 +63,7 @@ struct FlipModifier: AnimatableModifier {
         .scaleEffect(x: scale, y: 1.0)
         .rotation3DEffect(.degrees(flipProgress * -180), axis: (x: 0.0, y: 1.0, z: 0.0), perspective: 0.5)
     }
-
+    
     var scale: CGFloat {
         switch side {
         case .front:

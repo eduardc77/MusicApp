@@ -43,25 +43,22 @@ struct LibraryListDetailView: View {
             case .homeSharing:
                 VerticalMediaGridView(mediaItems: libraryObservableObject.homeSharing, imageSize: .medium, rowCount: 2)
             }
-
+            
             Spacer(minLength: Metric.playerHeight)
         }
         .navigationTitle(section.title)
         .searchable(text: $searchTerm, prompt: "Find in \(section.title)")
         .toolbar {
-            Button(action: {}, label:
-            { Text("Sort") })
+            Button("Sort") {
+                print("Sort tapped!")
+            }
         }
     }
 }
+
 
 struct LibraryListDetailView_Previews: PreviewProvider {
     static var previews: some View {
         LibraryListDetailView(libraryObservableObject: LibraryObservableObject(), section: .albums)
     }
 }
-
-
-
-
-

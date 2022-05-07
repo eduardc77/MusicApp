@@ -14,7 +14,7 @@ extension Date {
         dateFormatter.timeStyle = .none
         return dateFormatter
     }()
-
+    
     var mediumDateStyle: String {
         Self.mediumDateFormatter.string(from: self)
     }

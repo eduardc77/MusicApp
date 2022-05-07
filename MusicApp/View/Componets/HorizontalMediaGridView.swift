@@ -8,50 +8,85 @@
 import SwiftUI
 
 struct HorizontalMediaGridView: View {
-    @State var items = [SmallPictureModel]()
+    @State var mediaItems = [Media]()
+    var title: String
     var imageSize: ImageSizeType
     var gridRows: [GridItem]
     
-    init(items: [SmallPictureModel], imageSize: ImageSizeType, rowCount: Int = 1) {
-        self.items = items
+    private var maxHighlightShowing = 32
+    
+    init(mediaItems: [Media], title: String = "", imageSize: ImageSizeType, rowCount: Int = 1) {
+        self.mediaItems = mediaItems
+        self.title = title
         self.imageSize = imageSize
         
         switch imageSize {
         case .small:
             gridRows = Array(repeating: .init(.fixed(Metric.smallRowHeight), spacing: 2), count: rowCount)
         case .medium:
-            gridRows = Array(repeating: .init(.fixed(Metric.mediumRowHeight)), count: rowCount)
+            gridRows = Array(repeating: .init(.fixed(Metric.mediumRowHeight), spacing: 10), count: rowCount)
         case .large:
             gridRows = Array(repeating: .init(.fixed(Metric.largeRowHeight)), count: rowCount)
         }
     }
     
     var body: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            LazyHGrid(rows: gridRows, spacing: 12) {
-                ForEach(items, id: \.self) { item in
-                    let media = Media(artistName: item.description, collectionName: item.name, trackName: item.name, description: item.description, artwork: Image(item.image))
+        VStack(spacing: 8) {
+            if !title.isEmpty {
+                HStack {
+                    Text(title)
+                        .font(.title2.bold())
+                        .frame(maxWidth: .infinity, alignment: .leading)
                     
-                    switch imageSize {
-                    case .small:
-                        SmallMediaRowItem(media: media)
-                    case .medium:
-                        MediumMediaRowItem(media: media)
-                    case .large:
-                        LargeMediaRowItem(media: media)
+                    Spacer()
+                    
+                    if mediaItems.count > maxHighlightShowing {
+                        NavigationLink {
+                            switch mediaItems.first?.kind {
+                                // All types of see all - Review
+                            case .album:
+                                VerticalMediaGridView(mediaItems: mediaItems, imageSize: .medium, rowCount: 2)
+                                    .navigationTitle(title)
+                                    .navigationBarTitleDisplayMode(.inline)
+                            default:
+                                VerticalMediaGridView(mediaItems: mediaItems, imageSize: .medium, rowCount: 1)
+                                    .navigationTitle(title)
+                                    .navigationBarTitleDisplayMode(.inline)
+                            }
+                        } label: {
+                            Text("See All")
+                                .font(.body)
+                        }
                     }
-                }  
+                }
+                .padding(.horizontal)
             }
-            .padding([.horizontal])
+            
+            ScrollView(.horizontal, showsIndicators: false) {
+                LazyHGrid(rows: gridRows, spacing: 12) {
+                    ForEach(mediaItems.prefix(maxHighlightShowing), id: \.self) { media in
+                        
+                        switch imageSize {
+                        case .small:
+                            SmallMediaRowItem(media: media)
+                        case .medium:
+                            MediumMediaRowItem(media: media)
+                        case .large:
+                            LargeMediaRowItem(media: media)
+                        }
+                    }
+                }
+                .padding(.horizontal)
+            }
+            
+            Spacer(minLength: 8)
+            Divider()
         }
-        
-        Divider()
-            .padding([.horizontal])
     }
 }
 
 struct HorizontalMusicListView_Previews: PreviewProvider {
     static var previews: some View {
-        HorizontalMediaGridView(items: musicPlaylists[0], imageSize: .medium, rowCount: 1)
+        HorizontalMediaGridView(mediaItems: musicPlaylists, title: "You Gotta Hear This", imageSize: .medium, rowCount: 1)
     }
 }

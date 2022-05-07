@@ -16,7 +16,8 @@ struct SearchView: View {
             SearchOrCategoryView(searchObservableObject: searchObservableObject)
                 .searchable(text: $searchTerm,
                             placement:.navigationBarDrawer(displayMode:.always),
-                            prompt: "Artists, Songs, Lyrics, and More")
+                            prompt: "Artists, Songs, Lyrics, and More",
+                            suggestions: {})
             
                 .onSubmit(of: .search) {
                     searchObservableObject.searchTerm = searchTerm
@@ -37,54 +38,49 @@ struct SearchView: View {
                     )
                 }
                 .navigationTitle("Search")
-            
         }
-        
     }
     
     struct SearchOrCategoryView: View {
         @Environment(\.isSearching) private var isSearching
         @ObservedObject var searchObservableObject: SearchObservableObject
-        @State private var selectedIndex = 0
         
         var body: some View {
             if !isSearching {
                 CategoryGridView()
             } else {
-                Picker("Search In", selection: $selectedIndex) {
-                    Text("Apple Music").tag(0)
-                    Text("Your Library").tag(1)
-                }
-                .pickerStyle(.segmented)
-                .padding(.horizontal)
-                
                 SearchResultsView(searchObservableObject: searchObservableObject)
-                
             }
         }
     }
 }
 
-struct SearchResultsView: View {
-    @ObservedObject var searchObservableObject: SearchObservableObject
-    var body: some View {
-        ZStack {
-            if searchObservableObject.noResultsFound {
-                VStack {
-                    Text("No Results")
-                        .font(.title2).bold()
-                        .foregroundColor(.primary)
-                    Text("Try a new search.")
-                        .foregroundColor(.secondary)
-                        .font(.body)
-                }
-                .padding(.bottom)
-            } else {
+// MARK: - Search Results View
+
+extension SearchView {
+    struct SearchResultsView: View {
+        @ObservedObject var searchObservableObject: SearchObservableObject
+        
+        var body: some View {
+            ZStack {
                 SearchListView(searchObservableObject: searchObservableObject)
+                
+                if searchObservableObject.noResultsFound {
+                    VStack {
+                        Text("No Results")
+                            .font(.title2).bold()
+                            .foregroundColor(.primary)
+                        Text("Try a new search.")
+                            .foregroundColor(.secondary)
+                            .font(.body)
+                    }
+                    .padding(.bottom)
+                }
             }
         }
     }
 }
+
 
 struct SearchView_Previews: PreviewProvider {
     static var previews: some View {

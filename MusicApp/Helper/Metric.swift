@@ -8,6 +8,7 @@
 import SwiftUI
 
 enum Metric {
+    // MARK: - Search
     static let playerSmallImageSize: CGFloat = 48
     static let searchResultImageSize: CGFloat = 56
     static let searchResultCornerRadius: CGFloat = 4
@@ -20,18 +21,21 @@ enum Metric {
     static let capsuleWidth: CGFloat = 36
     static let capsuleHeight: CGFloat = 5
     static let largeMediaImage: CGFloat = UIScreen.main.bounds.height / 3.33
-    static let albumImageSize: CGFloat = 158
     static let albumDetailHeaderHeight: CGFloat = UIScreen.main.bounds.height / 2.2
     
-    
-    //Horizontal List and Library List
+    // MARK: - Horizontal List and Library List
     static let smallImageSize: CGFloat = 50
-    static let mediumImageSize: CGFloat = 162
+    static let mediumImageSize: CGFloat = 160
     static let largeImageSize: CGFloat = 186
     
     static let smallRowHeight: CGFloat = 55
-    static let mediumRowHeight: CGFloat = 220
-    static let largeRowHeight: CGFloat = UIScreen.main.bounds.height * 0.373
+    static let mediumRowHeight: CGFloat = 196
+    static let largeRowHeight: CGFloat = UIScreen.main.bounds.height * 0.37
+    
+    // MARK: - TimeView
+    static let largePoint: CGFloat = 32
+    static let smallPoint: CGFloat = 6
+    static let timeLineHeight: CGFloat = 3
 }
 
 enum ImageSizeType {
