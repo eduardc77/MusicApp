@@ -16,8 +16,9 @@ struct SearchQuery: Query {
     var toDictionary: [String: String] {
         return [
             "term": term,
-            "media": media.rawValue,
-            "entity": media.entity,
+            "media": "music",
+            "entity": "album",
+           
             "limit": String(limit),
             "offset": String(offset)
         ]

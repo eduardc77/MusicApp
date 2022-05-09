@@ -9,23 +9,24 @@ import SwiftUI
 import MediaPlayer
 
 struct AlbumDetailView: View {
-    @StateObject private var albumDetailObservableObject: AlbumDetailObservableObject
+    @StateObject private var mediaItemObservableObject: MediaItemObservableObject
     
-    init(media: Media) {
-        _albumDetailObservableObject = StateObject(wrappedValue: AlbumDetailObservableObject(media: media))
+    init(media: Media, searchObservableObject: SearchObservableObject) {
+        _mediaItemObservableObject = StateObject(wrappedValue: MediaItemObservableObject(media: media, searchObservableObject: searchObservableObject))
     }
     
     var body: some View {
         ScrollView {
             VStack {
-                AlbumHeaderView(albumDetailObservableObject: albumDetailObservableObject)
+                AlbumHeaderView(albumDetailObservableObject: mediaItemObservableObject)
                 
-                AlbumTrackList(albumDetailObservableObject: albumDetailObservableObject)
+                AlbumTrackList(albumDetailObservableObject: mediaItemObservableObject)
                 
                 Spacer(minLength: Metric.playerHeight)
             }
             .navigationBarTitleDisplayMode(.inline)
         }
+        
         .toolbar {
             HStack {
                 Button { } label: {
@@ -49,6 +50,6 @@ struct AlbumDetailView: View {
 
 struct AlbumDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        AlbumDetailView(media: Media())
+        AlbumDetailView(media: Media(), searchObservableObject: SearchObservableObject())
     }
 }

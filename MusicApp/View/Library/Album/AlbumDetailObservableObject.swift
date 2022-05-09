@@ -72,6 +72,16 @@ final class AlbumDetailObservableObject: ObservableObject {
             self.waitingForPrepare = false
         }
     }
+    
+    func mediaItem(with persistentId: String) -> MPMediaItem? {
+            let songQuery = MPMediaQuery.songs()
+
+            songQuery.addFilterPredicate(MPMediaPropertyPredicate(value: persistentId,
+                                                                  forProperty: MPMediaItemPropertyPersistentID,
+                                                                  comparisonType: .equalTo))
+            
+            return songQuery.items?.first
+        }
 }
 
 // MARK: - Private Methods

@@ -12,7 +12,7 @@ struct MediumMediaRowItem: View {
     var imageData: Data?
     
     var body: some View {
-        NavigationLink(destination: AlbumDetailView(media: media)) {
+        NavigationLink(destination: AlbumDetailView(media: media, searchObservableObject: SearchObservableObject())) {
             VStack(alignment: .leading) {
                 if let imageData = imageData, let uiImage = UIImage(data: imageData) {
                     MediaImageView(image: Image(uiImage: uiImage), size: Size(width: Metric.mediumImageSize, height: Metric.mediumImageSize))

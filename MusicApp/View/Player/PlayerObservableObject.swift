@@ -29,7 +29,7 @@ enum UserDefaultsKey {
 
 final class PlayerObservableObject: ObservableObject {
     var player: MPMusicPlayerController
-    @Published private(set) var nowPlayingItem: Media?
+    @Published var nowPlayingItem: Media?
     @Published var playbackState: MPMusicPlaybackState? = MPMusicPlayerController.applicationMusicPlayer.playbackState
     @Published var playerOption = PlayerOption()
     @Published var progressRate: Int = 0

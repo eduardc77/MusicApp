@@ -27,13 +27,13 @@
 		EA978849281B18900032C3AD /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA978848281B18900032C3AD /* Account.swift */; };
 		EA97884B281B1FDD0032C3AD /* AccountNavigationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA97884A281B1FDD0032C3AD /* AccountNavigationItem.swift */; };
 		EAA2277E281F01FD00A8484F /* WrapperType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA2277D281F01FD00A8484F /* WrapperType.swift */; };
+		EAB09DA1282802420011B78C /* MediaItemObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB09DA0282802420011B78C /* MediaItemObservableObject.swift */; };
 		EAC53D7528145B2600785395 /* PlayerObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC53D7428145B2600785395 /* PlayerObservableObject.swift */; };
 		EAC53D7728145C7B00785395 /* Enum+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC53D7628145C7B00785395 /* Enum+Extension.swift */; };
 		EAC53D7A2814888400785395 /* TimeInterval+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC53D792814888400785395 /* TimeInterval+Extension.swift */; };
 		EAC53D7C2814956000785395 /* SearchListObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC53D7B2814956000785395 /* SearchListObservableObject.swift */; };
 		EAC53D7E2814BA1B00785395 /* LibraryObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC53D7D2814BA1B00785395 /* LibraryObservableObject.swift */; };
 		EAC53D802814C40500785395 /* AlbumDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC53D7F2814C40500785395 /* AlbumDetailView.swift */; };
-		EAC53D822814C44A00785395 /* AlbumDetailObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC53D812814C44A00785395 /* AlbumDetailObservableObject.swift */; };
 		EACA1C3C2819B29800CD7E4F /* View+HideKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACA1C3B2819B29800CD7E4F /* View+HideKeyboard.swift */; };
 		EACA1C402819BCDA00CD7E4F /* MainButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACA1C3F2819BCDA00CD7E4F /* MainButton.swift */; };
 		EAD01E872823122500B01F07 /* AlbumHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD01E862823122500B01F07 /* AlbumHeaderView.swift */; };
@@ -114,6 +114,7 @@
 		EA978848281B18900032C3AD /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		EA97884A281B1FDD0032C3AD /* AccountNavigationItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountNavigationItem.swift; sourceTree = "<group>"; };
 		EAA2277D281F01FD00A8484F /* WrapperType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrapperType.swift; sourceTree = "<group>"; };
+		EAB09DA0282802420011B78C /* MediaItemObservableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaItemObservableObject.swift; sourceTree = "<group>"; };
 		EAC53D7428145B2600785395 /* PlayerObservableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerObservableObject.swift; sourceTree = "<group>"; };
 		EAC53D7628145C7B00785395 /* Enum+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Enum+Extension.swift"; sourceTree = "<group>"; };
 		EAC53D78281480B300785395 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -121,7 +122,6 @@
 		EAC53D7B2814956000785395 /* SearchListObservableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchListObservableObject.swift; sourceTree = "<group>"; };
 		EAC53D7D2814BA1B00785395 /* LibraryObservableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryObservableObject.swift; sourceTree = "<group>"; };
 		EAC53D7F2814C40500785395 /* AlbumDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDetailView.swift; sourceTree = "<group>"; };
-		EAC53D812814C44A00785395 /* AlbumDetailObservableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDetailObservableObject.swift; sourceTree = "<group>"; };
 		EACA1C3B2819B29800CD7E4F /* View+HideKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+HideKeyboard.swift"; sourceTree = "<group>"; };
 		EACA1C3F2819BCDA00CD7E4F /* MainButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainButton.swift; sourceTree = "<group>"; };
 		EAD01E862823122500B01F07 /* AlbumHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumHeaderView.swift; sourceTree = "<group>"; };
@@ -243,9 +243,9 @@
 			isa = PBXGroup;
 			children = (
 				EAC53D7F2814C40500785395 /* AlbumDetailView.swift */,
-				EAC53D812814C44A00785395 /* AlbumDetailObservableObject.swift */,
 				EAD01E862823122500B01F07 /* AlbumHeaderView.swift */,
 				EAD01E882823129A00B01F07 /* AlbumTrackList.swift */,
+				EAB09DA0282802420011B78C /* MediaItemObservableObject.swift */,
 			);
 			path = Album;
 			sourceTree = "<group>";
@@ -570,6 +570,7 @@
 				EAD15361280D6280005FD971 /* FavoriteMedia+CoreDataProperties.swift in Sources */,
 				EAD15337280D5BDB005FD971 /* BottomToolbar.swift in Sources */,
 				EA23ECF528158A750040BB58 /* MediumMediaRowItem.swift in Sources */,
+				EAB09DA1282802420011B78C /* MediaItemObservableObject.swift in Sources */,
 				EAD1534B280D5D9E005FD971 /* SearchView.swift in Sources */,
 				EAD15329280D5B22005FD971 /* VerticalMediaGridView.swift in Sources */,
 				EAD15339280D5C24005FD971 /* PlayerView.swift in Sources */,
@@ -617,7 +618,6 @@
 				EAD01E872823122500B01F07 /* AlbumHeaderView.swift in Sources */,
 				EAD15315280D5835005FD971 /* MediaKind.swift in Sources */,
 				EAD15325280D5AFD005FD971 /* HighlightsView.swift in Sources */,
-				EAC53D822814C44A00785395 /* AlbumDetailObservableObject.swift in Sources */,
 				EA1BE0CA281DC1DF00A3A7A4 /* LibrarySection.swift in Sources */,
 				EAC53D7E2814BA1B00785395 /* LibraryObservableObject.swift in Sources */,
 				EAD15333280D5BBA005FD971 /* PlayerButtonsView.swift in Sources */,

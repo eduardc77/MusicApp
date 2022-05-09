@@ -69,57 +69,67 @@ extension Media: Codable {
     }
     
     init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let container = try? decoder.container(keyedBy: CodingKeys.self)
         
-        wrapperType = WrapperType(rawValue: try container.decode(String.self, forKey: .wrapperType)) ?? .none
-        kind = MediaKind(rawValue: try container.decode(String.self, forKey: .kind)) ?? .none
+        if let wrapperType = try? container?.decode(String.self, forKey: .wrapperType),
+           let mediaKind = WrapperType(rawValue: wrapperType) {
+            self.wrapperType = mediaKind
+        } else {
+            wrapperType = .collection
+        }
         
-        if let trackId = try? container.decode(Int.self, forKey: .trackId) {
+        if let kind = try? container?.decode(String.self, forKey: .kind),
+           let mediaKind = MediaKind(rawValue: kind) {
+            self.kind = mediaKind
+        } else {
+            kind = .album
+        }
+        
+        if let trackId = try? container?.decode(Int.self, forKey: .trackId) {
             id = String(trackId)
             self.trackId = trackId
-        } else if let collectionId = try? container.decode(Int.self, forKey: .collectionId) {
+        } else if let collectionId = try? container?.decode(Int.self, forKey: .collectionId) {
             id = String(collectionId)
             self.collectionId = collectionId
-        } else if let artistId = try? container.decode(Int.self, forKey: .artistId) {
+        } else if let artistId = try? container?.decode(Int.self, forKey: .artistId) {
             id = String(artistId)
             self.artistId = artistId
         }
-        artistName = try container.decode(String.self, forKey: .artistName)
-        collectionName = try container.decode(String.self, forKey: .collectionName)
-        trackName = try container.decode(String.self, forKey: .trackName)
-        collectionCensoredName = try container.decode(String.self, forKey: .collectionCensoredName)
-        artistViewUrl = try container.decode(URL.self, forKey: .artistViewUrl)
-        collectionViewUrl = try container.decode(URL.self, forKey: .collectionViewUrl)
-        trackViewUrl = try container.decode(URL.self, forKey: .trackViewUrl)
-        previewUrl = (try? container.decode(URL.self, forKey: .previewUrl)) ?? nil
-        artworkUrl60 = (try? container.decode(URL.self, forKey: .artworkUrl60)) ?? nil
-        artworkUrl100 = try container.decode(URL.self, forKey: .artworkUrl100)
-        collectionPrice = try container.decode(Double.self, forKey: .collectionPrice)
-        trackPrice = try container.decode(Double.self, forKey: .trackPrice)
-        collectionExplicitness = try container.decode(String.self, forKey: .collectionExplicitness)
-        trackExplicitness = try container.decode(String.self, forKey: .trackExplicitness)
-        discCount = try container.decode(Int.self, forKey: .discCount)
-        discNumber = try container.decode(Int.self, forKey: .discNumber)
-        trackCount = try container.decode(Int.self, forKey: .trackCount)
-        trackNumber = try container.decode(Int.self, forKey: .trackNumber)
-        trackTimeMillis = try container.decode(Double.self, forKey: .trackTimeMillis)
-        country = try container.decode(String.self, forKey: .country)
-        currency = try container.decode(String.self, forKey: .currency)
-        primaryGenreName = try container.decode(String.self, forKey: .primaryGenreName)
-        releaseDate = try container.decode(Date.self, forKey: .releaseDate)
+        artistName = try? container?.decode(String.self, forKey: .artistName)
+        collectionName = try? container?.decode(String.self, forKey: .collectionName)
+        trackName = try? container?.decode(String.self, forKey: .trackName)
+        collectionCensoredName = try? container?.decode(String.self, forKey: .collectionCensoredName)
+        artistViewUrl = try? container?.decode(URL.self, forKey: .artistViewUrl)
+        collectionViewUrl = try? container?.decode(URL.self, forKey: .collectionViewUrl)
+        trackViewUrl = try? container?.decode(URL.self, forKey: .trackViewUrl)
+        previewUrl = (try? container?.decode(URL.self, forKey: .previewUrl)) ?? nil
+        artworkUrl60 = (try? container?.decode(URL.self, forKey: .artworkUrl60)) ?? nil
+        artworkUrl100 = try? container?.decode(URL.self, forKey: .artworkUrl100)
         
-        if let description = try? container.decode(String.self, forKey: .description) {
+        collectionExplicitness = try? container?.decode(String.self, forKey: .collectionExplicitness)
+        trackExplicitness = try? container?.decode(String.self, forKey: .trackExplicitness)
+        discCount = try? container?.decode(Int.self, forKey: .discCount)
+        discNumber = try? container?.decode(Int.self, forKey: .discNumber)
+        trackCount = try? container?.decode(Int.self, forKey: .trackCount)
+        trackNumber = try? container?.decode(Int.self, forKey: .trackNumber)
+        trackTimeMillis = try? container?.decode(Double.self, forKey: .trackTimeMillis)
+        country = try? container?.decode(String.self, forKey: .country)
+        currency = try? container?.decode(String.self, forKey: .currency)
+        primaryGenreName = try? container?.decode(String.self, forKey: .primaryGenreName)
+        releaseDate = try? container?.decode(Date.self, forKey: .releaseDate)
+        
+        if let description = try? container?.decode(String.self, forKey: .description) {
             self.description = description.stripHTML()
-        } else if let description = try? container.decode(String.self, forKey: .longDescription) {
+        } else if let description = try? container?.decode(String.self, forKey: .longDescription) {
             self.longDescription = description.stripHTML()
         } else {
             description = "No description."
             longDescription = ""
         }
         
-        if let trackPrice = try? container.decode(Double.self, forKey: .trackPrice) {
+        if let trackPrice = try? container?.decode(Double.self, forKey: .trackPrice) {
             self.trackPrice = trackPrice
-        } else if let collectionPrice = try? container.decode(Double.self, forKey: .collectionPrice) {
+        } else if let collectionPrice = try? container?.decode(Double.self, forKey: .collectionPrice) {
             self.collectionPrice = collectionPrice
         } else {
             trackPrice = 0.0

@@ -24,14 +24,14 @@ struct SmallMediaRowItem: View {
                     HStack(alignment: .center) {
                         
                         VStack {
-                            Text(media.trackName ?? "")
+                            Text(media.trackName ?? media.collectionName ?? media.artistName ?? "")
                                 .foregroundColor(.primary)
                                 .font(.caption)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .lineLimit(1)
                             
                             
-                            Text(media.description ?? "")
+                            Text(media.artistName ?? media.description ?? media.composer ?? media.country ?? "")
                                 .foregroundColor(.secondary)
                                 .font(.caption)
                                 .frame(maxWidth: .infinity, alignment: .leading)

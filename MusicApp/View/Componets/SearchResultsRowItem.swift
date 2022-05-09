@@ -27,7 +27,7 @@ struct SearchResultsRowItem: View {
                     .font(.callout)
                     .lineLimit(1)
                 
-                Text(media.artistName ?? "")
+                Text("\(media.kind?.title ?? "") · \(media.artistName ?? "")")
                     .foregroundColor(.secondary)
                     .font(.callout)
                     .lineLimit(1)

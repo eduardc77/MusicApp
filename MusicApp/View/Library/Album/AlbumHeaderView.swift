@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct AlbumHeaderView: View {
-    @ObservedObject var albumDetailObservableObject: AlbumDetailObservableObject
+    @ObservedObject var albumDetailObservableObject: MediaItemObservableObject
     
     var body: some View {
         VStack {
             VStack {
-                MediaImageView(image: albumDetailObservableObject.media.artwork, size: Size(width: 230, height: 230), isLargeArtworkSize: true)
+                MediaImageView(image: albumDetailObservableObject.media.artwork, size: Size(width: Metric.albumDetailImageSize, height: Metric.albumDetailImageSize), prominentShadow: true)
                     .padding(.bottom, 6)
                 
                 albumDetails

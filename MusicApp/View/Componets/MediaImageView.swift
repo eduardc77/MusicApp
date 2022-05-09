@@ -11,17 +11,17 @@ struct MediaImageView: View {
     var image: Image?
     var size: Size
     var cornerRadius: CGFloat
-    var isLargeArtworkSize: Bool
+    var prominentShadow: Bool
     var contentMode: ContentMode
     var foregroundColor: Color
     
     @Binding var visibleSide: FlipViewSide
     
-    init(image: Image? = nil, size: Size = Size(), cornerRadius: CGFloat = 4, isLargeArtworkSize: Bool = false, contentMode: ContentMode = .fit, foregroundColor: Color = .secondary.opacity(0.1), visibleSide: Binding<FlipViewSide> = .constant(.front)) {
+    init(image: Image? = nil, size: Size = Size(), cornerRadius: CGFloat = 4, prominentShadow: Bool = false, contentMode: ContentMode = .fit, foregroundColor: Color = .secondary.opacity(0.1), visibleSide: Binding<FlipViewSide> = .constant(.front)) {
         self.image = image
         self.size = size
         self.cornerRadius = cornerRadius
-        self.isLargeArtworkSize = isLargeArtworkSize
+        self.prominentShadow = prominentShadow
         self.contentMode = contentMode
         self.foregroundColor = foregroundColor
         
@@ -36,7 +36,7 @@ struct MediaImageView: View {
                     .aspectRatio(contentMode: contentMode)
                     .frame(width: size.width, height: size.height)
                     .cornerRadius(cornerRadius)
-                    .shadow(radius: isLargeArtworkSize ? 16 : 2, x: isLargeArtworkSize ? -6 : 0, y: isLargeArtworkSize ? 6 : 2)
+                    .shadow(radius: prominentShadow ? 16 : 2, x: prominentShadow ? -6 : 0, y: prominentShadow ? 6 : 2)
             } else {
                 ZStack {
                     Rectangle()

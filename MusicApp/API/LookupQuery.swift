@@ -9,10 +9,13 @@ import Foundation
 
 struct LookupQuery: Query {
     var id: String
+//    var media: MediaKind
     
     var toDictionary: [String: String] {
         return [
-            "id": id
+            "id": id,
+            "entity": "song",
+            "media": "music"
         ]
     }
 }

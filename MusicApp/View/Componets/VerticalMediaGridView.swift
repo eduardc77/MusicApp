@@ -20,7 +20,7 @@ struct VerticalMediaGridView: View {
         
         switch imageSize {
         case .small:
-            columns = Array(repeating: .init(.fixed(Metric.smallRowHeight), spacing: 2), count: rowCount)
+            columns = Array(repeating: .init(.flexible(), spacing: 2, alignment: .leading), count: rowCount)
         case .medium:
             columns = Array(repeating: .init(.flexible()), count: rowCount)
         case .large:
@@ -39,7 +39,7 @@ struct VerticalMediaGridView: View {
         ScrollView(showsIndicators: false) {
             LazyVGrid(columns: columns, spacing: 12) {
                 ForEach(mediaItems, id: \.self) { media in
-                    NavigationLink(destination: AlbumDetailView(media: media)) {
+                    NavigationLink(destination: AlbumDetailView(media: media, searchObservableObject: SearchObservableObject())) {
                         switch imageSize {
                         case .small:
                             SearchResultsRowItem(media: media)

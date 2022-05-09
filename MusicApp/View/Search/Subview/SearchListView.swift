@@ -10,6 +10,7 @@ import MediaPlayer
 
 struct SearchListView: View {
     @ObservedObject var searchObservableObject: SearchObservableObject
+    @StateObject var playerObservableObject: PlayerObservableObject = PlayerObservableObject(player: MPMusicPlayerController.applicationMusicPlayer)
     @State private var selectedIndex = 0
     
     var player: MPMusicPlayerController = MPMusicPlayerController.applicationMusicPlayer
@@ -21,29 +22,59 @@ struct SearchListView: View {
                 Divider()
                 
                 ForEach(searchObservableObject.searchResults, id: \.id) { media in
-                    Section(footer: progressBar(for: media)) {
-                        SearchResultsRowItem(
-                            media: media,
-                            imageData: searchObservableObject.imagesData[media.artworkUrl100 ?? URL(fileURLWithPath: "")]
-                        )
-                    }
-                    .onAppear {
-                        guard media == searchObservableObject.searchResults.last else { return }
-                        Task {
-                            await searchObservableObject.loadMore()
+                    switch media.wrapperType {
+                    case .collection:
+                        NavigationLink(destination: AlbumDetailView(media: media, searchObservableObject: searchObservableObject)) {
+                            Section(footer: progressBar(for: media)) {
+                                SearchResultsRowItem(
+                                    media: media,
+                                    imageData: searchObservableObject.imagesData[media.artworkUrl100 ?? URL(fileURLWithPath: "")]
+                                )
+                            }
                         }
-                    }
-                    .onTapGesture {
-                        AlbumDetailObservableObject(media: media).playTrack(at: media.trackNumber ?? 0)
-                        hideKeyboard()
+                        .onAppear {
+                            guard media == searchObservableObject.searchResults.last else { return }
+                            Task {
+                                await searchObservableObject.loadMore()
+                            }
+                        }
+                        
+                        
+                        
+                    case .track:
+                        Section(footer: progressBar(for: media)) {
+                            SearchResultsRowItem(
+                                media: media,
+                                imageData: searchObservableObject.imagesData[media.artworkUrl100 ?? URL(fileURLWithPath: "")]
+                            )
+                        }
+                        .onAppear {
+                            guard media == searchObservableObject.searchResults.last else { return }
+                            Task {
+                                await searchObservableObject.loadMore()
+                            }
+                        }
+                        .onTapGesture {
+                            guard media.wrapperType == .track else { return }
+                            
+                            playerObservableObject.player.setQueue(with: [media.id])
+                            
+                            playerObservableObject.player.play()
+                            
+                            hideKeyboard()
+                        }
+                    case .artist: EmptyView()
+                        
+                    default: EmptyView()
+                        
                     }
                     
                     Divider()
                 }
+                .padding(.horizontal)
+                
+                Spacer(minLength: Metric.playerHeight)
             }
-            .padding(.horizontal)
-            
-            Spacer(minLength: Metric.playerHeight)
         }
         
         .safeAreaInset(edge: .top) {
@@ -54,20 +85,22 @@ struct SearchListView: View {
                 }
                 .pickerStyle(.segmented)
                 .padding(8)
+                .background(BlurView())
+                .clipped()
             }
-            .background(.thinMaterial)
         }
     }
     
     @ViewBuilder
     func progressBar(for media: Media) -> some View {
-        if searchObservableObject.isLoadingMore, media == searchObservableObject.searchResults.last {
+        if !searchObservableObject.loadingMoreComplete, searchObservableObject.isLoadingMore, media == searchObservableObject.searchResults.last {
             ProgressView()
                 .padding(.vertical)
         }  else {
             EmptyView()
         }
     }
+    
 }
 
 

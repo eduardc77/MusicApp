@@ -15,20 +15,23 @@ class SearchObservableObject: ObservableObject {
     
     private var subscriptions = Set<AnyCancellable>()
     private var requestSubscription: AnyCancellable?
-    private var resultIds: [String: String] = [:]
+    private var resultIds = [String: String]()
+    private var collectionContentResultsIds = [String: String]()
     private var previousQuery: SearchQuery?
     private var queryLimit: Int = 10
-    private var loadingMoreComplete = false
     
     // MARK: - Public Properties
     
     @Published var searchTerm: String = ""
     @Published var searchResults: [Media] = []
-    @Published var imagesData: [URL: Data] = [:]
+    @Published var collectionContentResults = [Media]()
+    @Published var imagesData = [URL: Data]()
     @Published var showErrorAlert = false
     @Published var isLoadingMore = false
-    @Published var mediaType = MediaKind.song
+    @Published var mediaType = MediaKind.album
     @Published var noResultsFound = false
+    @Published var loadingMoreComplete = false
+    @Published var isLoadingAlbumContent = false
     
     var urlSession: URLSession
     var errorMessage: String?
@@ -87,11 +90,70 @@ class SearchObservableObject: ObservableObject {
             return
         }
     }
+    
+    func lookUpAlbum(for album: Media) {
+        isLoadingAlbumContent = true
+ 
+        
+        let newQuery = LookupQuery(id: String(album.collectionId ?? 0))
+      
+        
+      sendRequest(with: newQuery)
+      
+    }
 }
 
 // MARK: - Private Methods
 
 private extension SearchObservableObject {
+    func sendRequest(with lookupQuery: LookupQuery) {
+        let apiManager = APIManager<ITunesAPIResponse>(
+            path: .lookup(lookupQuery),
+            urlSession: urlSession
+        )
+        requestSubscription = apiManager.send()
+            .sink { _ in
+                //
+                    
+            } receiveValue: { [weak self] apiResponse in
+                
+                    self?.handleAlbumContentResults(apiResponse.results)
+                
+            }
+    }
+    
+    func handleAlbumContentResults(_ results: [Media]) {
+        guard results.count > 0 else {
+           
+            self.stopLoadingMore()
+            
+            return
+        }
+        
+        // iTunes Search API often returns duplicates
+        // remove duplicates by id.
+        var newResults: [Media] = []
+        
+        for item in results  {
+          
+           
+            newResults.append(item)
+            sendImageRequest(url: item.artworkUrl100)
+        }
+        
+        guard newResults.count > 0 else {
+            
+            self.stopLoadingMore()
+            
+            return
+        }
+        
+            self.collectionContentResults = newResults
+        
+            
+        isLoadingAlbumContent.toggle()
+    }
+    
     func sendRequest(with query: SearchQuery) {
         let apiManager = APIManager<ITunesAPIResponse>(
             path: .search(query),
@@ -114,9 +176,9 @@ private extension SearchObservableObject {
         )
         apiManager.sendForImage()
             .sink { data in
-                if !data.isEmpty {
-                    self.imagesData[url] = data
-                }
+                guard !data.isEmpty else { return }
+                
+                self.imagesData[url] = data
             }
             .store(in: &subscriptions)
     }
@@ -144,12 +206,14 @@ private extension SearchObservableObject {
             stopLoadingMore()
             return
         }
+        
         searchResults += newResults
+        
     }
     
     func resetSearch() {
-        searchResults = []
-        resultIds = [:]
+        searchResults.removeAll()
+        resultIds.removeAll()
         errorMessage = nil
         previousQuery = nil
         isLoadingMore = false

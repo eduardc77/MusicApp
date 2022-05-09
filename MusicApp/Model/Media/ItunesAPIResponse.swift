@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct ITunesAPIResponse: Codable {
+struct ITunesAPIResponse: Decodable {
     var results: [Media]
 }

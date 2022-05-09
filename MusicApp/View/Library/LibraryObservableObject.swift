@@ -79,12 +79,13 @@ private extension LibraryObservableObject {
             self.refreshAllLibrary()
         case .notDetermined:
             MPMediaLibrary.requestAuthorization() { status in
-                if status == .authorized {
-                    self.refreshAllLibrary()
-                    self.status = .permitted
-                } else {
-                    self.status = .notPermitted
-                    
+                DispatchQueue.main.async {
+                    if status == .authorized {
+                        self.refreshAllLibrary()
+                        self.status = .permitted
+                    } else {
+                        self.status = .notPermitted
+                    }
                 }
             }
         default:
@@ -95,13 +96,11 @@ private extension LibraryObservableObject {
     func refreshAllLibrary() {
         self.refreshingLibrary = true
         
-        DispatchQueue.main.async {
-            LibrarySection.allCases.forEach { section in
-                self.refreshLibrary(for: section)
-            }
-            
-            self.refreshingLibrary = false
+        LibrarySection.allCases.forEach { section in
+            self.refreshLibrary(for: section)
         }
+        
+        self.refreshingLibrary = false
     }
     
     func loadMedia(forSection librarySection: LibrarySection) -> [Media] {

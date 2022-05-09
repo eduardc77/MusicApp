@@ -37,7 +37,7 @@ struct PlayerView: View {
                     if expand { Spacer() }
                     
                     if let artwork = playerObservableObject.nowPlayingItem?.artwork {
-                        MediaImageView(image: artwork, size: Size(width: expand ? Metric.largeMediaImage : Metric.playerSmallImageSize, height: expand ? Metric.largeMediaImage : Metric.playerSmallImageSize), cornerRadius: expand ? 10 : Metric.searchResultCornerRadius, isLargeArtworkSize: expand ? true : false, foregroundColor: .secondary, visibleSide: $visibleSide)
+                        MediaImageView(image: artwork, size: Size(width: expand ? Metric.largeMediaImageSize : Metric.playerSmallImageSize, height: expand ? Metric.largeMediaImageSize : Metric.playerSmallImageSize), cornerRadius: expand ? 10 : Metric.searchResultCornerRadius, prominentShadow: expand ? true : false, foregroundColor: .secondary, visibleSide: $visibleSide)
                             .scaleEffect((playerObservableObject.playbackState == .playing && expand) ? 1.33 : 1)
                             .animation(.spring(response: 0.5, dampingFraction: 0.5, blendDuration: 0.3), value: playerObservableObject.playbackState)
                             .onTapGesture {
@@ -46,7 +46,7 @@ struct PlayerView: View {
                         
                     } else {
                         // Or Placeholder Image
-                        MediaImageView(size: Size(width: expand ? Metric.largeMediaImage : Metric.playerSmallImageSize, height: expand ? Metric.largeMediaImage : Metric.playerSmallImageSize), cornerRadius: expand ? 10 : Metric.searchResultCornerRadius)
+                        MediaImageView(size: Size(width: expand ? Metric.largeMediaImageSize : Metric.playerSmallImageSize, height: expand ? Metric.largeMediaImageSize : Metric.playerSmallImageSize), cornerRadius: expand ? 10 : Metric.searchResultCornerRadius)
                             .scaleEffect((playerObservableObject.playbackState == .playing && expand) ? 1.33 : 1)
                             .animation(.spring(response: 0.5, dampingFraction: 0.5, blendDuration: 0.3), value: playerObservableObject.playbackState)
                     }
