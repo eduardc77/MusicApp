@@ -73,7 +73,7 @@ struct AlbumTrackList: View {
                 
                 VStack(alignment: .leading, spacing: 4) {
                     if let releaseDate = albumDetailObservableObject.media.releaseDate {
-                        Text("\(releaseDate.addingTimeInterval(-86400), style: .date)")
+                        Text("\(releaseDate)")
                     }
                     
                     Text("\(albumDetailObservableObject.albumTrackCount) songs, \(albumDetailObservableObject.albumDuration) minutes")

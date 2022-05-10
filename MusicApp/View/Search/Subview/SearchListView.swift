@@ -25,48 +25,23 @@ struct SearchListView: View {
                     switch media.wrapperType {
                     case .collection:
                         NavigationLink(destination: AlbumDetailView(media: media, searchObservableObject: searchObservableObject)) {
-                            Section(footer: progressBar(for: media)) {
-                                SearchResultsRowItem(
-                                    media: media,
-                                    imageData: searchObservableObject.imagesData[media.artworkUrl100 ?? URL(fileURLWithPath: "")]
-                                )
-                            }
+                            SearchResultsRowItem(media: media)
                         }
-                        .onAppear {
-                            guard media == searchObservableObject.searchResults.last else { return }
-                            Task {
-                                await searchObservableObject.loadMore()
-                            }
-                        }
-                        
-                        
-                        
                     case .track:
-                        Section(footer: progressBar(for: media)) {
-                            SearchResultsRowItem(
-                                media: media,
-                                imageData: searchObservableObject.imagesData[media.artworkUrl100 ?? URL(fileURLWithPath: "")]
-                            )
-                        }
-                        .onAppear {
-                            guard media == searchObservableObject.searchResults.last else { return }
-                            Task {
-                                await searchObservableObject.loadMore()
+                        SearchResultsRowItem(media: media)
+                            .onTapGesture {
+                                guard media.wrapperType == .track else { return }
+                                
+                                playerObservableObject.player.setQueue(with: [media.id])
+                                
+                                playerObservableObject.player.play()
+                                
+                                hideKeyboard()
                             }
+                    case .artist:
+                        NavigationLink(destination: DetailView(mediaId: media.id)) {
+                            SearchResultsRowItem(media: media)
                         }
-                        .onTapGesture {
-                            guard media.wrapperType == .track else { return }
-                            
-                            playerObservableObject.player.setQueue(with: [media.id])
-                            
-                            playerObservableObject.player.play()
-                            
-                            hideKeyboard()
-                        }
-                    case .artist: EmptyView()
-                        
-                    default: EmptyView()
-                        
                     }
                     
                     Divider()
@@ -91,15 +66,15 @@ struct SearchListView: View {
         }
     }
     
-    @ViewBuilder
-    func progressBar(for media: Media) -> some View {
-        if !searchObservableObject.loadingMoreComplete, searchObservableObject.isLoadingMore, media == searchObservableObject.searchResults.last {
-            ProgressView()
-                .padding(.vertical)
-        }  else {
-            EmptyView()
-        }
-    }
+    //    @ViewBuilder
+    //    func progressBar(for media: Media) -> some View {
+    //        if !searchObservableObject.loadingMoreComplete, searchObservableObject.isLoadingMore, media == searchObservableObject.searchResults.last {
+    //            ProgressView()
+    //                .padding(.vertical)
+    //        }  else {
+    //            EmptyView()
+    //        }
+    //    }
     
 }
 

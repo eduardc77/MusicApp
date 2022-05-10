@@ -8,229 +8,122 @@
 import Foundation
 import Combine
 
-class SearchObservableObject: ObservableObject {
-    typealias ImageInfo = (url: URL, data: Data)
+final class SearchObservableObject: ObservableObject {
     
-    // MARK: - Private Properties
+    // MARK: - Properties
     
-    private var subscriptions = Set<AnyCancellable>()
-    private var requestSubscription: AnyCancellable?
-    private var resultIds = [String: String]()
-    private var collectionContentResultsIds = [String: String]()
-    private var previousQuery: SearchQuery?
-    private var queryLimit: Int = 10
+    private let networkService: NetworkServiceProtocol
+    private var anyCancellable: Set<AnyCancellable> = []
+    private var media: [Media] = []
     
-    // MARK: - Public Properties
+    var filteredContent: [Media] {
+        switch sortType {
+        case .noSorting:
+            return searchResults
+        case let .search(searchTerm):
+            guard !searchTerm.isEmpty else { return searchResults }
+            return searchResults.filter { $0.name.lowercased().contains(searchTerm.lowercased()) }
+        case let .filter(iD):
+            return searchResults.filter { $0.genreName == iD }
+        }
+    }
     
-    @Published var searchTerm: String = ""
-    @Published var searchResults: [Media] = []
-    @Published var collectionContentResults = [Media]()
-    @Published var imagesData = [URL: Data]()
-    @Published var showErrorAlert = false
-    @Published var isLoadingMore = false
-    @Published var mediaType = MediaKind.album
-    @Published var noResultsFound = false
-    @Published var loadingMoreComplete = false
-    @Published var isLoadingAlbumContent = false
+    var genresResult: [String] {
+        Set(searchResults.map(\.genreName)).sorted()
+    }
     
-    var urlSession: URLSession
-    var errorMessage: String?
+
+    
+    // MARK: - Publishers
+    
+    @Published private(set) var searchResults: [Media] = []
+    
+    @Published private(set) var isSearching = false
+    @Published private(set) var nothingFound = false
+    
+    @Published var sortType: SortingType = .noSorting
+    @Published var searchTerm = ""
+    @Published var toDetail: ToDetail?
+    @Published var currentGenre: String = ""
+    
     
     // MARK: - Initialization
     
-    init(urlSession: URLSession = .shared) {
-        self.urlSession = urlSession
+    init(networkService: NetworkServiceProtocol = NetworkService()) {
+        self.networkService = networkService
+//        fetchMedia()
+        
+        $sortType
+            .map { $0 == .search(searchTerm: "") }
+            .map { _ in return "" }
+            .assign(to: &$currentGenre)
+        
+        chain()
     }
     
     // MARK: - Public Methods
     
-    func search() {
-        $searchTerm
-            .debounce(for: 0.3, scheduler: RunLoop.main) // debounces the string publisher, such that it delays the process of sending request to remote server.
-            .removeDuplicates()
-            .map({ (string) -> String? in
-                if string.count < 1 {
-                    return nil
-                }
-                
-                return string.trimmingCharacters(in: .whitespacesAndNewlines)
-            }) // prevents sending numerous requests and sends nil if the count of the characters is less than 1.
-            .compactMap{ $0 } // removes the nil values so the search string does not get passed down to the publisher chain
-            .sink { _ in
-                //
-            } receiveValue: { [self] (searchField) in
-                let newQuery = SearchQuery(term: searchField,
-                                           media: mediaType,
-                                           limit: queryLimit)
-                
-                if let previousQuery = previousQuery,
-                   previousQuery.term == newQuery.term,
-                   previousQuery.media == newQuery.media {
-                    // duplicate search
-                    return
-                }
-                resetSearch()
-                previousQuery = newQuery
-                sendRequest(with: newQuery)
-            }
-            .store(in: &subscriptions)
+    func select(_ genre: String) {
+        sortType = .filter(iD: genre)
+        if !searchTerm.isEmpty {
+            searchTerm = ""
+        }
+        currentGenre = genre
     }
     
-    func loadMore() async {
-        guard !loadingMoreComplete, searchResults.count >= queryLimit else {
-            stopLoadingMore()
-            return
-        }
-        
-        if var query = previousQuery {
-            isLoadingMore = true
-            query.offset = searchResults.count
-            previousQuery = query
-            sendRequest(with: query)
-            return
-        }
-    }
-    
-    func lookUpAlbum(for album: Media) {
-        isLoadingAlbumContent = true
- 
-        
-        let newQuery = LookupQuery(id: String(album.collectionId ?? 0))
-      
-        
-      sendRequest(with: newQuery)
-      
+    func detailWith(media: Media) {
+        toDetail = .init(id: media.id, view: DetailView(mediaId: media.id))
     }
 }
 
 // MARK: - Private Methods
 
 private extension SearchObservableObject {
-    func sendRequest(with lookupQuery: LookupQuery) {
-        let apiManager = APIManager<ITunesAPIResponse>(
-            path: .lookup(lookupQuery),
-            urlSession: urlSession
-        )
-        requestSubscription = apiManager.send()
-            .sink { _ in
-                //
-                    
-            } receiveValue: { [weak self] apiResponse in
-                
-                    self?.handleAlbumContentResults(apiResponse.results)
-                
-            }
+    func chain() {
+        $searchTerm
+            .debounce(for: .seconds(1), scheduler: RunLoop.main)
+            .flatMap(search)
+            .map { $0.map(Media.init) }
+            .replaceError(with: [])
+            .assign(to: &$searchResults)
+        $searchResults
+            .map(\.isEmpty)
+            .assign(to: &$nothingFound)
     }
     
-    func handleAlbumContentResults(_ results: [Media]) {
-        guard results.count > 0 else {
-           
-            self.stopLoadingMore()
-            
-            return
+    func search(searchQuery: String) -> AnyPublisher<[MediaResponse], NetworkError> {
+        networkService.request(endpoint: .getInfo(by: .search(term: searchQuery, country: "US", entity: "song", media: "music")))
+            .map { $0 as ITunesAPIResponse }
+            .map(\.results)
+            .map(loaded)
+            .eraseToAnyPublisher()
+    }
+    
+    func loaded(results: [MediaResponse]) -> [MediaResponse] {
+        isSearching = false
+        return results
+    }
+    
+//    func fetchMedia() {
+//        ["love"].forEach { item in
+//            networkService
+//                .request(endpoint: .getInfo(by: .search(term: item, country: "US", entity: "movie", media: "music")))
+//                .map { $0 as ITunesAPIResponse }
+//                .catch(handleError)
+//                .map { self.media.append(contentsOf: $0.results.map(Media.init)) }
+//                .map(handleResult)
+//                .assign(to: &$mediasResult)
+//        }
+//    }
+    
+    func handleResult() -> [Media] {
+        let media = self.media.reduce([Media]()) { result, media in
+            result.contains(media) ? result : result + [media]
         }
-        
-        // iTunes Search API often returns duplicates
-        // remove duplicates by id.
-        var newResults: [Media] = []
-        
-        for item in results  {
-          
-           
-            newResults.append(item)
-            sendImageRequest(url: item.artworkUrl100)
-        }
-        
-        guard newResults.count > 0 else {
-            
-            self.stopLoadingMore()
-            
-            return
-        }
-        
-            self.collectionContentResults = newResults
-        
-            
-        isLoadingAlbumContent.toggle()
+        return media
     }
     
-    func sendRequest(with query: SearchQuery) {
-        let apiManager = APIManager<ITunesAPIResponse>(
-            path: .search(query),
-            urlSession: urlSession
-        )
-        requestSubscription = apiManager.send()
-            .sink { _ in
-                //
-            } receiveValue: { [weak self] apiResponse in
-                self?.handleSearchResults(apiResponse.results)
-            }
-    }
-    
-    func sendImageRequest(url: URL?) {
-        guard let url = url, imagesData[url] == nil else { return }
-        
-        let apiManager = APIManager<Void>(
-            path: .image(url),
-            urlSession: urlSession
-        )
-        apiManager.sendForImage()
-            .sink { data in
-                guard !data.isEmpty else { return }
-                
-                self.imagesData[url] = data
-            }
-            .store(in: &subscriptions)
-    }
-    
-    func handleSearchResults(_ results: [Media]) {
-        guard results.count > 0 else {
-            stopLoadingMore()
-            if !isLoadingMore {
-                noResultsFound = true
-            }
-            return
-        }
-        
-        // iTunes Search API often returns duplicates
-        // remove duplicates by id.
-        var newResults: [Media] = []
-        
-        for item in results where resultIds[item.id] != item.id {
-            resultIds[item.id] = item.id
-            newResults.append(item)
-            sendImageRequest(url: item.artworkUrl100)
-        }
-        
-        guard newResults.count > 0 else {
-            stopLoadingMore()
-            return
-        }
-        
-        searchResults += newResults
-        
-    }
-    
-    func resetSearch() {
-        searchResults.removeAll()
-        resultIds.removeAll()
-        errorMessage = nil
-        previousQuery = nil
-        isLoadingMore = false
-        loadingMoreComplete = false
-        noResultsFound = false
-    }
-    
-    func stopLoadingMore() {
-        isLoadingMore = false
-        loadingMoreComplete = true
-    }
-    
-    func handleSearchError(_ error: Error) {
-        errorMessage = error.localizedDescription
-        showErrorAlert = true
-        isLoadingMore = false
-        // allow user to retry the same search due to the error
-        previousQuery = nil
+    func handleError(_ networkError: NetworkError) -> Empty<ITunesAPIResponse, Never> {
+        .init()
     }
 }

@@ -8,17 +8,20 @@
 import SwiftUI
 
 struct MediaImageView: View {
-    var image: Image?
+    @StateObject private var mediaImageObservableObject = MediaImageObservableObject()
+    @Binding var visibleSide: FlipViewSide
+    
+    let imagePath: String?
+    var artworkImage: Image?
     var size: Size
     var cornerRadius: CGFloat
     var prominentShadow: Bool
     var contentMode: ContentMode
     var foregroundColor: Color
     
-    @Binding var visibleSide: FlipViewSide
-    
-    init(image: Image? = nil, size: Size = Size(), cornerRadius: CGFloat = 4, prominentShadow: Bool = false, contentMode: ContentMode = .fit, foregroundColor: Color = .secondary.opacity(0.1), visibleSide: Binding<FlipViewSide> = .constant(.front)) {
-        self.image = image
+    init(imagePath: String? = nil, artworkImage: Image? = nil, size: Size = Size(), cornerRadius: CGFloat = 4, prominentShadow: Bool = false, contentMode: ContentMode = .fit, foregroundColor: Color = .secondary.opacity(0.1), visibleSide: Binding<FlipViewSide> = .constant(.front)) {
+        self.imagePath = imagePath
+        self.artworkImage = artworkImage
         self.size = size
         self.cornerRadius = cornerRadius
         self.prominentShadow = prominentShadow
@@ -30,8 +33,16 @@ struct MediaImageView: View {
     
     var body: some View {
         FlipView(visibleSide: visibleSide) {
-            if let image = image {
-                image
+            if let artworkImage = artworkImage {
+                artworkImage
+                    .resizable()
+                    .aspectRatio(contentMode: contentMode)
+                    .frame(width: size.width, height: size.height)
+                    .cornerRadius(cornerRadius)
+                    .shadow(radius: prominentShadow ? 16 : 2, x: prominentShadow ? -6 : 0, y: prominentShadow ? 6 : 2)
+
+            } else if let uiImage = mediaImageObservableObject.image {
+                Image(uiImage: uiImage)
                     .resizable()
                     .aspectRatio(contentMode: contentMode)
                     .frame(width: size.width, height: size.height)
@@ -67,12 +78,19 @@ struct MediaImageView: View {
         }
         .contentShape(Rectangle())
         .animation(.flipCard, value: visibleSide)
+        
+        .onAppear {
+            guard let imagePath = imagePath else { return }
+            
+            Task {
+                await mediaImageObservableObject.fetchImage(from: imagePath)
+            }
+        }
     }
-    
 }
-
-struct MediaImageView_Previews: PreviewProvider {
-    static var previews: some View {
-        MediaImageView(image: Image("p0"), size: Size(width: 333, height: 333))
-    }
-}
+//
+//struct MediaImageView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        MediaImageView(image: Image("p0"), size: Size(width: 333, height: 333))
+//    }
+//}

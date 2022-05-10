@@ -32,7 +32,8 @@ struct HighlightsView: View {
     var body: some View {
         TabView {
             ForEach(items, id: \.self) { item in
-                let media = Media(kind: MediaKind(rawValue: item.type), artistName: item.description, collectionName: item.name, description: item.description, artwork: Image(item.image))
+                
+                let media = Media.initWithNoValues()
                 
                 switch imageSize {
                 case .small:

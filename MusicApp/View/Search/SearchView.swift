@@ -21,22 +21,20 @@ struct SearchView: View {
             
                 .onSubmit(of: .search) {
                     searchObservableObject.searchTerm = searchTerm
-                    searchObservableObject.search()
                 }
                 .onChange(of: searchTerm) { term in
                     searchObservableObject.searchTerm = term
-                    searchObservableObject.search()
                 }
             
-                .alert(isPresented: $searchObservableObject.showErrorAlert) {
-                    let message = searchObservableObject.errorMessage
-                    searchObservableObject.errorMessage = nil
-                    
-                    return Alert(
-                        title: Text("Error"),
-                        message: Text(message ?? APIError.generic.localizedDescription)
-                    )
-                }
+//                .alert(isPresented: $searchObservableObject.showErrorAlert) {
+//                    let message = searchObservableObject.errorMessage
+//                    searchObservableObject.errorMessage = nil
+//
+//                    return Alert(
+//                        title: Text("Error"),
+//                        message: Text(message ?? APIError.generic.localizedDescription)
+//                    )
+//                }
                 .navigationTitle("Search")
         }
     }
@@ -65,7 +63,7 @@ extension SearchView {
             ZStack {
                 SearchListView(searchObservableObject: searchObservableObject)
                 
-                if searchObservableObject.noResultsFound {
+                if searchObservableObject.nothingFound {
                     VStack {
                         Text("No Results")
                             .font(.title2).bold()

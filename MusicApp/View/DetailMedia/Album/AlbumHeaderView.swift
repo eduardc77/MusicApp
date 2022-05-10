@@ -13,7 +13,7 @@ struct AlbumHeaderView: View {
     var body: some View {
         VStack {
             VStack {
-                MediaImageView(image: albumDetailObservableObject.media.artwork, size: Size(width: Metric.albumDetailImageSize, height: Metric.albumDetailImageSize), prominentShadow: true)
+                MediaImageView(imagePath: albumDetailObservableObject.media.artworkPath.resizedPath(size: 500), size: Size(width: Metric.albumDetailImageSize, height: Metric.albumDetailImageSize), prominentShadow: true)
                     .padding(.bottom, 6)
                 
                 albumDetails
@@ -33,15 +33,15 @@ struct AlbumHeaderView: View {
     
     var albumDetails: some View {
         VStack(spacing: 2) {
-            Text(albumDetailObservableObject.media.collectionName ?? "")
+            Text(albumDetailObservableObject.media.collectionName)
                 .font(.title3.bold())
                 .foregroundColor(.primary)
             
-            Text(albumDetailObservableObject.media.artistName ?? "")
+            Text(albumDetailObservableObject.media.artistName)
                 .font(.title3)
                 .foregroundColor(.appAccentColor)
             
-            Text(albumDetailObservableObject.media.releaseDate != nil ? "\(albumDetailObservableObject.media.primaryGenreName?.uppercased() ?? "") · \(Text(albumDetailObservableObject.media.releaseDate ?? Date(), format: .dateTime.year()))" : "\(albumDetailObservableObject.media.primaryGenreName?.uppercased() ?? "")")
+            Text("\(albumDetailObservableObject.media.genreName.uppercased()) · \(Text(albumDetailObservableObject.media.releaseDate))")
                 .font(.caption.bold())
                 .foregroundColor(.secondary)
         }

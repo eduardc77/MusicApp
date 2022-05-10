@@ -36,8 +36,8 @@ struct PlayerView: View {
                 HStack {
                     if expand { Spacer() }
                     
-                    if let artwork = playerObservableObject.nowPlayingItem?.artwork {
-                        MediaImageView(image: artwork, size: Size(width: expand ? Metric.largeMediaImageSize : Metric.playerSmallImageSize, height: expand ? Metric.largeMediaImageSize : Metric.playerSmallImageSize), cornerRadius: expand ? 10 : Metric.searchResultCornerRadius, prominentShadow: expand ? true : false, foregroundColor: .secondary, visibleSide: $visibleSide)
+                    if let artworkPath = playerObservableObject.nowPlayingItem?.artworkPath.resizedPath(size: 600) {
+                        MediaImageView(imagePath: artworkPath, size: Size(width: expand ? Metric.largeMediaImageSize : Metric.playerSmallImageSize, height: expand ? Metric.largeMediaImageSize : Metric.playerSmallImageSize), cornerRadius: expand ? 10 : Metric.searchResultCornerRadius, prominentShadow: expand ? true : false, foregroundColor: .secondary, visibleSide: $visibleSide)
                             .scaleEffect((playerObservableObject.playbackState == .playing && expand) ? 1.33 : 1)
                             .animation(.spring(response: 0.5, dampingFraction: 0.5, blendDuration: 0.3), value: playerObservableObject.playbackState)
                             .onTapGesture {
@@ -137,14 +137,14 @@ struct PlayerView: View {
         .background(
             VStack(spacing: 0) {
                 if expand {
-                    if let artworkUIImage = playerObservableObject.nowPlayingItem?.artworkUIImage {
+                    if let artworkUIImage = playerObservableObject.nowPlayingItem?.artworkPath {
                         ZStack {
                             BlurView()
                             
-                            LinearGradient(
-                                gradient: Gradient(colors: [Color(artworkUIImage.firstAverageColor ?? .gray), Color(artworkUIImage.secondAverageColor ?? .gray)]),
-                                startPoint: .topLeading,
-                                endPoint: .bottomTrailing)
+//                            LinearGradient(
+//                                gradient: Gradient(colors: [Color(artworkUIImage.firstAverageColor ?? .gray), Color(artworkUIImage.secondAverageColor ?? .gray)]),
+//                                startPoint: .topLeading,
+//                                endPoint: .bottomTrailing)
                         }
                     } else {
                         Color(.gray)

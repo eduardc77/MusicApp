@@ -83,10 +83,7 @@ final class PlayerObservableObject: ObservableObject {
     
     func makeNowPlaying(media: MPMediaItem? = nil) {
         guard let media = media else {
-            nowPlayingItem?.trackName = "Not Playing"
-            nowPlayingItem?.artwork = nil
-            nowPlayingItem?.artistName = nil
-            nowPlayingItem?.trackTimeMillis = 0
+            nowPlayingItem = nil
             
             return
         }
@@ -110,7 +107,9 @@ final class PlayerObservableObject: ObservableObject {
         case 65280: kind = MediaKind.musicVideo
         default: kind = MediaKind.playlist
         }
-        
-        nowPlayingItem = Media(kind: kind, artistName: media.artist, collectionName: media.albumTitle, trackName: media.title, trackTimeMillis: media.playbackDuration, description: media.description, artwork: image == nil ? nil : Image(uiImage: image ?? UIImage()), artworkUIImage: image, releaseDate: media.releaseDate)
+        nowPlayingItem = Media(mediaResponse: MediaResponse(id: media.playbackStoreID, artistId: 0, collectionId: 0, trackId: 0, wrapperType: "track", kind: kind.rawValue, name: media.title, artistName: media.artist, collectionName: media.albumTitle, trackName: media.title, collectionCensoredName: media.albumTitle, artistViewUrl: nil, collectionViewUrl: nil, trackViewUrl: nil, previewUrl: nil, artworkUrl60: nil, artworkUrl100: nil, collectionPrice: nil, collectionHdPrice: 0, trackPrice: 0, collectionExplicitness: nil, trackExplicitness: nil, discCount: 0, discNumber: nil, trackCount: media.albumTrackCount, trackNumber: media.albumTrackNumber, trackTimeMillis: media.playbackDuration.toInt, country: nil, currency: nil, primaryGenreName: media.genre, description: nil, longDescription: nil, releaseDate: media.releaseDate?.description, contentAdvisoryRating: nil, trackRentalPrice: 0))
+//        nowPlayingItem =
+//        nowPlayingItem = Media(mediaResponse: MediaResponse(kind: kind, artistName: media.artist, collectionName: media.albumTitle, trackName: media.title, trackTimeMillis: media.playbackDuration, description: media.description, artwork: image == nil ? nil : Image(uiImage: image ?? UIImage()), artworkUIImage: image, releaseDate: media.releaseDate))
+
     }
 }

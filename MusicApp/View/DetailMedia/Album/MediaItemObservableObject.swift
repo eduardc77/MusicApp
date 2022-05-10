@@ -115,7 +115,7 @@ final class MediaItemObservableObject: ObservableObject {
         if let libraryAlbumTracks = albumContents?.libraryTracks, !libraryAlbumTracks.isEmpty {
             return libraryAlbumTracks[index].albumTrackNumber
         } else if let trackNumber = albumContents?.tracks[index].trackNumber {
-            return trackNumber
+            return Int(trackNumber) ?? 0
         } else {
             return 0
         }
@@ -134,16 +134,16 @@ final class MediaItemObservableObject: ObservableObject {
 
 private extension MediaItemObservableObject {
     func setAlbumContents() {
-        if let libraryAlbums = getTracks(for: media.collectionName ?? ""), !libraryAlbums.isEmpty {
+        if let libraryAlbums = getTracks(for: media.collectionName), !libraryAlbums.isEmpty {
             albumContents = AlbumContents(libraryTracks: libraryAlbums)
         } else {
          
-                 searchTracksForCurrentMedia()
-                
-                
-                self.albumContents = AlbumContents(tracks: self.searchObservableObject.collectionContentResults)
-                
-            
+//                 searchTracksForCurrentMedia()
+//
+//
+//                self.albumContents = AlbumContents(tracks: self.searchObservableObject.collectionContentResults)
+//
+//
         }
         
     }
@@ -188,7 +188,7 @@ private extension MediaItemObservableObject {
     
     func searchTracksForCurrentMedia() {
 
-        searchObservableObject.lookUpAlbum(for: media)
+//        searchObservableObject.lookUpAlbum(for: media)
         
     }
 }
