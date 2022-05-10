@@ -81,7 +81,7 @@ final class SearchObservableObject: ObservableObject {
 private extension SearchObservableObject {
     func chain() {
         $searchTerm
-            .debounce(for: .seconds(1), scheduler: RunLoop.main)
+            .debounce(for: .seconds(0.3), scheduler: RunLoop.main)
             .flatMap(search)
             .map { $0.map(Media.init) }
             .replaceError(with: [])
