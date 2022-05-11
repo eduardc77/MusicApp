@@ -36,7 +36,7 @@ struct TabBar: View {
                     .tabItem { Label("Radio", systemImage: "dot.radiowaves.left.and.right") }
                     .tag(Tab.radio)
                 LibraryView(tabSelection: $selection)
-                    .tabItem { Label("Library", image: "library") }
+                    .tabItem { Label("Library", image: "music.stack.fill") }
                     .tag(Tab.library)
                 SearchView()
                     .tabItem { Label("Search", systemImage: "magnifyingglass") }
