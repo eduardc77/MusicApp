@@ -26,7 +26,8 @@ struct MainButton: View {
                     .font(font)
                 
             }
-            .frame(maxWidth: .infinity, minHeight: size.height, maxHeight: .infinity)
+            .frame(height: size.height)
+            .frame(maxWidth: .infinity)
         }
         
         .tint(tint)

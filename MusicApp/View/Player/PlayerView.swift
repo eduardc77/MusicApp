@@ -15,7 +15,7 @@ struct PlayerView: View {
     @State private var visibleSide = FlipViewSide.front
     
     var animation: Namespace.ID
-    static let timer = Timer.publish(every: 0.6, tolerance: nil, on: .main, in: .common).autoconnect()
+    static let timer = Timer.publish(every: 0.6, tolerance: 0.6, on: .main, in: .common).autoconnect()
     
     init(player: MPMusicPlayerController, expand: Binding<Bool>, animation: Namespace.ID) {
         _playerObservableObject = StateObject(wrappedValue: PlayerObservableObject(player: player))

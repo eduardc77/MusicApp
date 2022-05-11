@@ -1,5 +1,5 @@
 //
-//  DetailViewObservableObject.swift
+//  ArtistViewObservableObject.swift
 //  MusicApp
 //
 //  Created by Eduard Caziuc on 09.05.2022.
@@ -7,7 +7,7 @@
 
 import Combine
 
-final class DetailViewObservableObject: ObservableObject {
+final class ArtistViewObservableObject: ObservableObject {
     
     // MARK: - Properties
     
@@ -16,39 +16,68 @@ final class DetailViewObservableObject: ObservableObject {
     
     // MARK: - Publishers
     
-    @Published private(set) var detailResults: [Media] = []
+    @Published private(set) var albumResults: [Media] = []
+    @Published private(set) var songResults: [Media] = []
     
-    @Published var toDetail: ToDetail?
     @Published var isLoading: Bool = false
     @Published var errorState: ErrorState = .init(isError: false, descriptor: nil)
     @Published var presenter: Presenter? = nil
+    
+    var albums: [Media] {
+        var albums = albumResults
+        albums.removeFirst()
+        
+        return albums
+    }
+    
+    var songs: [Media] {
+        var songs = albumResults
+        songs.removeFirst()
+        
+        return songs
+    }
     
     // MARK: - Initialization
     
     init(networkService: NetworkService = .init()) {
         self.networkService = networkService
-        $detailResults
+        $albumResults
+            .map(\.isEmpty)
+            .assign(to: &$isLoading)
+        
+        $songResults
             .map(\.isEmpty)
             .assign(to: &$isLoading)
     }
     
     // MARK: - Public Methods
     
-    func fetchDetail(mediaId: String) {
-        guard detailResults.isEmpty else { return }
+    func fetchArtistAlbums(for artistId: String) {
+        guard albumResults.isEmpty else { return }
         cleanErrorState()
-        networkService.request(endpoint: .getInfo(by: .detail(id: mediaId, entity: "song")))
+        networkService.request(endpoint: .getInfo(by: .lookup(id: artistId, entity: "album")))
             .compactMap { $0 as ITunesAPIResponse }
             .catch(handleError)
             .map(\.results)
             .map { $0.map(Media.init) }
-            .assign(to: &$detailResults)
+            .assign(to: &$albumResults)
+    }
+    
+    func fetchArtistSongs(for artistId: String) {
+        guard songResults.isEmpty else { return }
+        cleanErrorState()
+        networkService.request(endpoint: .getInfo(by: .lookup(id: artistId, entity: "song")))
+            .compactMap { $0 as ITunesAPIResponse }
+            .catch(handleError)
+            .map(\.results)
+            .map { $0.map(Media.init) }
+            .assign(to: &$songResults)
     }
 }
 
 // MARK: - Private methods
 
-private extension DetailViewObservableObject {
+private extension ArtistViewObservableObject {
     func handleError(_ error: NetworkError) -> Empty<ITunesAPIResponse, Never> {
         errorState = .init(
             isError: true,

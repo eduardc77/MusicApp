@@ -24,6 +24,7 @@ struct LibraryListView: View {
                             .font(.title2)
                             .foregroundColor(.appAccentColor)
                             .frame(minWidth: 32)
+                        
                         Text(section.title)
                             .font(.title2)
                     }

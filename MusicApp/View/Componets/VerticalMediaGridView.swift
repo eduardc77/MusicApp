@@ -39,6 +39,7 @@ struct VerticalMediaGridView: View {
         ScrollView(showsIndicators: false) {
             LazyVGrid(columns: columns, spacing: 12) {
                 ForEach(mediaItems, id: \.self) { media in
+                    // FIXME: - Access media based on kind
                     NavigationLink(destination: AlbumDetailView(media: media, searchObservableObject: SearchObservableObject())) {
                         switch imageSize {
                         case .small:

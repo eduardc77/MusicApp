@@ -39,7 +39,7 @@ struct SearchListView: View {
                                 hideKeyboard()
                             }
                     case .artist:
-                        NavigationLink(destination: DetailView(mediaId: media.id)) {
+                        NavigationLink(destination: ArtistDetailView(mediaId: media.id)) {
                             SearchResultsRowItem(media: media)
                         }
                     }

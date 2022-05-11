@@ -43,7 +43,6 @@ final class SearchObservableObject: ObservableObject {
     
     @Published var sortType: SortingType = .noSorting
     @Published var searchTerm = ""
-    @Published var toDetail: ToDetail?
     @Published var currentGenre: String = ""
     
     
@@ -70,10 +69,6 @@ final class SearchObservableObject: ObservableObject {
         }
         currentGenre = genre
     }
-    
-    func detailWith(media: Media) {
-        toDetail = .init(id: media.id, view: DetailView(mediaId: media.id))
-    }
 }
 
 // MARK: - Private Methods
@@ -92,7 +87,7 @@ private extension SearchObservableObject {
     }
     
     func search(searchQuery: String) -> AnyPublisher<[MediaResponse], NetworkError> {
-        networkService.request(endpoint: .getInfo(by: .search(term: searchQuery, country: "US", entity: "song", media: "music")))
+        networkService.request(endpoint: .getInfo(by: .search(term: searchQuery, country: "US", entity: "allArtist", media: "music")))
             .map { $0 as ITunesAPIResponse }
             .map(\.results)
             .map(loaded)

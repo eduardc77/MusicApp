@@ -13,6 +13,7 @@ public protocol ImageLoaderProtocol {
 
 public final class ImageLoader: ImageLoaderProtocol {
     private let session: URLSession
+    
     private var cache: URLCache? {
         session.configuration.urlCache
     }
@@ -27,17 +28,11 @@ public final class ImageLoader: ImageLoaderProtocol {
         }
         
         let request = URLRequest(url: url)
-        
-        if let data = cache?.cachedResponse(for: request)?.data, let image = UIImage(data: data) {
+        guard let data = cache?.cachedResponse(for: request)?.data, let image = UIImage(data: data) else {
             request.print()
-            
-            return image
-        } else if let image = try? await loadAndCacheImage(with: request) {
-            request.print()
-            return image
-        } else {
-            throw NetworkError.imageLoadingError
+            return try await loadAndCacheImage(with: request)
         }
+        return image
     }
 }
 
@@ -54,3 +49,4 @@ private extension ImageLoader {
         }
     }
 }
+

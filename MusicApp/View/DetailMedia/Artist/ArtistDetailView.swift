@@ -1,5 +1,5 @@
 //
-//  DetailView.swift
+//  ArtistDetailView.swift
 //  MusicApp
 //
 //  Created by Eduard Caziuc on 09.05.2022.
@@ -8,58 +8,53 @@
 import SwiftUI
 import AVKit
 
-struct DetailView: View {
+struct ArtistDetailView: View {
     @Environment(\.dismiss) private var dismiss
- 
-    @StateObject private var viewObservableObject = DetailViewObservableObject()
+    
+    @StateObject private var artistObservableObject = ArtistViewObservableObject()
     
     let mediaId: String
     
     var body: some View {
         ZStack {
-            if viewObservableObject.isLoading {
-                loadingView
+            if artistObservableObject.isLoading {
+                ProgressView()
             } else {
                 ScrollView(.vertical, showsIndicators: false) {
-                    ForEach(viewObservableObject.detailResults) { media in
-                        ArtistPageView(imagePath: media.artworkPath)
-                            .onTapGesture {
-                                dismiss()
+                    if let media = artistObservableObject.albumResults.first {
+                        TopImageView(imagePath: artistObservableObject.albumResults[1].artworkPath)
+                        
+                        VStack {
+                            HorizontalMediaGridView(mediaItems: artistObservableObject.songs, title: "Top Songs", imageSize: .small, rowCount: 4)
+                                .padding(.top)
+                            
+                            HorizontalMediaGridView(mediaItems: artistObservableObject.albums, title: "Albums", imageSize: .medium)
+                            
+                            VStack(alignment: .center, spacing: 0) {
+                                infoView(for: media)
+                                isCollectionView(for: media)
                             }
-                        VStack(alignment: .center, spacing: 0) {
-                            topView(for: media)
-                            buttonsView(for: media)
-                            infoView(for: media)
-                            isCollectionView(for: media)
                         }
-//                        .background(backgroundView)
+                        .background()
                     }
                 }
             }
         }
-        .onAppear {
-            viewObservableObject.fetchDetail(mediaId: mediaId)
+        .task {
+            artistObservableObject.fetchArtistAlbums(for: mediaId)
+            artistObservableObject.fetchArtistSongs(for: mediaId)
         }
-        .errorAlert(errorState: $viewObservableObject.errorState) {
-            viewObservableObject.fetchDetail(mediaId: mediaId)
+        
+        .errorAlert(errorState: $artistObservableObject.errorState) {
+            artistObservableObject.fetchArtistAlbums(for: mediaId)
+            artistObservableObject.fetchArtistSongs(for: mediaId)
         } cancel: { dismiss() }
     }
 }
 
 // MARK: - Subviews
 
-private extension DetailView {
-    var loadingView: some View {
-        VStack(spacing: 5) {
-            ProgressView()
-            Button(action: { dismiss() }) {
-                Text("Cancel")
-                    .foregroundColor(.secondary)
-            }
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-    }
-    
+private extension ArtistDetailView {
     @ViewBuilder
     func isCollectionView(for media: Media) -> some View {
         Divider()
@@ -68,31 +63,6 @@ private extension DetailView {
         Divider()
             .padding()
         descriptionView(for: media)
-    }
-    
-    func topView(for media: Media) -> some View {
-        HStack(alignment: .top) {
-            MediaImageView(imagePath: media.artworkPath.resizedPath(size: 200))
-                .frame(width: 100, height: 150)
-                .cornerRadius(10)
-                .background(
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color.secondary, lineWidth: 4)
-                        .shadow(color: .gray, radius: 2)
-                )
-                .offset(y: -50)
-                .padding(.horizontal)
-            VStack(alignment: .leading, spacing: 5) {
-                Text(media.name)
-                    .font(.title3)
-                    .foregroundColor(.primary)
-                Text(media.artistName)
-                    .font(.system(size: 16, weight: .light))
-                    .foregroundColor(.secondary)
-            }
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding([.top, .horizontal], 10)
     }
     
     func buttonsView(for media: Media) -> some View {
@@ -121,7 +91,7 @@ private extension DetailView {
         }
         .padding([.horizontal, .bottom])
     }
-
+    
     func descriptionView(for media: Media) -> some View {
         VStack(alignment: .leading, spacing: 0) {
             Text("Description")
@@ -133,29 +103,29 @@ private extension DetailView {
         }
         .padding(.horizontal)
     }
-
+    
     func infoView(for media: Media) -> some View {
         VStack(alignment: .leading, spacing: 0) {
             Text("Short information")
                 .detailTitle
-//            ForEach(media.shortInfo) { mediaType in
-//                info(for: mediaType, media: media)
-//            }
+            //            ForEach(media.shortInfo) { mediaType in
+            //                info(for: mediaType, media: media)
+            //            }
         }
         .padding(.horizontal)
     }
-
-//    func info(for type: Media.ShortInfoType, media: Media) -> some View {
-//        HStack(spacing: 0) {
-//            Text(type.rawValue)
-//                .fontWeight(.light)
-//                .foregroundColor(.secondary)
-//            Spacer()
-//            Text(type.title(for: media))
-//                .fontWeight(.light)
-//                .font(.system(size: 14))
-//        }
-//    }
+    
+    //    func info(for type: Media.ShortInfoType, media: Media) -> some View {
+    //        HStack(spacing: 0) {
+    //            Text(type.rawValue)
+    //                .fontWeight(.light)
+    //                .foregroundColor(.secondary)
+    //            Spacer()
+    //            Text(type.title(for: media))
+    //                .fontWeight(.light)
+    //                .font(.system(size: 14))
+    //        }
+    //    }
     
     func trailerView(for media: Media) -> some View {
         VStack(alignment: .leading) {
@@ -190,6 +160,6 @@ private extension View {
 
 struct DetailView_Previews: PreviewProvider {
     static var previews: some View {
-        DetailView(mediaId: "455832983")
+        ArtistDetailView(mediaId: "455832983")
     }
 }

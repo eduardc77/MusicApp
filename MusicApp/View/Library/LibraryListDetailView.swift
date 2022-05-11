@@ -36,9 +36,10 @@ struct LibraryListDetailView: View {
         }
         .navigationTitle(section.title)
         .searchable(text: $searchTerm, prompt: "Find in \(section.title)")
+        
         .toolbar {
             Button("Sort") {
-                print("Sort tapped!")
+                print("Sort button tapped!")
             }
         }
     }

@@ -35,7 +35,6 @@ final class GlobalSearchObservableObject: ObservableObject {
     @Published private(set) var nothingFound = false
     
     @Published var searchQuery = ""
-    @Published var toDetail: ToDetail? = nil
     
     // MARK: - Init
     

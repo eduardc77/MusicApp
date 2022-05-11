@@ -14,7 +14,7 @@ struct SmallMediaRowItem: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
-                MediaImageView(imagePath: media.artworkPath.resizedPath(size: 100), size: Size(width: Metric.smallImageSize, height: Metric.smallImageSize))
+                MediaImageView(imagePath: media.artworkPath.resizedPath(size: 160), size: Size(width: Metric.smallImageSize, height: Metric.smallImageSize))
                 
                 VStack(alignment: .leading) {
                     Divider()

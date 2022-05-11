@@ -37,11 +37,11 @@ public enum NetworkError: Error {
         case .imageLoadingError:
             return "Image loading error"
         case .emptyDetailData:
-            return "Error: empty detail data"
+            return "Error: empty lookup data"
         case .noInternetConnection:
             return "No internet connection"
         case .unknownError:
-            return "Unknown error accured."
+            return "Unknown error occurred."
         case let .decodingError(error):
             return "Enable to parse data: " + error.localizedDescription.lowercased()
         }

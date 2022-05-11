@@ -13,12 +13,13 @@ struct AlbumHeaderView: View {
     var body: some View {
         VStack {
             VStack {
-                MediaImageView(imagePath: albumDetailObservableObject.media.artworkPath.resizedPath(size: 500), size: Size(width: Metric.albumDetailImageSize, height: Metric.albumDetailImageSize), prominentShadow: true)
+                MediaImageView(imagePath: albumDetailObservableObject.media.artworkPath.resizedPath(size: 800), size: Size(width: Metric.albumDetailImageSize, height: Metric.albumDetailImageSize), prominentShadow: true)
                     .padding(.bottom, 6)
                 
                 albumDetails
             }
-            .padding(.vertical, 6)
+            .padding(.top, 6)
+            .padding(.horizontal)
             
             albumControls
             
@@ -32,20 +33,23 @@ struct AlbumHeaderView: View {
     }
     
     var albumDetails: some View {
-        VStack(spacing: 2) {
+        VStack(spacing: 3) {
             Text(albumDetailObservableObject.media.collectionName)
                 .font(.title3.bold())
                 .foregroundColor(.primary)
+                .lineLimit(2)
+                .multilineTextAlignment(.center)
             
             Text(albumDetailObservableObject.media.artistName)
                 .font(.title3)
                 .foregroundColor(.appAccentColor)
+                .lineLimit(1)
             
             Text("\(albumDetailObservableObject.media.genreName.uppercased()) · \(Text(albumDetailObservableObject.media.releaseDate))")
                 .font(.caption.bold())
                 .foregroundColor(.secondary)
+                .lineLimit(1)
         }
-        .lineLimit(1)
     }
     
     var albumControls: some View {
@@ -65,5 +69,6 @@ struct AlbumHeaderView: View {
             }
         }
         .padding(.horizontal)
+        .padding(.top, 6)
     }
 }

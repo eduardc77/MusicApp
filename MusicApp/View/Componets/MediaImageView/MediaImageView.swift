@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MediaImageView: View {
-    @StateObject private var mediaImageObservableObject = MediaImageObservableObject()
+    @StateObject private var mediaImageObservableObject: MediaImageObservableObject
     @Binding var visibleSide: FlipViewSide
     
     let imagePath: String?
@@ -20,6 +20,8 @@ struct MediaImageView: View {
     var foregroundColor: Color
     
     init(imagePath: String? = nil, artworkImage: Image? = nil, size: Size = Size(), cornerRadius: CGFloat = 4, prominentShadow: Bool = false, contentMode: ContentMode = .fit, foregroundColor: Color = .secondary.opacity(0.1), visibleSide: Binding<FlipViewSide> = .constant(.front)) {
+        _mediaImageObservableObject = StateObject(wrappedValue: MediaImageObservableObject())
+        
         self.imagePath = imagePath
         self.artworkImage = artworkImage
         self.size = size
@@ -79,12 +81,10 @@ struct MediaImageView: View {
         .contentShape(Rectangle())
         .animation(.flipCard, value: visibleSide)
         
-        .onAppear {
+        .task {
             guard let imagePath = imagePath else { return }
-            
-            Task {
-                await mediaImageObservableObject.fetchImage(from: imagePath)
-            }
+
+            await mediaImageObservableObject.fetchImage(from: imagePath)
         }
     }
 }

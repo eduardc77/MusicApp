@@ -30,7 +30,7 @@ struct LargeMediaRowItem: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             
             GeometryReader { geometry in
-                MediaImageView(imagePath: media.artworkPath.resizedPath(size: 300), size: Size(width: geometry.size.width, height: geometry.size.height - spacing), contentMode: .fill)
+                MediaImageView(imagePath: media.artworkPath.resizedPath(size: 800), size: Size(width: geometry.size.width, height: geometry.size.height - spacing), contentMode: .fill)
             }
         }
     }

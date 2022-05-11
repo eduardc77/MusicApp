@@ -14,7 +14,7 @@ struct MediumMediaRowItem: View {
     var body: some View {
         NavigationLink(destination: AlbumDetailView(media: media, searchObservableObject: SearchObservableObject())) {
             VStack(alignment: .leading) { 
-                MediaImageView(imagePath: media.artworkPath.resizedPath(size: 200), size: Size(width: Metric.mediumImageSize, height: Metric.mediumImageSize))
+                MediaImageView(imagePath: media.artworkPath.resizedPath(size: 360), size: Size(width: Metric.mediumImageSize, height: Metric.mediumImageSize))
                 
                 VStack {
                     Text(media.name)
