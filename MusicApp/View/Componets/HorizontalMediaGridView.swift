@@ -44,12 +44,21 @@ struct HorizontalMediaGridView: View {
                         NavigationLink {
                             switch mediaItems.first?.kind {
                                 // All types of see all - Review
+                                
                             case .album:
                                 VerticalMediaGridView(mediaItems: mediaItems, imageSize: .medium, rowCount: 2)
                                     .navigationTitle(title)
                                     .navigationBarTitleDisplayMode(.inline)
+                            case .song:
+                                VerticalMediaGridView(mediaItems: mediaItems, imageSize: .small, rowCount: 1)
+                                    .navigationTitle(title)
+                                    .navigationBarTitleDisplayMode(.inline)
+                            case .artist:
+                                VerticalMediaGridView(mediaItems: mediaItems, imageSize: .small, rowCount: 1)
+                                    .navigationTitle(title)
+                                    .navigationBarTitleDisplayMode(.inline)
                             default:
-                                VerticalMediaGridView(mediaItems: mediaItems, imageSize: .medium, rowCount: 1)
+                                VerticalMediaGridView(mediaItems: mediaItems, imageSize: .small, rowCount: 1)
                                     .navigationTitle(title)
                                     .navigationBarTitleDisplayMode(.inline)
                             }
@@ -60,7 +69,14 @@ struct HorizontalMediaGridView: View {
                     }
                 }
                 .padding(.horizontal)
+                .onAppear {
+                    print(mediaItems.first?.kind)
+                    
+                    
+                    print(mediaItems.prefix(6))
+                }
             }
+            
             
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHGrid(rows: gridRows, spacing: 12) {

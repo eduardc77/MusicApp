@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import MediaPlayer
 
 struct SmallMediaRowItem: View {
     var media: Media
@@ -43,6 +44,15 @@ struct SmallMediaRowItem: View {
                     
                     Spacer()
                 }
+            }
+            .onTapGesture {
+                guard media.wrapperType == .track else { return }
+                // FIXME: - Pass the player
+                MPMusicPlayerController.applicationMusicPlayer.setQueue(with: [media.id])
+                
+                MPMusicPlayerController.applicationMusicPlayer.play()
+                
+                hideKeyboard()
             }
         }
         .frame(width: UIScreen.main.bounds.width - 34)

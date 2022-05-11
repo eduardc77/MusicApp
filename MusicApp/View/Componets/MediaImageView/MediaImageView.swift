@@ -57,7 +57,7 @@ struct MediaImageView: View {
                         .frame(width: size.width, height: size.height)
                         .cornerRadius(cornerRadius)
                     
-                    Image("music.note")
+                    Image("music-note")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .foregroundColor(Color.secondary.opacity(0.3))
@@ -71,7 +71,7 @@ struct MediaImageView: View {
                     .frame(width: size.width, height: size.height)
                     .cornerRadius(cornerRadius)
                 
-                Image("music.note")
+                Image("music-note")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .foregroundColor(Color.secondary.opacity(0.3))

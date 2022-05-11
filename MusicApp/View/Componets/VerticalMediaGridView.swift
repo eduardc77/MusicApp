@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import MediaPlayer
 
 struct VerticalMediaGridView: View {
     @State var mediaItems = [Media]()
@@ -40,21 +41,47 @@ struct VerticalMediaGridView: View {
             LazyVGrid(columns: columns, spacing: 12) {
                 ForEach(mediaItems, id: \.self) { media in
                     // FIXME: - Access media based on kind
-                    NavigationLink(destination: AlbumDetailView(media: media, searchObservableObject: SearchObservableObject())) {
-                        switch imageSize {
-                        case .small:
-                            SearchResultsRowItem(media: media)
-                        case .medium:
-                            MediumMediaRowItem(media: media)
-                        case .large:
-                            LargeMediaRowItem(media: media)
+                    switch media.wrapperType {
+                    case .collection:
+                        NavigationLink(destination: AlbumDetailView(media: media, searchObservableObject: SearchObservableObject())) {
+                            switch imageSize {
+                            case .small:
+                                SearchResultsRowItem(media: media)
+                            case .medium:
+                                MediumMediaRowItem(media: media)
+                            case .large:
+                                LargeMediaRowItem(media: media)
+                            }
+                        }
+                        
+                    case .track:
+                        SearchResultsRowItem(media: media)
+                            .onTapGesture {
+                                guard media.wrapperType == .track else { return }
+                                // FIXME: - Pass the player
+                                MPMusicPlayerController.applicationMusicPlayer.setQueue(with: [media.id])
+                                
+                                MPMusicPlayerController.applicationMusicPlayer.play()
+                                
+                                hideKeyboard()
+                            }
+                    case .artist:
+                        NavigationLink(destination: AlbumDetailView(media: media, searchObservableObject: SearchObservableObject())) {
+                            switch imageSize {
+                            case .small:
+                                SearchResultsRowItem(media: media)
+                            case .medium:
+                                MediumMediaRowItem(media: media)
+                            case .large:
+                                LargeMediaRowItem(media: media)
+                            }
                         }
                     }
                 }
+                .padding(.horizontal)
             }
-            .padding(.horizontal)
+            
+            Spacer(minLength: Metric.playerHeight)
         }
-        
-        Spacer(minLength: Metric.playerHeight)
     }
 }

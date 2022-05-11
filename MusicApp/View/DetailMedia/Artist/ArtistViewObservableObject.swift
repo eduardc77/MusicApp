@@ -8,7 +8,6 @@
 import Combine
 
 final class ArtistViewObservableObject: ObservableObject {
-    
     // MARK: - Properties
     
     private let networkService: NetworkServiceProtocol
@@ -31,7 +30,7 @@ final class ArtistViewObservableObject: ObservableObject {
     }
     
     var songs: [Media] {
-        var songs = albumResults
+        var songs = songResults
         songs.removeFirst()
         
         return songs
@@ -55,6 +54,7 @@ final class ArtistViewObservableObject: ObservableObject {
     func fetchArtistAlbums(for artistId: String) {
         guard albumResults.isEmpty else { return }
         cleanErrorState()
+        
         networkService.request(endpoint: .getInfo(by: .lookup(id: artistId, entity: "album")))
             .compactMap { $0 as ITunesAPIResponse }
             .catch(handleError)
@@ -66,7 +66,8 @@ final class ArtistViewObservableObject: ObservableObject {
     func fetchArtistSongs(for artistId: String) {
         guard songResults.isEmpty else { return }
         cleanErrorState()
-        networkService.request(endpoint: .getInfo(by: .lookup(id: artistId, entity: "song")))
+        
+        networkService.request(endpoint: .getInfo(by: .lookup(id: artistId, entity: "song", limit: "5", sort: "recent")))
             .compactMap { $0 as ITunesAPIResponse }
             .catch(handleError)
             .map(\.results)
@@ -90,9 +91,7 @@ private extension ArtistViewObservableObject {
     }
     
     func cleanErrorState() {
-        guard errorState.isError else {
-            return
-        }
+        guard errorState.isError else { return }
         errorState = .init(isError: false, descriptor: nil)
     }
 }

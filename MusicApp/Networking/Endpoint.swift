@@ -8,7 +8,7 @@
 import Foundation
 
 public enum ResponseType {
-    case lookup(id: String, entity: String? = nil, limit: String? = nil)
+    case lookup(id: String, entity: String? = nil, limit: String? = nil, sort: String? = nil)
     case search(term: String, country: String? = nil, entity: String? = nil, media: String? = nil)
 }
 
@@ -20,13 +20,14 @@ public struct Endpoint {
 public extension Endpoint {
     static func getInfo(by responseType: ResponseType) -> Endpoint {
         switch responseType {
-        case let .lookup(id, entity, limit):
+        case let .lookup(id, entity, limit, sort):
             return Endpoint(
                 path: "/lookup",
                 queryItems: [
                     URLQueryItem(name: "id", value: id),
                     URLQueryItem(name: "entity", value: entity),
                     URLQueryItem(name: "limit", value: limit),
+                    URLQueryItem(name: "sort", value: sort),
                 ]
             )
         case let .search(term, country, entity, media):
