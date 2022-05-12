@@ -8,7 +8,7 @@
 public enum NetworkError: Error {
     case invalidURL
     case imageLoadingError
-    case emptyDetailData
+    case emptyResponseData
     case noInternetConnection
     case unknownError
     case decodingError(DecodingError)
@@ -19,8 +19,8 @@ public enum NetworkError: Error {
             return "URL error"
         case .imageLoadingError:
             return "Image loading error"
-        case .emptyDetailData:
-            return "Detail data error"
+        case .emptyResponseData:
+            return "Response data missing"
         case .noInternetConnection:
             return "Internet connection error"
         case .unknownError:
@@ -36,7 +36,7 @@ public enum NetworkError: Error {
             return "Invalid URL"
         case .imageLoadingError:
             return "Image loading error"
-        case .emptyDetailData:
+        case .emptyResponseData:
             return "Error: empty lookup data"
         case .noInternetConnection:
             return "No internet connection"

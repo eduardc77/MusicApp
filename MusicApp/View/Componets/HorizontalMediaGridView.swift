@@ -43,8 +43,6 @@ struct HorizontalMediaGridView: View {
                     if mediaItems.count > maxHighlightShowing {
                         NavigationLink {
                             switch mediaItems.first?.kind {
-                                // All types of see all - Review
-                                
                             case .album:
                                 VerticalMediaGridView(mediaItems: mediaItems, imageSize: .medium, rowCount: 2)
                                     .navigationTitle(title)
@@ -64,23 +62,16 @@ struct HorizontalMediaGridView: View {
                             }
                         } label: {
                             Text("See All")
-                                .font(.body)
                         }
                     }
                 }
                 .padding(.horizontal)
-                .onAppear {
-                    print(mediaItems.first?.kind)
-                    
-                    
-                    print(mediaItems.prefix(6))
-                }
             }
             
             
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHGrid(rows: gridRows, spacing: 12) {
-                    ForEach(mediaItems.prefix(maxHighlightShowing), id: \.self) { media in
+                    ForEach(mediaItems.prefix(maxHighlightShowing), id: \.id) { media in
                         
                         switch imageSize {
                         case .small:
@@ -96,7 +87,9 @@ struct HorizontalMediaGridView: View {
             }
             
             Spacer(minLength: 8)
+            
             Divider()
+                .padding(.horizontal)
         }
     }
 }

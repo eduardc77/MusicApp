@@ -1,11 +1,11 @@
 {
   "images" : [
     {
+      "filename" : "station6@2x.jpg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "station6@2x.jpg",
       "idiom" : "universal",
       "scale" : "2x"
     },

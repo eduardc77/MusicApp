@@ -10,7 +10,7 @@ import MediaPlayer
 
 struct SearchListView: View {
     @ObservedObject var searchObservableObject: SearchObservableObject
-    @StateObject var playerObservableObject: PlayerObservableObject = PlayerObservableObject(player: MPMusicPlayerController.applicationMusicPlayer)
+    @StateObject var playerObservableObject: PlayerObservableObject = PlayerObservableObject()
     @State private var selectedIndex = 0
     
     var player: MPMusicPlayerController = MPMusicPlayerController.applicationMusicPlayer
@@ -31,10 +31,10 @@ struct SearchListView: View {
                         SearchResultsRowItem(media: media)
                             .onTapGesture {
                                 guard media.wrapperType == .track else { return }
+                                // FIXME: - Pass the player
+                                MPMusicPlayerController.applicationMusicPlayer.setQueue(with: [media.id])
                                 
-                                playerObservableObject.player.setQueue(with: [media.id])
-                                
-                                playerObservableObject.player.play()
+                                MPMusicPlayerController.applicationMusicPlayer.play()
                                 
                                 hideKeyboard()
                             }

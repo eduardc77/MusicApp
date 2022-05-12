@@ -31,19 +31,12 @@ struct ListenNowView: View {
             .toolbar(content: {
                 AccountNavigationItem()
             })
+            
             .navigationTitle("Listen Now")
-            .coordinateSpace(name: "scroll")
-        }
-    }
-    
-    struct ScrollViewOffsetPreferenceKey: PreferenceKey {
-        typealias Value = CGFloat
-        static var defaultValue = CGFloat.zero
-        static func reduce(value: inout Value, nextValue: () -> Value) {
-            value += nextValue()
         }
     }
 }
+
 
 struct ListenNowView_Previews: PreviewProvider {
     static var previews: some View {

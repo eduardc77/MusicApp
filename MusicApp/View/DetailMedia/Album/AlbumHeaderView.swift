@@ -13,7 +13,7 @@ struct AlbumHeaderView: View {
     var body: some View {
         VStack {
             VStack {
-                MediaImageView(imagePath: albumDetailObservableObject.media.artworkPath.resizedPath(size: 800), size: Size(width: Metric.albumDetailImageSize, height: Metric.albumDetailImageSize), prominentShadow: true)
+                MediaImageView(imagePath: albumDetailObservableObject.media.artworkPath.resizedPath(size: 800), size: Size(width: Metric.albumDetailImageSize, height: Metric.albumDetailImageSize), shadowProminence: .full)
                     .padding(.bottom, 6)
                 
                 albumDetails

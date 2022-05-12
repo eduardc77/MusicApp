@@ -13,12 +13,12 @@ struct PlayerView: View {
     @Binding var expand: Bool
     @State var offset: CGFloat = 0
     @State private var visibleSide = FlipViewSide.front
-    
+
     var animation: Namespace.ID
     static let timer = Timer.publish(every: 0.6, tolerance: 0.6, on: .main, in: .common).autoconnect()
     
-    init(player: MPMusicPlayerController, expand: Binding<Bool>, animation: Namespace.ID) {
-        _playerObservableObject = StateObject(wrappedValue: PlayerObservableObject(player: player))
+    init(expand: Binding<Bool>, animation: Namespace.ID) {
+        _playerObservableObject = StateObject(wrappedValue: PlayerObservableObject())
         _expand = expand
         self.animation = animation
     }
@@ -37,7 +37,7 @@ struct PlayerView: View {
                     if expand { Spacer() }
                     
                     if let artworkPath = playerObservableObject.nowPlayingItem?.artworkPath.resizedPath(size: 600) {
-                        MediaImageView(imagePath: artworkPath, size: Size(width: expand ? Metric.largeMediaImageSize : Metric.playerSmallImageSize, height: expand ? Metric.largeMediaImageSize : Metric.playerSmallImageSize), cornerRadius: expand ? 10 : Metric.searchResultCornerRadius, prominentShadow: expand ? true : false, visibleSide: $visibleSide)
+                        MediaImageView(imagePath: artworkPath, size: Size(width: expand ? Metric.largeMediaImageSize : Metric.playerSmallImageSize, height: expand ? Metric.largeMediaImageSize : Metric.playerSmallImageSize), cornerRadius: expand ? 10 : Metric.searchResultCornerRadius, shadowProminence: expand ? .full : .none, visibleSide: $visibleSide)
                             .scaleEffect((playerObservableObject.playbackState == .playing && expand) ? 1.33 : 1)
                             .animation(.spring(response: 0.5, dampingFraction: 0.5, blendDuration: 0.3), value: playerObservableObject.playbackState)
                             .onTapGesture {
@@ -218,7 +218,7 @@ struct PlayerView_Previews: PreviewProvider {
                     }
                     Spacer()
                 }
-                PlayerView(player: player, expand: $expand, animation: animation)
+                PlayerView(expand: $expand, animation: animation)
             }
         }
     }

@@ -21,8 +21,6 @@ struct TabBar: View {
     @State var expand = false
     @Namespace var animation
     
-    private var player = MPMusicPlayerController.applicationMusicPlayer
-    
     var body: some View {
         ZStack(alignment: .bottom) {
             TabView(selection: $selection) {
@@ -43,7 +41,7 @@ struct TabBar: View {
                     .tag(Tab.search)
             }
             
-            PlayerView(player: player, expand: $expand, animation: animation)  
+            PlayerView(expand: $expand, animation: animation)  
         }
         .ignoresSafeArea(.keyboard)
         .navigationViewStyle(.stack)

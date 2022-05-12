@@ -15,8 +15,6 @@ struct LibraryListDetailView: View {
     
     var body: some View {
         ScrollView {
-            Divider()
-            
             switch section {
             case .playlists: VerticalMediaGridView(mediaItems: libraryObservableObject.playlists, imageSize: .medium, rowCount: 2)
             case .artists: VerticalMediaGridView(mediaItems: libraryObservableObject.artists, imageSize: .small, rowCount: 1)

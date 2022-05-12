@@ -10,6 +10,7 @@ import MediaPlayer
 
 struct VerticalMediaGridView: View {
     @State var mediaItems = [Media]()
+    
     var title: String
     var imageSize: ImageSizeType
     var columns: [GridItem]
@@ -39,8 +40,7 @@ struct VerticalMediaGridView: View {
         
         ScrollView(showsIndicators: false) {
             LazyVGrid(columns: columns, spacing: 12) {
-                ForEach(mediaItems, id: \.self) { media in
-                    // FIXME: - Access media based on kind
+                ForEach(Array(zip(mediaItems.indices, mediaItems)), id: \.0) { _, media in
                     switch media.wrapperType {
                     case .collection:
                         NavigationLink(destination: AlbumDetailView(media: media, searchObservableObject: SearchObservableObject())) {
@@ -56,15 +56,7 @@ struct VerticalMediaGridView: View {
                         
                     case .track:
                         SearchResultsRowItem(media: media)
-                            .onTapGesture {
-                                guard media.wrapperType == .track else { return }
-                                // FIXME: - Pass the player
-                                MPMusicPlayerController.applicationMusicPlayer.setQueue(with: [media.id])
-                                
-                                MPMusicPlayerController.applicationMusicPlayer.play()
-                                
-                                hideKeyboard()
-                            }
+                        
                     case .artist:
                         NavigationLink(destination: AlbumDetailView(media: media, searchObservableObject: SearchObservableObject())) {
                             switch imageSize {

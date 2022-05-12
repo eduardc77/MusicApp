@@ -9,10 +9,14 @@ import MediaPlayer
 import SwiftUI
 
 final class MediaItemObservableObject: ObservableObject {
+    // MARK: - Publishers
+    
     @Published private var trackIDsQueue: [String] = []
     @Published private(set) var albumContents: AlbumContents?
     @Published private(set) var waitingForPrepare: Bool = false
-
+    
+    // MARK: - Properties
+    
     private(set) var player = MPMusicPlayerController.applicationMusicPlayer
     private(set) var media: Media
     private(set) var albumDuration: Int = 0
@@ -31,16 +35,13 @@ final class MediaItemObservableObject: ObservableObject {
     // MARK: - Initialization
     
     init(media: Media, searchObservableObject: SearchObservableObject) {
-
-        
         self.media = media
         self.searchObservableObject = searchObservableObject
         
         setAlbumContents()
+        
         if let libraryAlbumTracks = albumContents?.libraryTracks, !libraryAlbumTracks.isEmpty {
             configureAlbumDetailsForLibraryAlbum()
-        } else {
-            configureAlbumDetailsForSearchAlbum()
         }
     }
     
@@ -58,8 +59,9 @@ final class MediaItemObservableObject: ObservableObject {
         
         player.play()
         if let libraryAlbumTracks = albumContents?.libraryTracks, !libraryAlbumTracks.isEmpty {
-        player.nowPlayingItem = albumContents?.libraryTracks[index]
+            player.nowPlayingItem = albumContents?.libraryTracks[index]
         }
+        
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             self.waitingForPrepare = false
@@ -69,7 +71,6 @@ final class MediaItemObservableObject: ObservableObject {
     func playAllTracks(isShuffle: Bool) {
         waitingForPrepare = true
         player.stop()
-        
         player.setQueue(with: trackIDsQueue)
         UserDefaults.standard.set(trackIDsQueue, forKey: UserDefaultsKey.queueDefault)
         
@@ -83,12 +84,10 @@ final class MediaItemObservableObject: ObservableObject {
         }
         
         player.play()
-        
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             self.waitingForPrepare = false
         }
     }
-    
     
     func currentMediaItem() -> MPMediaItem? {
         let mediaItemQuery = MPMediaQuery.songs()
@@ -137,15 +136,9 @@ private extension MediaItemObservableObject {
         if let libraryAlbums = getTracks(for: media.collectionName), !libraryAlbums.isEmpty {
             albumContents = AlbumContents(libraryTracks: libraryAlbums)
         } else {
-         
-//                 searchTracksForCurrentMedia()
-//
-//
-//                self.albumContents = AlbumContents(tracks: self.searchObservableObject.collectionContentResults)
-//
-//
+            //                 searchTracksForCurrentMedia()
+            //                self.albumContents = AlbumContents(tracks: self.searchObservableObject.collectionContentResults)
         }
-        
     }
     
     func configureAlbumDetailsForLibraryAlbum() {
@@ -155,19 +148,6 @@ private extension MediaItemObservableObject {
         albumContents?.libraryTracks.forEach { track in
             trackIDsQueue.append(track.playbackStoreID)
             albumDuration += track.playbackDuration
-            albumTrackCount += 1
-        }
-        
-        self.albumDuration = Int((albumDuration / 60).truncatingRemainder(dividingBy: 60))
-    }
-    
-    func configureAlbumDetailsForSearchAlbum() {
-        var albumDuration: TimeInterval = 0
-        
-        trackIDsQueue.removeAll()
-        albumContents?.tracks.forEach { track in
-            trackIDsQueue.append(track.id)
-            albumDuration += track.trackTimeMillis ?? 0
             albumTrackCount += 1
         }
         
@@ -187,12 +167,9 @@ private extension MediaItemObservableObject {
     }
     
     func searchTracksForCurrentMedia() {
-
-//        searchObservableObject.lookUpAlbum(for: media)
-        
+        //     searchObservableObject.lookUpAlbum(for: media)
     }
 }
-
 
 // MARK: - Types
 
@@ -202,8 +179,3 @@ extension MediaItemObservableObject {
         var tracks: [Media] = []
     }
 }
-
-
-
-
-

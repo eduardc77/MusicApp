@@ -111,7 +111,7 @@ struct TimeSliderView: View {
 
 struct TimeView_Previews: PreviewProvider {
     struct TimeView: View {
-        @StateObject var playerObservableObject = PlayerObservableObject(player: MPMusicPlayerController.applicationMusicPlayer)
+        @StateObject var playerObservableObject = PlayerObservableObject()
         @State var songTimePosition: Int = 0
         
         var body: some View {

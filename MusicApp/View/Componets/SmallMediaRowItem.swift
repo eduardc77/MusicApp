@@ -22,22 +22,19 @@ struct SmallMediaRowItem: View {
                     
                     Spacer()
                     
-                    HStack(alignment: .center) {
-                        
-                        VStack {
+                    HStack {
+                        VStack(alignment: .leading) {
                             Text(media.name)
                                 .foregroundColor(.primary)
-                                .font(.caption)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .lineLimit(1)
-                            
                             
                             Text(media.artistName)
                                 .foregroundColor(.secondary)
                                 .font(.caption)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .lineLimit(1)
                         }
+                        .font(.caption)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .lineLimit(1)
+                        
                         Image(systemName: "ellipsis")
                             .padding(.trailing)
                     }
@@ -47,9 +44,9 @@ struct SmallMediaRowItem: View {
             }
             .onTapGesture {
                 guard media.wrapperType == .track else { return }
+                
                 // FIXME: - Pass the player
                 MPMusicPlayerController.applicationMusicPlayer.setQueue(with: [media.id])
-                
                 MPMusicPlayerController.applicationMusicPlayer.play()
                 
                 hideKeyboard()

@@ -15,7 +15,6 @@ struct PlayerButtonsView: View {
             Spacer()
             Button(action: {
                 guard playerObservableObject.nowPlayingItem != nil else { return }
-                
                 print("Backward Button Tapped")
                 
             }) {
@@ -39,8 +38,7 @@ struct PlayerButtonsView: View {
             Spacer()
             
             Button(action: {
-                guard playerObservableObject.nowPlayingItem != nil else { return }
-                
+                guard playerObservableObject.nowPlayingItem != nil else { return }               
                 print("Forward Button Tapped")
                 
             }) {

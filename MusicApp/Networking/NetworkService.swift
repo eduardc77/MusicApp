@@ -45,7 +45,7 @@ private extension NetworkService {
     
     func makeRequest(url: URL) -> URLRequest {
         let request = URLRequest(url: url)
-        request.print()
+//        request.print()
         return request
     }
 }

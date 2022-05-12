@@ -33,14 +33,17 @@ struct LibraryView: View {
                         .toolbar { EditButton() }
                         .environment(\.editMode, $editMode)
                         
-                        
                     } else {
                         EmptyLibraryView(tabSelection: $tabSelection)
                     }
-                } else {
+                } else if libraryObservableObject.status == .notPermitted {
                     RequestAuthorizationView()
                 }
             }
+        }
+        .onAppear {
+            guard !libraryObservableObject.refreshComplete else { return }
+            libraryObservableObject.refreshAllLibrary()
         }
     }
     
@@ -104,8 +107,7 @@ struct LibraryView: View {
                 
                 Button { tabSelection = .browse } label: {
                     Text("Browse Apple Music")
-                        .font(.title3)
-                        .bold()
+                        .font(.title3).bold()
                         .frame(maxWidth:.infinity)
                         .padding(.vertical, 8)
                     

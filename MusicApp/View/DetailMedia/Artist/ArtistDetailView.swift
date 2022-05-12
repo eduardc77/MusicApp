@@ -67,7 +67,7 @@ private extension ArtistDetailView {
     
     func buttonsView(for media: Media) -> some View {
         HStack {
-            Link(destination: media.itunesLink) {
+            Link(destination: media.iTunesLink) {
                 Label("Itunes", systemImage: "applelogo")
                     .padding(.vertical, 2)
                     .padding(.horizontal, 5)

@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import MediaPlayer
+import AVKit
 
 struct BottomToolbar: View {
     var body: some View {
@@ -16,11 +18,8 @@ struct BottomToolbar: View {
                     .foregroundColor(.lightGrayColor)
             }
             
-            Button(action: {}) {
-                Image(systemName: "airplayaudio")
-                    .font(.title2)
-                    .foregroundColor(.lightGrayColor)
-            }
+            AirplayButton()
+                    .frame(width: 20, height: 20)
             
             Button(action: {}) {
                 Image(systemName: "list.bullet")
@@ -40,6 +39,6 @@ struct BottomToolBar_Previews: PreviewProvider {
 
 extension BottomToolbar {
     enum Metric {
-        static let buttonsSpacing: CGFloat = 80
+        static let buttonsSpacing: CGFloat = 75
     }
 }

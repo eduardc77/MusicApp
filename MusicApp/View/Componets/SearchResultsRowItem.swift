@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import MediaPlayer
 
 struct SearchResultsRowItem: View {
     var media: Media

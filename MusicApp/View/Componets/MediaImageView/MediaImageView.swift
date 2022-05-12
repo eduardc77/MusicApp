@@ -9,24 +9,26 @@ import SwiftUI
 
 struct MediaImageView: View {
     @StateObject private var mediaImageObservableObject: MediaImageObservableObject
-    @Binding var visibleSide: FlipViewSide
+    @Binding private var visibleSide: FlipViewSide
     
-    let imagePath: String?
-    var artworkImage: Image?
-    var size: Size
-    var cornerRadius: CGFloat
-    var prominentShadow: Bool
-    var contentMode: ContentMode
-    var foregroundColor: Color
+    private let imagePath: String?
+    private var artworkImage: Image?
+    private var size: Size
+    private var cornerRadius: CGFloat
+    private var shadowProminence: ShadowProminence
+    private var contentMode: ContentMode
+    private var foregroundColor: Color
     
-    init(imagePath: String? = nil, artworkImage: Image? = nil, size: Size = Size(), cornerRadius: CGFloat = 4, prominentShadow: Bool = false, contentMode: ContentMode = .fit, foregroundColor: Color = .secondary.opacity(0.1), visibleSide: Binding<FlipViewSide> = .constant(.front)) {
+    @State private var shadow: (radius: CGFloat, xPosition: CGFloat, yPosition: CGFloat) = (0, 0, 0)
+    
+    init(imagePath: String? = nil, artworkImage: Image? = nil, size: Size = Size(), cornerRadius: CGFloat = 4, shadowProminence: ShadowProminence = .none, contentMode: ContentMode = .fit, foregroundColor: Color = .secondary.opacity(0.1), visibleSide: Binding<FlipViewSide> = .constant(.front)) {
         _mediaImageObservableObject = StateObject(wrappedValue: MediaImageObservableObject())
         
         self.imagePath = imagePath
         self.artworkImage = artworkImage
         self.size = size
         self.cornerRadius = cornerRadius
-        self.prominentShadow = prominentShadow
+        self.shadowProminence = shadowProminence
         self.contentMode = contentMode
         self.foregroundColor = foregroundColor
         
@@ -34,23 +36,42 @@ struct MediaImageView: View {
     }
     
     var body: some View {
-        FlipView(visibleSide: visibleSide) {
-            if let artworkImage = artworkImage {
-                artworkImage
-                    .resizable()
-                    .aspectRatio(contentMode: contentMode)
+        
+        if mediaImageObservableObject.missingArtwork {
+            ZStack {
+                Rectangle()
+                    .fill(foregroundColor)
                     .frame(width: size.width, height: size.height)
                     .cornerRadius(cornerRadius)
-                    .shadow(radius: prominentShadow ? 16 : 2, x: prominentShadow ? -6 : 0, y: prominentShadow ? 6 : 2)
-
-            } else if let uiImage = mediaImageObservableObject.image {
-                Image(uiImage: uiImage)
+                
+                Image("music-note")
                     .resizable()
-                    .aspectRatio(contentMode: contentMode)
-                    .frame(width: size.width, height: size.height)
-                    .cornerRadius(cornerRadius)
-                    .shadow(radius: prominentShadow ? 16 : 2, x: prominentShadow ? -6 : 0, y: prominentShadow ? 6 : 2)
-            } else {
+                    .aspectRatio(contentMode: .fit)
+                    .foregroundColor(Color.secondary.opacity(0.3))
+                    .frame(width: (size.height ?? Metric.mediumImageSize) / 1.6, height: (size.height ?? Metric.mediumImageSize) / 1.6)
+            }
+        } else {
+            FlipView(visibleSide: visibleSide) {
+                Group {
+                    if let artworkImage = artworkImage {
+                        artworkImage
+                            .resizable()
+                    } else if let uiImage = mediaImageObservableObject.image {
+                        Image(uiImage: uiImage)
+                            .resizable()
+                    }
+                }
+                .aspectRatio(contentMode: contentMode)
+                .frame(width: size.width, height: size.height)
+                .cornerRadius(cornerRadius)
+                .shadow(radius: shadow.radius, x: shadow.xPosition, y: shadow.yPosition)
+                
+                .overlay {
+                    RoundedRectangle(cornerRadius: cornerRadius)
+                        .stroke(Color.secondary.opacity(0.6), lineWidth: 0.1)
+                }
+                
+            } back: {
                 ZStack {
                     Rectangle()
                         .fill(foregroundColor)
@@ -64,30 +85,42 @@ struct MediaImageView: View {
                         .frame(width: (size.height ?? Metric.mediumImageSize) / 1.6, height: (size.height ?? Metric.mediumImageSize) / 1.6)
                 }
             }
-        } back: {
-            ZStack {
-                Rectangle()
-                    .fill(foregroundColor)
-                    .frame(width: size.width, height: size.height)
-                    .cornerRadius(cornerRadius)
-                
-                Image("music-note")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .foregroundColor(Color.secondary.opacity(0.3))
-                    .frame(width: (size.height ?? Metric.mediumImageSize) / 1.6, height: (size.height ?? Metric.mediumImageSize) / 1.6)
+            .contentShape(Rectangle())
+            .animation(.flipCard, value: visibleSide)
+
+            .onAppear {
+                setupShadowProminence()
+            }
+            .task {
+                guard let imagePath = imagePath else { return }
+                await mediaImageObservableObject.fetchImage(from: imagePath)
             }
         }
-        .contentShape(Rectangle())
-        .animation(.flipCard, value: visibleSide)
-        
-        .task {
-            guard let imagePath = imagePath else { return }
-
-            await mediaImageObservableObject.fetchImage(from: imagePath)
+    }
+    
+    func setupShadowProminence() {
+        switch shadowProminence {
+        case .none:
+            shadow = (0, 0, 0)
+        case .mild:
+            shadow = (radius: 2, xPosition: 0, yPosition: 2)
+        case .full:
+            shadow = (radius: 16, xPosition: -6, yPosition: 6)
         }
     }
 }
+
+// MARK: - Types
+
+extension MediaImageView {
+    enum ShadowProminence: Int {
+        case none = 0
+        case mild = 2
+        case full = 16
+    }
+}
+
+
 //
 //struct MediaImageView_Previews: PreviewProvider {
 //    static var previews: some View {

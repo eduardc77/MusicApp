@@ -17,10 +17,9 @@ final class ArtistViewObservableObject: ObservableObject {
     
     @Published private(set) var albumResults: [Media] = []
     @Published private(set) var songResults: [Media] = []
-    
-    @Published var isLoading: Bool = false
+    @Published private(set) var isLoading: Bool = false
+    @Published private(set) var presenter: Presenter? = nil
     @Published var errorState: ErrorState = .init(isError: false, descriptor: nil)
-    @Published var presenter: Presenter? = nil
     
     var albums: [Media] {
         var albums = albumResults

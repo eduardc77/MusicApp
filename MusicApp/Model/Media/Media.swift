@@ -65,7 +65,7 @@ struct Media: Identifiable, Codable {
         return formatter.string(from: TimeInterval(seconds)) ?? "nil"
     }
 
-    var itunesLink: URL {
+    var iTunesLink: URL {
         URL(string: mediaResponse.trackViewUrl ?? "") ?? URL(string: "https://www.apple.com/404")!
     }
 
