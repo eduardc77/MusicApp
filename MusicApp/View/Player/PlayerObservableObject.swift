@@ -71,28 +71,24 @@ final class PlayerObservableObject: ObservableObject {
             
             return
         }
-//        var image: UIImage? = nil
-//        if let artwork = media.artwork?.image(at: CGSize(width: 1024, height: 1024)) {
-//            image = artwork
-//        }
-        
+
         let kind: MediaKind
-        
-        switch media.mediaType.rawValue {
-        case 1: kind = MediaKind.song
-        case 2: kind = MediaKind.podcast
-        case 4: kind = MediaKind.audiobook
-        case 255: kind = MediaKind.song
-        case 256: kind = MediaKind.movie
-        case 512: kind = MediaKind.tvSeason
-        case 1024: kind = MediaKind.mix
-        case 2048: kind = MediaKind.musicVideo
-        case 4096: kind = MediaKind.musicVideo
-        case 65280: kind = MediaKind.musicVideo
-        default: kind = MediaKind.playlist
+
+        switch media.mediaType {
+        case .music: kind = MediaKind.song
+        case .podcast: kind = MediaKind.podcast
+        case .audioBook: kind = MediaKind.audiobook
+        case .anyAudio: kind = MediaKind.song
+        case .movie: kind = MediaKind.movie
+        case .tvShow: kind = MediaKind.tvSeason
+        case .musicVideo: kind = MediaKind.musicVideo
+        case .movie: kind = MediaKind.movie
+        case .anyVideo: kind = MediaKind.musicVideo
+        case .any: kind = MediaKind.mix
+        default: kind = MediaKind.album
         }
         
-        nowPlayingItem = Media(mediaResponse: MediaResponse(id: media.playbackStoreID, artistId: 0, collectionId: 0, trackId: 0, wrapperType: "track", kind: kind.rawValue, name: media.title, artistName: media.artist, collectionName: media.albumTitle, trackName: media.title, collectionCensoredName: media.albumTitle, artistViewUrl: nil, collectionViewUrl: nil, trackViewUrl: nil, previewUrl: nil, artworkUrl60: nil, artworkUrl100: nil, collectionPrice: nil, collectionHdPrice: 0, trackPrice: 0, collectionExplicitness: nil, trackExplicitness: nil, discCount: 0, discNumber: nil, trackCount: media.albumTrackCount, trackNumber: media.albumTrackNumber, trackTimeMillis: media.playbackDuration.toInt, country: nil, currency: nil, primaryGenreName: media.genre, description: nil, longDescription: nil, releaseDate: media.releaseDate?.description, contentAdvisoryRating: nil, trackRentalPrice: 0))
+        nowPlayingItem = Media(mediaResponse: MediaResponse(id: media.playbackStoreID, artistId: 0, collectionId: 0, trackId: 0, wrapperType: "track", kind: kind.rawValue, name: media.title, artistName: media.artist, collectionName: media.albumTitle, trackName: media.title, collectionCensoredName: media.albumTitle, artistViewUrl: nil, collectionViewUrl: nil, trackViewUrl: nil, previewUrl: nil, artworkUrl100: nil, collectionPrice: nil, collectionHdPrice: 0, trackPrice: 0, collectionExplicitness: nil, trackExplicitness: nil, discCount: 0, discNumber: nil, trackCount: media.albumTrackCount, trackNumber: media.albumTrackNumber, trackTimeMillis: media.playbackDuration.toInt, country: nil, currency: nil, primaryGenreName: media.genre, description: nil, longDescription: nil, releaseDate: media.releaseDate?.description, contentAdvisoryRating: nil, trackRentalPrice: 0, artwork: media.artwork?.image(at: CGSize(width: 1024, height: 1024)), composer: media.composer, isCompilation: media.isCompilation))
     }
 }
 

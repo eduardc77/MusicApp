@@ -125,27 +125,21 @@ private extension LibraryObservableObject {
         if let collections = collections {
             collections.forEach({ libraryMediaItemCollection in
                 guard let libraryMedia = libraryMediaItemCollection.representativeItem else { return }
-//                var image: Image?
-//                var uiImage: UIImage?
-//                if let artwork = libraryMedia.artwork?.image(at: CGSize(width: 1024, height: 1024)) {
-//                    image = Image(uiImage: artwork)
-//                    uiImage = artwork
-//                }
                 
                 let kind: MediaKind
-                
-                switch libraryMedia.mediaType.rawValue {
-                case 1: kind = MediaKind.song
-                case 2: kind = MediaKind.podcast
-                case 4: kind = MediaKind.audiobook
-                case 255: kind = MediaKind.song
-                case 256: kind = MediaKind.movie
-                case 512: kind = MediaKind.tvSeason
-                case 1024: kind = MediaKind.mix
-                case 2048: kind = MediaKind.musicVideo
-                case 4096: kind = MediaKind.musicVideo
-                case 65280: kind = MediaKind.musicVideo
-                default: kind = MediaKind.playlist
+
+                switch libraryMedia.mediaType {
+                case .music: kind = MediaKind.song
+                case .podcast: kind = MediaKind.podcast
+                case .audioBook: kind = MediaKind.audiobook
+                case .anyAudio: kind = MediaKind.song
+                case .movie: kind = MediaKind.movie
+                case .tvShow: kind = MediaKind.tvSeason
+                case .musicVideo: kind = MediaKind.musicVideo
+                case .movie: kind = MediaKind.movie
+                case .anyVideo: kind = MediaKind.musicVideo
+                case .any: kind = MediaKind.mix
+                default: kind = MediaKind.album
                 }
                 
                 let wrapperType: WrapperType
@@ -155,13 +149,8 @@ private extension LibraryObservableObject {
                 case .songs: wrapperType = .track
                 default: wrapperType = .collection
                 }
-                
-                if libraryMedia.mediaType == .musicVideo {
-                    print("666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666")
-                }
-//                let newLibraryMedia = Media(wrapperType: wrapperType, kind: kind, artistName: libraryMedia.artist, collectionName: libraryMedia.albumTitle, trackName: libraryMedia.title, collectionViewUrl: libraryMedia.assetURL, trackViewUrl: libraryMedia.assetURL, discCount: libraryMedia.discCount, discNumber: libraryMedia.discNumber, trackCount: libraryMedia.albumTrackCount, trackNumber: libraryMedia.albumTrackNumber, trackTimeMillis: libraryMedia.playbackDuration, primaryGenreName: libraryMedia.genre, description: libraryMedia.description, artwork: image, artworkUIImage: uiImage, composer: libraryMedia.composer, isCompilation: libraryMedia.isCompilation, releaseDate: libraryMedia.releaseDate, dateAdded: libraryMedia.dateAdded)
- 
-                let newLibraryMedia = Media(mediaResponse: MediaResponse(id: libraryMedia.playbackStoreID, artistId: 0, collectionId: 0, trackId: 0, wrapperType: wrapperType.rawValue, kind: kind.rawValue, name: libraryMedia.title, artistName: libraryMedia.artist, collectionName: libraryMedia.albumTitle, trackName: libraryMedia.title, collectionCensoredName: libraryMedia.albumTitle, artistViewUrl: nil, collectionViewUrl: nil, trackViewUrl: nil, previewUrl: nil, artworkUrl60: nil, artworkUrl100: nil, collectionPrice: nil, collectionHdPrice: 0, trackPrice: 0, collectionExplicitness: nil, trackExplicitness: nil, discCount: 0, discNumber: nil, trackCount: libraryMedia.albumTrackCount, trackNumber: libraryMedia.albumTrackNumber, trackTimeMillis: libraryMedia.playbackDuration.toInt, country: nil, currency: nil, primaryGenreName: libraryMedia.genre, description: nil, longDescription: nil, releaseDate: libraryMedia.releaseDate?.description, contentAdvisoryRating: nil, trackRentalPrice: 0))
+
+                let newLibraryMedia = Media(mediaResponse: MediaResponse(id: libraryMedia.playbackStoreID, artistId: 0, collectionId: 0, trackId: 0, wrapperType: wrapperType.rawValue, kind: kind.rawValue, name: libraryMedia.title, artistName: libraryMedia.artist, collectionName: libraryMedia.albumTitle, trackName: libraryMedia.title, collectionCensoredName: libraryMedia.albumTitle, artistViewUrl: nil, collectionViewUrl: nil, trackViewUrl: nil, previewUrl: nil, artworkUrl100: nil, collectionPrice: nil, collectionHdPrice: 0, trackPrice: 0, collectionExplicitness: nil, trackExplicitness: nil, discCount: 0, discNumber: nil, trackCount: libraryMedia.albumTrackCount, trackNumber: libraryMedia.albumTrackNumber, trackTimeMillis: libraryMedia.playbackDuration.toInt, country: nil, currency: nil, primaryGenreName: libraryMedia.genre, description: nil, longDescription: nil, releaseDate: libraryMedia.releaseDate?.description, contentAdvisoryRating: nil, trackRentalPrice: 0, artwork: libraryMedia.artwork?.image(at: CGSize(width: 1024, height: 1024)), composer: libraryMedia.composer, isCompilation: libraryMedia.isCompilation, dateAdded: libraryMedia.dateAdded))
                 
                 // Set Recently added albums
                 if librarySection == .albums, let oneYearBefore = Calendar.current.date(byAdding: .year, value: -2, to: Date()), libraryMedia.dateAdded >= oneYearBefore {

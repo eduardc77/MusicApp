@@ -29,7 +29,7 @@ struct CategoryGridView: View {
                         NavigationLink(destination: CategoryDetailView(category: category))
                         {
                             ZStack(alignment: Alignment(horizontal: .leading, vertical: .bottom)) {
-                                MediaImageView(artworkImage: Image(category.image), size: Size(width: geometry.size.width / 2.29, height: nil), cornerRadius: 8, contentMode: .fill)
+                                MediaImageView(artworkImage: UIImage(named: category.image), size: Size(width: geometry.size.width / 2.29, height: nil), cornerRadius: 8, contentMode: .fill)
                                 
                                 Text(category.title)
                                     .padding(10)

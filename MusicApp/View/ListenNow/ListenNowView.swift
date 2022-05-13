@@ -17,7 +17,7 @@ struct ListenNowView: View {
                 VStack {
                     HighlightsView(items: selectedStations, imageSize: .large)
                     
-                    HorizontalMediaGridView(mediaItems: musicPlaylists2, title: "Best New Songs", imageSize: .small, rowCount: 4)
+                    HorizontalMediaGridView(mediaItems: musicPlaylists, title: "Best New Songs", imageSize: .small, rowCount: 4)
                     
                     HorizontalMediaGridView(mediaItems: musicPlaylists, title: "You Gotta Hear", imageSize: .medium, rowCount: 1)
                     

@@ -13,7 +13,7 @@ struct PlayerView: View {
     @Binding var expand: Bool
     @State var offset: CGFloat = 0
     @State private var visibleSide = FlipViewSide.front
-
+    
     var animation: Namespace.ID
     static let timer = Timer.publish(every: 0.6, tolerance: 0.6, on: .main, in: .common).autoconnect()
     
@@ -35,21 +35,12 @@ struct PlayerView: View {
                 // Mini Player
                 HStack {
                     if expand { Spacer() }
-                    
-                    if let artworkPath = playerObservableObject.nowPlayingItem?.artworkPath.resizedPath(size: 600) {
-                        MediaImageView(imagePath: artworkPath, size: Size(width: expand ? Metric.largeMediaImageSize : Metric.playerSmallImageSize, height: expand ? Metric.largeMediaImageSize : Metric.playerSmallImageSize), cornerRadius: expand ? 10 : Metric.searchResultCornerRadius, shadowProminence: expand ? .full : .none, visibleSide: $visibleSide)
+                        MediaImageView(imagePath: playerObservableObject.nowPlayingItem?.artworkPath.resizedPath(size: 600), artworkImage: playerObservableObject.nowPlayingItem?.artwork, size: Size(width: expand ? Metric.largeMediaImageSize : Metric.playerSmallImageSize, height: expand ? Metric.largeMediaImageSize : Metric.playerSmallImageSize), cornerRadius: expand ? 10 : Metric.searchResultCornerRadius, shadowProminence: expand ? .full : .none, visibleSide: $visibleSide)
                             .scaleEffect((playerObservableObject.playbackState == .playing && expand) ? 1.33 : 1)
                             .animation(.spring(response: 0.5, dampingFraction: 0.5, blendDuration: 0.3), value: playerObservableObject.playbackState)
                             .onTapGesture {
                                 visibleSide.toggle()
                             }
-                        
-                    } else {
-                        // Or Placeholder Image
-                        MediaImageView(size: Size(width: expand ? Metric.largeMediaImageSize : Metric.playerSmallImageSize, height: expand ? Metric.largeMediaImageSize : Metric.playerSmallImageSize), cornerRadius: expand ? 10 : Metric.searchResultCornerRadius)
-                            .scaleEffect((playerObservableObject.playbackState == .playing && expand) ? 1.33 : 1)
-                            .animation(.spring(response: 0.5, dampingFraction: 0.5, blendDuration: 0.3), value: playerObservableObject.playbackState)
-                    }
                     
                     if !expand {
                         Text(playerObservableObject.nowPlayingItem?.trackName ?? "Not Playing")
@@ -76,7 +67,7 @@ struct PlayerView: View {
                                     .foregroundColor(.primary)
                             }
                             )
-                            .padding(.trailing)
+                                .padding(.trailing)
                             
                             Button(action: {},
                                    label: {
@@ -137,14 +128,14 @@ struct PlayerView: View {
         .background(
             VStack(spacing: 0) {
                 if expand {
-                    if let artworkPath = playerObservableObject.nowPlayingItem?.artworkPath, !artworkPath.isEmpty {
+                    if let artworkUIImage = playerObservableObject.nowPlayingItem?.artwork {
                         ZStack {
                             BlurView()
                             
-//                            LinearGradient(
-//                                gradient: Gradient(colors: [Color(artworkUIImage.firstAverageColor ?? .gray), Color(artworkUIImage.secondAverageColor ?? .gray)]),
-//                                startPoint: .topLeading,
-//                                endPoint: .bottomTrailing)
+                            LinearGradient(
+                                gradient: Gradient(colors: [Color(artworkUIImage.firstAverageColor ?? .gray), Color(artworkUIImage.secondAverageColor ?? .gray)]),
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing)
                         }
                     } else {
                         Color(.gray)
@@ -164,8 +155,8 @@ struct PlayerView: View {
         .offset(y: expand ? 0 : Metric.yOffset)
         .offset(y: offset)
         .gesture(DragGesture()
-            .onChanged(onChanged(value:))
-            .onEnded(onEnded(value:)))
+                    .onChanged(onChanged(value:))
+                    .onEnded(onEnded(value:)))
         
         .ignoresSafeArea()
         

@@ -37,7 +37,6 @@ final class SearchObservableObject: ObservableObject {
     // MARK: - Publishers
     
     @Published private(set) var searchResults: [Media] = []
-    
     @Published private(set) var isSearching = false
     @Published private(set) var nothingFound = false
     

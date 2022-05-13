@@ -13,10 +13,14 @@ struct AlbumHeaderView: View {
     var body: some View {
         VStack {
             VStack {
-                MediaImageView(imagePath: albumDetailObservableObject.media.artworkPath.resizedPath(size: 800), size: Size(width: Metric.albumDetailImageSize, height: Metric.albumDetailImageSize), shadowProminence: .full)
-                    .padding(.bottom, 6)
+                if let uiImage = albumDetailObservableObject.media.artwork {
+                    MediaImageView(artworkImage: uiImage, size: Size(width: Metric.albumDetailImageSize, height: Metric.albumDetailImageSize), shadowProminence: .full)
+                } else {
+                    MediaImageView(imagePath: albumDetailObservableObject.media.artworkPath.resizedPath(size: 800), size: Size(width: Metric.albumDetailImageSize, height: Metric.albumDetailImageSize), shadowProminence: .full)
+                }
                 
                 albumDetails
+                    .padding(.top, 6)
             }
             .padding(.top, 6)
             .padding(.horizontal)
@@ -45,7 +49,7 @@ struct AlbumHeaderView: View {
                 .foregroundColor(.appAccentColor)
                 .lineLimit(1)
             
-            Text("\(albumDetailObservableObject.media.genreName.uppercased()) · \(Text(albumDetailObservableObject.media.releaseDate))")
+            Text(albumDetailObservableObject.media.genreAndReleaseDetails)
                 .font(.caption.bold())
                 .foregroundColor(.secondary)
                 .lineLimit(1)

@@ -24,7 +24,7 @@ struct VerticalMediaGridView: View {
         case .small:
             columns = Array(repeating: .init(.flexible(), spacing: 2, alignment: .leading), count: rowCount)
         case .medium:
-            columns = Array(repeating: .init(.flexible()), count: rowCount)
+            columns = Array(repeating: .init(.flexible(), spacing: 10), count: rowCount)
         case .large:
             columns = Array(repeating: .init(.fixed(Metric.largeRowHeight)), count: rowCount)
         }
@@ -70,8 +70,8 @@ struct VerticalMediaGridView: View {
                         }
                     }
                 }
-                .padding(.horizontal)
             }
+            .padding(.horizontal)
             
             Spacer(minLength: Metric.playerHeight)
         }

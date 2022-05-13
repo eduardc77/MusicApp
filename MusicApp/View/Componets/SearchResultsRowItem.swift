@@ -13,8 +13,12 @@ struct SearchResultsRowItem: View {
     
     var body: some View {
         HStack {
-            MediaImageView(imagePath: media.artworkPath.resizedPath(size: 100), size: Size(width: Metric.searchResultImageSize, height: Metric.searchResultImageSize))
-            
+            if let uiImage = media.artwork {
+                MediaImageView(artworkImage: uiImage, size: Size(width: Metric.searchResultImageSize, height: Metric.searchResultImageSize))
+            } else {
+                MediaImageView(imagePath: media.artworkPath.resizedPath(size: 100), size: Size(width: Metric.searchResultImageSize, height: Metric.searchResultImageSize))
+            }
+
             VStack(alignment: .leading) {
                 Text(media.name)
                     .foregroundColor(.primary)

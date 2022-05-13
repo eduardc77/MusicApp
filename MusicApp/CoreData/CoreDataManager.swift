@@ -52,7 +52,7 @@ class CoreDataManager {
 
         container.loadPersistentStores { [weak self] storeDescription, error in
             guard error == nil else { return }
-//            print("storeDesc", storeDescription)
+            print("storeDesc", storeDescription)
 
             self?.container.viewContext.automaticallyMergesChangesFromParent = true
             self?.container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy

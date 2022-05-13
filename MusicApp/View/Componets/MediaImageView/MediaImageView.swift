@@ -12,7 +12,7 @@ struct MediaImageView: View {
     @Binding private var visibleSide: FlipViewSide
     
     private let imagePath: String?
-    private var artworkImage: Image?
+    private var artworkImage: UIImage?
     private var size: Size
     private var cornerRadius: CGFloat
     private var shadowProminence: ShadowProminence
@@ -21,7 +21,7 @@ struct MediaImageView: View {
     
     @State private var shadow: (radius: CGFloat, xPosition: CGFloat, yPosition: CGFloat) = (0, 0, 0)
     
-    init(imagePath: String? = nil, artworkImage: Image? = nil, size: Size = Size(), cornerRadius: CGFloat = 4, shadowProminence: ShadowProminence = .none, contentMode: ContentMode = .fit, foregroundColor: Color = .secondary.opacity(0.1), visibleSide: Binding<FlipViewSide> = .constant(.front)) {
+    init(imagePath: String? = nil, artworkImage: UIImage? = nil, size: Size = Size(), cornerRadius: CGFloat = 4, shadowProminence: ShadowProminence = .none, contentMode: ContentMode = .fit, foregroundColor: Color = .secondary.opacity(0.1), visibleSide: Binding<FlipViewSide> = .constant(.front)) {
         _mediaImageObservableObject = StateObject(wrappedValue: MediaImageObservableObject())
         
         self.imagePath = imagePath
@@ -53,11 +53,11 @@ struct MediaImageView: View {
         } else {
             FlipView(visibleSide: visibleSide) {
                 Group {
-                    if let artworkImage = artworkImage {
-                        artworkImage
-                            .resizable()
-                    } else if let uiImage = mediaImageObservableObject.image {
+                    if let uiImage = mediaImageObservableObject.image {
                         Image(uiImage: uiImage)
+                            .resizable()
+                    }else if let artworkImage = artworkImage, let artwork = Image(uiImage: artworkImage) {
+                        artwork
                             .resizable()
                     }
                 }
@@ -87,7 +87,7 @@ struct MediaImageView: View {
             }
             .contentShape(Rectangle())
             .animation(.flipCard, value: visibleSide)
-
+            
             .onAppear {
                 setupShadowProminence()
             }
