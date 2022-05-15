@@ -36,7 +36,7 @@ struct SearchListView: View {
                                 
                                 MPMusicPlayerController.applicationMusicPlayer.play()
                                 
-                                hideKeyboard()
+                                
                             }
                     case .artist:
                         NavigationLink(destination: ArtistDetailView(mediaId: media.id)) {

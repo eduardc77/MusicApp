@@ -14,11 +14,13 @@
 		EA23ECF128156AD40040BB58 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA23ECF028156AD40040BB58 /* UIImage+Extension.swift */; };
 		EA23ECF328156F570040BB58 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA23ECF228156F570040BB58 /* Int+Extension.swift */; };
 		EA23ECF528158A750040BB58 /* MediumMediaRowItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA23ECF428158A750040BB58 /* MediumMediaRowItem.swift */; };
-		EA23ECF728159A700040BB58 /* LargeMediaRowItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA23ECF628159A700040BB58 /* LargeMediaRowItem.swift */; };
+		EA23ECF728159A700040BB58 /* HIghlightMediaRowItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA23ECF628159A700040BB58 /* HIghlightMediaRowItem.swift */; };
 		EA23ED132815C8290040BB58 /* SnapCarousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA23ED122815C8290040BB58 /* SnapCarousel.swift */; };
 		EA3FA34F2817251500F84B09 /* SmallMediaRowItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3FA34E2817251500F84B09 /* SmallMediaRowItem.swift */; };
 		EA3FA3532817697200F84B09 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3FA3522817697200F84B09 /* Color.swift */; };
 		EA3FA3552817783B00F84B09 /* VolumeViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3FA3542817783B00F84B09 /* VolumeViewRepresentable.swift */; };
+		EA430753282F0604006FFD15 /* LargeMediaRowItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA430752282F0604006FFD15 /* LargeMediaRowItem.swift */; };
+		EA430755282F20F9006FFD15 /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA430754282F20F9006FFD15 /* VideoPlayerView.swift */; };
 		EA59D3122813555C00D58213 /* UIDevice+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA59D3112813555C00D58213 /* UIDevice+Extension.swift */; };
 		EA59D31428135B4C00D58213 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA59D31328135B4C00D58213 /* BlurView.swift */; };
 		EA6744EC2821EA6300AC2010 /* Animation+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6744EB2821EA6300AC2010 /* Animation+Extension.swift */; };
@@ -77,7 +79,7 @@
 		EAD1532B280D5B2B005FD971 /* MediaDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD1532A280D5B2B005FD971 /* MediaDetailView.swift */; };
 		EAD1532D280D5B39005FD971 /* MediaImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD1532C280D5B39005FD971 /* MediaImageView.swift */; };
 		EAD15331280D5BA9005FD971 /* TimeSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD15330280D5BA9005FD971 /* TimeSliderView.swift */; };
-		EAD15333280D5BBA005FD971 /* PlayerButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD15332280D5BBA005FD971 /* PlayerButtonsView.swift */; };
+		EAD15333280D5BBA005FD971 /* PlayerControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD15332280D5BBA005FD971 /* PlayerControls.swift */; };
 		EAD15335280D5BC3005FD971 /* VolumeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD15334280D5BC3005FD971 /* VolumeView.swift */; };
 		EAD15337280D5BDB005FD971 /* BottomToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD15336280D5BDB005FD971 /* BottomToolbar.swift */; };
 		EAD15339280D5C24005FD971 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD15338280D5C24005FD971 /* PlayerView.swift */; };
@@ -110,11 +112,13 @@
 		EA23ECF028156AD40040BB58 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		EA23ECF228156F570040BB58 /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
 		EA23ECF428158A750040BB58 /* MediumMediaRowItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediumMediaRowItem.swift; sourceTree = "<group>"; };
-		EA23ECF628159A700040BB58 /* LargeMediaRowItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeMediaRowItem.swift; sourceTree = "<group>"; };
+		EA23ECF628159A700040BB58 /* HIghlightMediaRowItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HIghlightMediaRowItem.swift; sourceTree = "<group>"; };
 		EA23ED122815C8290040BB58 /* SnapCarousel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapCarousel.swift; sourceTree = "<group>"; };
 		EA3FA34E2817251500F84B09 /* SmallMediaRowItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallMediaRowItem.swift; sourceTree = "<group>"; };
 		EA3FA3522817697200F84B09 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		EA3FA3542817783B00F84B09 /* VolumeViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeViewRepresentable.swift; sourceTree = "<group>"; };
+		EA430752282F0604006FFD15 /* LargeMediaRowItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeMediaRowItem.swift; sourceTree = "<group>"; };
+		EA430754282F20F9006FFD15 /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
 		EA59D3112813555C00D58213 /* UIDevice+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extension.swift"; sourceTree = "<group>"; };
 		EA59D31328135B4C00D58213 /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 		EA6744EB2821EA6300AC2010 /* Animation+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Animation+Extension.swift"; sourceTree = "<group>"; };
@@ -174,7 +178,7 @@
 		EAD1532A280D5B2B005FD971 /* MediaDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaDetailView.swift; sourceTree = "<group>"; };
 		EAD1532C280D5B39005FD971 /* MediaImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaImageView.swift; sourceTree = "<group>"; };
 		EAD15330280D5BA9005FD971 /* TimeSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSliderView.swift; sourceTree = "<group>"; };
-		EAD15332280D5BBA005FD971 /* PlayerButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerButtonsView.swift; sourceTree = "<group>"; };
+		EAD15332280D5BBA005FD971 /* PlayerControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerControls.swift; sourceTree = "<group>"; };
 		EAD15334280D5BC3005FD971 /* VolumeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeView.swift; sourceTree = "<group>"; };
 		EAD15336280D5BDB005FD971 /* BottomToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomToolbar.swift; sourceTree = "<group>"; };
 		EAD15338280D5C24005FD971 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
@@ -428,6 +432,7 @@
 			children = (
 				EAD15338280D5C24005FD971 /* PlayerView.swift */,
 				EAC53D7428145B2600785395 /* PlayerObservableObject.swift */,
+				EA430754282F20F9006FFD15 /* VideoPlayerView.swift */,
 				EAD1532F280D5B96005FD971 /* Subview */,
 			);
 			path = Player;
@@ -437,7 +442,7 @@
 			isa = PBXGroup;
 			children = (
 				EAD15330280D5BA9005FD971 /* TimeSliderView.swift */,
-				EAD15332280D5BBA005FD971 /* PlayerButtonsView.swift */,
+				EAD15332280D5BBA005FD971 /* PlayerControls.swift */,
 				EAD15334280D5BC3005FD971 /* VolumeView.swift */,
 				EAD15336280D5BDB005FD971 /* BottomToolbar.swift */,
 			);
@@ -473,7 +478,8 @@
 				EAD15353280D5DFD005FD971 /* SearchResultsRowItem.swift */,
 				EA3FA34E2817251500F84B09 /* SmallMediaRowItem.swift */,
 				EA23ECF428158A750040BB58 /* MediumMediaRowItem.swift */,
-				EA23ECF628159A700040BB58 /* LargeMediaRowItem.swift */,
+				EA430752282F0604006FFD15 /* LargeMediaRowItem.swift */,
+				EA23ECF628159A700040BB58 /* HIghlightMediaRowItem.swift */,
 				EAD1532A280D5B2B005FD971 /* MediaDetailView.swift */,
 				EA59D31328135B4C00D58213 /* BlurView.swift */,
 				EA23ED122815C8290040BB58 /* SnapCarousel.swift */,
@@ -661,7 +667,7 @@
 				EA59D31428135B4C00D58213 /* BlurView.swift in Sources */,
 				EACA1C402819BCDA00CD7E4F /* MainButton.swift in Sources */,
 				EA099EC22821C0090021EA33 /* NowPlayingEqualizerBars.swift in Sources */,
-				EA23ECF728159A700040BB58 /* LargeMediaRowItem.swift in Sources */,
+				EA23ECF728159A700040BB58 /* HIghlightMediaRowItem.swift in Sources */,
 				EAD01E892823129A00B01F07 /* AlbumTrackList.swift in Sources */,
 				EAD15331280D5BA9005FD971 /* TimeSliderView.swift in Sources */,
 				EAD01E8B2823184C00B01F07 /* DismissButton.swift in Sources */,
@@ -690,7 +696,7 @@
 				EA1BE0CA281DC1DF00A3A7A4 /* LibrarySection.swift in Sources */,
 				EAA266092829B0B10035D9E1 /* ArtistViewObservableObject.swift in Sources */,
 				EAC53D7E2814BA1B00785395 /* LibraryObservableObject.swift in Sources */,
-				EAD15333280D5BBA005FD971 /* PlayerButtonsView.swift in Sources */,
+				EAD15333280D5BBA005FD971 /* PlayerControls.swift in Sources */,
 				EAD1535D280D6252005FD971 /* CoreDataManager.swift in Sources */,
 				EAD15305280D56A9005FD971 /* MusicApp.xcdatamodeld in Sources */,
 				EAD15341280D5CDB005FD971 /* BrowseView.swift in Sources */,
@@ -703,6 +709,7 @@
 				EAD1530D280D579D005FD971 /* TabBar.swift in Sources */,
 				EAC53D7C2814956000785395 /* SearchListObservableObject.swift in Sources */,
 				EAD01E9128231AA900B01F07 /* DefaultView.swift in Sources */,
+				EA430753282F0604006FFD15 /* LargeMediaRowItem.swift in Sources */,
 				EAD15371280D6403005FD971 /* Collection+Grouped.swift in Sources */,
 				EAA266022829AAC10035D9E1 /* ArtistDetailView.swift in Sources */,
 				EAD15327280D5B16005FD971 /* HorizontalMediaGridView.swift in Sources */,
@@ -719,6 +726,7 @@
 				EA23ECF128156AD40040BB58 /* UIImage+Extension.swift in Sources */,
 				EAD15311280D57FF005FD971 /* ItunesAPIResponse.swift in Sources */,
 				EAC53D7A2814888400785395 /* TimeInterval+Extension.swift in Sources */,
+				EA430755282F20F9006FFD15 /* VideoPlayerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

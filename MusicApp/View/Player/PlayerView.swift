@@ -9,47 +9,45 @@ import SwiftUI
 import MediaPlayer
 
 struct PlayerView: View {
-    @StateObject private var playerObservableObject: PlayerObservableObject
-    @Binding var expand: Bool
+    @EnvironmentObject private var playerObservableObject: PlayerObservableObject
     @State var offset: CGFloat = 0
     @State private var visibleSide = FlipViewSide.front
     
-    var animation: Namespace.ID
     static let timer = Timer.publish(every: 0.6, tolerance: 0.6, on: .main, in: .common).autoconnect()
-    
-    init(expand: Binding<Bool>, animation: Namespace.ID) {
-        _playerObservableObject = StateObject(wrappedValue: PlayerObservableObject())
-        _expand = expand
-        self.animation = animation
-    }
     
     var body: some View {
         VStack {
             Capsule()
                 .fill(Color.lightGrayColor)
-                .frame(width: expand ? Metric.capsuleWidth : 0, height: expand ? Metric.capsuleHeight : 0)
-                .opacity(expand ? 1 : 0)
-                .offset(y: expand ? -12 : 0)
+                .frame(width: playerObservableObject.expand ? Metric.capsuleWidth : 0, height: playerObservableObject.expand ? Metric.capsuleHeight : 0)
+                .opacity(playerObservableObject.expand ? 1 : 0)
+                .offset(y: playerObservableObject.expand ? -12 : 0)
             
             VStack {
                 // Mini Player
                 HStack {
-                    if expand { Spacer() }
-                        MediaImageView(imagePath: playerObservableObject.nowPlayingItem?.artworkPath.resizedPath(size: 600), artworkImage: playerObservableObject.nowPlayingItem?.artwork, size: Size(width: expand ? Metric.largeMediaImageSize : Metric.playerSmallImageSize, height: expand ? Metric.largeMediaImageSize : Metric.playerSmallImageSize), cornerRadius: expand ? 10 : Metric.searchResultCornerRadius, shadowProminence: expand ? .full : .none, visibleSide: $visibleSide)
-                            .scaleEffect((playerObservableObject.playbackState == .playing && expand) ? 1.33 : 1)
+                    if playerObservableObject.expand { Spacer() }
+                    if playerObservableObject.playerType == .video {
+                        playerObservableObject.videoPlayer
+
+                    } else {
+                        MediaImageView(imagePath: playerObservableObject.nowPlayingItem?.artworkPath.resizedPath(size: 600), artworkImage: playerObservableObject.nowPlayingItem?.artwork, size: Size(width: playerObservableObject.expand ? Metric.largeMediaImageSize : Metric.playerSmallImageSize, height: playerObservableObject.expand ? Metric.largeMediaImageSize : Metric.playerSmallImageSize), cornerRadius: playerObservableObject.expand ? 10 : Metric.searchResultCornerRadius, shadowProminence: playerObservableObject.expand ? .full : .none, visibleSide: $visibleSide)
+                            .scaleEffect((playerObservableObject.playbackState == .playing && playerObservableObject.expand) ? 1.33 : 1)
                             .animation(.spring(response: 0.5, dampingFraction: 0.5, blendDuration: 0.3), value: playerObservableObject.playbackState)
+                        
                             .onTapGesture {
                                 visibleSide.toggle()
                             }
+                    }
                     
-                    if !expand {
+                    if !playerObservableObject.expand {
                         Text(playerObservableObject.nowPlayingItem?.trackName ?? "Not Playing")
                             .font(.body)
                             .foregroundColor(.primary)
                     }
                     Spacer()
                     
-                    if !expand {
+                    if !playerObservableObject.expand {
                         HStack {
                             Button(action: {
                                 guard playerObservableObject.nowPlayingItem != nil else { return }
@@ -67,7 +65,7 @@ struct PlayerView: View {
                                     .foregroundColor(.primary)
                             }
                             )
-                                .padding(.trailing)
+                            .padding(.trailing)
                             
                             Button(action: {},
                                    label: {
@@ -81,12 +79,12 @@ struct PlayerView: View {
                 }
                 .padding()
             }
-            .frame(height: expand ? UIScreen.main.bounds.height / 2.2 :  Metric.playerHeight)
+            .frame(height: playerObservableObject.expand ? UIScreen.main.bounds.height / 2.2 :  Metric.playerHeight)
             
-            if !expand { Spacer() }
+            if !playerObservableObject.expand { Spacer() }
             
             // Full Screen Player
-            if expand {
+            if playerObservableObject.expand {
                 VStack {
                     HStack {
                         VStack(alignment: .leading) {
@@ -108,26 +106,38 @@ struct PlayerView: View {
                     .padding(.horizontal)
                     
                     VStack {
-                        TimeSliderView(playerObservableObject: playerObservableObject, songTime: playerObservableObject.player.nowPlayingItem?.playbackDuration.toInt ?? Int(playerObservableObject.noTrackTime), songTimePosition: $playerObservableObject.progressRate, player: playerObservableObject.player)
+                        switch playerObservableObject.playerType {
+                        case .audio:
+                            TimeSliderView(playerObservableObject: playerObservableObject, trackDuration: playerObservableObject.player.nowPlayingItem?.playbackDuration.toInt ?? playerObservableObject.noTrackTime, trackTimePosition: $playerObservableObject.progressRate, player: playerObservableObject.player)
+                            
+                                .onReceive(PlayerView.timer) { _ in
+                                    guard playerObservableObject.playerType == .audio else { return }
+                                    playerObservableObject.progressRate = playerObservableObject.player.currentPlaybackTime.toInt
+                                }
+                        case .video:
+                            TimeSliderView(playerObservableObject: playerObservableObject, trackDuration: playerObservableObject.videoPlayer.trackDuration, trackTimePosition: $playerObservableObject.videoPlayer.trackTimePosition, player: playerObservableObject.player)
+                            
+                                .onReceive(PlayerView.timer) { _ in
+                                    guard playerObservableObject.playerType == .audio else { return }
+                                    playerObservableObject.progressRate = playerObservableObject.player.currentPlaybackTime.toInt
+                                }
+                        }
                         
-                            .onReceive(PlayerView.timer) { _ in
-                                playerObservableObject.progressRate = playerObservableObject.player.currentPlaybackTime.toInt
-                            }
-                        
-                        PlayerButtonsView(playerObservableObject: playerObservableObject)
+                        PlayerControls(playerObservableObject: _playerObservableObject)
                         
                         VolumeView()
                     }
                 }
                 .transition(.move(edge: .bottom))
-                .frame(height: expand ? UIScreen.main.bounds.height / 2.8 : 0)
+                .frame(height: playerObservableObject.expand ? UIScreen.main.bounds.height / 2.8 : 0)
                 .padding(.horizontal)
             }
         }
-        .frame(maxHeight: expand ? .infinity : Metric.playerHeight)
+        .frame(maxHeight: playerObservableObject.expand ? .infinity : Metric.playerHeight)
+        
         .background(
             VStack(spacing: 0) {
-                if expand {
+                if playerObservableObject.expand {
                     if let artworkUIImage = playerObservableObject.nowPlayingItem?.artwork {
                         ZStack {
                             BlurView()
@@ -138,7 +148,7 @@ struct PlayerView: View {
                                 endPoint: .bottomTrailing)
                         }
                     } else {
-                        Color(.gray)
+                        Color(.black)
                     }
                 } else {
                     BlurView()
@@ -147,23 +157,26 @@ struct PlayerView: View {
             }
                 .onTapGesture {
                     withAnimation(.spring()) {
-                        expand = true
+                        playerObservableObject.expand = true
                     }
                 }
         )
-        .cornerRadius(expand ? (UIDevice.current.hasTopNotch ? 36 : 0) : 0)
-        .offset(y: expand ? 0 : Metric.yOffset)
+        .cornerRadius(playerObservableObject.expand ? (UIDevice.current.hasTopNotch ? 36 : 0) : 0)
+        .offset(y: playerObservableObject.expand ? 0 : Metric.yOffset)
         .offset(y: offset)
+        
         .gesture(DragGesture()
-                    .onChanged(onChanged(value:))
-                    .onEnded(onEnded(value:)))
+            .onChanged(onChanged(value:))
+            .onEnded(onEnded(value:)))
         
         .ignoresSafeArea()
         
         .onReceive(NotificationCenter.default.publisher(for: .MPMusicPlayerControllerPlaybackStateDidChange)){ _ in
             playerObservableObject.playbackState = playerObservableObject.player.playbackState
         }
+        
         .onReceive(NotificationCenter.default.publisher(for: .MPMusicPlayerControllerNowPlayingItemDidChange)){ _ in
+            playerObservableObject.playerType = .audio
             guard let mediaItem = playerObservableObject.player.nowPlayingItem else {
                 playerObservableObject.makeNowPlaying()
                 return
@@ -178,7 +191,7 @@ struct PlayerView: View {
     
     // pull down Player
     func onChanged(value: DragGesture.Value) {
-        if value.translation.height > 0 && expand {
+        if value.translation.height > 0 && playerObservableObject.expand {
             offset = value.translation.height
         }
     }
@@ -186,36 +199,36 @@ struct PlayerView: View {
     func onEnded(value: DragGesture.Value) {
         withAnimation(.interactiveSpring(response: 0.3, dampingFraction: 0.98, blendDuration: 0.69)) {
             if value.translation.height > UIScreen.main.bounds.height / 12 {
-                expand = false
+                playerObservableObject.expand = false
             }
             offset = 0
         }
     }
 }
 
-struct PlayerView_Previews: PreviewProvider {
-    struct PlayerViewExample: View {
-        private var player = MPMusicPlayerController.applicationMusicPlayer
-        @Namespace var animation
-        @State var expand: Bool = true
-        
-        var body: some View {
-            VStack {
-                if !expand {
-                    Button {
-                        expand.toggle()
-                    } label: {
-                        Text("Expand View")
-                    }
-                    Spacer()
-                }
-                PlayerView(expand: $expand, animation: animation)
-            }
-        }
-    }
-    static var previews: some View {
-        PlayerViewExample()
-            .previewDevice("iPhone 13 Pro Max")
-    }
-}
-
+//struct PlayerView_Previews: PreviewProvider {
+//    struct PlayerViewExample: View {
+//        private var player = MPMusicPlayerController.applicationMusicPlayer
+//        @Namespace var animation
+//        @State var expand: Bool = true
+//
+//        var body: some View {
+//            VStack {
+//                if !expand {
+//                    Button {
+//                        expand.toggle()
+//                    } label: {
+//                        Text("Expand View")
+//                    }
+//                    Spacer()
+//                }
+//                PlayerView(animation: animation)
+//            }
+//        }
+//    }
+//    static var previews: some View {
+//        PlayerViewExample()
+//            .previewDevice("iPhone 13 Pro Max")
+//    }
+//}
+//

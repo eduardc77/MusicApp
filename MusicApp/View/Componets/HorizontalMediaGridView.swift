@@ -13,7 +13,7 @@ struct HorizontalMediaGridView: View {
     var imageSize: ImageSizeType
     var gridRows: [GridItem]
     
-    private var maxHighlightShowing = 32
+    private var maxHighlightShowing = 16
     
     init(mediaItems: [Media], title: String = "", imageSize: ImageSizeType, rowCount: Int = 1) {
         self.mediaItems = mediaItems
@@ -26,7 +26,7 @@ struct HorizontalMediaGridView: View {
         case .medium:
             gridRows = Array(repeating: .init(.fixed(Metric.mediumRowHeight), spacing: 10), count: rowCount)
         case .large:
-            gridRows = Array(repeating: .init(.fixed(Metric.largeRowHeight)), count: rowCount)
+            gridRows = Array(repeating: .init(.fixed(Metric.largeRowHeight), spacing: 10), count: rowCount)
         }
     }
     
@@ -43,7 +43,7 @@ struct HorizontalMediaGridView: View {
                     if mediaItems.count > maxHighlightShowing {
                         NavigationLink {
                             switch mediaItems.first?.kind {
-                            case .album:
+                            case .album, .musicVideo:
                                 VerticalMediaGridView(mediaItems: mediaItems, imageSize: .medium, rowCount: 2)
                                     .navigationTitle(title)
                                     .navigationBarTitleDisplayMode(.inline)

@@ -80,6 +80,7 @@ private extension SearchObservableObject {
             .map { $0.map(Media.init) }
             .replaceError(with: [])
             .assign(to: &$searchResults)
+        
         $searchResults
             .map(\.isEmpty)
             .assign(to: &$nothingFound)

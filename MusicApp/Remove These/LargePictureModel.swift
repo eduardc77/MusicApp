@@ -18,7 +18,7 @@ struct LargePictureModel: Hashable, Identifiable {
 var selectedStations = [
     LargePictureModel(type: "podcast", name: "Music1 Live", description: "Apple Music", image: "bigradio0"),
     LargePictureModel(type: "podcast", name: "Beats1 Live", description: "Apple Music", image: "bigradio1"),
-    LargePictureModel(type: "mix", name: "Record", description: "Apple Music", image: "bigradio2"),
+    LargePictureModel(type: "mix", name: "Record", description: "Apple Music", image: "bigrsadio2"),
     LargePictureModel(type: "podcast", name: "Classic", description: "Apple Music", image: "bigradio3"),
     LargePictureModel(type: "album", name: "Mega Hits", description: "Apple Music", image: "bigradio4"),
     LargePictureModel(type: "artist", name: "Like FM", description: "Apple Music", image: "bigradio5"),

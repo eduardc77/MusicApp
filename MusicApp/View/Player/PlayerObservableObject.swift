@@ -8,19 +8,29 @@
 import SwiftUI
 import MediaPlayer
 
+enum PlayerType {
+    case video
+    case audio
+}
+
 final class PlayerObservableObject: ObservableObject {
-    // MARK: - Properties
+    @Published var expand: Bool = false
+    var playerType: PlayerType = .audio
     
-    let player = MPMusicPlayerController.applicationMusicPlayer
-    let noTrackTime = 100.0
-    
-    // MARK: - Publishers
+    // MARK: - Audio Player Properties
     
     @Published var nowPlayingItem: Media?
     @Published var playbackState: MPMusicPlaybackState? = MPMusicPlayerController.applicationMusicPlayer.playbackState
     @Published var playerOption = PlayerOption()
     @Published var progressRate: Int = 0
-
+    
+    let player = MPMusicPlayerController.applicationMusicPlayer
+    let noTrackTime = 100
+    
+    // MARK: - Video Player Properties
+    
+    var videoPlayer: VideoPlayerView = VideoPlayerView(url: URL(string: "https://www.apple.com/404")!)
+    
     // MARK: - Public Methods
     
     func initPlayerFromUserDefaults() {
@@ -43,7 +53,7 @@ final class PlayerObservableObject: ObservableObject {
             player.prepareToPlay()
             player.skipToBeginning()
         }
-
+        
         if UserDefaults.standard.bool(forKey: UserDefaultsKey.shuffleDefault) {
             player.shuffleMode = MPMusicShuffleMode.songs
         }
@@ -71,9 +81,9 @@ final class PlayerObservableObject: ObservableObject {
             
             return
         }
-
+        
         let kind: MediaKind
-
+        
         switch media.mediaType {
         case .music: kind = MediaKind.song
         case .podcast: kind = MediaKind.podcast
@@ -90,6 +100,14 @@ final class PlayerObservableObject: ObservableObject {
         
         nowPlayingItem = Media(mediaResponse: MediaResponse(id: media.playbackStoreID, artistId: 0, collectionId: 0, trackId: 0, wrapperType: "track", kind: kind.rawValue, name: media.title, artistName: media.artist, collectionName: media.albumTitle, trackName: media.title, collectionCensoredName: media.albumTitle, artistViewUrl: nil, collectionViewUrl: nil, trackViewUrl: nil, previewUrl: nil, artworkUrl100: nil, collectionPrice: nil, collectionHdPrice: 0, trackPrice: 0, collectionExplicitness: nil, trackExplicitness: nil, discCount: 0, discNumber: nil, trackCount: media.albumTrackCount, trackNumber: media.albumTrackNumber, trackTimeMillis: media.playbackDuration.toInt, country: nil, currency: nil, primaryGenreName: media.genre, description: nil, longDescription: nil, releaseDate: media.releaseDate?.description, contentAdvisoryRating: nil, trackRentalPrice: 0, artwork: media.artwork?.image(at: CGSize(width: 1024, height: 1024)), composer: media.composer, isCompilation: media.isCompilation))
     }
+    
+    func configureVideoPlayer(with videoMediaUrl: URL) {
+        nowPlayingItem = nil
+        videoPlayer.isPlaying
+        playerType = .video
+        videoPlayer = VideoPlayerView(url: videoMediaUrl)
+        expand = true
+    }
 }
 
 // MARK: - Types
@@ -100,7 +118,7 @@ extension PlayerObservableObject {
         case albumRepeat
         case oneSongRepeat
     }
-
+    
     struct PlayerOption {
         var repeatMode: RepeatMode = .noRepeat
         var isShuffle: Bool = false

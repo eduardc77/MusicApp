@@ -25,7 +25,7 @@ struct HighlightsView: View {
         case .medium:
             gridRows = Array(repeating: .init(.fixed(Metric.mediumRowHeight)), count: rowCount)
         case .large:
-            gridRows = Array(repeating: .init(.fixed(Metric.largeRowHeight)), count: rowCount)
+            gridRows = Array(repeating: .init(.fixed(Metric.highlightsRowHeight)), count: rowCount)
         }
     }
     
@@ -41,12 +41,12 @@ struct HighlightsView: View {
                 case .medium:
                     MediumMediaRowItem(media: media)
                 case .large:
-                    LargeMediaRowItem(media: media)
+                    HighlightMediaRowItem(media: media)
                 }
             }
             .padding(.horizontal)
         }
-        .frame(height: Metric.largeRowHeight)
+        .frame(height: Metric.highlightsRowHeight)
         .tabViewStyle(.page(indexDisplayMode: .never))
         
         Divider()

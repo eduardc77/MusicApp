@@ -26,11 +26,12 @@ enum Metric {
     // MARK: - Horizontal List and Library List
     static let smallImageSize: CGFloat = 50
     static let mediumImageSize: CGFloat = 160
-    static let largeImageSize: CGFloat = 186
+    static let largeImageSize: CGFloat = 184
     
     static let smallRowHeight: CGFloat = 55
     static let mediumRowHeight: CGFloat = 196
-    static let largeRowHeight: CGFloat = UIScreen.main.bounds.height * 0.37
+    static let largeRowHeight: CGFloat = UIScreen.main.bounds.height * 0.28
+    static let highlightsRowHeight: CGFloat = UIScreen.main.bounds.height * 0.37
     
     // MARK: - TimeView
     static let largePoint: CGFloat = 32

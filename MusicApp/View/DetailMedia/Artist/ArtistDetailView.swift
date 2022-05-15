@@ -17,7 +17,7 @@ struct ArtistDetailView: View {
     
     var body: some View {
         ZStack {
-            if artistObservableObject.isLoading {
+            if !artistObservableObject.loadingComplete {
                 ProgressView()
             } else {
                 ScrollView(.vertical, showsIndicators: false) {
@@ -30,10 +30,9 @@ struct ArtistDetailView: View {
                             
                             HorizontalMediaGridView(mediaItems: artistObservableObject.albums, title: "Albums", imageSize: .medium)
                             
-                            VStack(alignment: .center, spacing: 0) {
-                                infoView(for: media)
-                                isCollectionView(for: media)
-                            }
+                            HorizontalMediaGridView(mediaItems: artistObservableObject.musicVideos, title: "Music Videos", imageSize: .large)
+                            
+                        
                         }
                         .background()
                     }
@@ -41,13 +40,11 @@ struct ArtistDetailView: View {
             }
         }
         .task {
-            artistObservableObject.fetchArtistAlbums(for: mediaId)
-            artistObservableObject.fetchArtistSongs(for: mediaId)
+            artistObservableObject.fetchAllArtistMedia(for: mediaId)
         }
         
         .errorAlert(errorState: $artistObservableObject.errorState) {
-            artistObservableObject.fetchArtistAlbums(for: mediaId)
-            artistObservableObject.fetchArtistSongs(for: mediaId)
+            artistObservableObject.fetchAllArtistMedia(for: mediaId)
         } cancel: { dismiss() }
     }
 }
@@ -55,19 +52,11 @@ struct ArtistDetailView: View {
 // MARK: - Subviews
 
 private extension ArtistDetailView {
-    @ViewBuilder
-    func isCollectionView(for media: Media) -> some View {
-        Divider()
-            .padding()
-        trailerView(for: media)
-        Divider()
-            .padding()
-        descriptionView(for: media)
-    }
+
     
     func buttonsView(for media: Media) -> some View {
         HStack {
-            Link(destination: media.iTunesLink) {
+            Link(destination: media.iTunesUrl) {
                 Label("Itunes", systemImage: "applelogo")
                     .padding(.vertical, 2)
                     .padding(.horizontal, 5)
@@ -104,16 +93,7 @@ private extension ArtistDetailView {
         .padding(.horizontal)
     }
     
-    func infoView(for media: Media) -> some View {
-        VStack(alignment: .leading, spacing: 0) {
-            Text("Short information")
-                .detailTitle
-            //            ForEach(media.shortInfo) { mediaType in
-            //                info(for: mediaType, media: media)
-            //            }
-        }
-        .padding(.horizontal)
-    }
+
     
     //    func info(for type: Media.ShortInfoType, media: Media) -> some View {
     //        HStack(spacing: 0) {
@@ -126,16 +106,7 @@ private extension ArtistDetailView {
     //                .font(.system(size: 14))
     //        }
     //    }
-    
-    func trailerView(for media: Media) -> some View {
-        VStack(alignment: .leading) {
-            Text("Watch trailer")
-                .detailTitle
-            VideoPlayer(player: AVPlayer(url: media.trailerLink))
-                .frame(width: Metric.screenWidth * 0.92, height: 250)
-                .cornerRadius(10)
-        }
-    }
+
 }
 
 // MARK: - Private extensions

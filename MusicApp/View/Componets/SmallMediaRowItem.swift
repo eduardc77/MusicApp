@@ -52,8 +52,6 @@ struct SmallMediaRowItem: View {
                 // FIXME: - Pass the player
                 MPMusicPlayerController.applicationMusicPlayer.setQueue(with: [media.id])
                 MPMusicPlayerController.applicationMusicPlayer.play()
-                
-                hideKeyboard()
             }
         }
         .frame(width: UIScreen.main.bounds.width - 34)

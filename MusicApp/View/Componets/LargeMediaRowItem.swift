@@ -2,55 +2,44 @@
 //  LargeMediaRowItem.swift
 //  MusicApp
 //
-//  Created by Eduard Caziuc on 24.04.2022.
+//  Created by Eduard Caziuc on 14.05.2022.
 //
 
 import SwiftUI
+import MediaPlayer
 
 struct LargeMediaRowItem: View {
+    @EnvironmentObject var playerObservableObject: PlayerObservableObject
+    
     var media: Media
     var imageData: Data?
     var spacing: CGFloat = 10
-    
+
     var body: some View {
-        VStack(spacing: spacing) {
-            VStack(alignment: .leading) {
-                Text(media.kind.entityUppercased)
-                    .font(.caption).bold()
-                    .foregroundColor(.secondary)
-                
-                Text(media.collectionName)
-                    .font(.title2)
-                
-                Text(media.description)
-                    .foregroundColor(.secondary)
-                    .font(.title2)
+        VStack(alignment: .leading) {
+            if let uiImage = media.artwork {
+                MediaImageView(artworkImage: uiImage, size: Size(height: Metric.largeImageSize), contentMode: .fill)
+            } else {
+                MediaImageView(imagePath: media.artworkPath.resizedPath(size: 1024), size: Size(height: Metric.largeImageSize), contentMode: .fill)
             }
-            .lineLimit(1)
-            .frame(maxWidth: .infinity, alignment: .leading)
             
-            GeometryReader { geometry in
-                if let uiImage = media.artwork {
-                    MediaImageView(artworkImage: uiImage, size: Size(width: geometry.size.width, height: geometry.size.height - spacing), contentMode: .fill)
-                } else {
-                    MediaImageView(imagePath: media.artworkPath.resizedPath(size: 800), size: Size(width: geometry.size.width, height: geometry.size.height - spacing), contentMode: .fill)
-                }
-                
+            VStack {
+                Text(media.name)
+                    .foregroundColor(.primary)
+                    .frame(maxWidth: Metric.screenWidth * 0.92, alignment: .leading)
+                Text(media.artistName)
+                    .foregroundColor(.secondary)
+                    .frame(maxWidth: Metric.screenWidth * 0.92, alignment: .leading)
+            }
+            .font(.caption)
+            .lineLimit(1)
+        }
+        .frame(width: Metric.screenWidth * 0.92)
+        
+        .onTapGesture {         
+            withAnimation {
+                playerObservableObject.configureVideoPlayer(with: media.previewUrl)
             }
         }
     }
 }
-//
-//struct LargeMediaRowItem_Previews: PreviewProvider {
-//    struct LargeMediaRowItemExample: View {
-//        let media = Media(artistName: "Placeholder Artist", collectionName: "Placeholder Name", description: "Placeholder Description", artwork: Image("bigradio1"))
-//        
-//        var body: some View {
-//            LargeMediaRowItem(media: media)
-//        }
-//    }
-//    
-//    static var previews: some View {
-//        LargeMediaRowItemExample()
-//    }
-//}

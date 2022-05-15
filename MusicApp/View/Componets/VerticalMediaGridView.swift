@@ -23,10 +23,8 @@ struct VerticalMediaGridView: View {
         switch imageSize {
         case .small:
             columns = Array(repeating: .init(.flexible(), spacing: 2, alignment: .leading), count: rowCount)
-        case .medium:
+        case .medium, .large:
             columns = Array(repeating: .init(.flexible(), spacing: 10), count: rowCount)
-        case .large:
-            columns = Array(repeating: .init(.fixed(Metric.largeRowHeight)), count: rowCount)
         }
     }
     
@@ -55,8 +53,8 @@ struct VerticalMediaGridView: View {
                         }
                         
                     case .track:
-                        SearchResultsRowItem(media: media)
-                        
+                        SearchResultsRowItem(media: media)     
+
                     case .artist:
                         NavigationLink(destination: AlbumDetailView(media: media, searchObservableObject: SearchObservableObject())) {
                             switch imageSize {

@@ -13,7 +13,7 @@ struct TimeSliderView: View {
     
     // MARK: - Private Properties
     
-    @Binding private var songTimePosition: Int
+    @Binding private var trackTimePosition: Int
     @State private var xOffset: CGFloat = 0
     @State private var lastOffset: CGFloat = 0
     @State private var isDragging = false
@@ -21,16 +21,16 @@ struct TimeSliderView: View {
     @State private var timeRemain: Int = 0
     
     private var player: MPMusicPlayerController?
-    private let songTime: Int
+    private let trackDuration: Int
     
-    init(playerObservableObject: PlayerObservableObject, songTime: Int, songTimePosition: Binding<Int>, player: MPMusicPlayerController) {
+    init(playerObservableObject: PlayerObservableObject, trackDuration: Int, trackTimePosition: Binding<Int>, player: MPMusicPlayerController) {
         self.playerObservableObject = playerObservableObject
-        self.songTime = songTime
-        self._songTimePosition = songTimePosition
+        self.trackDuration = trackDuration
+        self._trackTimePosition = trackTimePosition
         self.player = player
         
-        _timeBegin = State(wrappedValue: $songTimePosition.wrappedValue)
-        _timeRemain = State(initialValue: songTime - timeBegin)
+        _timeBegin = State(wrappedValue: $trackTimePosition.wrappedValue)
+        _timeRemain = State(initialValue: trackDuration - timeBegin)
     }
     
     var body: some View {
@@ -42,7 +42,7 @@ struct TimeSliderView: View {
                         .frame(height: Metric.timeLineHeight)
                     Capsule()
                         .fill(Color.lightGrayColor)
-                        .frame(width: CGFloat(songTimePosition) / CGFloat(songTime) * geometry.size.width, height: Metric.timeLineHeight)
+                        .frame(width: CGFloat(trackTimePosition) / CGFloat(trackDuration) * geometry.size.width, height: Metric.timeLineHeight)
                     Circle()
                         .fill(.white)
                         .frame(width: isDragging ? Metric.largePoint : Metric.smallPoint,
@@ -53,7 +53,7 @@ struct TimeSliderView: View {
                                 .fill(.white.opacity(0.01))
                                 .frame(width: Metric.largePoint, height: Metric.largePoint)
                         }
-                        .offset(x: CGFloat(songTimePosition) / CGFloat(songTime) * geometry.size.width - (isDragging ? Metric.largePoint / 2 : Metric.smallPoint / 2))
+                        .offset(x: CGFloat(trackTimePosition) / CGFloat(trackDuration) * geometry.size.width - (isDragging ? Metric.largePoint / 2 : Metric.smallPoint / 2))
                         .gesture(
                             DragGesture(minimumDistance: 0)
                                 .onChanged { value in
@@ -62,7 +62,7 @@ struct TimeSliderView: View {
                                     isDragging = true
                                     
                                     if abs(value.translation.width) < 0.1 {
-                                        lastOffset = CGFloat(songTimePosition) / CGFloat(songTime) * geometry.size.width
+                                        lastOffset = CGFloat(trackTimePosition) / CGFloat(trackDuration) * geometry.size.width
                                     }
                                     
                                     var sliderPos = max(0, lastOffset + value.translation.width)
@@ -70,23 +70,36 @@ struct TimeSliderView: View {
                                     xOffset = sliderPos
                                     
                                     let sliderVal = sliderPos / geometry.size.width * 100
-                                    songTimePosition = Int(sliderVal * CGFloat(songTime) / 100)
+                                    trackTimePosition = Int(sliderVal * CGFloat(trackDuration) / 100)
                                     
-                                    timeBegin = songTimePosition
-                                    timeRemain = songTime - timeBegin
+                                    timeBegin = trackTimePosition
+                                    timeRemain = trackDuration - timeBegin
                                 }
                                 .onEnded { _ in
                                     isDragging = false
-                                    player?.currentPlaybackTime = TimeInterval(songTimePosition)
+                                    player?.currentPlaybackTime = TimeInterval(trackTimePosition)
                                 }
                             
                         )
                         .animation(.linear(duration: 0.16), value: isDragging)
                 }
+                .onAppear {
+                    
+                    guard playerObservableObject.playerType == .video, playerObservableObject.videoPlayer.isPlaying else { return }
+                    playerObservableObject.videoPlayer.player.addPeriodicTimeObserver(forInterval: CMTime(seconds: 1, preferredTimescale: 1), queue: .main) { (_) in
+                        timeBegin = playerObservableObject.videoPlayer.getProgressRate()
+                        timeRemain = playerObservableObject.videoPlayer.trackDuration - timeBegin
+                        
+                        playerObservableObject.videoPlayer.trackTimePosition = timeBegin
+                    
+                    }
+                }
                 .onReceive(PlayerView.timer) { _ in
-                    guard let currentPlaybackTime = player?.currentPlaybackTime else { return }
-                    timeBegin = Int(currentPlaybackTime)
-                    timeRemain = songTime - timeBegin
+                    guard playerObservableObject.playerType == .audio else { return }
+                        guard let currentPlaybackTime = player?.currentPlaybackTime else { return }
+                        timeBegin = Int(currentPlaybackTime)
+                        timeRemain = trackDuration - timeBegin
+
                 }
                 .frame(height: Metric.largePoint)
                 
@@ -112,11 +125,11 @@ struct TimeSliderView: View {
 struct TimeView_Previews: PreviewProvider {
     struct TimeView: View {
         @StateObject var playerObservableObject = PlayerObservableObject()
-        @State var songTimePosition: Int = 0
+        @State var trackTimePosition: Int = 0
         
         var body: some View {
             VStack {
-                TimeSliderView(playerObservableObject: playerObservableObject, songTime: 215, songTimePosition: $songTimePosition, player: MPMusicPlayerController.applicationMusicPlayer)
+                TimeSliderView(playerObservableObject: playerObservableObject, trackDuration: 215, trackTimePosition: $trackTimePosition, player: MPMusicPlayerController.applicationMusicPlayer)
             }
             .background(.gray)
         }

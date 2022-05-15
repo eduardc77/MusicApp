@@ -77,11 +77,11 @@ struct Media: Identifiable, Codable {
         return formatter.string(from: TimeInterval(seconds)) ?? "nil"
     }
 
-    var iTunesLink: URL {
+    var iTunesUrl: URL {
         URL(string: mediaResponse.trackViewUrl ?? "") ?? URL(string: "https://www.apple.com/404")!
     }
 
-    var trailerLink: URL {
+    var previewUrl: URL {
         URL(string: mediaResponse.previewUrl ?? "") ?? Bundle.main.url(forResource: "Placeholder", withExtension: "mov")!
     }
 

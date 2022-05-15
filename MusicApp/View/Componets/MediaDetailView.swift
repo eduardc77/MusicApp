@@ -24,7 +24,7 @@ import AVKit
 //                    
 //                    if let previewUrl = media?.previewUrl {
 //                        VideoPlayer(player: AVPlayer(url: previewUrl))
-//                            .frame(width: proxy.size.width - 32, height: 250)
+//                            .frame(width: proxy.size.width * 0.92, height: 250)
 //                            .padding([.bottom], 8)
 //                        
 //                        detailsForVideo

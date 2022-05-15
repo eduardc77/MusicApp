@@ -17,9 +17,10 @@ enum Tab {
 }
 
 struct TabBar: View {
+    var playerObservableObject = PlayerObservableObject()
+    
     @State var selection: Tab = .listenNow
     @State var expand = false
-    @Namespace var animation
     
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -41,10 +42,11 @@ struct TabBar: View {
                     .tag(Tab.search)
             }
             
-            PlayerView(expand: $expand, animation: animation)  
+            PlayerView()
         }
         .ignoresSafeArea(.keyboard)
         .navigationViewStyle(.stack)
+        .environmentObject(playerObservableObject)
     }
 }
 
