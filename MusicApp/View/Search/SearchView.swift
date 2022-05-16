@@ -63,7 +63,7 @@ extension SearchView {
             ZStack {
                 SearchListView(searchObservableObject: searchObservableObject)
                 
-                if searchObservableObject.nothingFound {
+                if searchObservableObject.searchLoadedWithNoResults {
                     VStack {
                         Text("No Results")
                             .font(.title2).bold()

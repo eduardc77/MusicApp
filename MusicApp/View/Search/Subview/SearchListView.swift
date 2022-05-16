@@ -20,28 +20,17 @@ struct SearchListView: View {
         ScrollView {
             LazyVGrid(columns: columns) {
                 Divider()
+                    .padding(.horizontal)
                 
                 ForEach(searchObservableObject.searchResults, id: \.id) { media in
                     switch media.wrapperType {
                     case .collection:
-                        NavigationLink(destination: AlbumDetailView(media: media, searchObservableObject: searchObservableObject)) {
-                            SearchResultsRowItem(media: media)
-                        }
+                        SearchWrapperRow(media: media, destinationView: AlbumDetailView(media: media, searchObservableObject: searchObservableObject))
                     case .track:
-                        SearchResultsRowItem(media: media)
-                            .onTapGesture {
-                                guard media.wrapperType == .track else { return }
-                                // FIXME: - Pass the player
-                                MPMusicPlayerController.applicationMusicPlayer.setQueue(with: [media.id])
-                                
-                                MPMusicPlayerController.applicationMusicPlayer.play()
-                                
-                                
-                            }
+                        SearchResultsRow(media: media)
+                        
                     case .artist:
-                        NavigationLink(destination: ArtistDetailView(mediaId: media.id)) {
-                            SearchResultsRowItem(media: media)
-                        }
+                        SearchWrapperRow(media: media, destinationView: ArtistDetailView(media: media))
                     }
                     
                     Divider()
@@ -65,17 +54,6 @@ struct SearchListView: View {
             }
         }
     }
-    
-    //    @ViewBuilder
-    //    func progressBar(for media: Media) -> some View {
-    //        if !searchObservableObject.loadingMoreComplete, searchObservableObject.isLoadingMore, media == searchObservableObject.searchResults.last {
-    //            ProgressView()
-    //                .padding(.vertical)
-    //        }  else {
-    //            EmptyView()
-    //        }
-    //    }
-    
 }
 
 

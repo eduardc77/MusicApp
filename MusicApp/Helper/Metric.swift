@@ -24,7 +24,7 @@ enum Metric {
     static let albumDetailImageSize: CGFloat = 233
     
     // MARK: - Horizontal List and Library List
-    static let smallImageSize: CGFloat = 50
+    static let smallImageSize: CGFloat = 45
     static let mediumImageSize: CGFloat = 160
     static let largeImageSize: CGFloat = 184
     

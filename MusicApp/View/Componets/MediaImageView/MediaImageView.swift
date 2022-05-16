@@ -36,8 +36,42 @@ struct MediaImageView: View {
     }
     
     var body: some View {
-        
-        if mediaImageObservableObject.missingArtwork {
+        FlipView(visibleSide: visibleSide) {
+            Group {
+                if let uiImage = mediaImageObservableObject.image {
+                    Image(uiImage: uiImage)
+                        .resizable()
+                } else if let artworkImage = artworkImage, let artwork = Image(uiImage: artworkImage) {
+                    artwork
+                        .resizable()
+                }
+                
+                else {
+                    ZStack {
+                        Rectangle()
+                            .fill(foregroundColor)
+                            .frame(width: size.width, height: size.height)
+                            .cornerRadius(cornerRadius)
+                        
+                        Image("music-note")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .foregroundColor(Color.secondary.opacity(0.3))
+                            .frame(width: (size.height ?? Metric.mediumImageSize) / 1.6, height: (size.height ?? Metric.mediumImageSize) / 1.6)
+                    }
+                }
+            }
+            .aspectRatio(contentMode: contentMode)
+            .frame(width: size.width, height: size.height)
+            .cornerRadius(cornerRadius)
+            .shadow(radius: shadow.radius, x: shadow.xPosition, y: shadow.yPosition)
+            
+            .overlay {
+                RoundedRectangle(cornerRadius: cornerRadius)
+                    .stroke(Color.secondary.opacity(0.6), lineWidth: 0.1)
+            }
+            
+        } back: {
             ZStack {
                 Rectangle()
                     .fill(foregroundColor)
@@ -50,49 +84,15 @@ struct MediaImageView: View {
                     .foregroundColor(Color.secondary.opacity(0.3))
                     .frame(width: (size.height ?? Metric.mediumImageSize) / 1.6, height: (size.height ?? Metric.mediumImageSize) / 1.6)
             }
-        } else {
-            FlipView(visibleSide: visibleSide) {
-                Group {
-                    if let uiImage = mediaImageObservableObject.image {
-                        Image(uiImage: uiImage)
-                            .resizable()
-                    }else if let artworkImage = artworkImage, let artwork = Image(uiImage: artworkImage) {
-                        artwork
-                            .resizable()
-                    }
-                }
-                .aspectRatio(contentMode: contentMode)
-                .frame(width: size.width, height: size.height)
-                .cornerRadius(cornerRadius)
-                .shadow(radius: shadow.radius, x: shadow.xPosition, y: shadow.yPosition)
-                
-                .overlay {
-                    RoundedRectangle(cornerRadius: cornerRadius)
-                        .stroke(Color.secondary.opacity(0.6), lineWidth: 0.1)
-                }
-                
-            } back: {
-                ZStack {
-                    Rectangle()
-                        .fill(foregroundColor)
-                        .frame(width: size.width, height: size.height)
-                        .cornerRadius(cornerRadius)
-                    
-                    Image("music-note")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .foregroundColor(Color.secondary.opacity(0.3))
-                        .frame(width: (size.height ?? Metric.mediumImageSize) / 1.6, height: (size.height ?? Metric.mediumImageSize) / 1.6)
-                }
-            }
-            .contentShape(Rectangle())
-            .animation(.flipCard, value: visibleSide)
+        }
+        .contentShape(Rectangle())
+        .animation(.flipCard, value: visibleSide)
+        
+        .onAppear {
+            setupShadowProminence()
             
-            .onAppear {
-                setupShadowProminence()
-            }
-            .task {
-                guard let imagePath = imagePath else { return }
+            guard let imagePath = imagePath else { return }
+            Task {
                 await mediaImageObservableObject.fetchImage(from: imagePath)
             }
         }

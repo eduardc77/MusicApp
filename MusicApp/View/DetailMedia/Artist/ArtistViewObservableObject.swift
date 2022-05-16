@@ -53,7 +53,7 @@ final class ArtistViewObservableObject: ObservableObject {
     
     
     var loadingComplete: Bool {
-        if isLoadingSongs, isLoadingAlbums, isLoadingMusicVideos {
+        if isLoadingSongs || isLoadingAlbums || isLoadingMusicVideos {
             return false
         } else {
             return true
@@ -108,10 +108,10 @@ final class ArtistViewObservableObject: ObservableObject {
     }
     
     func fetchMusicVideos(for artistId: String) {
-        guard songResults.isEmpty else { return }
+        guard musicVideoResults.isEmpty else { return }
         cleanErrorState()
         
-        networkService.request(endpoint: .getInfo(by: .lookup(id: artistId, entity: "musicVideo", limit: "5")))
+        networkService.request(endpoint: .getInfo(by: .lookup(id: artistId, entity: "musicVideo")))
             .compactMap { $0 as ITunesAPIResponse }
             .catch(handleError)
                 .map(\.results)

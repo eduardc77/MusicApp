@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct HighlightMediaRowItem: View {
+struct HighlightMediaItem: View {
     var media: Media
     var imageData: Data?
     var spacing: CGFloat = 10

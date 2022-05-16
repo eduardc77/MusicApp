@@ -51,7 +51,7 @@ struct PlayerView: View {
                         HStack {
                             Button(action: {
                                 guard playerObservableObject.nowPlayingItem != nil else { return }
-                                playerObservableObject.playbackState == .playing ? playerObservableObject.player.pause() : playerObservableObject.player.play()
+                                playerObservableObject.playbackState == .playing ? playerObservableObject.audioPlayer.pause() : playerObservableObject.audioPlayer.play()
                             },
                                    label: {
                                 playerObservableObject.playbackState == .playing ?
@@ -108,19 +108,15 @@ struct PlayerView: View {
                     VStack {
                         switch playerObservableObject.playerType {
                         case .audio:
-                            TimeSliderView(playerObservableObject: playerObservableObject, trackDuration: playerObservableObject.player.nowPlayingItem?.playbackDuration.toInt ?? playerObservableObject.noTrackTime, trackTimePosition: $playerObservableObject.progressRate, player: playerObservableObject.player)
+                            TimeSliderView(playerObservableObject: playerObservableObject, trackDuration: playerObservableObject.audioPlayer.nowPlayingItem?.playbackDuration.toInt ?? 1, trackTimePosition: $playerObservableObject.progressRate, player: playerObservableObject.audioPlayer)
                             
                                 .onReceive(PlayerView.timer) { _ in
                                     guard playerObservableObject.playerType == .audio else { return }
-                                    playerObservableObject.progressRate = playerObservableObject.player.currentPlaybackTime.toInt
+                                    playerObservableObject.progressRate = playerObservableObject.audioPlayer.currentPlaybackTime.toInt
                                 }
                         case .video:
-                            TimeSliderView(playerObservableObject: playerObservableObject, trackDuration: playerObservableObject.videoPlayer.trackDuration, trackTimePosition: $playerObservableObject.videoPlayer.trackTimePosition, player: playerObservableObject.player)
-                            
-                                .onReceive(PlayerView.timer) { _ in
-                                    guard playerObservableObject.playerType == .audio else { return }
-                                    playerObservableObject.progressRate = playerObservableObject.player.currentPlaybackTime.toInt
-                                }
+                            TimeSliderView(playerObservableObject: playerObservableObject, trackDuration: playerObservableObject.videoPlayer.trackDuration, trackTimePosition: $playerObservableObject.videoPlayer.trackTimePosition, player: playerObservableObject.audioPlayer)
+
                         }
                         
                         PlayerControls(playerObservableObject: _playerObservableObject)
@@ -172,16 +168,16 @@ struct PlayerView: View {
         .ignoresSafeArea()
         
         .onReceive(NotificationCenter.default.publisher(for: .MPMusicPlayerControllerPlaybackStateDidChange)){ _ in
-            playerObservableObject.playbackState = playerObservableObject.player.playbackState
+            playerObservableObject.playbackState = playerObservableObject.audioPlayer.playbackState
         }
         
         .onReceive(NotificationCenter.default.publisher(for: .MPMusicPlayerControllerNowPlayingItemDidChange)){ _ in
             playerObservableObject.playerType = .audio
-            guard let mediaItem = playerObservableObject.player.nowPlayingItem else {
+            guard let mediaItem = playerObservableObject.audioPlayer.nowPlayingItem else {
                 playerObservableObject.makeNowPlaying()
                 return
             }
-            playerObservableObject.progressRate = playerObservableObject.player.currentPlaybackTime.toInt
+            playerObservableObject.progressRate = playerObservableObject.audioPlayer.currentPlaybackTime.toInt
             playerObservableObject.makeNowPlaying(media: mediaItem)
         }
         .onAppear {

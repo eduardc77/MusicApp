@@ -1,5 +1,5 @@
 //
-//  SmallMediaRowItem.swift
+//  SmallMediaRow.swift
 //  MusicApp
 //
 //  Created by Eduard Caziuc on 25.04.2022.
@@ -8,53 +8,47 @@
 import SwiftUI
 import MediaPlayer
 
-struct SmallMediaRowItem: View {
+struct SmallMediaRow: View {
     var media: Media
-    var imageData: Data?
-    
+
     var body: some View {
-        VStack(alignment: .leading) {
-            HStack {
+        VStack(spacing: 5) {
+            Divider()
+                .padding(.leading, 60)
+            
+            HStack(spacing: 14) {
                 if let uiImage = media.artwork {
                     MediaImageView(artworkImage: uiImage, size: Size(width: Metric.smallImageSize, height: Metric.smallImageSize))
                 } else {
                     MediaImageView(imagePath: media.artworkPath.resizedPath(size: 160), size: Size(width: Metric.smallImageSize, height: Metric.smallImageSize))
                 }
                 
-                VStack(alignment: .leading) {
-                    Divider()
-                    
-                    Spacer()
-                    
-                    HStack {
-                        VStack(alignment: .leading) {
-                            Text(media.name)
-                                .foregroundColor(.primary)
-                            
-                            Text(media.artistName)
-                                .foregroundColor(.secondary)
-                                .font(.caption)
-                        }
-                        .font(.caption)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .lineLimit(1)
+                HStack {
+                    VStack(alignment: .leading, spacing: 3) {
+                        Text(media.name)
+                            .foregroundColor(.primary)
+                            .font(.subheadline)
                         
-                        Image(systemName: "ellipsis")
-                            .padding(.trailing)
+                        Text(media.albumAndReleaseYear)
+                            .font(.caption)
+                            .foregroundColor(.secondary)
                     }
                     
-                    Spacer()
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .lineLimit(1)
+                    
+                    Image(systemName: "ellipsis")
+                        .padding(.trailing, 6)
                 }
             }
+            
             .onTapGesture {
-                guard media.wrapperType == .track else { return }
-                
                 // FIXME: - Pass the player
                 MPMusicPlayerController.applicationMusicPlayer.setQueue(with: [media.id])
                 MPMusicPlayerController.applicationMusicPlayer.play()
             }
         }
-        .frame(width: UIScreen.main.bounds.width - 34)
+        .frame(width: UIScreen.main.bounds.width - 34, height: 55)
     }
 }
 

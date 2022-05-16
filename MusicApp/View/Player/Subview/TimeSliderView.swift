@@ -32,6 +32,7 @@ struct TimeSliderView: View {
         _timeBegin = State(wrappedValue: $trackTimePosition.wrappedValue)
         _timeRemain = State(initialValue: trackDuration - timeBegin)
     }
+
     
     var body: some View {
         GeometryReader { geometry in
@@ -83,22 +84,24 @@ struct TimeSliderView: View {
                         )
                         .animation(.linear(duration: 0.16), value: isDragging)
                 }
-                .onAppear {
-                    
-                    guard playerObservableObject.playerType == .video, playerObservableObject.videoPlayer.isPlaying else { return }
-                    playerObservableObject.videoPlayer.player.addPeriodicTimeObserver(forInterval: CMTime(seconds: 1, preferredTimescale: 1), queue: .main) { (_) in
-                        timeBegin = playerObservableObject.videoPlayer.getProgressRate()
-                        timeRemain = playerObservableObject.videoPlayer.trackDuration - timeBegin
-                        
-                        playerObservableObject.videoPlayer.trackTimePosition = timeBegin
-                    
-                    }
-                }
+                
                 .onReceive(PlayerView.timer) { _ in
-                    guard playerObservableObject.playerType == .audio else { return }
+                    switch playerObservableObject.playerType {
+                    case .audio:
                         guard let currentPlaybackTime = player?.currentPlaybackTime else { return }
                         timeBegin = Int(currentPlaybackTime)
                         timeRemain = trackDuration - timeBegin
+                    case .video:
+                        
+                        guard playerObservableObject.playerType == .video, playerObservableObject.videoPlayer.isPlaying else { return }
+                      
+                            timeBegin = playerObservableObject.videoPlayer.getProgressRate()
+                            timeRemain = playerObservableObject.videoPlayer.trackDuration - timeBegin
+                            
+                            playerObservableObject.videoPlayer.trackTimePosition = timeBegin
+                        
+                    }
+                        
 
                 }
                 .frame(height: Metric.largePoint)

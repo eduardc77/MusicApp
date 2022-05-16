@@ -1,5 +1,5 @@
 //
-//  MediumMediaRowItem.swift
+//  MediumMediaItem.swift
 //  MusicApp
 //
 //  Created by Eduard Caziuc on 24.04.2022.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct MediumMediaRowItem: View {
+struct MediumMediaItem: View {
     var media: Media
     var imageData: Data?
     

@@ -32,12 +32,15 @@ final class SearchObservableObject: ObservableObject {
         Set(searchResults.map(\.genreName)).sorted()
     }
     
-
+    var searchLoadedWithNoResults: Bool {
+        guard nothingFound, !searchLoading, searchTerm.count > 0 else { return false }
+        return true
+    }
     
     // MARK: - Publishers
     
     @Published private(set) var searchResults: [Media] = []
-    @Published private(set) var isSearching = false
+    @Published private(set) var searchLoading = false
     @Published private(set) var nothingFound = false
     
     @Published var sortType: SortingType = .noSorting
@@ -80,22 +83,29 @@ private extension SearchObservableObject {
             .map { $0.map(Media.init) }
             .replaceError(with: [])
             .assign(to: &$searchResults)
-        
+        $searchTerm
+            .map(validSearching)
+            .assign(to: &$searchLoading)
         $searchResults
             .map(\.isEmpty)
             .assign(to: &$nothingFound)
     }
     
     func search(searchQuery: String) -> AnyPublisher<[MediaResponse], NetworkError> {
-        networkService.request(endpoint: .getInfo(by: .search(term: searchQuery, country: "US", entity: "allArtist", media: "music")))
+        networkService.request(endpoint: .getInfo(by: .search(term: searchQuery, country: "US", entity: "musicArtist", media: "music")))
             .map { $0 as ITunesAPIResponse }
             .map(\.results)
             .map(loaded)
             .eraseToAnyPublisher()
     }
     
+    func validSearching(with query: String) -> Bool {
+        searchResults = []
+        return query.count > 0
+    }
+    
     func loaded(results: [MediaResponse]) -> [MediaResponse] {
-        isSearching = false
+        searchLoading = false
         return results
     }
     

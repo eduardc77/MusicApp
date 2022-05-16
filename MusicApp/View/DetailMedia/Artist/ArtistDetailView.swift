@@ -13,46 +13,59 @@ struct ArtistDetailView: View {
     
     @StateObject private var artistObservableObject = ArtistViewObservableObject()
     
-    let mediaId: String
+    let media: Media
     
     var body: some View {
         ZStack {
             if !artistObservableObject.loadingComplete {
-                ProgressView()
+                LoadingView()
             } else {
                 ScrollView(.vertical, showsIndicators: false) {
-                    if let media = artistObservableObject.albumResults.first {
-                        TopImageView(imagePath: artistObservableObject.albumResults[1].artworkPath)
+                    if let recentAlbum = artistObservableObject.albums.first {
+                        ZStack(alignment: Alignment(horizontal: .leading, vertical: .bottom)) {
+                            HeaderImageView(imagePath: recentAlbum.artworkPath)
+                            
+                            Text(media.artistName)
+                                .padding(12)
+                                .foregroundColor(.white)
+                                .font(.largeTitle.bold())
+                        }
                         
                         VStack {
+                            MediumMediaRow(media: recentAlbum, action: {})
+                                .padding(.top)
                             HorizontalMediaGridView(mediaItems: artistObservableObject.songs, title: "Top Songs", imageSize: .small, rowCount: 4)
                                 .padding(.top)
                             
                             HorizontalMediaGridView(mediaItems: artistObservableObject.albums, title: "Albums", imageSize: .medium)
                             
                             HorizontalMediaGridView(mediaItems: artistObservableObject.musicVideos, title: "Music Videos", imageSize: .large)
-                            
-                        
                         }
                         .background()
+                        
+                        Spacer(minLength: Metric.playerHeight)
                     }
                 }
             }
         }
-        .task {
-            artistObservableObject.fetchAllArtistMedia(for: mediaId)
+        
+        .onAppear {
+            artistObservableObject.fetchAllArtistMedia(for: media.id)
         }
         
         .errorAlert(errorState: $artistObservableObject.errorState) {
-            artistObservableObject.fetchAllArtistMedia(for: mediaId)
-        } cancel: { dismiss() }
+            artistObservableObject.fetchAllArtistMedia(for: media.id)
+            
+        } cancel: {
+            dismiss()
+        }
     }
 }
 
 // MARK: - Subviews
 
 private extension ArtistDetailView {
-
+    
     
     func buttonsView(for media: Media) -> some View {
         HStack {
@@ -93,7 +106,7 @@ private extension ArtistDetailView {
         .padding(.horizontal)
     }
     
-
+    
     
     //    func info(for type: Media.ShortInfoType, media: Media) -> some View {
     //        HStack(spacing: 0) {
@@ -106,7 +119,7 @@ private extension ArtistDetailView {
     //                .font(.system(size: 14))
     //        }
     //    }
-
+    
 }
 
 // MARK: - Private extensions
@@ -123,14 +136,5 @@ private struct DetailTitle: ViewModifier {
 private extension View {
     var detailTitle: some View {
         modifier(DetailTitle())
-    }
-}
-
-
-// MARK: - Preview
-
-struct DetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        ArtistDetailView(mediaId: "455832983")
     }
 }

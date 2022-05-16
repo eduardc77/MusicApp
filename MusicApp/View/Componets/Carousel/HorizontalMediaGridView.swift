@@ -12,17 +12,17 @@ struct HorizontalMediaGridView: View {
     var title: String
     var imageSize: ImageSizeType
     var gridRows: [GridItem]
+    var maxHighlightShowing: Int
     
-    private var maxHighlightShowing = 16
-    
-    init(mediaItems: [Media], title: String = "", imageSize: ImageSizeType, rowCount: Int = 1) {
+    init(mediaItems: [Media], title: String = "", imageSize: ImageSizeType, rowCount: Int = 1, maxHighlightShowing: Int = 8) {
         self.mediaItems = mediaItems
         self.title = title
         self.imageSize = imageSize
+        self.maxHighlightShowing = maxHighlightShowing
         
         switch imageSize {
         case .small:
-            gridRows = Array(repeating: .init(.fixed(Metric.smallRowHeight), spacing: 2), count: rowCount)
+            gridRows = Array(repeating: .init(.fixed(Metric.smallRowHeight), spacing: 0), count: rowCount)
         case .medium:
             gridRows = Array(repeating: .init(.fixed(Metric.mediumRowHeight), spacing: 10), count: rowCount)
         case .large:
@@ -75,11 +75,11 @@ struct HorizontalMediaGridView: View {
                         
                         switch imageSize {
                         case .small:
-                            SmallMediaRowItem(media: media)
+                            SmallMediaRow(media: media)
                         case .medium:
-                            MediumMediaRowItem(media: media)
+                            MediumMediaItem(media: media)
                         case .large:
-                            LargeMediaRowItem(media: media)
+                            LargeMediaItem(media: media)
                         }
                     }
                 }

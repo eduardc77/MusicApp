@@ -18,7 +18,7 @@ struct PlayerControls: View {
             Button {
                 switch playerObservableObject.playerType {
                 case .video:
-                    playerObservableObject.videoPlayer.player.seek(to: CMTime(seconds: Double(playerObservableObject.videoPlayer.trackTimePosition - 10), preferredTimescale: 1))
+                    playerObservableObject.videoPlayer.player.seek(to: CMTime(seconds: Double(playerObservableObject.videoPlayer.trackTimePosition - 5), preferredTimescale: 1))
                 case .audio:
                     guard playerObservableObject.nowPlayingItem != nil else { return }
                     print("Backward Button Tapped")
@@ -42,7 +42,7 @@ struct PlayerControls: View {
                         playerObservableObject.videoPlayer.isPlaying = true
                     }
                 case .audio:
-                    playerObservableObject.playbackState == .playing ? playerObservableObject.player.pause() : playerObservableObject.player.play()
+                    playerObservableObject.playbackState == .playing ? playerObservableObject.audioPlayer.pause() : playerObservableObject.audioPlayer.play()
                 }
                 
             } label: {
@@ -65,7 +65,7 @@ struct PlayerControls: View {
             Button {
                 switch playerObservableObject.playerType {
                 case .video:
-                    playerObservableObject.videoPlayer.player.seek(to: CMTime(seconds: Double(playerObservableObject.videoPlayer.trackTimePosition + 10), preferredTimescale: 1))
+                    playerObservableObject.videoPlayer.player.seek(to: CMTime(seconds: Double(playerObservableObject.videoPlayer.trackTimePosition + 5), preferredTimescale: 1))
                 case .audio:
                     guard playerObservableObject.nowPlayingItem != nil else { return }
                     print("Forward Button Tapped")

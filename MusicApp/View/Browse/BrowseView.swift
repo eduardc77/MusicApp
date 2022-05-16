@@ -30,7 +30,7 @@ struct BrowseView: View {
                 HorizontalMediaGridView(mediaItems: musicPlaylists, title: "New Music", imageSize: .small, rowCount: 4)
                 
                 NavigationLinkList(rowItems: BrowseMoreToExplore.self, content: detailViews)
-                
+                    .frame(height: 250)
                 Spacer(minLength: Metric.playerHeight)
             }
             .navigationTitle(title)

@@ -37,11 +37,11 @@ struct HighlightsView: View {
                 
                 switch imageSize {
                 case .small:
-                    SmallMediaRowItem(media: media)
+                    SmallMediaRow(media: media)
                 case .medium:
-                    MediumMediaRowItem(media: media)
+                    MediumMediaItem(media: media)
                 case .large:
-                    HighlightMediaRowItem(media: media)
+                    HighlightMediaItem(media: media)
                 }
             }
             .padding(.horizontal)

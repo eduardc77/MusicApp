@@ -46,14 +46,20 @@ struct Media: Identifiable, Codable {
     }
 
     var releaseDate: String? {
-        guard let date = mediaResponse.releaseDate else { return nil }
-        return date
+        guard let releaseDateString = mediaResponse.releaseDate,
+              let formattedDate = DateFormatter.isoFormatter.date(from: releaseDateString)?.addingTimeInterval(86400) else {
+            return nil
+        }
+       
+        return DateFormatter.defaultFormatter.string(from: formattedDate)
     }
     
     var releaseYear: String? {
-        guard let releaseDate = mediaResponse.releaseDate else { return nil }
-
-        return releaseDate
+        guard let releaseDateString = mediaResponse.releaseDate,
+              let formattedDate = DateFormatter.isoFormatter.date(from: releaseDateString)?.addingTimeInterval(86400) else {
+            return nil
+        }
+        return DateFormatter.yearFormatter.string(from: formattedDate)
     }
     
     var dateAdded: Date? {
@@ -61,12 +67,20 @@ struct Media: Identifiable, Codable {
         return date
     }
     
-    var genreAndReleaseDetails: String {
+    var genreAndReleaseYear: String {
         guard let releaseYear = releaseYear else {
             return "\(genreName.uppercased())"
         }
 
         return "\(genreName.uppercased()) · \(releaseYear)"
+    }
+    
+    var albumAndReleaseYear: String {
+        guard let releaseYear = releaseYear else {
+            return "\(collectionName)"
+        }
+
+        return "\(collectionName) · \(releaseYear)"
     }
 
     var duration: String {

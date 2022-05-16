@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TopImageView: View {
+struct HeaderImageView: View {
     let imagePath: String
     
     var body: some View {
@@ -22,7 +22,7 @@ struct TopImageView: View {
     }
 }
 
-private extension TopImageView {
+private extension HeaderImageView {
     func offsetY(proxy: GeometryProxy) -> CGFloat {
         -proxy.frame(in: .global).minY
     }

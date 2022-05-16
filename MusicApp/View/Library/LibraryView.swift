@@ -16,7 +16,7 @@ struct LibraryView: View {
     var body: some View {
         NavigationView {
             if libraryObservableObject.refreshingLibrary {
-                ProgressView()
+                LoadingView()
             } else {
                 if libraryObservableObject.status == .permitted {
                     if !libraryObservableObject.albums.isEmpty {

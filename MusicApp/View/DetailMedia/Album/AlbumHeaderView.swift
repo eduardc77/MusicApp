@@ -49,7 +49,7 @@ struct AlbumHeaderView: View {
                 .foregroundColor(.appAccentColor)
                 .lineLimit(1)
             
-            Text(albumDetailObservableObject.media.genreAndReleaseDetails)
+            Text(albumDetailObservableObject.media.genreAndReleaseYear)
                 .font(.caption.bold())
                 .foregroundColor(.secondary)
                 .lineLimit(1)

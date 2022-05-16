@@ -7,19 +7,6 @@
 
 import Foundation
 
-extension Date {
-    static let mediumDateFormatter: DateFormatter = {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .none
-        return dateFormatter
-    }()
-    
-    var mediumDateStyle: String {
-        Self.mediumDateFormatter.string(from: self)
-    }
-}
-
 extension DateFormatter {
     func configure(_ config: (inout DateFormatter) -> Void) -> DateFormatter {
         var copy: DateFormatter = self
@@ -27,8 +14,14 @@ extension DateFormatter {
         return copy
     }
     
+    static var isoFormatter: DateFormatter {
+        .init().configure {
+            $0.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+        }
+    }
+    
     static var defaultFormatter: DateFormatter {
-        .init().configure { $0.dateFormat = "yyyy MMMM dd" }
+        .init().configure { $0.dateFormat = "d MMMM yyyy " }
     }
    
     static var yearFormatter: DateFormatter {

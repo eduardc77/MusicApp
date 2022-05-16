@@ -14,6 +14,7 @@ struct VerticalMediaGridView: View {
     var title: String
     var imageSize: ImageSizeType
     var columns: [GridItem]
+    var gridSpacing: CGFloat?
     
     init(mediaItems: [Media], title: String = "", imageSize: ImageSizeType, rowCount: Int = 1) {
         self.mediaItems = mediaItems
@@ -22,9 +23,11 @@ struct VerticalMediaGridView: View {
         
         switch imageSize {
         case .small:
-            columns = Array(repeating: .init(.flexible(), spacing: 2, alignment: .leading), count: rowCount)
+            columns = Array(repeating: .init(.flexible(), alignment: .leading), count: rowCount)
+            gridSpacing = 0
         case .medium, .large:
             columns = Array(repeating: .init(.flexible(), spacing: 10), count: rowCount)
+            gridSpacing = 12
         }
     }
     
@@ -36,34 +39,34 @@ struct VerticalMediaGridView: View {
                 .padding(.horizontal)
         }
         
-        ScrollView(showsIndicators: false) {
-            LazyVGrid(columns: columns, spacing: 12) {
+        ScrollView {
+            LazyVGrid(columns: columns, spacing: gridSpacing) {
                 ForEach(Array(zip(mediaItems.indices, mediaItems)), id: \.0) { _, media in
                     switch media.wrapperType {
                     case .collection:
                         NavigationLink(destination: AlbumDetailView(media: media, searchObservableObject: SearchObservableObject())) {
                             switch imageSize {
                             case .small:
-                                SearchResultsRowItem(media: media)
+                                SmallMediaRow(media: media)
                             case .medium:
-                                MediumMediaRowItem(media: media)
+                                MediumMediaItem(media: media)
                             case .large:
-                                LargeMediaRowItem(media: media)
+                                LargeMediaItem(media: media)
                             }
                         }
                         
                     case .track:
-                        SearchResultsRowItem(media: media)     
-
+                        SmallMediaRow(media: media)
+                           
                     case .artist:
                         NavigationLink(destination: AlbumDetailView(media: media, searchObservableObject: SearchObservableObject())) {
                             switch imageSize {
                             case .small:
-                                SearchResultsRowItem(media: media)
+                                SmallMediaRow(media: media)
                             case .medium:
-                                MediumMediaRowItem(media: media)
+                                MediumMediaItem(media: media)
                             case .large:
-                                LargeMediaRowItem(media: media)
+                                LargeMediaItem(media: media)
                             }
                         }
                     }

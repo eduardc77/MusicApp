@@ -23,7 +23,7 @@ struct AccountView: View {
                 } header: { Spacer(minLength: 1) }
                 
                 Section {
-                    RowNavigationLink(text: "Notifications", presentedView: ProfileView())
+                    NavigationLinkRow(text: "Notifications", destinationView: ProfileView())
                 } header: { Spacer(minLength: 1) }
                 
                 Section {

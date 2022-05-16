@@ -1,5 +1,5 @@
 //
-//  LargeMediaRowItem.swift
+//  LargeMediaItem.swift
 //  MusicApp
 //
 //  Created by Eduard Caziuc on 14.05.2022.
@@ -8,7 +8,7 @@
 import SwiftUI
 import MediaPlayer
 
-struct LargeMediaRowItem: View {
+struct LargeMediaItem: View {
     @EnvironmentObject var playerObservableObject: PlayerObservableObject
     
     var media: Media

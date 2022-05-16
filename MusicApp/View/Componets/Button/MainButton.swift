@@ -11,28 +11,31 @@ struct MainButton: View {
     var title: String
     var font: Font = .headline
     var image: Image?
+    var spacing: CGFloat = 10
     var foregroundColor: Color = .appAccentColor
     var tint: Color = .secondary.opacity(0.16)
     var size: Size = Size(width: .infinity, height: 26)
+    var cornerRadius: CGFloat = 4
     var action: () -> Void
     
     var body: some View {
-        Button { action() } label: {
-            HStack {
+        Button {
+            action()
+        } label: {
+            HStack(spacing: spacing) {
                 image
-                    .font(.headline)
                 
                 Text(title)
-                    .font(font)
-                
             }
+            .font(font)
             .frame(height: size.height)
-            .frame(maxWidth: .infinity)
+            .frame(maxWidth: size.width)
         }
         
         .tint(tint)
         .foregroundColor(foregroundColor)
         .buttonStyle(.borderedProminent)
+        .cornerRadius(cornerRadius)
     }
 }
 

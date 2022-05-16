@@ -25,7 +25,6 @@ struct VideoPlayerView: View {
     
     var body: some View {
         VideoPlayer(player: $player)
-        
             .onTapGesture {
                 expand = true
             }
@@ -60,11 +59,9 @@ struct VideoPlayerView: View {
 struct VideoPlayer: UIViewControllerRepresentable {
     @Binding var player : AVPlayer
     
-    
     func makeUIViewController(context: UIViewControllerRepresentableContext<VideoPlayer>) -> AVPlayerViewController {
         let controller = AVPlayerViewController()
         controller.player = player
-        
         
         return controller
     }

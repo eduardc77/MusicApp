@@ -30,6 +30,7 @@ public final class ImageLoader: ImageLoaderProtocol {
         let request = URLRequest(url: url)
         guard let data = cache?.cachedResponse(for: request)?.data, let image = UIImage(data: data) else {
             request.print()
+            
             return try await loadAndCacheImage(with: request)
         }
         return image
@@ -41,8 +42,10 @@ private extension ImageLoader {
         do {
             let (data, response) = try await session.data(for: request)
             guard let response = response as? HTTPURLResponse, 200...300 ~= response.statusCode else { return nil }
+            
             let cachedData = CachedURLResponse(response: response, data: data)
             cache?.storeCachedResponse(cachedData, for: request)
+            
             return UIImage(data: data)
         } catch {
             throw NetworkError.imageLoadingError

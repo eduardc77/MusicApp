@@ -1,5 +1,5 @@
 //
-//  SmallMediaRowItem.swift
+//  SearchResultsRow.swift
 //  MusicApp
 //
 //  Created by Eduard Caziuc on 18.04.2022.
@@ -8,7 +8,7 @@
 import SwiftUI
 import MediaPlayer
 
-struct SearchResultsRowItem: View {
+struct SearchResultsRow: View {
     var media: Media
     
     var body: some View {
@@ -31,19 +31,24 @@ struct SearchResultsRowItem: View {
                     .lineLimit(1)
             }
         }
+        .onTapGesture {
+            // FIXME: - Pass the player
+            MPMusicPlayerController.applicationMusicPlayer.setQueue(with: [media.id])
+            MPMusicPlayerController.applicationMusicPlayer.play()
+        }
     }
 }
 
-//struct SearchResultsRowItem_Previews: PreviewProvider {
-//    struct SearchResultsRowItemExample: View {
+//struct SearchResultsRow_Previews: PreviewProvider {
+//    struct SearchResultsRowExample: View {
 //        let media = MediaResponse(id: 0, name: "Placeholder", artistName: "Placeholder")
 //        
 //        var body: some View {
-//            SearchResultsRowItem(media: media)
+//            SearchResultsRow(media: media)
 //        }
 //    }
 //    
 //    static var previews: some View {
-//        SearchResultsRowItemExample()
+//        SearchResultsRowExample()
 //    }
 //}
