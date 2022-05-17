@@ -21,11 +21,11 @@ struct HighlightsView: View {
         
         switch imageSize {
         case .small:
-            gridRows = Array(repeating: .init(.fixed(Metric.smallRowHeight)), count: rowCount)
+            gridRows = Array(repeating: .init(.fixed(Metric.smallRowItemHeight)), count: rowCount)
         case .medium:
-            gridRows = Array(repeating: .init(.fixed(Metric.mediumRowHeight)), count: rowCount)
+            gridRows = Array(repeating: .init(.fixed(Metric.mediumRowItemHeight)), count: rowCount)
         case .large:
-            gridRows = Array(repeating: .init(.fixed(Metric.highlightsRowHeight)), count: rowCount)
+            gridRows = Array(repeating: .init(.fixed(Metric.highlightCarouselItemHeight)), count: rowCount)
         }
     }
     
@@ -46,7 +46,7 @@ struct HighlightsView: View {
             }
             .padding(.horizontal)
         }
-        .frame(height: Metric.highlightsRowHeight)
+        .frame(height: Metric.highlightCarouselItemHeight)
         .tabViewStyle(.page(indexDisplayMode: .never))
         
         Divider()

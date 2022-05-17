@@ -21,7 +21,7 @@ struct MediaImageView: View {
     
     @State private var shadow: (radius: CGFloat, xPosition: CGFloat, yPosition: CGFloat) = (0, 0, 0)
     
-    init(imagePath: String? = nil, artworkImage: UIImage? = nil, size: Size = Size(), cornerRadius: CGFloat = 4, shadowProminence: ShadowProminence = .none, contentMode: ContentMode = .fit, foregroundColor: Color = .secondary.opacity(0.1), visibleSide: Binding<FlipViewSide> = .constant(.front)) {
+    init(imagePath: String? = nil, artworkImage: UIImage? = nil, size: Size = Size(), cornerRadius: CGFloat = Metric.defaultCornerRadius, shadowProminence: ShadowProminence = .none, contentMode: ContentMode = .fit, foregroundColor: Color = .secondary.opacity(0.1), visibleSide: Binding<FlipViewSide> = .constant(.front)) {
         _mediaImageObservableObject = StateObject(wrappedValue: MediaImageObservableObject())
         
         self.imagePath = imagePath
@@ -57,7 +57,7 @@ struct MediaImageView: View {
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .foregroundColor(Color.secondary.opacity(0.3))
-                            .frame(width: (size.height ?? Metric.mediumImageSize) / 1.6, height: (size.height ?? Metric.mediumImageSize) / 1.6)
+                            .frame(width: (size.height ?? Metric.mediumCarouselImageSize) / 1.6, height: (size.height ?? Metric.mediumCarouselImageSize) / 1.6)
                     }
                 }
             }
@@ -82,7 +82,7 @@ struct MediaImageView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .foregroundColor(Color.secondary.opacity(0.3))
-                    .frame(width: (size.height ?? Metric.mediumImageSize) / 1.6, height: (size.height ?? Metric.mediumImageSize) / 1.6)
+                    .frame(width: (size.height ?? Metric.mediumCarouselImageSize) / 1.6, height: (size.height ?? Metric.mediumCarouselImageSize) / 1.6)
             }
         }
         .contentShape(Rectangle())

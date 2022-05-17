@@ -45,7 +45,7 @@ struct MediumMediaRow: View {
                             .padding(.horizontal)
                     }
                     
-                    MainButton(title: "Add", font: Font.footnote.bold(), image: Image(systemName: "plus"), spacing: 3, size: Size(width: 44, height: 12), cornerRadius: 16) { action() }
+                    MainButton(title: "Add", font: Font.footnote.bold(), image: Image(systemName: "plus"), spacing: 3, size: Size(height: 12), cornerRadius: 16) { action() }
                 }
             }
         }

@@ -22,11 +22,11 @@ struct HorizontalMediaGridView: View {
         
         switch imageSize {
         case .small:
-            gridRows = Array(repeating: .init(.fixed(Metric.smallRowHeight), spacing: 0), count: rowCount)
+            gridRows = Array(repeating: .init(.flexible(minimum: Metric.smallRowItemHeight), spacing: 0), count: rowCount)
         case .medium:
-            gridRows = Array(repeating: .init(.fixed(Metric.mediumRowHeight), spacing: 10), count: rowCount)
+            gridRows = Array(repeating: .init(.flexible(minimum: Metric.mediumRowItemHeight), spacing: 10), count: rowCount)
         case .large:
-            gridRows = Array(repeating: .init(.fixed(Metric.largeRowHeight), spacing: 10), count: rowCount)
+            gridRows = Array(repeating: .init(.flexible(minimum: Metric.largeRowItemHeight), spacing: 8), count: rowCount)
         }
     }
     

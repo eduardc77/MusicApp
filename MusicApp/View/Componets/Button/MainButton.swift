@@ -15,7 +15,7 @@ struct MainButton: View {
     var foregroundColor: Color = .appAccentColor
     var tint: Color = .secondary.opacity(0.16)
     var size: Size = Size(width: .infinity, height: 26)
-    var cornerRadius: CGFloat = 4
+    var cornerRadius: CGFloat = Metric.defaultCornerRadius
     var action: () -> Void
     
     var body: some View {

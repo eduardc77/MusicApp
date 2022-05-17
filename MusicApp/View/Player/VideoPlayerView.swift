@@ -20,7 +20,9 @@ struct VideoPlayerView: View {
     @State var player: AVPlayer
     
     init(url: URL) {
-        player = AVPlayer(url: url)
+        let asset = AVAsset(url: url)
+        let item = AVPlayerItem(asset: asset)
+        player = AVPlayer(playerItem: item)
     }
     
     var body: some View {

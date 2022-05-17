@@ -13,28 +13,26 @@ struct LargeMediaItem: View {
     
     var media: Media
     var imageData: Data?
-    var spacing: CGFloat = 10
 
     var body: some View {
         VStack(alignment: .leading) {
             if let uiImage = media.artwork {
-                MediaImageView(artworkImage: uiImage, size: Size(height: Metric.largeImageSize), contentMode: .fill)
+                MediaImageView(artworkImage: uiImage, size: Size(width: Metric.largeCarouselImageWidth , height: Metric.largeCarouselImageHeight), contentMode: .fill)
             } else {
-                MediaImageView(imagePath: media.artworkPath.resizedPath(size: 1024), size: Size(height: Metric.largeImageSize), contentMode: .fill)
+                MediaImageView(imagePath: media.artworkPath.resizedPath(size: 1024), size: Size(width: Metric.screenWidth - 44, height: Metric.largeCarouselImageHeight), contentMode: .fill)
             }
             
             VStack {
                 Text(media.name)
                     .foregroundColor(.primary)
-                    .frame(maxWidth: Metric.screenWidth * 0.92, alignment: .leading)
+                    .frame(maxWidth: Metric.largeCarouselImageWidth, alignment: .leading)
                 Text(media.artistName)
                     .foregroundColor(.secondary)
-                    .frame(maxWidth: Metric.screenWidth * 0.92, alignment: .leading)
+                    .frame(maxWidth: Metric.largeCarouselImageWidth, alignment: .leading)
             }
             .font(.caption)
             .lineLimit(1)
         }
-        .frame(width: Metric.screenWidth * 0.92)
         
         .onTapGesture {         
             withAnimation {

@@ -14,6 +14,7 @@ struct ArtistDetailView: View {
     @StateObject private var artistObservableObject = ArtistViewObservableObject()
     
     let media: Media
+    @State var navigationHidden: Bool = true
     
     var body: some View {
         ZStack {
@@ -21,34 +22,54 @@ struct ArtistDetailView: View {
                 LoadingView()
             } else {
                 ScrollView(.vertical, showsIndicators: false) {
-                    if let recentAlbum = artistObservableObject.albums.first {
-                        ZStack(alignment: Alignment(horizontal: .leading, vertical: .bottom)) {
-                            HeaderImageView(imagePath: recentAlbum.artworkPath)
+                    VStack {
+                        if let recentAlbum = artistObservableObject.albums.first {
+                            ZStack(alignment: Alignment(horizontal: .leading, vertical: .bottom)) {
+                                if let videoAssetUrl = artistObservableObject.musicVideos.first?.previewUrl {
+                                    VideoHeaderImageView(videoAssetUrl: videoAssetUrl)
+                                } else {
+                                    HeaderImageView(imagePath: recentAlbum.artworkPath)
+                                }
+                                
+                                Text(media.artistName)
+                                    .padding(12)
+                                    .foregroundColor(.white)
+                                    .font(.largeTitle.bold())
+                            }
                             
-                            Text(media.artistName)
-                                .padding(12)
-                                .foregroundColor(.white)
-                                .font(.largeTitle.bold())
+                            VStack {
+                                MediumMediaRow(media: recentAlbum, action: {})
+                                    .padding(.top)
+                                HorizontalMediaGridView(mediaItems: artistObservableObject.songs, title: "Top Songs", imageSize: .small, rowCount: 4)
+                                    .padding(.top)
+                                
+                                HorizontalMediaGridView(mediaItems: artistObservableObject.albums, title: "Albums", imageSize: .medium)
+                                
+                                HorizontalMediaGridView(mediaItems: artistObservableObject.musicVideos, title: "Music Videos", imageSize: .large)
+                            }
+                            .background()
+                            
+                            Spacer(minLength: Metric.playerHeight)
                         }
-                        
-                        VStack {
-                            MediumMediaRow(media: recentAlbum, action: {})
-                                .padding(.top)
-                            HorizontalMediaGridView(mediaItems: artistObservableObject.songs, title: "Top Songs", imageSize: .small, rowCount: 4)
-                                .padding(.top)
-                            
-                            HorizontalMediaGridView(mediaItems: artistObservableObject.albums, title: "Albums", imageSize: .medium)
-                            
-                            HorizontalMediaGridView(mediaItems: artistObservableObject.musicVideos, title: "Music Videos", imageSize: .large)
-                        }
-                        .background()
-                        
-                        Spacer(minLength: Metric.playerHeight)
                     }
+                    .background(
+                        GeometryReader { proxy in
+                            Color.clear.preference(
+                                key: ScrollViewOffsetPreferenceKey.self.self,
+                                value: -1 * proxy.frame(in: .named("scroll")).origin.y
+                            )
+                        }
+                    )
+                    .onPreferenceChange(ScrollViewOffsetPreferenceKey.self) { value in
+                        navigationHidden = value > 180 ? false : true
+                    }
+                    
                 }
+                .coordinateSpace(name: "scroll")
+                .navigationBarHidden(navigationHidden)
+                .navigationTitle(media.artistName)
             }
         }
-        
         .onAppear {
             artistObservableObject.fetchAllArtistMedia(for: media.id)
         }
@@ -59,6 +80,15 @@ struct ArtistDetailView: View {
         } cancel: {
             dismiss()
         }
+    }
+}
+
+struct ScrollViewOffsetPreferenceKey: PreferenceKey {
+    typealias Value = CGFloat
+    static var defaultValue = CGFloat.zero
+    
+    static func reduce(value _: inout Value, nextValue: () -> Value) {
+        _ = nextValue()
     }
 }
 

@@ -18,9 +18,9 @@ struct SmallMediaRow: View {
             
             HStack(spacing: 14) {
                 if let uiImage = media.artwork {
-                    MediaImageView(artworkImage: uiImage, size: Size(width: Metric.smallImageSize, height: Metric.smallImageSize))
+                    MediaImageView(artworkImage: uiImage, size: Size(width: Metric.smallCarouselImageSize, height: Metric.smallCarouselImageSize))
                 } else {
-                    MediaImageView(imagePath: media.artworkPath.resizedPath(size: 160), size: Size(width: Metric.smallImageSize, height: Metric.smallImageSize))
+                    MediaImageView(imagePath: media.artworkPath.resizedPath(size: 160), size: Size(width: Metric.smallCarouselImageSize, height: Metric.smallCarouselImageSize))
                 }
                 
                 HStack {
@@ -48,7 +48,7 @@ struct SmallMediaRow: View {
                 MPMusicPlayerController.applicationMusicPlayer.play()
             }
         }
-        .frame(width: UIScreen.main.bounds.width - 34, height: 55)
+        .frame(width: Metric.screenWidth - 34, height: 55)
     }
 }
 

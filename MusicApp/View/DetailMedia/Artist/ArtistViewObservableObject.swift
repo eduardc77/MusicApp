@@ -14,24 +14,15 @@ final class ArtistViewObservableObject: ObservableObject {
     private var anyCancellable: Set<AnyCancellable> = []
     
     // MARK: - Publishers
-    
-    @Published private(set) var albumResults: [Media] = []
+
     @Published private(set) var songResults: [Media] = []
+    @Published private(set) var albumResults: [Media] = []
     @Published private(set) var musicVideoResults: [Media] = []
-    @Published private(set) var isLoadingAlbums: Bool = false
     @Published private(set) var isLoadingSongs: Bool = false
+    @Published private(set) var isLoadingAlbums: Bool = false
     @Published private(set) var isLoadingMusicVideos: Bool = false
     @Published private(set) var presenter: Presenter? = nil
     @Published var errorState: ErrorState = .init(isError: false, descriptor: nil)
-    
-    var albums: [Media] {
-        guard !albumResults.isEmpty else { return [] }
-        
-        var albums = albumResults
-        albums.removeFirst()
-        
-        return albums
-    }
     
     var songs: [Media] {
         guard !songResults.isEmpty else { return [] }
@@ -40,6 +31,15 @@ final class ArtistViewObservableObject: ObservableObject {
         songs.removeFirst()
         
         return songs
+    }
+    
+    var albums: [Media] {
+        guard !albumResults.isEmpty else { return [] }
+        
+        var albums = albumResults
+        albums.removeFirst()
+        
+        return albums
     }
     
     var musicVideos: [Media] {
@@ -64,12 +64,12 @@ final class ArtistViewObservableObject: ObservableObject {
     
     init(networkService: NetworkService = .init()) {
         self.networkService = networkService
-        $albumResults
-            .map(\.isEmpty)
-            .assign(to: &$isLoadingAlbums)
         $songResults
             .map(\.isEmpty)
             .assign(to: &$isLoadingSongs)
+        $albumResults
+            .map(\.isEmpty)
+            .assign(to: &$isLoadingAlbums)
         $musicVideoResults
             .map(\.isEmpty)
             .assign(to: &$isLoadingMusicVideos)
@@ -78,28 +78,16 @@ final class ArtistViewObservableObject: ObservableObject {
     // MARK: - Public Methods
     
     func fetchAllArtistMedia(for artistId: String) {
-        fetchAlbums(for: artistId)
         fetchSongs(for: artistId)
+        fetchAlbums(for: artistId)
         fetchMusicVideos(for: artistId)
-    }
-    
-    func fetchAlbums(for artistId: String) {
-        guard albumResults.isEmpty else { return }
-        cleanErrorState()
-        
-        networkService.request(endpoint: .getInfo(by: .lookup(id: artistId, entity: "album", sort: "recent")))
-            .compactMap { $0 as ITunesAPIResponse }
-            .catch(handleError)
-                .map(\.results)
-                .map { $0.map(Media.init) }
-            .assign(to: &$albumResults)
     }
     
     func fetchSongs(for artistId: String) {
         guard songResults.isEmpty else { return }
         cleanErrorState()
         
-        networkService.request(endpoint: .getInfo(by: .lookup(id: artistId, entity: "song", sort: "recent")))
+        networkService.request(endpoint: .getInfo(by: .lookup(id: artistId, entity: "song", media: "music", attribute: "songTerm", limit: "100", sort: "recent")))
             .compactMap { $0 as ITunesAPIResponse }
             .catch(handleError)
                 .map(\.results)
@@ -107,11 +95,23 @@ final class ArtistViewObservableObject: ObservableObject {
             .assign(to: &$songResults)
     }
     
+    func fetchAlbums(for artistId: String) {
+        guard albumResults.isEmpty else { return }
+        cleanErrorState()
+        
+        networkService.request(endpoint: .getInfo(by: .lookup(id: artistId, entity: "album", media: "music", attribute: "albumTerm", limit: "100", sort: "recent")))
+            .compactMap { $0 as ITunesAPIResponse }
+            .catch(handleError)
+                .map(\.results)
+                .map { $0.map(Media.init) }
+            .assign(to: &$albumResults)
+    }
+    
     func fetchMusicVideos(for artistId: String) {
         guard musicVideoResults.isEmpty else { return }
         cleanErrorState()
         
-        networkService.request(endpoint: .getInfo(by: .lookup(id: artistId, entity: "musicVideo")))
+        networkService.request(endpoint: .getInfo(by: .lookup(id: artistId, entity: "musicVideo", media: "musicVideo", attribute: "songTerm", limit: "100", sort: "recent")))
             .compactMap { $0 as ITunesAPIResponse }
             .catch(handleError)
                 .map(\.results)
