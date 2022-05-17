@@ -24,8 +24,8 @@ struct ArtistDetailView: View {
                     Group {
                         if let recentAlbum = artistObservableObject.albums.first {
                             ZStack(alignment: Alignment(horizontal: .leading, vertical: .bottom)) {
-                                if let videoAssetUrl = artistVideoPreviewUrl {
-                                    MediaPreviewHeader(videoAssetUrl: videoAssetUrl)
+                                if let videoAssetUrls = artistVideoPreviewUrls {
+                                    MediaPreviewHeader(videoAssetUrls: videoAssetUrls)
                                 } else {
                                     MediaPreviewHeader(imagePath: recentAlbum.artworkPath)
                                 }
@@ -81,9 +81,15 @@ struct ArtistDetailView: View {
         }
     }
     
-    var artistVideoPreviewUrl: URL? {
-        guard let artistVideoPreviewUrl = artistObservableObject.musicVideos.first(where: { $0.artistName == media.artistName })?.previewUrl else { return nil }
-        return artistVideoPreviewUrl
+    var artistVideoPreviewUrls: [URL]? {
+        let artistMusicVideos = artistObservableObject.musicVideos.filter { $0.artistName == media.artistName }
+        var artistVideoPreviewUrls = [URL]()
+        
+         artistMusicVideos.prefix(3).forEach { musicVideo in
+             artistVideoPreviewUrls.append(musicVideo.previewUrl)
+        }
+      
+        return artistVideoPreviewUrls
     }
 }
 

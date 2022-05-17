@@ -9,21 +9,22 @@ import SwiftUI
 import AVKit
 
 struct VideoHeaderView: UIViewRepresentable {
-    let videoAssetUrl: URL
+    let videoAssetUrls: [URL]
     
-    init(videoAssetUrl: URL) {
-        self.videoAssetUrl = videoAssetUrl
+    init(videoAssetUrls: [URL]) {
+        self.videoAssetUrls = videoAssetUrls
     }
     
     func updateUIView(_ uiView: UIView, context: UIViewRepresentableContext<VideoHeaderView>) { }
     
     func makeUIView(context: Context) -> UIView {
-        return LoopingPlayerUIView(videoAssetUrl: videoAssetUrl)
+        return LoopingPlayerUIView(videoAssetUrls: videoAssetUrls)
     }
 }
 
 class LoopingPlayerUIView: UIView {
     private let playerLayer = AVPlayerLayer()
+    private let player = AVQueuePlayer()
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -32,18 +33,18 @@ class LoopingPlayerUIView: UIView {
     init(videoAssetUrls: [URL]) {
         super.init(frame: .zero)
         
-        let asset = AVAsset(url: videoAssetUrls)
-        let item = AVPlayerItem(asset: asset)
         
-        let player = AVQueuePlayer(items: [item])
         player.rate = 1.6
-        
         player.isMuted = true
         playerLayer.player = player
         playerLayer.videoGravity = .resizeAspectFill
         layer.addSublayer(playerLayer)
-        // Setup looping
-        player.actionAtItemEnd = .none
+        playerLayer.drawsAsynchronously = true
+        
+        let assets = videoAssetUrls.map { AVURLAsset(url: $0) }
+        assets.forEach { player.insert(AVPlayerItem(asset: $0), after: nil) }
+        
+        player.actionAtItemEnd = .advance
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(playerItemDidReachEnd(notification:)),
                                                name: .AVPlayerItemDidPlayToEndTime,
@@ -58,6 +59,6 @@ class LoopingPlayerUIView: UIView {
     
     @objc
         func playerItemDidReachEnd(notification: Notification) {
-            playerLayer.player?.seek(to: CMTime.zero)
+            player.seek(to: CMTime.zero)
         }
 }
