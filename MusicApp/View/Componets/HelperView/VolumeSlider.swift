@@ -1,5 +1,5 @@
 //
-//  VolumeViewRepresentable.swift
+//  VolumeSlider.swift
 //  MusicApp
 //
 //  Created by Eduard Caziuc on 26.04.2022.

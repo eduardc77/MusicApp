@@ -10,11 +10,10 @@ import AVKit
 
 struct ArtistDetailView: View {
     @Environment(\.dismiss) private var dismiss
-    
     @StateObject private var artistObservableObject = ArtistViewObservableObject()
+    @State var navigationHidden: Bool = true
     
     let media: Media
-    @State var navigationHidden: Bool = true
     
     var body: some View {
         ZStack {
@@ -22,13 +21,13 @@ struct ArtistDetailView: View {
                 LoadingView()
             } else {
                 ScrollView(.vertical, showsIndicators: false) {
-                    VStack {
+                    Group {
                         if let recentAlbum = artistObservableObject.albums.first {
                             ZStack(alignment: Alignment(horizontal: .leading, vertical: .bottom)) {
-                                if let videoAssetUrl = artistObservableObject.musicVideos.first?.previewUrl {
-                                    VideoHeaderImageView(videoAssetUrl: videoAssetUrl)
+                                if let videoAssetUrl = artistVideoPreviewUrl {
+                                    MediaPreviewHeader(videoAssetUrl: videoAssetUrl)
                                 } else {
-                                    HeaderImageView(imagePath: recentAlbum.artworkPath)
+                                    MediaPreviewHeader(imagePath: recentAlbum.artworkPath)
                                 }
                                 
                                 Text(media.artistName)
@@ -55,19 +54,19 @@ struct ArtistDetailView: View {
                     .background(
                         GeometryReader { proxy in
                             Color.clear.preference(
-                                key: ScrollViewOffsetPreferenceKey.self.self,
+                                key: ScrollViewOffsetPreferenceKey.self,
                                 value: -1 * proxy.frame(in: .named("scroll")).origin.y
                             )
                         }
                     )
                     .onPreferenceChange(ScrollViewOffsetPreferenceKey.self) { value in
-                        navigationHidden = value > 180 ? false : true
+                        navigationHidden = value > 200 ? false : true
                     }
-                    
                 }
                 .coordinateSpace(name: "scroll")
-                .navigationBarHidden(navigationHidden)
                 .navigationTitle(media.artistName)
+                .navigationBarHidden(navigationHidden)
+                
             }
         }
         .onAppear {
@@ -80,6 +79,11 @@ struct ArtistDetailView: View {
         } cancel: {
             dismiss()
         }
+    }
+    
+    var artistVideoPreviewUrl: URL? {
+        guard let artistVideoPreviewUrl = artistObservableObject.musicVideos.first(where: { $0.artistName == media.artistName })?.previewUrl else { return nil }
+        return artistVideoPreviewUrl
     }
 }
 
