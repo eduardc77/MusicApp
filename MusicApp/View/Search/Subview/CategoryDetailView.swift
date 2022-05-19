@@ -19,9 +19,9 @@ struct CategoryDetailView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.horizontal)
                 
-                HighlightsView(items: selectedMusic[category.tag], imageSize: .large, rowCount: 2)
+                HighlightsView(items: selectedMusic[category.tag], imageSize: .highlight, rowCount: 2)
                 
-                HorizontalMediaGridView(mediaItems: musicPlaylists, title: "Best \(category.title) Music", imageSize: .medium)
+                HorizontalMediaGridView(mediaItems: musicPlaylists, title: "Best \(category.title) Music", imageSize: .album)
                 //               mediaItems: musicPlaylists[category.tag]
                     .navigationBarTitleDisplayMode(.inline)
             }

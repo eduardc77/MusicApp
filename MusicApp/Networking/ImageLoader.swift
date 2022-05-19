@@ -29,7 +29,7 @@ public final class ImageLoader: ImageLoaderProtocol {
         
         let request = URLRequest(url: url)
         guard let data = cache?.cachedResponse(for: request)?.data, let image = UIImage(data: data) else {
-            request.print()
+//            request.print()
             
             return try await loadAndCacheImage(with: request)
         }

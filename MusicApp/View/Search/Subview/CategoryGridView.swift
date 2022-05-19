@@ -8,16 +8,14 @@
 import SwiftUI
 
 struct CategoryGridView: View {
-    @Environment(\.isSearching) private var isSearching
+
     @State var categories = searchCategories
     var columns: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
     
     var body: some View {
-        GeometryReader { geometry in
+ 
             ScrollView {
-                if !isSearching {
                     Divider().padding(.horizontal)
-                }
                 
                 Text("Browse Categories")
                     .font(.title2).bold()
@@ -29,7 +27,10 @@ struct CategoryGridView: View {
                         NavigationLink(destination: CategoryDetailView(category: category))
                         {
                             ZStack(alignment: Alignment(horizontal: .leading, vertical: .bottom)) {
-                                MediaImageView(artworkImage: UIImage(named: category.image), size: Size(width: geometry.size.width / 2.29, height: nil), cornerRadius: 8, contentMode: .fill)
+                                MediaImageView(artworkImage: UIImage(named: category.image),
+                                               size: Size(width: Metric.categoryRowItemWidth, height: Metric.categoryRowItemHeight),
+                                               cornerRadius: 8,
+                                               contentMode: .fill)
                                 
                                 Text(category.title)
                                     .padding(10)
@@ -42,7 +43,7 @@ struct CategoryGridView: View {
                 .padding(.horizontal)
                 
                 Spacer(minLength: Metric.playerHeight) 
-            }
+            
         }
     }
 }

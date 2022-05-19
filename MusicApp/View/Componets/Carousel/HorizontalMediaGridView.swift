@@ -10,23 +10,25 @@ import SwiftUI
 struct HorizontalMediaGridView: View {
     @State var mediaItems = [Media]()
     var title: String
-    var imageSize: ImageSizeType
+    var imageSize: SizeType
     var gridRows: [GridItem]
     var maxHighlightShowing: Int
     
-    init(mediaItems: [Media], title: String = "", imageSize: ImageSizeType, rowCount: Int = 1, maxHighlightShowing: Int = 8) {
+    init(mediaItems: [Media], title: String = "", imageSize: SizeType, rowCount: Int = 1, maxHighlightShowing: Int = 8) {
         self.mediaItems = mediaItems
         self.title = title
         self.imageSize = imageSize
         self.maxHighlightShowing = maxHighlightShowing
         
         switch imageSize {
-        case .small:
-            gridRows = Array(repeating: .init(.flexible(minimum: Metric.smallRowItemHeight), spacing: 0), count: rowCount)
-        case .medium:
-            gridRows = Array(repeating: .init(.flexible(minimum: Metric.mediumRowItemHeight), spacing: 10), count: rowCount)
-        case .large:
+        case .track:
+            gridRows = Array(repeating: .init(.flexible(minimum: Metric.trackRowItemHeight), spacing: 0), count: rowCount)
+        case .album:
+            gridRows = Array(repeating: .init(.flexible(minimum: Metric.albumRowItemHeight), spacing: 8), count: rowCount)
+        case .musicVideoItem:
             gridRows = Array(repeating: .init(.flexible(minimum: Metric.largeRowItemHeight), spacing: 8), count: rowCount)
+        default:
+            gridRows = Array(repeating: .init(.flexible(minimum: Metric.albumRowItemHeight), spacing: 10), count: rowCount)
         }
     }
     
@@ -42,21 +44,22 @@ struct HorizontalMediaGridView: View {
                     
                     if mediaItems.count > maxHighlightShowing {
                         NavigationLink {
-                            switch mediaItems.first?.kind {
-                            case .album, .musicVideo:
-                                VerticalMediaGridView(mediaItems: mediaItems, imageSize: .medium, rowCount: 2)
+                            switch imageSize {
+                            case .track:
+                                VerticalMediaGridView(mediaItems: mediaItems, imageSize: .track, rowCount: 1)
                                     .navigationTitle(title)
                                     .navigationBarTitleDisplayMode(.inline)
-                            case .song:
-                                VerticalMediaGridView(mediaItems: mediaItems, imageSize: .small, rowCount: 1)
+                            case .album:
+                                VerticalMediaGridView(mediaItems: mediaItems, imageSize: .album, rowCount: 2)
                                     .navigationTitle(title)
                                     .navigationBarTitleDisplayMode(.inline)
-                            case .artist:
-                                VerticalMediaGridView(mediaItems: mediaItems, imageSize: .small, rowCount: 1)
+                            case .musicVideoItem:
+                                VerticalMediaGridView(mediaItems: mediaItems, imageSize: .musicVideoRow, rowCount: 2)
                                     .navigationTitle(title)
                                     .navigationBarTitleDisplayMode(.inline)
+                    
                             default:
-                                VerticalMediaGridView(mediaItems: mediaItems, imageSize: .small, rowCount: 1)
+                                VerticalMediaGridView(mediaItems: mediaItems, imageSize: .track, rowCount: 1)
                                     .navigationTitle(title)
                                     .navigationBarTitleDisplayMode(.inline)
                             }
@@ -74,12 +77,13 @@ struct HorizontalMediaGridView: View {
                     ForEach(mediaItems.prefix(maxHighlightShowing), id: \.id) { media in
                         
                         switch imageSize {
-                        case .small:
-                            SmallMediaRow(media: media)
-                        case .medium:
-                            MediumMediaItem(media: media)
-                        case .large:
-                            LargeMediaItem(media: media)
+                        case .track:
+                            TrackMediaRow(media: media)
+                        case .album:
+                            AlbumMediaItem(media: media)
+                        case .musicVideoItem:
+                            VideoMediaItem(media: media)
+                        default: AlbumMediaItem(media: media)
                         }
                     }
                 }
@@ -96,6 +100,6 @@ struct HorizontalMediaGridView: View {
 
 struct HorizontalMusicListView_Previews: PreviewProvider {
     static var previews: some View {
-        HorizontalMediaGridView(mediaItems: musicPlaylists, title: "You Gotta Hear This", imageSize: .medium, rowCount: 1)
+        HorizontalMediaGridView(mediaItems: musicPlaylists, title: "You Gotta Hear This", imageSize: .album, rowCount: 1)
     }
 }

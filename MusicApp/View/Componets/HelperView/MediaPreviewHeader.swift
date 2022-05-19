@@ -18,7 +18,7 @@ struct MediaPreviewHeader: View {
     
     var body: some View {
         GeometryReader { proxy in
-            if proxy.frame(in: .global).minY > -320 {
+            if proxy.frame(in: .global).minY > -Metric.mediaPreviewHeaderHeight {
                 Group {
                     if let videoAssetUrls = videoAssetUrls {
                         VideoHeaderView(videoAssetUrls: videoAssetUrls)
@@ -26,12 +26,12 @@ struct MediaPreviewHeader: View {
                         MediaImageView(imagePath: imagePath?.resizedPath(size: 600), contentMode: .fill)
                     }
                 }
-                
+                .offset(y: offsetY(proxy: proxy))
                 .frame(width: Metric.screenWidth, height: parallaxHeight(proxy: proxy))
             }
         }
-        .frame(height: 320)
-        
+        .frame(height: Metric.mediaPreviewHeaderHeight)
+        .ignoresSafeArea()
     }
 }
 
@@ -41,7 +41,7 @@ private extension MediaPreviewHeader {
     }
     
     func parallaxHeight(proxy: GeometryProxy) -> CGFloat {
-        proxy.frame(in: .global).minY > 0 ? proxy.frame(in: .global).minY + 320 : 320
+        proxy.frame(in: .global).minY > 0 ? proxy.frame(in: .global).minY + Metric.mediaPreviewHeaderHeight : Metric.mediaPreviewHeaderHeight
     }
 }
 

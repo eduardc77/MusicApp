@@ -26,6 +26,7 @@ struct ArtistDetailView: View {
                             ZStack(alignment: Alignment(horizontal: .leading, vertical: .bottom)) {
                                 if let videoAssetUrls = artistVideoPreviewUrls {
                                     MediaPreviewHeader(videoAssetUrls: videoAssetUrls)
+                                    
                                 } else {
                                     MediaPreviewHeader(imagePath: recentAlbum.artworkPath)
                                 }
@@ -34,23 +35,25 @@ struct ArtistDetailView: View {
                                     .padding(12)
                                     .foregroundColor(.white)
                                     .font(.largeTitle.bold())
+                                
                             }
-                            
+                 
                             VStack {
                                 MediumMediaRow(media: recentAlbum, action: {})
                                     .padding(.top)
-                                HorizontalMediaGridView(mediaItems: artistObservableObject.songs, title: "Top Songs", imageSize: .small, rowCount: 4)
+                                HorizontalMediaGridView(mediaItems: artistObservableObject.songs, title: "Top Songs", imageSize: .track, rowCount: 4)
                                     .padding(.top)
                                 
-                                HorizontalMediaGridView(mediaItems: artistObservableObject.albums, title: "Albums", imageSize: .medium)
+                                HorizontalMediaGridView(mediaItems: artistObservableObject.albums, title: "Albums", imageSize: .album)
                                 
-                                HorizontalMediaGridView(mediaItems: artistObservableObject.musicVideos, title: "Music Videos", imageSize: .large)
+                                HorizontalMediaGridView(mediaItems: artistObservableObject.musicVideos, title: "Music Videos", imageSize: .musicVideoItem)
                             }
                             .background()
                             
                             Spacer(minLength: Metric.playerHeight)
                         }
                     }
+                    
                     .background(
                         GeometryReader { proxy in
                             Color.clear.preference(
@@ -60,17 +63,52 @@ struct ArtistDetailView: View {
                         }
                     )
                     .onPreferenceChange(ScrollViewOffsetPreferenceKey.self) { value in
-                        navigationHidden = value > 200 ? false : true
+                        navigationHidden = value > Metric.mediaPreviewHeaderHeight - 50 ? false : true
                     }
                 }
-                .coordinateSpace(name: "scroll")
-                .navigationTitle(media.artistName)
                 .navigationBarHidden(navigationHidden)
+                .navigationTitle(media.artistName)
+                .coordinateSpace(name: "scroll")
                 
+                .overlay {
+                    ZStack(alignment: .top) {
+                        HStack {
+                            Button { dismiss() } label: {
+                                Image(systemName: "chevron.left.circle.fill")
+                                    .resizable()
+                                    .frame(width: 26, height: 26)
+                                    .foregroundStyle(.white, .black.opacity(0.4))
+                            }
+                            
+                            Spacer()
+                            
+                            Button { } label: {
+                                Image(systemName: "ellipsis.circle.fill")
+                                    .resizable()
+                                    .frame(width: 26, height: 26)
+                                    .foregroundStyle(.white, .black.opacity(0.4))
+                            }
+                        }
+                    }
+                    .offset(y: -Metric.mediaPreviewHeaderHeight + 16)
+                    .padding(.horizontal, 6)
+                    .padding(.trailing, 8)
+                    .opacity(navigationHidden ? 1 : 0)
+                }
             }
+            
         }
         .onAppear {
             artistObservableObject.fetchAllArtistMedia(for: media.id)
+        }
+        
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button { } label: {
+                    Image(systemName: "ellipsis")
+                        .font(.footnote)
+                }
+            }
         }
         
         .errorAlert(errorState: $artistObservableObject.errorState) {
@@ -85,10 +123,10 @@ struct ArtistDetailView: View {
         let artistMusicVideos = artistObservableObject.musicVideos.filter { $0.artistName == media.artistName }
         var artistVideoPreviewUrls = [URL]()
         
-         artistMusicVideos.prefix(3).forEach { musicVideo in
-             artistVideoPreviewUrls.append(musicVideo.previewUrl)
+        artistMusicVideos.prefix(3).forEach { musicVideo in
+            artistVideoPreviewUrls.append(musicVideo.previewUrl)
         }
-      
+        
         return artistVideoPreviewUrls
     }
 }

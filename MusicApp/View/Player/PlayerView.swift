@@ -31,7 +31,7 @@ struct PlayerView: View {
                         playerObservableObject.videoPlayer
 
                     } else {
-                        MediaImageView(imagePath: playerObservableObject.nowPlayingItem?.artworkPath.resizedPath(size: 600), artworkImage: playerObservableObject.nowPlayingItem?.artwork, size: Size(width: playerObservableObject.expand ? Metric.largeMediaImageSize : Metric.smallCarouselImageSize, height: playerObservableObject.expand ? Metric.largeMediaImageSize : Metric.smallCarouselImageSize), cornerRadius: playerObservableObject.expand ? 10 : Metric.defaultCornerRadius, shadowProminence: playerObservableObject.expand ? .full : .none, visibleSide: $visibleSide)
+                        MediaImageView(imagePath: playerObservableObject.nowPlayingItem?.artworkPath.resizedPath(size: 600), artworkImage: playerObservableObject.nowPlayingItem?.artwork, size: Size(width: playerObservableObject.expand ? Metric.largeMediaImageSize : Metric.trackCarouselImageSize, height: playerObservableObject.expand ? Metric.largeMediaImageSize : Metric.trackCarouselImageSize), cornerRadius: playerObservableObject.expand ? 10 : Metric.defaultCornerRadius, shadowProminence: playerObservableObject.expand ? .full : .none, visibleSide: $visibleSide)
                             .scaleEffect((playerObservableObject.playbackState == .playing && playerObservableObject.expand) ? 1.33 : 1)
                             .animation(.spring(response: 0.5, dampingFraction: 0.5, blendDuration: 0.3), value: playerObservableObject.playbackState)
                         

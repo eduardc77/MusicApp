@@ -39,7 +39,7 @@ var searchCategories = [
     SearchCategoryModel(image: "category1", title: "Music Video", tag: 20),
     SearchCategoryModel(image: "category2", title: "Jazz", tag: 21),
     SearchCategoryModel(image: "category3", title: "Commuting", tag: 22),
-    SearchCategoryModel(image: "category4", title: "Acoutic", tag: 23),
+    SearchCategoryModel(image: "category4", title: "Acoustic", tag: 23),
     SearchCategoryModel(image: "category5", title: "Metal", tag: 24),
     SearchCategoryModel(image: "category6", title: "Classic Rock", tag: 25),
     SearchCategoryModel(image: "category7", title: "K-Pop", tag: 26),

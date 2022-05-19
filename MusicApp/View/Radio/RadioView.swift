@@ -15,11 +15,11 @@ struct RadioView: View {
                 Divider()
                     .padding(.horizontal)
                 
-                HighlightsView(items: selectedStations, imageSize: .large)
+                HighlightsView(items: selectedStations, imageSize: .highlight)
                 
-                HorizontalMediaGridView(mediaItems: musicPlaylists2, title: "Our Radio Hosts", imageSize: .medium)
+                HorizontalMediaGridView(mediaItems: musicPlaylists2, title: "Our Radio Hosts", imageSize: .album)
                 
-                HorizontalMediaGridView(mediaItems: musicPlaylists, title: "New Episodes", imageSize: .small, rowCount: 4)
+                HorizontalMediaGridView(mediaItems: musicPlaylists, title: "New Episodes", imageSize: .track, rowCount: 4)
                 
                 Spacer(minLength: Metric.playerHeight)
             }

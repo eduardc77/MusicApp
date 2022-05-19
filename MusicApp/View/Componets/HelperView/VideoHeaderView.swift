@@ -33,8 +33,7 @@ class LoopingPlayerUIView: UIView {
     init(videoAssetUrls: [URL]) {
         super.init(frame: .zero)
         
-        
-        player.rate = 1.6
+        player.rate = 1.4
         player.isMuted = true
         playerLayer.player = player
         playerLayer.videoGravity = .resizeAspectFill

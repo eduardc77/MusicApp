@@ -57,7 +57,7 @@ struct MediaImageView: View {
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .foregroundColor(Color.secondary.opacity(0.3))
-                            .frame(width: (size.height ?? Metric.mediumCarouselImageSize) / 1.6, height: (size.height ?? Metric.mediumCarouselImageSize) / 1.6)
+                            .frame(width: (size.height ?? Metric.albumCarouselImageSize) / 1.6, height: (size.height ?? Metric.albumCarouselImageSize) / 1.6)
                     }
                 }
             }
@@ -82,7 +82,7 @@ struct MediaImageView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .foregroundColor(Color.secondary.opacity(0.3))
-                    .frame(width: (size.height ?? Metric.mediumCarouselImageSize) / 1.6, height: (size.height ?? Metric.mediumCarouselImageSize) / 1.6)
+                    .frame(width: (size.height ?? Metric.albumCarouselImageSize) / 1.6, height: (size.height ?? Metric.albumCarouselImageSize) / 1.6)
             }
         }
         .contentShape(Rectangle())

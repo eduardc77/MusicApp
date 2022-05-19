@@ -15,15 +15,15 @@ struct ListenNowView: View {
                     .padding(.horizontal)
                 
                 VStack {
-                    HighlightsView(items: selectedStations, imageSize: .large)
+                    HighlightsView(items: selectedStations, imageSize: .highlight)
                     
-                    HorizontalMediaGridView(mediaItems: musicPlaylists, title: "Best New Songs", imageSize: .small, rowCount: 4)
+                    HorizontalMediaGridView(mediaItems: musicPlaylists, title: "Best New Songs", imageSize: .track, rowCount: 4)
                     
-                    HorizontalMediaGridView(mediaItems: musicPlaylists, title: "You Gotta Hear", imageSize: .medium, rowCount: 1)
+                    HorizontalMediaGridView(mediaItems: musicPlaylists, title: "You Gotta Hear", imageSize: .album, rowCount: 1)
                     
-                    HorizontalMediaGridView(mediaItems: musicPlaylists, title: "Stations for You", imageSize: .small, rowCount: 4)
+                    HorizontalMediaGridView(mediaItems: musicPlaylists, title: "Stations for You", imageSize: .track, rowCount: 4)
                     
-                    HorizontalMediaGridView(mediaItems: musicPlaylists, title: "New Music", imageSize: .medium, rowCount: 2)
+                    HorizontalMediaGridView(mediaItems: musicPlaylists, title: "New Music", imageSize: .album, rowCount: 2)
                 }
                 
                 Spacer(minLength: Metric.playerHeight)

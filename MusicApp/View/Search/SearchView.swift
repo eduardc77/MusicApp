@@ -49,6 +49,8 @@ struct SearchView: View {
             } else {
                 SearchResultsView(searchObservableObject: searchObservableObject)
             }
+            
+            Divider().padding(.horizontal)
         }
     }
 }

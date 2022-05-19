@@ -11,21 +11,22 @@ struct HighlightsView: View {
     @State var items = [LargePictureModel]()
     @State var currentIndex: Int = 0
     
-    var imageSize: ImageSizeType
+    var imageSize: SizeType
     var rowCount: Int = 1
     var gridRows: [GridItem]
     
-    init(items: [LargePictureModel], imageSize: ImageSizeType, rowCount: Int = 1) {
+    init(items: [LargePictureModel], imageSize: SizeType, rowCount: Int = 1) {
         self.items = items
         self.imageSize = imageSize
         
         switch imageSize {
-        case .small:
-            gridRows = Array(repeating: .init(.fixed(Metric.smallRowItemHeight)), count: rowCount)
-        case .medium:
-            gridRows = Array(repeating: .init(.fixed(Metric.mediumRowItemHeight)), count: rowCount)
-        case .large:
+        case .track:
+            gridRows = Array(repeating: .init(.fixed(Metric.trackRowItemHeight)), count: rowCount)
+        case .album:
+            gridRows = Array(repeating: .init(.fixed(Metric.albumRowItemHeight)), count: rowCount)
+        case .highlight:
             gridRows = Array(repeating: .init(.fixed(Metric.highlightCarouselItemHeight)), count: rowCount)
+        default: gridRows = Array(repeating: .init(.fixed(Metric.albumRowItemHeight)), count: rowCount)
         }
     }
     
@@ -36,12 +37,13 @@ struct HighlightsView: View {
                 let media = Media(mediaResponse: MediaResponse(id: UUID().uuidString, artistId: nil, collectionId: nil, trackId: nil, wrapperType: WrapperType.collection.rawValue, kind: MediaKind.podcast.rawValue, name: item.name, artistName: item.description, collectionName: "podcast", trackName: item.description, collectionCensoredName: nil, artistViewUrl: nil, collectionViewUrl: nil, trackViewUrl: nil, previewUrl: nil, artworkUrl100: nil, collectionPrice: nil, collectionHdPrice: nil, trackPrice: nil, collectionExplicitness: nil, trackExplicitness: nil, discCount: nil, discNumber: nil, trackCount: nil, trackNumber: nil, trackTimeMillis: nil, country: nil, currency: nil, primaryGenreName: nil, description: nil, longDescription: nil, releaseDate: nil, contentAdvisoryRating: nil, trackRentalPrice: nil, artwork: UIImage(named: item.image), composer: nil, isCompilation: nil, dateAdded: nil))
                 
                 switch imageSize {
-                case .small:
-                    SmallMediaRow(media: media)
-                case .medium:
-                    MediumMediaItem(media: media)
-                case .large:
+                case .track:
+                    TrackMediaRow(media: media)
+                case .album:
+                    AlbumMediaItem(media: media)
+                case .highlight:
                     HighlightMediaItem(media: media)
+                default: AlbumMediaItem(media: media)
                 }
             }
             .padding(.horizontal)
@@ -57,6 +59,6 @@ struct HighlightsView: View {
 
 struct HighlightsView_Previews: PreviewProvider {
     static var previews: some View {
-        HighlightsView(items: selectedStations, imageSize: .large)
+        HighlightsView(items: selectedStations, imageSize: .musicVideoItem)
     }
 }

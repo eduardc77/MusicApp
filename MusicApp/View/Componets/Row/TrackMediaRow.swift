@@ -1,5 +1,5 @@
 //
-//  SmallMediaRow.swift
+//  TrackMediaRow.swift
 //  MusicApp
 //
 //  Created by Eduard Caziuc on 25.04.2022.
@@ -8,7 +8,7 @@
 import SwiftUI
 import MediaPlayer
 
-struct SmallMediaRow: View {
+struct TrackMediaRow: View {
     var media: Media
 
     var body: some View {
@@ -18,9 +18,9 @@ struct SmallMediaRow: View {
             
             HStack(spacing: 14) {
                 if let uiImage = media.artwork {
-                    MediaImageView(artworkImage: uiImage, size: Size(width: Metric.smallCarouselImageSize, height: Metric.smallCarouselImageSize))
+                    MediaImageView(artworkImage: uiImage, size: Size(width: Metric.trackCarouselImageSize, height: Metric.trackCarouselImageSize))
                 } else {
-                    MediaImageView(imagePath: media.artworkPath.resizedPath(size: 160), size: Size(width: Metric.smallCarouselImageSize, height: Metric.smallCarouselImageSize))
+                    MediaImageView(imagePath: media.artworkPath.resizedPath(size: 160), size: Size(width: Metric.trackCarouselImageSize, height: Metric.trackCarouselImageSize))
                 }
                 
                 HStack {
@@ -48,7 +48,7 @@ struct SmallMediaRow: View {
                 MPMusicPlayerController.applicationMusicPlayer.play()
             }
         }
-        .frame(width: Metric.screenWidth - 34, height: 55)
+        .frame(width: Metric.largeCarouselItemWidth, height: 55)
     }
 }
 

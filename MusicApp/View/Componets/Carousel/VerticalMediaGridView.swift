@@ -12,20 +12,23 @@ struct VerticalMediaGridView: View {
     @State var mediaItems = [Media]()
     
     var title: String
-    var imageSize: ImageSizeType
+    var imageSize: SizeType
     var columns: [GridItem]
     var gridSpacing: CGFloat?
     
-    init(mediaItems: [Media], title: String = "", imageSize: ImageSizeType, rowCount: Int = 1) {
+    init(mediaItems: [Media], title: String = "", imageSize: SizeType, rowCount: Int = 1) {
         self.mediaItems = mediaItems
         self.title = title
         self.imageSize = imageSize
         
         switch imageSize {
-        case .small:
-            columns = Array(repeating: .init(.flexible(), alignment: .leading), count: rowCount)
+        case .track:
+            columns = Array(repeating: .init(.flexible()), count: rowCount)
             gridSpacing = 0
-        case .medium, .large:
+        case .album, .musicVideoItem:
+            columns = Array(repeating: .init(.flexible(), spacing: 12), count: rowCount)
+            gridSpacing = 12
+        default:
             columns = Array(repeating: .init(.flexible(), spacing: 10), count: rowCount)
             gridSpacing = 12
         }
@@ -42,34 +45,17 @@ struct VerticalMediaGridView: View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: gridSpacing) {
                 ForEach(Array(zip(mediaItems.indices, mediaItems)), id: \.0) { _, media in
-                    switch media.wrapperType {
-                    case .collection:
-                        NavigationLink(destination: AlbumDetailView(media: media, searchObservableObject: SearchObservableObject())) {
-                            switch imageSize {
-                            case .small:
-                                SmallMediaRow(media: media)
-                            case .medium:
-                                MediumMediaItem(media: media)
-                            case .large:
-                                LargeMediaItem(media: media)
-                            }
-                        }
-                        
+                    switch imageSize {
                     case .track:
-                        SmallMediaRow(media: media)
-                           
-                    case .artist:
-                        NavigationLink(destination: AlbumDetailView(media: media, searchObservableObject: SearchObservableObject())) {
-                            switch imageSize {
-                            case .small:
-                                SmallMediaRow(media: media)
-                            case .medium:
-                                MediumMediaItem(media: media)
-                            case .large:
-                                LargeMediaItem(media: media)
-                            }
-                        }
+                        TrackMediaRow(media: media)
+                    case .album:
+                        AlbumMediaItem(media: media)
+                    case .musicVideoRow:
+                        VideoMediaRow(media: media)
+                    default:
+                        VideoMediaItem(media: media)
                     }
+                    
                 }
             }
             .padding(.horizontal)

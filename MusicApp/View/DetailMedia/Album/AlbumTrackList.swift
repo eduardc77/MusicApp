@@ -13,8 +13,6 @@ struct AlbumTrackList: View {
     @State private var playingStarted: Bool = false
     
     var body: some View {
-        
-        
         VStack(alignment: .leading) {
             ForEach(0 ..< albumDetailObservableObject.trackCount, id: \.self) { trackIndex in
                 HStack {
@@ -60,6 +58,7 @@ struct AlbumTrackList: View {
                         albumDetailObservableObject.playTrack(at: trackIndex)
                         playing.0 = trackIndex
                         playing.1.toggle()
+                        
                         playingStarted = true
                     }
                 }

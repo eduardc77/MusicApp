@@ -11,10 +11,10 @@ import MediaPlayer
 struct SearchListView: View {
     @ObservedObject var searchObservableObject: SearchObservableObject
     @StateObject var playerObservableObject: PlayerObservableObject = PlayerObservableObject()
-    @State private var selectedIndex = 0
+    @State var selectedIndex = 0
     
     var player: MPMusicPlayerController = MPMusicPlayerController.applicationMusicPlayer
-    var columns = [GridItem(.flexible(), alignment: .leading)]
+    var columns = [GridItem(.flexible(), spacing: 12)]
     
     var body: some View {
         ScrollView {
@@ -23,6 +23,8 @@ struct SearchListView: View {
                     .padding(.horizontal)
                 
                 ForEach(searchObservableObject.searchResults, id: \.id) { media in
+                    Spacer(minLength: 12)
+                    
                     switch media.wrapperType {
                     case .collection:
                         SearchWrapperRow(media: media, destinationView: AlbumDetailView(media: media, searchObservableObject: searchObservableObject))
@@ -40,7 +42,6 @@ struct SearchListView: View {
                 Spacer(minLength: Metric.playerHeight)
             }
         }
-        
         .safeAreaInset(edge: .top) {
             Group {
                 Picker("Search In", selection: $selectedIndex) {
