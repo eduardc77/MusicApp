@@ -77,7 +77,6 @@
 		EAD15313280D581B005FD971 /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD15312280D581B005FD971 /* Media.swift */; };
 		EAD15315280D5835005FD971 /* MediaKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD15314280D5835005FD971 /* MediaKind.swift */; };
 		EAD15319280D5883005FD971 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD15318280D5883005FD971 /* ImageLoader.swift */; };
-		EAD1531E280D58ED005FD971 /* LargePictureModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD1531D280D58ED005FD971 /* LargePictureModel.swift */; };
 		EAD15320280D5901005FD971 /* SmallPictureModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD1531F280D5901005FD971 /* SmallPictureModel.swift */; };
 		EAD15322280D5A84005FD971 /* SearchCategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD15321280D5A84005FD971 /* SearchCategoryModel.swift */; };
 		EAD15325280D5AFD005FD971 /* HighlightsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD15324280D5AFD005FD971 /* HighlightsView.swift */; };
@@ -108,6 +107,8 @@
 		EAD15371280D6403005FD971 /* Collection+Grouped.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD15370280D6403005FD971 /* Collection+Grouped.swift */; };
 		EAD15373280D640E005FD971 /* Date+DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD15372280D640E005FD971 /* Date+DateFormatter.swift */; };
 		EAD15375280D6416005FD971 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD15374280D6416005FD971 /* String+Extension.swift */; };
+		EAE825D028382313008F59F2 /* MarqueeText.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE825CF28382313008F59F2 /* MarqueeText.swift */; };
+		EAE825D228382962008F59F2 /* LargePictureModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE825D128382962008F59F2 /* LargePictureModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -182,7 +183,6 @@
 		EAD15312280D581B005FD971 /* Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
 		EAD15314280D5835005FD971 /* MediaKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaKind.swift; sourceTree = "<group>"; };
 		EAD15318280D5883005FD971 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
-		EAD1531D280D58ED005FD971 /* LargePictureModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargePictureModel.swift; sourceTree = "<group>"; };
 		EAD1531F280D5901005FD971 /* SmallPictureModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallPictureModel.swift; sourceTree = "<group>"; };
 		EAD15321280D5A84005FD971 /* SearchCategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCategoryModel.swift; sourceTree = "<group>"; };
 		EAD15324280D5AFD005FD971 /* HighlightsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightsView.swift; sourceTree = "<group>"; };
@@ -213,6 +213,8 @@
 		EAD15370280D6403005FD971 /* Collection+Grouped.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Grouped.swift"; sourceTree = "<group>"; };
 		EAD15372280D640E005FD971 /* Date+DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+DateFormatter.swift"; sourceTree = "<group>"; };
 		EAD15374280D6416005FD971 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		EAE825CF28382313008F59F2 /* MarqueeText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarqueeText.swift; sourceTree = "<group>"; };
+		EAE825D128382962008F59F2 /* LargePictureModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LargePictureModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -288,6 +290,7 @@
 				EAA2660A2829B3B90035D9E1 /* MediaPreviewHeader.swift */,
 				EA59D31328135B4C00D58213 /* BlurView.swift */,
 				EA23ED122815C8290040BB58 /* SnapCarousel.swift */,
+				EAE825CF28382313008F59F2 /* MarqueeText.swift */,
 				EA3FA3542817783B00F84B09 /* VolumeSlider.swift */,
 				DD6F4CB82833B46C0006FB28 /* VideoHeaderView.swift */,
 				EA099EC12821C0090021EA33 /* NowPlayingEqualizerBars.swift */,
@@ -470,8 +473,8 @@
 		EAD1531A280D589D005FD971 /* Remove These */ = {
 			isa = PBXGroup;
 			children = (
-				EAD1531D280D58ED005FD971 /* LargePictureModel.swift */,
 				EAD1531F280D5901005FD971 /* SmallPictureModel.swift */,
+				EAE825D128382962008F59F2 /* LargePictureModel.swift */,
 				EAD15321280D5A84005FD971 /* SearchCategoryModel.swift */,
 			);
 			path = "Remove These";
@@ -755,8 +758,10 @@
 				EAD1535D280D6252005FD971 /* CoreDataManager.swift in Sources */,
 				EAD15305280D56A9005FD971 /* MusicApp.xcdatamodeld in Sources */,
 				EAD15341280D5CDB005FD971 /* BrowseView.swift in Sources */,
+				EAE825D028382313008F59F2 /* MarqueeText.swift in Sources */,
 				EAD1535A280D5E8B005FD971 /* LibraryListView.swift in Sources */,
 				EAC53D7728145C7B00785395 /* Enum+Extension.swift in Sources */,
+				EAE825D228382962008F59F2 /* LargePictureModel.swift in Sources */,
 				EAD15373280D640E005FD971 /* Date+DateFormatter.swift in Sources */,
 				EAA265F42829A25B0035D9E1 /* URLRequest+Extension.swift in Sources */,
 				EAD01E9A28233CCB00B01F07 /* NavigationLinkList.swift in Sources */,
@@ -775,7 +780,6 @@
 				EAD15320280D5901005FD971 /* SmallPictureModel.swift in Sources */,
 				EAD15366280D6379005FD971 /* NetworkService.swift in Sources */,
 				EAA265FB2829A50D0035D9E1 /* ErrorPresenter.swift in Sources */,
-				EAD1531E280D58ED005FD971 /* LargePictureModel.swift in Sources */,
 				EA1BE0CC281DC80900A3A7A4 /* LibraryListDetailView.swift in Sources */,
 				EAD01E8D2823197200B01F07 /* RowButton.swift in Sources */,
 				EA23ECF128156AD40040BB58 /* UIImage+Extension.swift in Sources */,

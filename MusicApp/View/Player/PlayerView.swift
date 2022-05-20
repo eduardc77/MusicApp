@@ -29,7 +29,7 @@ struct PlayerView: View {
                     if playerObservableObject.expand { Spacer() }
                     if playerObservableObject.playerType == .video {
                         playerObservableObject.videoPlayer
-
+                        
                     } else {
                         MediaImageView(imagePath: playerObservableObject.nowPlayingItem?.artworkPath.resizedPath(size: 600), artworkImage: playerObservableObject.nowPlayingItem?.artwork, size: Size(width: playerObservableObject.expand ? Metric.largeMediaImageSize : Metric.trackCarouselImageSize, height: playerObservableObject.expand ? Metric.largeMediaImageSize : Metric.trackCarouselImageSize), cornerRadius: playerObservableObject.expand ? 10 : Metric.defaultCornerRadius, shadowProminence: playerObservableObject.expand ? .full : .none, visibleSide: $visibleSide)
                             .scaleEffect((playerObservableObject.playbackState == .playing && playerObservableObject.expand) ? 1.33 : 1)
@@ -88,22 +88,32 @@ struct PlayerView: View {
                 VStack {
                     HStack {
                         VStack(alignment: .leading) {
-                            Text(playerObservableObject.nowPlayingItem?.trackName ?? "Not Playing")
-                                .font(.title2).bold()
-                                .foregroundColor(.white.opacity(0.9))
+                            if let trackName = playerObservableObject.nowPlayingItem?.trackName, trackName.widthOfString(usingFont: UIFont.preferredFont(forTextStyle: .title2)) > Metric.screenWidth / 1.5 {
+                                MarqueeText(text: trackName)
+                                    .padding(.leading, 6)
+                            } else {
+                                Text(playerObservableObject.nowPlayingItem?.trackName ?? "Not Playing)")
+                                    .font(.title2).bold()
+                                    .foregroundColor(.white.opacity(0.9))
+                                    .padding(.leading, 30)
+                                
+                            }
                             Text(playerObservableObject.nowPlayingItem?.artistName ?? "")
                                 .foregroundColor(.lightGrayColor)
                                 .font(.title2)
+                                .padding(.leading, 30)
                         }
                         Spacer()
                         
-                        Button(action: {}) {
+                        Button(action: { }) {
                             Image(systemName: "ellipsis.circle.fill")
                                 .font(.title)
                                 .foregroundStyle(.white, Color.lightGrayColor3)
                         }
+                        .padding(.trailing, 30)
+                        .padding(.leading, 6)
                     }
-                    .padding(.horizontal)
+                    
                     
                     VStack {
                         switch playerObservableObject.playerType {
@@ -116,17 +126,17 @@ struct PlayerView: View {
                                 }
                         case .video:
                             TimeSliderView(playerObservableObject: playerObservableObject, trackDuration: playerObservableObject.videoPlayer.trackDuration, trackTimePosition: $playerObservableObject.videoPlayer.trackTimePosition, player: playerObservableObject.audioPlayer)
-
+                            
                         }
                         
                         PlayerControls(playerObservableObject: _playerObservableObject)
                         
                         VolumeView()
                     }
+                    .padding(.horizontal)
                 }
                 .transition(.move(edge: .bottom))
                 .frame(height: playerObservableObject.expand ? UIScreen.main.bounds.height / 2.8 : 0)
-                .padding(.horizontal)
             }
         }
         .frame(maxHeight: playerObservableObject.expand ? .infinity : Metric.playerHeight)
@@ -135,14 +145,10 @@ struct PlayerView: View {
             VStack(spacing: 0) {
                 if playerObservableObject.expand {
                     if let artworkUIImage = playerObservableObject.nowPlayingItem?.artwork {
-                        ZStack {
-                            BlurView()
-                            
-                            LinearGradient(
-                                gradient: Gradient(colors: [Color(artworkUIImage.firstAverageColor ?? .gray), Color(artworkUIImage.secondAverageColor ?? .gray)]),
-                                startPoint: .topLeading,
-                                endPoint: .bottomTrailing)
-                        }
+                        LinearGradient(
+                            gradient: Gradient(colors: [Color(artworkUIImage.firstAverageColor ?? .gray), Color(artworkUIImage.secondAverageColor ?? .gray)]),
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing)
                     } else {
                         Color(.black)
                     }

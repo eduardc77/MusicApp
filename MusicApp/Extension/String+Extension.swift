@@ -5,7 +5,7 @@
 //  Created by Eduard Caziuc on 18.04.2022.
 //
 
-import Foundation
+import SwiftUI
 
 extension String {
     func stripHTML() -> String {
@@ -42,5 +42,17 @@ extension String {
             }
         }
         return name
+    }
+    
+    func widthOfString(usingFont font: UIFont) -> CGFloat {
+        let fontAttributes = [NSAttributedString.Key.font: font]
+        let size = self.size(withAttributes: fontAttributes)
+        return size.width
+    }
+
+    func heightOfString(usingFont font: UIFont) -> CGFloat {
+        let fontAttributes = [NSAttributedString.Key.font: font]
+        let size = self.size(withAttributes: fontAttributes)
+        return size.height
     }
 }
