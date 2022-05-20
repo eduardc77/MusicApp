@@ -2,89 +2,102 @@
 //  AlbumTrackList.swift
 //  MusicApp
 //
-//  Created by Eduard Caziuc on 04.05.2022.
+//  Created by Eduard Caziuc on 20.05.2022.
 //
 
 import SwiftUI
+import MediaPlayer
 
 struct AlbumTrackList: View {
-    @StateObject var albumDetailObservableObject: MediaItemObservableObject
+    @StateObject var mediaItemObservableObject = MediaItemObservableObject()
     @State private var playing: (Int, Bool) = (0, false)
     @State private var playingStarted: Bool = false
     
+    private let player = MPMusicPlayerController.applicationMusicPlayer
+    let media: Media
+    
     var body: some View {
-        VStack(alignment: .leading) {
-            ForEach(0 ..< albumDetailObservableObject.trackCount, id: \.self) { trackIndex in
-                HStack {
-                    VStack {
+        Group {
+            if mediaItemObservableObject.loadingTracks {
+                LoadingView()
+            } else {
+                VStack(alignment: .leading) {
+                    ForEach(Array(zip(mediaItemObservableObject.tracks.indices, mediaItemObservableObject.tracks)), id: \.0) { trackIndex, track in
                         HStack {
-                            Group {
-                                if playing.0 == trackIndex, playingStarted {
-                                    NowPlayingEqualizerBars(animating: $playing.1)
-                                        .frame(width: 16, height: 8)
-                                } else {
-                                    Text(String(albumDetailObservableObject.trackNumber(at: trackIndex)))
+                            VStack {
+                                HStack {
+                                    Group {
+                                        if playing.0 == trackIndex, playingStarted {
+                                            NowPlayingEqualizerBars(animating: $playing.1)
+                                                .frame(width: 16, height: 8)
+                                        } else {
+                                            Text(track.trackNumber)
+                                                .font(.body)
+                                                .foregroundColor(.secondary)
+                                                .lineLimit(1)
+                                        }
+                                    }
+                                    .frame(width: 20, height: 8)
+                                    
+                                    Text(track.name)
                                         .font(.body)
-                                        .foregroundColor(.secondary)
+                                        .foregroundColor(.primary)
                                         .lineLimit(1)
+                                    
+                                    Spacer()
+                                    
+                                    Image(systemName: "ellipsis")
+                                        .padding(.trailing)
                                 }
+                                .padding(.vertical, 8)
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                .background(.white.opacity(0.001))
+                                
+                                Divider()
+                                    .padding(.leading, 24)
                             }
-                            .frame(width: 20, height: 8)
-                            
-                            Text(albumDetailObservableObject.trackTitle(at: trackIndex))
-                                .font(.body)
-                                .foregroundColor(.primary)
-                                .lineLimit(1)
-                            
-                            Spacer()
-                            
-                            Image(systemName: "ellipsis")
-                                .padding(.trailing)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
                         }
-                        .padding(.vertical, 8)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .background(.white.opacity(0.001))
+                        .padding(.leading)
                         
-                        Divider()
-                            .padding(.leading, 24)
-                    }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .padding(.leading)
-                
-                .onTapGesture {
-                    if !albumDetailObservableObject.waitingForPrepare {
-                        albumDetailObservableObject.playTrack(at: trackIndex)
-                        playing.0 = trackIndex
-                        playing.1.toggle()
+                        .onTapGesture {
+                            player.setQueue(with: [track.id])
+                            player.play()
+                            playing.0 = trackIndex
+                            playing.1.toggle()
+                            
+                            playingStarted = true
+                        }
                         
-                        playingStarted = true
+                        .onReceive(NotificationCenter.default.publisher(for: .MPMusicPlayerControllerPlaybackStateDidChange)){ _ in
+                            if player.playbackState == .playing {
+                                playing.1 = true
+                            } else if player.playbackState == .paused {
+                                playing.1 = false
+                            }
+                        }
                     }
+                    
+                    VStack(alignment: .leading, spacing: 4) {
+                        if let releaseDate = media.releaseDate {
+                            Text("\(releaseDate)")
+                        }
+                        
+                        Text("\(media.trackCount) songs, \(media.duration) minutes")
+                    }
+                    .font(.footnote)
+                    .foregroundColor(.secondary)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal)
+                    .padding(.vertical, 4)
                 }
                 
-                .onReceive(NotificationCenter.default.publisher(for: .MPMusicPlayerControllerPlaybackStateDidChange)){ _ in
-                    if albumDetailObservableObject.player.playbackState == .playing {
-                        playing.1 = true
-                    } else if albumDetailObservableObject.player.playbackState == .paused {
-                        playing.1 = false
-                    }
-                }
             }
             
-            VStack(alignment: .leading, spacing: 4) {
-                if let releaseDate = albumDetailObservableObject.media.releaseDate {
-                    Text("\(releaseDate)")
-                }
-                
-                Text("\(albumDetailObservableObject.albumTrackCount) songs, \(albumDetailObservableObject.albumDuration) minutes")
-            }
-            .font(.footnote)
-            .foregroundColor(.secondary)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.horizontal)
-            .padding(.vertical, 4)
         }
-        
+        .onAppear {
+            mediaItemObservableObject.fetchSongs(for: media.id)
+        }
     }
 }

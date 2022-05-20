@@ -41,7 +41,7 @@ struct ArtistDetailView: View {
                             VStack {
                                 MediumMediaRow(media: recentAlbum, action: {})
                                     .padding(.top)
-                                HorizontalMediaGridView(mediaItems: artistObservableObject.songs, title: "Top Songs", imageSize: .track, rowCount: 4)
+                                HorizontalMediaGridView(mediaItems: artistObservableObject.tracks, title: "Top Songs", imageSize: .track, rowCount: 4)
                                     .padding(.top)
                                 
                                 HorizontalMediaGridView(mediaItems: artistObservableObject.albums, title: "Albums", imageSize: .album)

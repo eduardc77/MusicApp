@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AlbumHeaderView: View {
-    @ObservedObject var albumDetailObservableObject: MediaItemObservableObject
+    @ObservedObject var albumDetailObservableObject: LibraryMediaItemObservableObject
     
     var body: some View {
         VStack {

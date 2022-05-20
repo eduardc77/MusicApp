@@ -9,10 +9,10 @@ import SwiftUI
 import MediaPlayer
 
 struct AlbumDetailView: View {
-    @StateObject private var mediaItemObservableObject: MediaItemObservableObject
+    @StateObject private var mediaItemObservableObject: LibraryMediaItemObservableObject
     
     init(media: Media, searchObservableObject: SearchObservableObject) {
-        _mediaItemObservableObject = StateObject(wrappedValue: MediaItemObservableObject(media: media, searchObservableObject: searchObservableObject))
+        _mediaItemObservableObject = StateObject(wrappedValue: LibraryMediaItemObservableObject(media: media, searchObservableObject: searchObservableObject))
     }
     
     var body: some View {
@@ -20,7 +20,11 @@ struct AlbumDetailView: View {
             VStack {
                 AlbumHeaderView(albumDetailObservableObject: mediaItemObservableObject)
                 
-                AlbumTrackList(albumDetailObservableObject: mediaItemObservableObject)
+                if mediaItemObservableObject.media.collectionId == 0 {
+                    LibraryAlbumTrackList(libraryMediaObservableObject: mediaItemObservableObject)
+                } else {
+                    AlbumTrackList(media: mediaItemObservableObject.media)
+                }
                 
                 Spacer(minLength: Metric.playerHeight)
             }

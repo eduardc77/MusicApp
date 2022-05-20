@@ -15,22 +15,22 @@ final class ArtistViewObservableObject: ObservableObject {
     
     // MARK: - Publishers
 
-    @Published private(set) var songResults: [Media] = []
+    @Published private(set) var trackResults: [Media] = []
     @Published private(set) var albumResults: [Media] = []
     @Published private(set) var musicVideoResults: [Media] = []
-    @Published private(set) var isLoadingSongs: Bool = false
-    @Published private(set) var isLoadingAlbums: Bool = false
-    @Published private(set) var isLoadingMusicVideos: Bool = false
+    @Published private(set) var loadingTracks: Bool = false
+    @Published private(set) var loadingAlbums: Bool = false
+    @Published private(set) var loadingMusicVideos: Bool = false
     @Published private(set) var presenter: Presenter? = nil
     @Published var errorState: ErrorState = .init(isError: false, descriptor: nil)
     
-    var songs: [Media] {
-        guard !songResults.isEmpty else { return [] }
+    var tracks: [Media] {
+        guard !trackResults.isEmpty else { return [] }
         
-        var songs = songResults
-        songs.removeFirst()
+        var tracks = trackResults
+        tracks.removeFirst()
         
-        return songs
+        return tracks
     }
     
     var albums: [Media] {
@@ -53,7 +53,7 @@ final class ArtistViewObservableObject: ObservableObject {
     
     
     var loadingComplete: Bool {
-        if isLoadingSongs || isLoadingAlbums || isLoadingMusicVideos {
+        if loadingTracks || loadingAlbums || loadingMusicVideos {
             return false
         } else {
             return true
@@ -64,15 +64,15 @@ final class ArtistViewObservableObject: ObservableObject {
     
     init(networkService: NetworkService = .init()) {
         self.networkService = networkService
-        $songResults
+        $trackResults
             .map(\.isEmpty)
-            .assign(to: &$isLoadingSongs)
+            .assign(to: &$loadingTracks)
         $albumResults
             .map(\.isEmpty)
-            .assign(to: &$isLoadingAlbums)
+            .assign(to: &$loadingAlbums)
         $musicVideoResults
             .map(\.isEmpty)
-            .assign(to: &$isLoadingMusicVideos)
+            .assign(to: &$loadingMusicVideos)
     }
     
     // MARK: - Public Methods
@@ -84,7 +84,7 @@ final class ArtistViewObservableObject: ObservableObject {
     }
     
     func fetchSongs(for artistId: String) {
-        guard songResults.isEmpty else { return }
+        guard trackResults.isEmpty else { return }
         cleanErrorState()
         
         networkService.request(endpoint: .getInfo(by: .lookup(id: artistId, entity: "song", media: "music", attribute: "songTerm", limit: "100", sort: "recent")))
@@ -92,7 +92,7 @@ final class ArtistViewObservableObject: ObservableObject {
             .catch(handleError)
                 .map(\.results)
                 .map { $0.map(Media.init) }
-            .assign(to: &$songResults)
+            .assign(to: &$trackResults)
     }
     
     func fetchAlbums(for artistId: String) {
