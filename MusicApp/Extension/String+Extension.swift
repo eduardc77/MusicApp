@@ -18,7 +18,6 @@ extension String {
     func resizedPath(size: Int) -> String {
         replacingOccurrences(of: "100x100", with: "\(size)x\(size)")
     }
-    
     var getCountryName: String {
         NSLocale(localeIdentifier: NSLocale.current.identifier)
             .displayName(forKey: .countryCode, value: self) ?? "Unknown Country" }
@@ -43,16 +42,11 @@ extension String {
         }
         return name
     }
-    
-    func widthOfString(usingFont font: UIFont) -> CGFloat {
-        let fontAttributes = [NSAttributedString.Key.font: font]
-        let size = self.size(withAttributes: fontAttributes)
-        return size.width
-    }
-
-    func heightOfString(usingFont font: UIFont) -> CGFloat {
-        let fontAttributes = [NSAttributedString.Key.font: font]
-        let size = self.size(withAttributes: fontAttributes)
-        return size.height
+ 
+    func size(withFont font: UIFont) -> CGSize {
+        let attributes = [NSAttributedString.Key.font: font]
+        let size = self.size(withAttributes: attributes)
+        
+        return size
     }
 }

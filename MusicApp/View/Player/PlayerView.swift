@@ -88,16 +88,9 @@ struct PlayerView: View {
                 VStack {
                     HStack {
                         VStack(alignment: .leading) {
-                            if let trackName = playerObservableObject.nowPlayingItem?.trackName, trackName.widthOfString(usingFont: UIFont.preferredFont(forTextStyle: .title2)) > Metric.screenWidth / 1.5 {
-                                MarqueeText(text: trackName)
+                            MarqueeText(text: playerObservableObject.nowPlayingItem?.trackName ?? "Not Playing")
                                     .padding(.leading, 6)
-                            } else {
-                                Text(playerObservableObject.nowPlayingItem?.trackName ?? "Not Playing)")
-                                    .font(.title2).bold()
-                                    .foregroundColor(.white.opacity(0.9))
-                                    .padding(.leading, 30)
-                                
-                            }
+                           
                             Text(playerObservableObject.nowPlayingItem?.artistName ?? "")
                                 .foregroundColor(.lightGrayColor)
                                 .font(.title2)
