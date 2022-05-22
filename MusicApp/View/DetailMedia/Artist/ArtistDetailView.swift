@@ -10,10 +10,15 @@ import AVKit
 
 struct ArtistDetailView: View {
     @Environment(\.dismiss) private var dismiss
-    @StateObject private var artistObservableObject = ArtistViewObservableObject()
+    @StateObject private var artistObservableObject: ArtistViewObservableObject
     @State var navigationHidden: Bool = true
     
     let media: Media
+    
+    init(media: Media) {
+        self.media = media
+        _artistObservableObject = StateObject(wrappedValue: ArtistViewObservableObject(media: media))
+    }
     
     var body: some View {
         ZStack {
@@ -37,16 +42,33 @@ struct ArtistDetailView: View {
                                     .font(.largeTitle.bold())
                                 
                             }
-                 
+                            
                             VStack {
-                                MediumMediaRow(media: recentAlbum, action: {})
-                                    .padding(.top)
+                                NavigationLink(destination: AlbumDetailView(media: recentAlbum, searchObservableObject: SearchObservableObject())) {
+                                    MediumMediaRow(media: recentAlbum, action: {})
+                                        .padding(.top)
+                                }
+                                
+                                if !artistObservableObject.tracks.isEmpty {
                                 HorizontalMediaGridView(mediaItems: artistObservableObject.tracks, title: "Top Songs", imageSize: .track, rowCount: 4)
                                     .padding(.top)
+                                }
                                 
+                                if !artistObservableObject.albums.isEmpty {
                                 HorizontalMediaGridView(mediaItems: artistObservableObject.albums, title: "Albums", imageSize: .album)
+                                }
                                 
+                                if !artistObservableObject.musicVideos.isEmpty {
                                 HorizontalMediaGridView(mediaItems: artistObservableObject.musicVideos, title: "Music Videos", imageSize: .musicVideoItem)
+                                }
+                                
+                                if !artistObservableObject.singlesAndEps.isEmpty {
+                                    HorizontalMediaGridView(mediaItems: artistObservableObject.singlesAndEps, title: "Singles & EPs", imageSize: .album)
+                                }
+                                
+                                if !artistObservableObject.appearsOn.isEmpty {
+                                    HorizontalMediaGridView(mediaItems: artistObservableObject.appearsOn, title: "Appears On", imageSize: .album)
+                                }
                             }
                             .background()
                             

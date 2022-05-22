@@ -63,7 +63,7 @@ struct MarqueeText: View {
             
             .padding(.leading, 6)
         } else {
-            MediaItemName(name: text, explicitness: explicitness, font: Font(font), imageFont: Font(UIFont.boldSystemFont(ofSize: 16)), foregroundColor: .white.opacity(0.9), spacing: 6)
+            MediaItemName(name: text, explicitness: explicitness, font: Font(font), imageFont: Font(UIFont.boldSystemFont(ofSize: 16)), foregroundColor: .white.opacity(0.9), spacing: 4)
                 .padding(.leading, 30)
         }
     }

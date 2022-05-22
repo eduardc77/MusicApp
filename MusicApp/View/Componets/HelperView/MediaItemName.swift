@@ -18,7 +18,7 @@ struct MediaItemName: View {
     
     var body: some View {
         switch explicitness {
-        case .notExplicit:
+        case .notExplicit, .cleaned:
             Text(name)
                 .font(font)
                 .foregroundColor(foregroundColor)
@@ -30,7 +30,7 @@ struct MediaItemName: View {
                     .foregroundColor(foregroundColor)
                     .lineLimit(lineLimit)
                 
-                Image(systemName: explicitness == .explicit ? "e.square.fill" : "c.square.fill")
+                Image(systemName: "e.square.fill")
                     .font(imageFont)
                     .foregroundColor(.secondary)
             }

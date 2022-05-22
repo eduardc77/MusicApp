@@ -29,7 +29,7 @@ struct MediumMediaRow: View {
                                 .foregroundColor(.secondary)
                                 .font(.caption2.bold())
                             
-                            MediaItemName(name: media.name, explicitness: media.trackExplicitness, font: .callout)
+                            MediaItemName(name: media.name, explicitness: media.collectionExplicitness, font: .callout)
                             
                             Text(!media.trackCount.isEmpty ? "\(media.trackCount) songs" : "")
                                 .foregroundColor(.secondary)

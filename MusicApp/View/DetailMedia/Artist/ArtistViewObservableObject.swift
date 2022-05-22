@@ -12,9 +12,10 @@ final class ArtistViewObservableObject: ObservableObject {
     
     private let networkService: NetworkServiceProtocol
     private var anyCancellable: Set<AnyCancellable> = []
+    let media: Media
     
     // MARK: - Publishers
-
+    
     @Published private(set) var trackResults: [Media] = []
     @Published private(set) var albumResults: [Media] = []
     @Published private(set) var musicVideoResults: [Media] = []
@@ -23,6 +24,54 @@ final class ArtistViewObservableObject: ObservableObject {
     @Published private(set) var loadingMusicVideos: Bool = false
     @Published private(set) var presenter: Presenter? = nil
     @Published var errorState: ErrorState = .init(isError: false, descriptor: nil)
+
+    var albums: [Media] {
+        guard !albumResults.isEmpty else { return [] }
+        
+        var albumResults = albumResults
+        albumResults.removeFirst()
+        var albums: [Media] = []
+        
+        albumResults.forEach { album in
+            if !album.collectionName.contains("Single"), !album.collectionName.contains("EP"), !album.collectionName.contains(media.artistName) {
+                albums.append(album)
+            }
+        }
+        
+        return albums
+    }
+    
+    var singlesAndEps: [Media] {
+        guard !albumResults.isEmpty else { return [] }
+        
+        var albumResults = albumResults
+        albumResults.removeFirst()
+        var singlesAndEps: [Media] = []
+        
+        albumResults.forEach { album in
+            if !album.collectionName.contains(media.artistName) && (album.collectionName.contains("Single") || album.collectionName.contains("EP")) {
+                singlesAndEps.append(album)
+            }
+        }
+        
+        return singlesAndEps
+    }
+    
+    var appearsOn: [Media] {
+        guard !albumResults.isEmpty else { return [] }
+        
+        var albumResults = albumResults
+        albumResults.removeFirst()
+        var appearsOn: [Media] = []
+        
+        albumResults.forEach { album in
+            if album.collectionName.contains(media.artistName), album.artistName != media.artistName {
+                appearsOn.append(album)
+            }
+        }
+        
+        return appearsOn
+    }
     
     var tracks: [Media] {
         guard !trackResults.isEmpty else { return [] }
@@ -31,15 +80,6 @@ final class ArtistViewObservableObject: ObservableObject {
         tracks.removeFirst()
         
         return tracks
-    }
-    
-    var albums: [Media] {
-        guard !albumResults.isEmpty else { return [] }
-        
-        var albums = albumResults
-        albums.removeFirst()
-        
-        return albums
     }
     
     var musicVideos: [Media] {
@@ -62,8 +102,10 @@ final class ArtistViewObservableObject: ObservableObject {
     
     // MARK: - Initialization
     
-    init(networkService: NetworkService = .init()) {
+    init(networkService: NetworkService = .init(), media: Media) {
         self.networkService = networkService
+        self.media = media
+        
         $trackResults
             .map(\.isEmpty)
             .assign(to: &$loadingTracks)
@@ -120,6 +162,16 @@ final class ArtistViewObservableObject: ObservableObject {
     }
 }
 
+// MARK: - Types
+
+extension ArtistViewObservableObject {
+    enum AlbumType {
+        case album
+        case singlesAndEp
+        case appearsOn
+    }
+}
+
 // MARK: - Private methods
 
 private extension ArtistViewObservableObject {
@@ -138,4 +190,6 @@ private extension ArtistViewObservableObject {
         guard errorState.isError else { return }
         errorState = .init(isError: false, descriptor: nil)
     }
+    
+    
 }
