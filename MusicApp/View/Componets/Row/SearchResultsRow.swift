@@ -20,10 +20,7 @@ struct SearchResultsRow: View {
             }
 
             VStack(alignment: .leading) {
-                Text(media.name)
-                    .foregroundColor(.primary)
-                    .font(.callout)
-                    .lineLimit(1)
+                MediaItemName(name: media.name, explicitness: media.trackExplicitness, font: .callout)
                 
                 Text("\(media.kind.title) · \(media.artistName)")
                     .foregroundColor(.secondary)

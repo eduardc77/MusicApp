@@ -11,19 +11,20 @@ struct MarqueeText: View {
     @State var text: String
     @State var storedSize: CGSize = .zero
     @State var offset: CGFloat = 0
+    var explicitness: Explicitness = .notExplicit
     
     var animationSpeed: Double = 0.03
     var delayTime: Double = 3.33
     var font: UIFont = UIFont.boldSystemFont(ofSize: 20)
     
     var body: some View {
-        if text.size(withFont: font).width > Metric.screenWidth / 1.5 {
+        if text.size(withFont: font).width > Metric.screenWidth / 1.6 {
             ScrollView(.horizontal, showsIndicators: false) {
                 Text(text)
                     .font(Font(font))
                     .foregroundColor(.white.opacity(0.9))
                     .offset(x: offset)
-                    .padding(.leading)
+                    .padding(.leading, 24)
             }
             .mask {
                 HStack(spacing: 0) {
@@ -47,7 +48,7 @@ struct MarqueeText: View {
                 (1...10).forEach { _ in
                     text.append(" ")
                 }
-                
+               
                 storedSize = text.size(withFont: font)
                 text.append(baseText)
                 
@@ -59,10 +60,10 @@ struct MarqueeText: View {
                     offset = -storedSize.width
                 }
             }
+            
+            .padding(.leading, 6)
         } else {
-            Text(text)
-                .font(.title2).bold()
-                .foregroundColor(.white.opacity(0.9))
+            MediaItemName(name: text, explicitness: explicitness, font: Font(font), imageFont: Font(UIFont.boldSystemFont(ofSize: 16)), foregroundColor: .white.opacity(0.9), spacing: 6)
                 .padding(.leading, 30)
         }
     }

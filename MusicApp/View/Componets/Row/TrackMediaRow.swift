@@ -25,9 +25,7 @@ struct TrackMediaRow: View {
                 
                 HStack {
                     VStack(alignment: .leading, spacing: 3) {
-                        Text(media.name)
-                            .foregroundColor(.primary)
-                            .font(.subheadline)
+                        MediaItemName(name: media.name, explicitness: media.trackExplicitness, font: .subheadline)
                         
                         Text(media.albumAndReleaseYear)
                             .font(.caption)

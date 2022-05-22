@@ -39,10 +39,7 @@ struct AlbumTrackList: View {
                                     }
                                     .frame(width: 20, height: 8)
                                     
-                                    Text(track.name)
-                                        .font(.body)
-                                        .foregroundColor(.primary)
-                                        .lineLimit(1)
+                                    MediaItemName(name: track.trackName, explicitness: track.trackExplicitness)
                                     
                                     Spacer()
                                     

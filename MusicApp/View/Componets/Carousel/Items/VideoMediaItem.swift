@@ -23,8 +23,8 @@ struct VideoMediaItem: View {
             }
             
             VStack {
-                Text(media.name)
-                    .foregroundColor(.primary)
+                MediaItemName(name: media.name, explicitness: media.trackExplicitness)
+
                     .frame(maxWidth: Metric.largeCarouselItemWidth, alignment: .leading)
                 Text(media.artistName)
                     .foregroundColor(.secondary)

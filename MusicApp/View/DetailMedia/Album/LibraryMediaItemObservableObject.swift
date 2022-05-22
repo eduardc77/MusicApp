@@ -98,7 +98,7 @@ final class LibraryMediaItemObservableObject: ObservableObject {
             return mediaItem
         } else {
             
-            mediaItemQuery.addFilterPredicate(MPMediaPropertyPredicate(value: media.trackName,
+            mediaItemQuery.addFilterPredicate(MPMediaPropertyPredicate(value: media.name,
                                                                        forProperty: MPMediaItemPropertyTitle,
                                                                        comparisonType: MPMediaPredicateComparison.contains))
             
@@ -125,6 +125,14 @@ final class LibraryMediaItemObservableObject: ObservableObject {
             return libraryAlbumTracks[index].title ?? ""
         } else {
             return albumContents?.tracks[index].trackName ?? ""
+        }
+    }
+    
+    func trackExplicitness(at index: Int) -> Bool {
+        if let libraryAlbumTracks = albumContents?.libraryTracks, !libraryAlbumTracks.isEmpty {
+            return libraryAlbumTracks[index].isExplicitItem
+        } else {
+            return false
         }
     }
 }

@@ -27,8 +27,6 @@ struct Media: Identifiable, Codable {
     var collectionViewUrl: String { String(mediaResponse.collectionHdPrice ?? 0) }
     var trackViewUrl: String { String(mediaResponse.collectionHdPrice ?? 0) }
     var trackPrice: Double { Double(mediaResponse.trackPrice ?? 0) }
-    var collectionExplicitness: String { String(mediaResponse.collectionExplicitness ?? "notExplicit") }
-    var trackExplicitness: String? { String(mediaResponse.trackExplicitness ?? "notExplicit") }
     var discCount: String { String(mediaResponse.discCount ?? 0) }
     var discNumber: String { String(mediaResponse.discNumber ?? 0) }
     var trackCount: String { String(mediaResponse.trackCount ?? 0) }
@@ -43,6 +41,14 @@ struct Media: Identifiable, Codable {
      
     var name: String {
         mediaResponse.name ?? mediaResponse.trackName ?? mediaResponse.collectionName ?? "Unknown media"
+    }
+    
+    var collectionExplicitness: Explicitness {
+        return Explicitness(rawValue: mediaResponse.collectionExplicitness ?? "notExplicit") ?? .notExplicit
+    }
+    
+    var trackExplicitness: Explicitness {
+        return Explicitness(rawValue: mediaResponse.trackExplicitness ?? "notExplicit") ?? .notExplicit
     }
 
     var releaseDate: String? {

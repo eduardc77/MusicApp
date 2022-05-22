@@ -22,10 +22,16 @@ struct SearchWrapperRow<Content: View>: View {
                 }
                 
                 VStack(alignment: .leading) {
-                    Text(media.name)
-                        .foregroundColor(.primary)
-                        .font(.callout)
-                        .lineLimit(1)
+                    switch media.wrapperType {
+                    case .collection:
+                        MediaItemName(name: media.collectionName, explicitness: media.collectionExplicitness, font: .callout)
+                    default:
+                        Text(media.name)
+                            .foregroundColor(.primary)
+                            .font(.callout)
+                            .lineLimit(1)
+
+                    }
                     
                     Text("\(media.kind.title) · \(media.artistName)")
                         .foregroundColor(.secondary)

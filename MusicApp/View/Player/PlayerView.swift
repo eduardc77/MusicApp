@@ -88,9 +88,8 @@ struct PlayerView: View {
                 VStack {
                     HStack {
                         VStack(alignment: .leading) {
-                            MarqueeText(text: playerObservableObject.nowPlayingItem?.trackName ?? "Not Playing")
-                                    .padding(.leading, 6)
-                           
+                            MarqueeText(text: playerObservableObject.nowPlayingItem?.trackName ?? "Not Playing", explicitness: playerObservableObject.nowPlayingItem?.trackExplicitness ?? .notExplicit)
+                                                          
                             Text(playerObservableObject.nowPlayingItem?.artistName ?? "")
                                 .foregroundColor(.lightGrayColor)
                                 .font(.title2)

@@ -20,9 +20,9 @@ struct AlbumMediaItem: View {
                 }
                 
                 VStack {
-                    Text(media.name)
-                        .foregroundColor(.primary)
+                    MediaItemName(name: media.name, explicitness: media.collectionExplicitness)
                         .frame(maxWidth: Metric.albumCarouselImageSize, alignment: .leading)
+                    
                     Text(media.artistName)
                         .foregroundColor(.secondary)
                         .frame(maxWidth: Metric.albumCarouselImageSize, alignment: .leading)

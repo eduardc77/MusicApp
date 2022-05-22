@@ -31,11 +31,8 @@ struct LibraryAlbumTrackList: View {
                             }
                             .frame(width: 20, height: 8)
                             
-                            Text(libraryMediaObservableObject.trackTitle(at: trackIndex))
-                                .font(.body)
-                                .foregroundColor(.primary)
-                                .lineLimit(1)
-                            
+                            MediaItemName(name: libraryMediaObservableObject.trackTitle(at: trackIndex), explicitness: libraryMediaObservableObject.trackExplicitness(at: trackIndex) ? .explicit : .notExplicit)
+ 
                             Spacer()
                             
                             Image(systemName: "ellipsis")
