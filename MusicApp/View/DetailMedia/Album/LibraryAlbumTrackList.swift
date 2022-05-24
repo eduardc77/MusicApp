@@ -32,7 +32,7 @@ struct LibraryAlbumTrackList: View {
                             .frame(width: 20, height: 8)
                             
                             MediaItemName(name: libraryMediaObservableObject.trackTitle(at: trackIndex), explicitness: libraryMediaObservableObject.trackExplicitness(at: trackIndex) ? .explicit : .notExplicit)
- 
+                            
                             Spacer()
                             
                             Image(systemName: "ellipsis")
@@ -51,13 +51,12 @@ struct LibraryAlbumTrackList: View {
                 .padding(.leading)
                 
                 .onTapGesture {
-                    if !libraryMediaObservableObject.waitingForPrepare {
-                        libraryMediaObservableObject.playTrack(at: trackIndex)
-                        playing.0 = trackIndex
-                        playing.1.toggle()
-                        
-                        playingStarted = true
-                    }
+                    playing.0 = trackIndex
+                    playing.1.toggle()
+                    
+                    playingStarted = true
+                    
+                    libraryMediaObservableObject.playTrack(at: trackIndex)
                 }
                 
                 .onReceive(NotificationCenter.default.publisher(for: .MPMusicPlayerControllerPlaybackStateDidChange)){ _ in

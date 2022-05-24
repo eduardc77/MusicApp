@@ -6,15 +6,20 @@
 //
 
 import Combine
+import MediaPlayer
 
 final class MediaItemObservableObject: ObservableObject {
     // MARK: - Properties
     
     private let networkService: NetworkServiceProtocol
     private var anyCancellable: Set<AnyCancellable> = []
+    private var player = MPMusicPlayerController.applicationMusicPlayer
+    private(set) var albumDuration: Int = 0
+    private(set) var albumTrackCount: Int = 0
     
     // MARK: - Publishers
 
+    @Published private var trackIDsQueue: [String] = []
     @Published private(set) var trackResults: [Media] = []
     @Published private(set) var loadingTracks: Bool = false
     @Published private(set) var presenter: Presenter? = nil
@@ -40,16 +45,56 @@ final class MediaItemObservableObject: ObservableObject {
     
     // MARK: - Public Methods
     
-    func fetchSongs(for collectionId: String) {
+    func fetchTracks(for collectionId: String) {
         guard trackResults.isEmpty else { return }
         cleanErrorState()
         
-        networkService.request(endpoint: .getInfo(by: .lookup(id: collectionId, entity: "song", media: "music", attribute: "songTerm")))
+        networkService.request(endpoint: .getInfo(by: .lookup(id: collectionId, entity: "song",  media: "music", attribute: "songTerm")))
             .compactMap { $0 as ITunesAPIResponse }
             .catch(handleError)
                 .map(\.results)
                 .map { $0.map(Media.init) }
             .assign(to: &$trackResults)
+    }
+    
+    func playTrack(withId id: String) {
+        player.stop()
+        player.setQueue(with: [id])
+        player.play()
+        UserDefaults.standard.set(false, forKey: UserDefaultsKey.shuffleDefault)
+        player.shuffleMode = MPMusicShuffleMode.off
+    }
+    
+    func playAllTracks(isShuffle: Bool) {
+        configureAlbumDetails()
+        
+        player.stop()
+        player.setQueue(with: trackIDsQueue)
+        UserDefaults.standard.set(trackIDsQueue, forKey: UserDefaultsKey.queueDefault)
+        
+        if isShuffle {
+            player.shuffleMode = MPMusicShuffleMode.songs
+            UserDefaults.standard.set(true, forKey: UserDefaultsKey.shuffleDefault)
+            player.shuffleMode = MPMusicShuffleMode.songs
+        } else {
+            UserDefaults.standard.set(false, forKey: UserDefaultsKey.shuffleDefault)
+            player.shuffleMode = MPMusicShuffleMode.off
+        }
+        
+        player.play()
+    }
+    
+    func configureAlbumDetails() {
+        var albumDuration: TimeInterval = 0
+        
+        trackIDsQueue.removeAll()
+        tracks.forEach { track in
+            trackIDsQueue.append(track.id)
+            albumDuration += Double(track.duration) ?? 0
+            albumTrackCount += 1
+        }
+        
+        self.albumDuration = Int((albumDuration / 60).truncatingRemainder(dividingBy: 60))
     }
 }
 

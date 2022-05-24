@@ -21,7 +21,12 @@ struct PlayerControls: View {
                     playerObservableObject.videoPlayer.player.seek(to: CMTime(seconds: Double(playerObservableObject.videoPlayer.trackTimePosition - 5), preferredTimescale: 1))
                 case .audio:
                     guard playerObservableObject.nowPlayingItem != nil else { return }
-                    print("Backward Button Tapped")
+                    
+                    if playerObservableObject.audioPlayer.currentPlaybackTime > 6 {
+                        playerObservableObject.audioPlayer.skipToBeginning()
+                    } else {
+                        playerObservableObject.audioPlayer.skipToPreviousItem()
+                    }
                 }
             } label: {
                 Image(systemName: "backward.fill")
@@ -68,7 +73,7 @@ struct PlayerControls: View {
                     playerObservableObject.videoPlayer.player.seek(to: CMTime(seconds: Double(playerObservableObject.videoPlayer.trackTimePosition + 5), preferredTimescale: 1))
                 case .audio:
                     guard playerObservableObject.nowPlayingItem != nil else { return }
-                    print("Forward Button Tapped")
+                    playerObservableObject.audioPlayer.skipToNextItem()
                 }
             } label: {
                 Image(systemName: "forward.fill")

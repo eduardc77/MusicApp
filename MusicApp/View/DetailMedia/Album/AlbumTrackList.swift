@@ -59,12 +59,12 @@ struct AlbumTrackList: View {
                         .padding(.leading)
                         
                         .onTapGesture {
-                            player.setQueue(with: [track.id])
-                            player.play()
                             playing.0 = trackIndex
                             playing.1.toggle()
                             
                             playingStarted = true
+                            
+                            mediaItemObservableObject.playTrack(withId: track.id)
                         }
                         
                         .onReceive(NotificationCenter.default.publisher(for: .MPMusicPlayerControllerPlaybackStateDidChange)){ _ in
@@ -94,7 +94,8 @@ struct AlbumTrackList: View {
             
         }
         .onAppear {
-            mediaItemObservableObject.fetchSongs(for: media.id)
+            mediaItemObservableObject.fetchTracks(for: media.id)
+            mediaItemObservableObject.configureAlbumDetails()
         }
     }
 }

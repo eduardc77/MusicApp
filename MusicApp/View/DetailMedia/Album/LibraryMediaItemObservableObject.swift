@@ -13,7 +13,6 @@ final class LibraryMediaItemObservableObject: ObservableObject {
     
     @Published private var trackIDsQueue: [String] = []
     @Published private(set) var albumContents: AlbumContents?
-    @Published private(set) var waitingForPrepare: Bool = false
     
     // MARK: - Properties
     
@@ -48,28 +47,21 @@ final class LibraryMediaItemObservableObject: ObservableObject {
     // MARK: - Public Methods
     
     func playTrack(at index: Int) {
-        waitingForPrepare = true
         player.stop()
         
         player.setQueue(with: trackIDsQueue)
         UserDefaults.standard.set(trackIDsQueue, forKey: UserDefaultsKey.queueDefault)
-        
-        player.shuffleMode = MPMusicShuffleMode.off
-        UserDefaults.standard.set(false, forKey: UserDefaultsKey.shuffleDefault)
-        
         player.play()
+        
         if let libraryAlbumTracks = albumContents?.libraryTracks, !libraryAlbumTracks.isEmpty {
             player.nowPlayingItem = albumContents?.libraryTracks[index]
         }
         
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            self.waitingForPrepare = false
-        }
+        UserDefaults.standard.set(false, forKey: UserDefaultsKey.shuffleDefault)
+        player.shuffleMode = MPMusicShuffleMode.off
     }
     
     func playAllTracks(isShuffle: Bool) {
-        waitingForPrepare = true
         player.stop()
         player.setQueue(with: trackIDsQueue)
         UserDefaults.standard.set(trackIDsQueue, forKey: UserDefaultsKey.queueDefault)
@@ -84,9 +76,6 @@ final class LibraryMediaItemObservableObject: ObservableObject {
         }
         
         player.play()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            self.waitingForPrepare = false
-        }
     }
     
     func currentMediaItem() -> MPMediaItem? {

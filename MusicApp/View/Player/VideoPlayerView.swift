@@ -33,9 +33,11 @@ struct VideoPlayerView: View {
             .onChange(of: isPlaying) { newValue in
             if newValue == true {
                 player.play()
+                isPlaying = true
             }
             else {
                 player.pause()
+                isPlaying = false
             }
         }
         .onAppear {

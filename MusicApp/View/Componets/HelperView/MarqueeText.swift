@@ -13,6 +13,7 @@ struct MarqueeText: View {
     @State var offset: CGFloat = 0
     var explicitness: Explicitness = .notExplicit
     
+    var color: Color = .white.opacity(0.9)
     var animationSpeed: Double = 0.03
     var delayTime: Double = 3.33
     var font: UIFont = UIFont.boldSystemFont(ofSize: 20)
@@ -22,7 +23,7 @@ struct MarqueeText: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 Text(text)
                     .font(Font(font))
-                    .foregroundColor(.white.opacity(0.9))
+                    .foregroundColor(color)
                     .offset(x: offset)
                     .padding(.leading, 24)
             }
@@ -63,7 +64,7 @@ struct MarqueeText: View {
             
             .padding(.leading, 6)
         } else {
-            MediaItemName(name: text, explicitness: explicitness, font: Font(font), imageFont: Font(UIFont.boldSystemFont(ofSize: 16)), foregroundColor: .white.opacity(0.9), spacing: 4)
+            MediaItemName(name: text, explicitness: explicitness, font: Font(font), imageFont: Font(UIFont.boldSystemFont(ofSize: 16)), foregroundColor: color, spacing: 4)
                 .padding(.leading, 30)
         }
     }

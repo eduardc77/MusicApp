@@ -67,7 +67,10 @@ struct PlayerView: View {
                             )
                             .padding(.trailing)
                             
-                            Button(action: {},
+                            Button(action: {
+                                guard playerObservableObject.nowPlayingItem != nil else { return }
+                                playerObservableObject.audioPlayer.skipToNextItem()
+                            },
                                    label: {
                                 Image(systemName: "forward.fill")
                                     .font(.title2)
@@ -87,13 +90,10 @@ struct PlayerView: View {
             if playerObservableObject.expand {
                 VStack {
                     HStack {
-                        VStack(alignment: .leading) {
+                        VStack(alignment: .leading, spacing: 2) {
                             MarqueeText(text: playerObservableObject.nowPlayingItem?.trackName ?? "Not Playing", explicitness: playerObservableObject.nowPlayingItem?.trackExplicitness ?? .notExplicit)
-                                                          
-                            Text(playerObservableObject.nowPlayingItem?.artistName ?? "")
-                                .foregroundColor(.lightGrayColor)
-                                .font(.title2)
-                                .padding(.leading, 30)
+                            
+                            MarqueeText(text: playerObservableObject.nowPlayingItem?.artistName ?? "", color: .lightGrayColor, font: UIFont.systemFont(ofSize: 20))
                         }
                         Spacer()
                         
@@ -178,6 +178,7 @@ struct PlayerView: View {
             playerObservableObject.progressRate = playerObservableObject.audioPlayer.currentPlaybackTime.toInt
             playerObservableObject.makeNowPlaying(media: mediaItem)
         }
+        
         .onAppear {
             playerObservableObject.initPlayerFromUserDefaults()
         }

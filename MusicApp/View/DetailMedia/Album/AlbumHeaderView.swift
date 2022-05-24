@@ -8,15 +8,16 @@
 import SwiftUI
 
 struct AlbumHeaderView: View {
-    @ObservedObject var albumDetailObservableObject: LibraryMediaItemObservableObject
+    @ObservedObject var libraryMediaObservableObject: LibraryMediaItemObservableObject
+    @ObservedObject var mediaItemObservableObject = MediaItemObservableObject()
     
     var body: some View {
         VStack {
             VStack {
-                if let uiImage = albumDetailObservableObject.media.artwork {
+                if let uiImage = libraryMediaObservableObject.media.artwork {
                     MediaImageView(artworkImage: uiImage, size: Size(width: Metric.albumDetailImageSize, height: Metric.albumDetailImageSize), shadowProminence: .full)
                 } else {
-                    MediaImageView(imagePath: albumDetailObservableObject.media.artworkPath.resizedPath(size: 800), size: Size(width: Metric.albumDetailImageSize, height: Metric.albumDetailImageSize), shadowProminence: .full)
+                    MediaImageView(imagePath: libraryMediaObservableObject.media.artworkPath.resizedPath(size: 800), size: Size(width: Metric.albumDetailImageSize, height: Metric.albumDetailImageSize), shadowProminence: .full)
                 }
                 
                 albumDetails
@@ -38,37 +39,39 @@ struct AlbumHeaderView: View {
     
     var albumDetails: some View {
         VStack(spacing: 3) {
-            Text(albumDetailObservableObject.media.collectionName)
+            Text(libraryMediaObservableObject.media.collectionName)
                 .font(.title3.bold())
                 .foregroundColor(.primary)
-                .lineLimit(2)
-                .multilineTextAlignment(.center)
             
-            Text(albumDetailObservableObject.media.artistName)
+            Text(libraryMediaObservableObject.media.artistName)
                 .font(.title3)
                 .foregroundColor(.appAccentColor)
-                .lineLimit(1)
             
-            Text(albumDetailObservableObject.media.genreAndReleaseYear)
+            Text(libraryMediaObservableObject.media.genreAndReleaseYear)
                 .font(.caption.bold())
                 .foregroundColor(.secondary)
-                .lineLimit(1)
         }
+        .lineLimit(2)
+        .multilineTextAlignment(.center)
     }
     
     var albumControls: some View {
         HStack {
             MainButton(title: "Play", image: Image(systemName: "play.fill")) {
-                if !albumDetailObservableObject.waitingForPrepare {
-                    albumDetailObservableObject.playAllTracks(isShuffle: false)
+                if libraryMediaObservableObject.media.dateAdded != nil {
+                    libraryMediaObservableObject.playAllTracks(isShuffle: false)
+                } else {
+                    mediaItemObservableObject.playAllTracks(isShuffle: false)
                 }
             }
             
             Spacer(minLength: 20)
             
             MainButton(title: "Shuffle", image: Image(systemName: "shuffle")) {
-                if !albumDetailObservableObject.waitingForPrepare {
-                    albumDetailObservableObject.playAllTracks(isShuffle: true)
+                if libraryMediaObservableObject.media.dateAdded != nil {
+                    libraryMediaObservableObject.playAllTracks(isShuffle: true)
+                } else {
+                    mediaItemObservableObject.playAllTracks(isShuffle: true)
                 }
             }
         }

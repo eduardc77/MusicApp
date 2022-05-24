@@ -92,7 +92,7 @@ private extension SearchObservableObject {
     }
     
     func search(searchQuery: String) -> AnyPublisher<[MediaResponse], NetworkError> {
-        networkService.request(endpoint: .getInfo(by: .search(term: searchQuery, country: "US", entity: "musicArtist", media: "music", attribute: "artistTerm")))
+        networkService.request(endpoint: .getInfo(by: .search(term: searchQuery, entity: "musicArtist", media: "music", attribute: "artistTerm")))
             .map { $0 as ITunesAPIResponse }
             .map(\.results)
             .map(loaded)

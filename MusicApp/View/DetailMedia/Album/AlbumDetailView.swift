@@ -18,7 +18,7 @@ struct AlbumDetailView: View {
     var body: some View {
         ScrollView {
             VStack {
-                AlbumHeaderView(albumDetailObservableObject: mediaItemObservableObject)
+                AlbumHeaderView(libraryMediaObservableObject: mediaItemObservableObject)
                 
                 if mediaItemObservableObject.media.collectionId == 0 {
                     LibraryAlbumTrackList(libraryMediaObservableObject: mediaItemObservableObject)
