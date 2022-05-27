@@ -28,7 +28,7 @@ struct CategoryGridView: View {
                         {
                             ZStack(alignment: Alignment(horizontal: .leading, vertical: .bottom)) {
                                 MediaImageView(artworkImage: UIImage(named: category.image),
-                                               size: Size(width: Metric.categoryRowItemWidth, height: Metric.categoryRowItemHeight),
+                                               sizeType: .categoryItem,
                                                cornerRadius: 8,
                                                contentMode: .fill)
                                 

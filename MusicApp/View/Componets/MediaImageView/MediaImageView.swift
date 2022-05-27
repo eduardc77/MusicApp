@@ -13,7 +13,7 @@ struct MediaImageView: View {
     
     private let imagePath: String?
     private var artworkImage: UIImage?
-    private var size: Size
+    private var sizeType: SizeType
     private var cornerRadius: CGFloat
     private var shadowProminence: ShadowProminence
     private var contentMode: ContentMode
@@ -21,12 +21,12 @@ struct MediaImageView: View {
     
     @State private var shadow: (radius: CGFloat, xPosition: CGFloat, yPosition: CGFloat) = (0, 0, 0)
     
-    init(imagePath: String? = nil, artworkImage: UIImage? = nil, size: Size = Size(), cornerRadius: CGFloat = Metric.defaultCornerRadius, shadowProminence: ShadowProminence = .none, contentMode: ContentMode = .fit, foregroundColor: Color = .secondary.opacity(0.1), visibleSide: Binding<FlipViewSide> = .constant(.front)) {
+    init(imagePath: String? = nil, artworkImage: UIImage? = nil, sizeType: SizeType = .defaultSize, cornerRadius: CGFloat = Metric.defaultCornerRadius, shadowProminence: ShadowProminence = .none, contentMode: ContentMode = .fit, foregroundColor: Color = .secondary.opacity(0.1), visibleSide: Binding<FlipViewSide> = .constant(.front)) {
         _mediaImageObservableObject = StateObject(wrappedValue: MediaImageObservableObject())
         
         self.imagePath = imagePath
         self.artworkImage = artworkImage
-        self.size = size
+        self.sizeType = sizeType
         self.cornerRadius = cornerRadius
         self.shadowProminence = shadowProminence
         self.contentMode = contentMode
@@ -48,21 +48,47 @@ struct MediaImageView: View {
                 
                 else {
                     ZStack {
-                        Rectangle()
-                            .fill(foregroundColor)
-                            .frame(width: size.width, height: size.height)
-                            .cornerRadius(cornerRadius)
-                        
-                        Image("music-note")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .foregroundColor(Color.secondary.opacity(0.3))
-                            .frame(width: (size.height ?? Metric.albumCarouselImageSize) / 1.6, height: (size.height ?? Metric.albumCarouselImageSize) / 1.6)
+                        Group {
+                            switch sizeType {
+                            case .artistRow:
+                                Circle()
+                                    .fill(foregroundColor)
+                                    .frame(width: sizeType.size.width, height: sizeType.size.height)
+                                    .cornerRadius(cornerRadius)
+                                
+                                    .overlay {
+                                        Circle()
+                                            .stroke(Color.secondary.opacity(0.8), lineWidth: 0.1)
+                                    }
+                                
+                                Image(systemName: "music.mic")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .foregroundColor(Color.secondary)
+                                    .frame(width: (sizeType.size.height ?? Metric.albumCarouselImageSize) / 2, height: (sizeType.size.height ?? Metric.albumCarouselImageSize) / 2)
+                            default:
+                                Rectangle()
+                                    .fill(foregroundColor)
+                                    .frame(width: sizeType.size.width, height: sizeType.size.height)
+                                    .cornerRadius(cornerRadius)
+                                
+                                    .overlay {
+                                        RoundedRectangle(cornerRadius: cornerRadius)
+                                            .stroke(Color.secondary.opacity(0.8), lineWidth: 0.1)
+                                    }
+                                
+                                Image("music-note")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .foregroundColor(Color.secondary.opacity(0.3))
+                                    .frame(width: (sizeType.size.height ?? Metric.albumCarouselImageSize) / 1.6, height: (sizeType.size.height ?? Metric.albumCarouselImageSize) / 1.6)
+                            }
+                        }
                     }
                 }
             }
             .aspectRatio(contentMode: contentMode)
-            .frame(width: size.width, height: size.height)
+            .frame(width: sizeType.size.width, height: sizeType.size.height)
             .cornerRadius(cornerRadius)
             .shadow(radius: shadow.radius, x: shadow.xPosition, y: shadow.yPosition)
             
@@ -75,14 +101,14 @@ struct MediaImageView: View {
             ZStack {
                 Rectangle()
                     .fill(foregroundColor)
-                    .frame(width: size.width, height: size.height)
+                    .frame(width: sizeType.size.width, height: sizeType.size.height)
                     .cornerRadius(cornerRadius)
                 
                 Image("music-note")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .foregroundColor(Color.secondary.opacity(0.3))
-                    .frame(width: (size.height ?? Metric.albumCarouselImageSize) / 1.6, height: (size.height ?? Metric.albumCarouselImageSize) / 1.6)
+                    .frame(width: (sizeType.size.height ?? Metric.albumCarouselImageSize) / 1.6, height: (sizeType.size.height ?? Metric.albumCarouselImageSize) / 1.6)
             }
         }
         .contentShape(Rectangle())
@@ -90,11 +116,10 @@ struct MediaImageView: View {
         
         .onAppear {
             setupShadowProminence()
-            
+        }
+        .task {
             guard let imagePath = imagePath else { return }
-            Task {
-                await mediaImageObservableObject.fetchImage(from: imagePath)
-            }
+            await mediaImageObservableObject.fetchImage(from: imagePath)    
         }
     }
     

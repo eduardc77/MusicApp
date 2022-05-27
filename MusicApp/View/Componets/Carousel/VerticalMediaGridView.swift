@@ -22,10 +22,10 @@ struct VerticalMediaGridView: View {
         self.imageSize = imageSize
         
         switch imageSize {
-        case .track:
+        case .trackRowItem:
             columns = Array(repeating: .init(.flexible()), count: rowCount)
             gridSpacing = 0
-        case .album, .musicVideoItem:
+        case .albumItem, .musicVideoItem:
             columns = Array(repeating: .init(.flexible(), spacing: 12), count: rowCount)
             gridSpacing = 12
         default:
@@ -46,9 +46,9 @@ struct VerticalMediaGridView: View {
             LazyVGrid(columns: columns, spacing: gridSpacing) {
                 ForEach(Array(zip(mediaItems.indices, mediaItems)), id: \.0) { _, media in
                     switch imageSize {
-                    case .track:
+                    case .trackRowItem:
                         TrackMediaRow(media: media)
-                    case .album:
+                    case .albumItem:
                         AlbumMediaItem(media: media)
                     case .musicVideoRow:
                         VideoMediaRow(media: media)

@@ -42,13 +42,12 @@ class LoopingPlayerUIView: UIView {
         
         let assets = videoAssetUrls.map { AVURLAsset(url: $0) }
         assets.forEach { player.insert(AVPlayerItem(asset: $0), after: nil) }
-        
         player.actionAtItemEnd = .advance
+        
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(playerItemDidReachEnd(notification:)),
                                                name: .AVPlayerItemDidPlayToEndTime,
                                                object: player.currentItem)
-        
     }
     
     override func layoutSubviews() {

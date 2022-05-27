@@ -18,9 +18,9 @@ struct TrackMediaRow: View {
             
             HStack(spacing: 14) {
                 if let uiImage = media.artwork {
-                    MediaImageView(artworkImage: uiImage, size: Size(width: Metric.trackCarouselImageSize, height: Metric.trackCarouselImageSize))
+                    MediaImageView(artworkImage: uiImage, sizeType: .trackRowItem)
                 } else {
-                    MediaImageView(imagePath: media.artworkPath.resizedPath(size: 160), size: Size(width: Metric.trackCarouselImageSize, height: Metric.trackCarouselImageSize))
+                    MediaImageView(imagePath: media.artworkPath.resizedPath(size: 160), sizeType: .trackRowItem)
                 }
                 
                 HStack {

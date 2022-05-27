@@ -17,13 +17,13 @@ struct ListenNowView: View {
                 VStack {
                     HighlightsView(items: selectedStations, imageSize: .highlight)
                     
-                    HorizontalMediaGridView(mediaItems: musicPlaylists, title: "Best New Songs", imageSize: .track, rowCount: 4)
+                    HorizontalMediaGridView(mediaItems: musicPlaylists, title: "Best New Songs", imageSize: .trackRowItem, rowCount: 4)
                     
-                    HorizontalMediaGridView(mediaItems: musicPlaylists, title: "You Gotta Hear", imageSize: .album, rowCount: 1)
+                    HorizontalMediaGridView(mediaItems: musicPlaylists, title: "You Gotta Hear", imageSize: .albumItem, rowCount: 1)
                     
-                    HorizontalMediaGridView(mediaItems: musicPlaylists, title: "Stations for You", imageSize: .track, rowCount: 4)
+                    HorizontalMediaGridView(mediaItems: musicPlaylists, title: "Stations for You", imageSize: .trackRowItem, rowCount: 4)
                     
-                    HorizontalMediaGridView(mediaItems: musicPlaylists, title: "New Music", imageSize: .album, rowCount: 2)
+                    HorizontalMediaGridView(mediaItems: musicPlaylists, title: "New Music", imageSize: .albumItem, rowCount: 2)
                 }
                 
                 Spacer(minLength: Metric.playerHeight)

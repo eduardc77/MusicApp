@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MediaItemName: View {
     var name: String
-    var explicitness: Explicitness
+    var explicitness: Explicitness = .notExplicit
     var font: Font = .body
     var imageFont: Font = .caption
     var foregroundColor: Color = .primary

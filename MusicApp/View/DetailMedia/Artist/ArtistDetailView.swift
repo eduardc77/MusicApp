@@ -50,12 +50,12 @@ struct ArtistDetailView: View {
                                 }
                                 
                                 if !artistObservableObject.tracks.isEmpty {
-                                HorizontalMediaGridView(mediaItems: artistObservableObject.tracks, title: "Top Songs", imageSize: .track, rowCount: 4)
+                                HorizontalMediaGridView(mediaItems: artistObservableObject.tracks, title: "Top Songs", imageSize: .trackRowItem, rowCount: 4)
                                     .padding(.top)
                                 }
                                 
                                 if !artistObservableObject.albums.isEmpty {
-                                HorizontalMediaGridView(mediaItems: artistObservableObject.albums, title: "Albums", imageSize: .album)
+                                HorizontalMediaGridView(mediaItems: artistObservableObject.albums, title: "Albums", imageSize: .albumItem)
                                 }
                                 
                                 if !artistObservableObject.musicVideos.isEmpty {
@@ -63,11 +63,11 @@ struct ArtistDetailView: View {
                                 }
                                 
                                 if !artistObservableObject.singlesAndEps.isEmpty {
-                                    HorizontalMediaGridView(mediaItems: artistObservableObject.singlesAndEps, title: "Singles & EPs", imageSize: .album)
+                                    HorizontalMediaGridView(mediaItems: artistObservableObject.singlesAndEps, title: "Singles & EPs", imageSize: .albumItem)
                                 }
                                 
                                 if !artistObservableObject.appearsOn.isEmpty {
-                                    HorizontalMediaGridView(mediaItems: artistObservableObject.appearsOn, title: "Appears On", imageSize: .album)
+                                    HorizontalMediaGridView(mediaItems: artistObservableObject.appearsOn, title: "Appears On", imageSize: .albumItem)
                                 }
                             }
                             .background()

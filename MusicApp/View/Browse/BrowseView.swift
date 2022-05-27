@@ -27,7 +27,7 @@ struct BrowseView: View {
                 
                 HighlightsView(items: selectedStations, imageSize: .highlight)
                 
-                HorizontalMediaGridView(mediaItems: musicPlaylists, title: "New Music", imageSize: .track, rowCount: 4)
+                HorizontalMediaGridView(mediaItems: musicPlaylists, title: "New Music", imageSize: .trackRowItem, rowCount: 4)
                 
                 NavigationLinkList(rowItems: BrowseMoreToExplore.self, content: detailViews)
                     .frame(height: 250)

@@ -25,7 +25,7 @@ struct LibraryView: View {
                                 LibraryListView(libraryObservableObject: libraryObservableObject, editMode: $editMode)
                                 
                                 if !editMode.isEditing {
-                                    VerticalMediaGridView(mediaItems: libraryObservableObject.recentlyAdded, title: "Recently Added", imageSize: .album, rowCount: 2)
+                                    VerticalMediaGridView(mediaItems: libraryObservableObject.recentlyAdded, title: "Recently Added", imageSize: .albumItem, rowCount: 2)
                                 }
                             }
                         }

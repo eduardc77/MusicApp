@@ -14,18 +14,24 @@ struct SearchResultsRow: View {
     var body: some View {
         HStack {
             if let uiImage = media.artwork {
-                MediaImageView(artworkImage: uiImage, size: Size(width: Metric.searchResultImageSize, height: Metric.searchResultImageSize))
+                MediaImageView(artworkImage: uiImage, sizeType: .searchRow)
             } else {
-                MediaImageView(imagePath: media.artworkPath.resizedPath(size: 100), size: Size(width: Metric.searchResultImageSize, height: Metric.searchResultImageSize))
+                MediaImageView(imagePath: media.artworkPath.resizedPath(size: 100), sizeType: .searchRow)
             }
-
-            VStack(alignment: .leading) {
-                MediaItemName(name: media.name, explicitness: media.trackExplicitness, font: .callout)
+            
+            HStack {
+                VStack(alignment: .leading) {
+                    MediaItemName(name: media.name, explicitness: media.trackExplicitness, font: .callout)
+                    
+                    Text("\(media.kind.title) · \(media.artistName)")
+                        .foregroundColor(.secondary)
+                        .font(.callout)
+                        .lineLimit(1)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
                 
-                Text("\(media.kind.title) · \(media.artistName)")
-                    .foregroundColor(.secondary)
-                    .font(.callout)
-                    .lineLimit(1)
+                Image(systemName: "ellipsis")
+                    .padding(.trailing, 6)
             }
         }
         .onTapGesture {

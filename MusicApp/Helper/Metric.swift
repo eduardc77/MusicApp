@@ -40,6 +40,7 @@ enum Metric {
     static let categoryRowItemWidth: CGFloat = Metric.screenWidth / 2.29
     static let categoryRowItemHeight: CGFloat = Metric.screenHeight * 0.136
     static let largeRowItemHeight: CGFloat = Metric.screenHeight * 0.28
+    static let highlightItemImageSize: CGFloat = Metric.screenHeight * 0.26
     static let highlightCarouselItemHeight: CGFloat = Metric.screenHeight * 0.37
     
     // MARK: - TimeView
@@ -49,13 +50,39 @@ enum Metric {
 }
 
 enum SizeType {
-    case track
-    case album
+    case trackRowItem
+    case searchRow
+    case artistRow
+    case albumRow
+    case albumItem
+    case albumDetail
+    case categoryItem
     case musicVideoRow
     case musicVideoItem
     case highlight
     case highlightCard
     case largeHighlight
+    case largePlayerArtwork
+    case defaultSize
+    
+    
+    var size: Size {
+        switch self {
+        case .trackRowItem: return Size(width: Metric.trackCarouselImageSize, height: Metric.trackCarouselImageSize)
+        case .searchRow, .artistRow: return Size(width: Metric.searchResultImageSize, height: Metric.searchResultImageSize)
+        case .albumRow: return Size(width: 100, height: 100)
+        case .albumItem: return Size(width: Metric.albumCarouselImageSize, height: Metric.albumCarouselImageSize)
+        case .albumDetail: return Size(width: Metric.albumDetailImageSize, height: Metric.albumDetailImageSize)
+        case .categoryItem: return Size(width: Metric.categoryRowItemWidth, height: Metric.categoryRowItemHeight)
+        case .musicVideoRow: return Size(width: Metric.albumCarouselImageSize, height: Metric.videoRowHeight)
+        case .musicVideoItem: return Size(width: Metric.largeCarouselItemWidth , height: Metric.videoCarouselItemHeight)
+        case .highlight: return Size(width: Metric.largeCarouselItemWidth, height: Metric.highlightItemImageSize)
+        case .highlightCard: return Size()
+        case .largeHighlight: return Size()
+        case .largePlayerArtwork: return Size(width: Metric.largeMediaImageSize, height: Metric.largeMediaImageSize)
+        case .defaultSize: return Size()
+        }
+    }
 }
 
 struct Size {

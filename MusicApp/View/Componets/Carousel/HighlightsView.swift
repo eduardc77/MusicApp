@@ -20,9 +20,9 @@ struct HighlightsView: View {
         self.imageSize = imageSize
         
         switch imageSize {
-        case .track:
+        case .trackRowItem:
             gridRows = Array(repeating: .init(.fixed(Metric.trackRowItemHeight)), count: rowCount)
-        case .album:
+        case .albumItem:
             gridRows = Array(repeating: .init(.fixed(Metric.albumRowItemHeight)), count: rowCount)
         case .highlight:
             gridRows = Array(repeating: .init(.fixed(Metric.highlightCarouselItemHeight)), count: rowCount)
@@ -37,9 +37,9 @@ struct HighlightsView: View {
                 let media = Media(mediaResponse: MediaResponse(id: UUID().uuidString, artistId: nil, collectionId: nil, trackId: nil, wrapperType: WrapperType.collection.rawValue, kind: MediaKind.podcast.rawValue, name: item.name, artistName: item.description, collectionName: "podcast", trackName: item.description, collectionCensoredName: nil, artistViewUrl: nil, collectionViewUrl: nil, trackViewUrl: nil, previewUrl: nil, artworkUrl100: nil, collectionPrice: nil, collectionHdPrice: nil, trackPrice: nil, collectionExplicitness: nil, trackExplicitness: nil, discCount: nil, discNumber: nil, trackCount: nil, trackNumber: nil, trackTimeMillis: nil, country: nil, currency: nil, primaryGenreName: nil, description: nil, longDescription: nil, releaseDate: nil, contentAdvisoryRating: nil, trackRentalPrice: nil, artwork: UIImage(named: item.image), composer: nil, isCompilation: nil, dateAdded: nil))
                 
                 switch imageSize {
-                case .track:
+                case .trackRowItem:
                     TrackMediaRow(media: media)
-                case .album:
+                case .albumItem:
                     AlbumMediaItem(media: media)
                 case .highlight:
                     HighlightMediaItem(media: media)

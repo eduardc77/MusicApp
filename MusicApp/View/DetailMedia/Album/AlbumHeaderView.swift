@@ -15,9 +15,9 @@ struct AlbumHeaderView: View {
         VStack {
             VStack {
                 if let uiImage = libraryMediaObservableObject.media.artwork {
-                    MediaImageView(artworkImage: uiImage, size: Size(width: Metric.albumDetailImageSize, height: Metric.albumDetailImageSize), shadowProminence: .full)
+                    MediaImageView(artworkImage: uiImage, sizeType: .albumDetail, shadowProminence: .full)
                 } else {
-                    MediaImageView(imagePath: libraryMediaObservableObject.media.artworkPath.resizedPath(size: 800), size: Size(width: Metric.albumDetailImageSize, height: Metric.albumDetailImageSize), shadowProminence: .full)
+                    MediaImageView(imagePath: libraryMediaObservableObject.media.artworkPath.resizedPath(size: 800), sizeType: .albumDetail, shadowProminence: .full)
                 }
                 
                 albumDetails

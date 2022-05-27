@@ -15,9 +15,9 @@ struct VideoMediaRow: View {
     var body: some View {
         VStack(alignment: .leading) {
             if let uiImage = media.artwork {
-                MediaImageView(artworkImage: uiImage, size: Size(width: Metric.albumCarouselImageSize, height: Metric.videoRowHeight), contentMode: .fill)
+                MediaImageView(artworkImage: uiImage, sizeType: .albumItem, contentMode: .fill)
             } else {
-                MediaImageView(imagePath: media.artworkPath.resizedPath(size: 360), size: Size(width: Metric.albumCarouselImageSize, height: Metric.videoRowHeight), contentMode: .fill)
+                MediaImageView(imagePath: media.artworkPath.resizedPath(size: 360), sizeType: .albumItem, contentMode: .fill)
             }
             
             VStack {

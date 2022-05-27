@@ -29,13 +29,10 @@ struct HighlightMediaItem: View {
             .lineLimit(1)
             .frame(maxWidth: .infinity, alignment: .leading)
             
-            GeometryReader { geometry in
-                if let uiImage = media.artwork {
-                    MediaImageView(artworkImage: uiImage, size: Size(width: geometry.size.width, height: geometry.size.height - spacing), contentMode: .fill)
-                } else {
-                    MediaImageView(imagePath: media.artworkPath.resizedPath(size: 800), size: Size(width: geometry.size.width, height: geometry.size.height - spacing), contentMode: .fill)
-                }
-                
+            if let uiImage = media.artwork {
+                MediaImageView(artworkImage: uiImage, sizeType: .highlight, contentMode: .fill)
+            } else {
+                MediaImageView(imagePath: media.artworkPath.resizedPath(size: 800), sizeType: .highlight, contentMode: .fill)
             }
         }
     }
