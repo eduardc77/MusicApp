@@ -29,7 +29,7 @@ struct SearchListView: View {
                     case .collection:
                         SearchWrapperRow(media: media, destinationView: AlbumDetailView(media: media, searchObservableObject: searchObservableObject))
                     case .track:
-                        SearchResultsRow(media: media)
+                        SearchResultsRow(media: media, isPlaying: playerObservableObject.nowPlayingItem.$playing)
                         
                     case .artist:
                         SearchWrapperRow(media: media, destinationView: ArtistDetailView(media: media))

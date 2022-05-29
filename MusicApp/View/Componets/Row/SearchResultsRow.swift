@@ -9,14 +9,21 @@ import SwiftUI
 import MediaPlayer
 
 struct SearchResultsRow: View {
+    @EnvironmentObject private var playerObservableObject: PlayerObservableObject
     var media: Media
+    @State var playing: Bool = false
+    
+    init(media: Media, isPlaying: Binding<Bool>) {
+        self.media = media
+        _playing = State(wrappedValue: isPlaying.wrappedValue)
+    }
     
     var body: some View {
         HStack {
             if let uiImage = media.artwork {
-                MediaImageView(artworkImage: uiImage, sizeType: .searchRow)
+                MediaImageView(artworkImage: uiImage, sizeType: .searchRow, playing: $playing)
             } else {
-                MediaImageView(imagePath: media.artworkPath.resizedPath(size: 100), sizeType: .searchRow)
+                MediaImageView(imagePath: media.artworkPath.resizedPath(size: 100), sizeType: .searchRow, playing: $playing)
             }
             
             HStack {

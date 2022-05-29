@@ -12,7 +12,7 @@ final class LibraryMediaItemObservableObject: ObservableObject {
     // MARK: - Publishers
     
     @Published private var trackIDsQueue: [String] = []
-    @Published private(set) var albumContents: AlbumContents?
+    @Published private(set) var albumContents: AlbumContents = AlbumContents()
     
     // MARK: - Properties
     
@@ -24,11 +24,9 @@ final class LibraryMediaItemObservableObject: ObservableObject {
     @ObservedObject var searchObservableObject: SearchObservableObject
     
     var trackCount: Int {
-        if let libraryAlbumTracks = albumContents?.libraryTracks, !libraryAlbumTracks.isEmpty {
-            return libraryAlbumTracks.count
-        } else {
-            return albumContents?.tracks.count ?? 0
-        }
+        guard !albumContents.libraryTracks.isEmpty else { return 0 }
+        
+        return albumContents.libraryTracks.count
     }
     
     // MARK: - Initialization
@@ -39,7 +37,7 @@ final class LibraryMediaItemObservableObject: ObservableObject {
         
         setAlbumContents()
         
-        if let libraryAlbumTracks = albumContents?.libraryTracks, !libraryAlbumTracks.isEmpty {
+        if !albumContents.libraryTracks.isEmpty {
             configureAlbumDetailsForLibraryAlbum()
         }
     }
@@ -52,9 +50,9 @@ final class LibraryMediaItemObservableObject: ObservableObject {
         player.setQueue(with: trackIDsQueue)
         UserDefaults.standard.set(trackIDsQueue, forKey: UserDefaultsKey.queueDefault)
         player.play()
-        
-        if let libraryAlbumTracks = albumContents?.libraryTracks, !libraryAlbumTracks.isEmpty {
-            player.nowPlayingItem = albumContents?.libraryTracks[index]
+    
+        if albumContents.libraryTracks.isEmpty {
+            player.nowPlayingItem = albumContents.libraryTracks[index]
         }
         
         UserDefaults.standard.set(false, forKey: UserDefaultsKey.shuffleDefault)
@@ -100,26 +98,16 @@ final class LibraryMediaItemObservableObject: ObservableObject {
     }
     
     func trackNumber(at index: Int) -> Int {
-        if let libraryAlbumTracks = albumContents?.libraryTracks, !libraryAlbumTracks.isEmpty {
-            return libraryAlbumTracks[index].albumTrackNumber
-        } else if let trackNumber = albumContents?.tracks[index].trackNumber {
-            return Int(trackNumber) ?? 0
-        } else {
-            return 0
-        }
+        return albumContents.libraryTracks[index].albumTrackNumber
     }
     
     func trackTitle(at index: Int) -> String {
-        if let libraryAlbumTracks = albumContents?.libraryTracks, !libraryAlbumTracks.isEmpty {
-            return libraryAlbumTracks[index].title ?? ""
-        } else {
-            return albumContents?.tracks[index].trackName ?? ""
-        }
+        return albumContents.libraryTracks[index].title ?? ""
     }
     
     func trackExplicitness(at index: Int) -> Bool {
-        if let libraryAlbumTracks = albumContents?.libraryTracks, !libraryAlbumTracks.isEmpty {
-            return libraryAlbumTracks[index].isExplicitItem
+        if !albumContents.libraryTracks.isEmpty {
+            return albumContents.libraryTracks[index].isExplicitItem
         } else {
             return false
         }
@@ -142,7 +130,7 @@ private extension LibraryMediaItemObservableObject {
         var albumDuration: TimeInterval = 0
         
         trackIDsQueue.removeAll()
-        albumContents?.libraryTracks.forEach { track in
+        albumContents.libraryTracks.forEach { track in
             trackIDsQueue.append(track.playbackStoreID)
             albumDuration += track.playbackDuration
             albumTrackCount += 1
@@ -173,6 +161,5 @@ private extension LibraryMediaItemObservableObject {
 extension LibraryMediaItemObservableObject {
     struct AlbumContents {
         var libraryTracks: [MPMediaItem] = []
-        var tracks: [Media] = []
     }
 }

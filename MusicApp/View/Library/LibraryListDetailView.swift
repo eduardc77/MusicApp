@@ -16,18 +16,18 @@ struct LibraryListDetailView: View {
     var body: some View {
         ScrollView {
             switch section {
-            case .playlists: VerticalMediaGridView(mediaItems: libraryObservableObject.playlists, imageSize: .albumItem, rowCount: 2)
-            case .artists: VerticalMediaGridView(mediaItems: libraryObservableObject.artists, imageSize: .trackRowItem, rowCount: 1)
-            case .albums: VerticalMediaGridView(mediaItems: libraryObservableObject.albums, imageSize: .albumItem, rowCount: 2)
-            case .songs: VerticalMediaGridView(mediaItems: libraryObservableObject.songs, imageSize: .trackRowItem, rowCount: 1)
-            case .madeForYou: VerticalMediaGridView(mediaItems: libraryObservableObject.madeForYou, imageSize: .albumItem, rowCount: 2)
-            case .tvAndMovies: VerticalMediaGridView(mediaItems: libraryObservableObject.tvAndMovies, imageSize: .albumItem, rowCount: 2)
-            case .musicVideos: VerticalMediaGridView(mediaItems: libraryObservableObject.musicVideos, imageSize: .albumItem, rowCount: 2)
-            case .genres: VerticalMediaGridView(mediaItems: libraryObservableObject.genres, imageSize: .trackRowItem, rowCount: 1)
-            case .compilations: VerticalMediaGridView(mediaItems: libraryObservableObject.compilations, imageSize: .albumItem, rowCount: 2)
-            case .composers: VerticalMediaGridView(mediaItems: libraryObservableObject.composers, imageSize: .trackRowItem, rowCount: 1)
-            case .downloaded: VerticalMediaGridView(mediaItems: libraryObservableObject.downloaded, imageSize: .albumItem, rowCount: 2)
-            case .homeSharing: VerticalMediaGridView(mediaItems: libraryObservableObject.homeSharing, imageSize: .albumItem, rowCount: 2)
+            case .playlists: VerticalMediaGridView(mediaItems: libraryObservableObject.playlists, imageSize: .albumItem)
+            case .artists: VerticalMediaGridView(mediaItems: libraryObservableObject.artists, imageSize: .trackRowItem)
+            case .albums: VerticalMediaGridView(mediaItems: libraryObservableObject.albums, imageSize: .albumItem)
+            case .songs: VerticalMediaGridView(mediaItems: libraryObservableObject.songs, imageSize: .trackRowItem)
+            case .madeForYou: VerticalMediaGridView(mediaItems: libraryObservableObject.madeForYou, imageSize: .albumItem)
+            case .tvAndMovies: VerticalMediaGridView(mediaItems: libraryObservableObject.tvAndMovies, imageSize: .albumItem)
+            case .musicVideos: VerticalMediaGridView(mediaItems: libraryObservableObject.musicVideos, imageSize: .albumItem)
+            case .genres: VerticalMediaGridView(mediaItems: libraryObservableObject.genres, imageSize: .trackRowItem)
+            case .compilations: VerticalMediaGridView(mediaItems: libraryObservableObject.compilations, imageSize: .albumItem)
+            case .composers: VerticalMediaGridView(mediaItems: libraryObservableObject.composers, imageSize: .trackRowItem)
+            case .downloaded: VerticalMediaGridView(mediaItems: libraryObservableObject.downloaded, imageSize: .albumItem)
+            case .homeSharing: VerticalMediaGridView(mediaItems: libraryObservableObject.homeSharing, imageSize: .albumItem)
             }
             
             Spacer(minLength: Metric.playerHeight)

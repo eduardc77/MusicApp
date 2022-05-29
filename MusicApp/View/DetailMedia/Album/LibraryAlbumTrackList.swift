@@ -59,7 +59,7 @@ struct LibraryAlbumTrackList: View {
                     libraryMediaObservableObject.playTrack(at: trackIndex)
                 }
                 
-                .onReceive(NotificationCenter.default.publisher(for: .MPMusicPlayerControllerPlaybackStateDidChange)){ _ in
+                .onReceive(NotificationCenter.default.publisher(for: .MPMusicPlayerControllerPlaybackStateDidChange)) { _ in
                     if libraryMediaObservableObject.player.playbackState == .playing {
                         playing.1 = true
                     } else if libraryMediaObservableObject.player.playbackState == .paused {

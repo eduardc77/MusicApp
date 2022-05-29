@@ -15,7 +15,7 @@ enum Metric {
     static let largeCarouselItemWidth: CGFloat = Metric.screenWidth * 0.9
     
     // MARK: - Player
-    static let playerHeight: CGFloat = 66
+    static let playerHeight: CGFloat = Metric.screenHeight * 0.08
     static let regularSpacing: CGFloat = 16
     static let yOffset: CGFloat = -48
     static let capsuleWidth: CGFloat = 36
@@ -27,7 +27,7 @@ enum Metric {
     static let mediaPreviewHeaderHeight: CGFloat = UIScreen.main.bounds.height / 2.45
     
     // MARK: - Artwork
-    static let albumDetailImageSize: CGFloat = 233
+    static let albumDetailImageSize: CGFloat = UIScreen.main.bounds.height / 3.56
     
     static let trackCarouselImageSize: CGFloat = Metric.screenHeight * 0.06
     static let searchResultImageSize: CGFloat = Metric.screenHeight * 0.07
@@ -40,8 +40,9 @@ enum Metric {
     static let categoryRowItemWidth: CGFloat = Metric.screenWidth / 2.29
     static let categoryRowItemHeight: CGFloat = Metric.screenHeight * 0.136
     static let largeRowItemHeight: CGFloat = Metric.screenHeight * 0.28
-    static let highlightItemImageSize: CGFloat = Metric.screenHeight * 0.26
-    static let highlightCarouselItemHeight: CGFloat = Metric.screenHeight * 0.37
+    static let highlightItemImageSize: CGFloat = Metric.screenHeight * 0.30
+    
+    static let highlightCarouselItemHeight: CGFloat = Metric.screenHeight * 0.36
     
     // MARK: - TimeView
     static let largePoint: CGFloat = 32

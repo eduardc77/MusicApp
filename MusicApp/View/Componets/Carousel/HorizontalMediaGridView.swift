@@ -44,25 +44,10 @@ struct HorizontalMediaGridView: View {
                     
                     if mediaItems.count > maxHighlightShowing {
                         NavigationLink {
-                            switch imageSize {
-                            case .trackRowItem:
-                                VerticalMediaGridView(mediaItems: mediaItems, imageSize: .trackRowItem, rowCount: 1)
-                                    .navigationTitle(title)
-                                    .navigationBarTitleDisplayMode(.inline)
-                            case .albumItem:
-                                VerticalMediaGridView(mediaItems: mediaItems, imageSize: .albumItem, rowCount: 2)
-                                    .navigationTitle(title)
-                                    .navigationBarTitleDisplayMode(.inline)
-                            case .musicVideoItem:
-                                VerticalMediaGridView(mediaItems: mediaItems, imageSize: .musicVideoRow, rowCount: 2)
-                                    .navigationTitle(title)
-                                    .navigationBarTitleDisplayMode(.inline)
-                    
-                            default:
-                                VerticalMediaGridView(mediaItems: mediaItems, imageSize: .trackRowItem, rowCount: 1)
-                                    .navigationTitle(title)
-                                    .navigationBarTitleDisplayMode(.inline)
-                            }
+                            VerticalMediaGridView(mediaItems: mediaItems, imageSize: imageSize)
+                                .navigationTitle(title)
+                                .navigationBarTitleDisplayMode(.inline)
+                            
                         } label: {
                             Text("See All")
                         }

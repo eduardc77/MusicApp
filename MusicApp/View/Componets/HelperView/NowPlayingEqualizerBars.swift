@@ -9,6 +9,7 @@ import SwiftUI
 
 struct NowPlayingEqualizerBars: View {
     @Binding var animating: Bool
+    var color: Color = .appAccentColor
     
     static let numberOfBars = 4
     static let spacerWidthRatio: CGFloat = 0.6
@@ -23,7 +24,7 @@ struct NowPlayingEqualizerBars: View {
             HStack(spacing: spacerWidth) {
                 ForEach(0..<NowPlayingEqualizerBars.numberOfBars, id: \.self) { index in
                     EqualizerBar(completion: animating ? 1 : 0)
-                        .fill(Color.appAccentColor)
+                        .fill(color)
                         .frame(width: barWidth)
                         .animation(.ripple(index: index), value: animating)
                 }

@@ -31,6 +31,7 @@ struct BrowseView: View {
                 
                 NavigationLinkList(rowItems: BrowseMoreToExplore.self, content: detailViews)
                     .frame(height: 250)
+                
                 Spacer(minLength: Metric.playerHeight)
             }
             .navigationTitle(title)

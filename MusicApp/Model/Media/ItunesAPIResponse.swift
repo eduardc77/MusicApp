@@ -47,7 +47,7 @@ struct MediaResponse: Codable {
     let contentAdvisoryRating: String?
     let trackRentalPrice: Double?
     
-    // Library Properties
+    // MARK: - Library Properties
     var artwork: UIImage?
     var composer: String?
     var isCompilation: Bool?

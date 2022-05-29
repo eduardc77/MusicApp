@@ -10,6 +10,9 @@ import SwiftUI
 struct MediaImageView: View {
     @StateObject private var mediaImageObservableObject: MediaImageObservableObject
     @Binding private var visibleSide: FlipViewSide
+    @Binding var playing: Bool
+    
+    @State var animate: Bool = false
     
     private let imagePath: String?
     private var artworkImage: UIImage?
@@ -18,11 +21,16 @@ struct MediaImageView: View {
     private var shadowProminence: ShadowProminence
     private var contentMode: ContentMode
     private var foregroundColor: Color
-    
+
     @State private var shadow: (radius: CGFloat, xPosition: CGFloat, yPosition: CGFloat) = (0, 0, 0)
     
-    init(imagePath: String? = nil, artworkImage: UIImage? = nil, sizeType: SizeType = .defaultSize, cornerRadius: CGFloat = Metric.defaultCornerRadius, shadowProminence: ShadowProminence = .none, contentMode: ContentMode = .fit, foregroundColor: Color = .secondary.opacity(0.1), visibleSide: Binding<FlipViewSide> = .constant(.front)) {
+    init(imagePath: String? = nil, artworkImage: UIImage? = nil, sizeType: SizeType = .defaultSize, cornerRadius: CGFloat = Metric.defaultCornerRadius, shadowProminence: ShadowProminence = .none, contentMode: ContentMode = .fit, foregroundColor: Color = .secondary.opacity(0.1), visibleSide: Binding<FlipViewSide> = .constant(.front), playing: Binding<Bool> = .constant(false)) {
         _mediaImageObservableObject = StateObject(wrappedValue: MediaImageObservableObject())
+        _visibleSide = visibleSide
+        
+        _playing = playing
+        
+        
         
         self.imagePath = imagePath
         self.artworkImage = artworkImage
@@ -32,7 +40,7 @@ struct MediaImageView: View {
         self.contentMode = contentMode
         self.foregroundColor = foregroundColor
         
-        _visibleSide = visibleSide
+        
     }
     
     var body: some View {
@@ -93,8 +101,21 @@ struct MediaImageView: View {
             .shadow(radius: shadow.radius, x: shadow.xPosition, y: shadow.yPosition)
             
             .overlay {
+                ZStack {
+                    if playing {
+                        
+                        Color.gray.opacity(0.6)
+                        
+                        NowPlayingEqualizerBars(animating: $animate, color: .white)
+                            .frame(width: 16, height: 8)
+                            .onAppear {
+                                animate.toggle()
+                            }
+                    }
                 RoundedRectangle(cornerRadius: cornerRadius)
                     .stroke(Color.secondary.opacity(0.6), lineWidth: 0.1)
+                }
+                
             }
             
         } back: {

@@ -30,6 +30,7 @@ struct AlbumMediaItem: View {
                 .font(.caption)
                 .lineLimit(1)
             }
+            
         }
     }
 }

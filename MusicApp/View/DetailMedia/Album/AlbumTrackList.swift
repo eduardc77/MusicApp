@@ -91,7 +91,6 @@ struct AlbumTrackList: View {
                 }
                 
             }
-            
         }
         .onAppear {
             mediaItemObservableObject.fetchTracks(for: media.id)

@@ -19,7 +19,7 @@ final class PlayerObservableObject: ObservableObject {
     
     // MARK: - Audio Player Properties
     
-    @Published var nowPlayingItem: Media?
+    @Published var nowPlayingItem: PlayableItem = PlayableItem(playing: .constant(false), media: Media())
     @Published var playbackState: MPMusicPlaybackState? = MPMusicPlayerController.applicationMusicPlayer.playbackState
     @Published var playerOption = PlayerOption()
     @Published var progressRate: Int = 0
@@ -74,12 +74,8 @@ final class PlayerObservableObject: ObservableObject {
         }
     }
     
-    func makeNowPlaying(media: MPMediaItem? = nil) {
-        guard let media = media else {
-            nowPlayingItem = nil
-            
-            return
-        }
+    func makeNowPlaying(media: MPMediaItem? = nil, playing: Binding<Bool>) {
+        guard let media = media else { return }
         
         let kind: MediaKind
         
@@ -97,12 +93,12 @@ final class PlayerObservableObject: ObservableObject {
         default: kind = MediaKind.album
         }
         
-        nowPlayingItem = Media(mediaResponse: MediaResponse(id: media.playbackStoreID, artistId: 0, collectionId: 0, trackId: 0, wrapperType: "track", kind: kind.rawValue, name: media.title, artistName: media.artist, collectionName: media.albumTitle, trackName: media.title, collectionCensoredName: media.albumTitle, artistViewUrl: nil, collectionViewUrl: nil, trackViewUrl: nil, previewUrl: nil, artworkUrl100: nil, collectionPrice: nil, collectionHdPrice: 0, trackPrice: 0, collectionExplicitness: nil, trackExplicitness: media.isExplicitItem ? "explicit" : "notExplicit", discCount: 0, discNumber: nil, trackCount: media.albumTrackCount, trackNumber: media.albumTrackNumber, trackTimeMillis: media.playbackDuration.toInt, country: nil, currency: nil, primaryGenreName: media.genre, description: nil, longDescription: nil, releaseDate: media.releaseDate?.ISO8601Format(), contentAdvisoryRating: nil, trackRentalPrice: 0, artwork: media.artwork?.image(at: CGSize(width: 1024, height: 1024)), composer: media.composer, isCompilation: media.isCompilation))
+        nowPlayingItem = PlayableItem(playing: playing, media: Media(mediaResponse: MediaResponse(id: media.playbackStoreID, artistId: 0, collectionId: 0, trackId: 0, wrapperType: "track", kind: kind.rawValue, name: media.title, artistName: media.artist, collectionName: media.albumTitle, trackName: media.title, collectionCensoredName: media.albumTitle, artistViewUrl: nil, collectionViewUrl: nil, trackViewUrl: nil, previewUrl: nil, artworkUrl100: nil, collectionPrice: nil, collectionHdPrice: 0, trackPrice: 0, collectionExplicitness: nil, trackExplicitness: media.isExplicitItem ? "explicit" : "notExplicit", discCount: 0, discNumber: nil, trackCount: media.albumTrackCount, trackNumber: media.albumTrackNumber, trackTimeMillis: media.playbackDuration.toInt, country: nil, currency: nil, primaryGenreName: media.genre, description: nil, longDescription: nil, releaseDate: media.releaseDate?.ISO8601Format(), contentAdvisoryRating: nil, trackRentalPrice: 0, artwork: media.artwork?.image(at: CGSize(width: 1024, height: 1024)), composer: media.composer, isCompilation: media.isCompilation)))
+        
+        
     }
     
     func configureVideoPlayer(with videoMediaUrl: URL) {
-        nowPlayingItem = nil
-
         playerType = .video
         videoPlayer = VideoPlayerView(url: videoMediaUrl)
         expand = true

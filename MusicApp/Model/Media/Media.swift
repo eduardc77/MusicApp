@@ -7,9 +7,19 @@
 
 import SwiftUI
 
-struct Media: Identifiable, Codable {
-    let mediaResponse: MediaResponse
+struct PlayableItem {
+    @Binding var playing: Bool
+    
+    var media: Media
+}
 
+struct Media: Identifiable, Codable {
+    var mediaResponse: MediaResponse
+    
+    var id: String { mediaResponse.id ?? mediaResponse.trackId?.description ?? mediaResponse.collectionId?.description ?? mediaResponse.artistId?.description ?? UUID().uuidString }
+    var name: String { mediaResponse.name ?? mediaResponse.trackName ?? mediaResponse.collectionName ?? "Unknown media" }
+    var wrapperType: WrapperType { WrapperType(rawValue: mediaResponse.wrapperType ?? "") ?? .collection }
+    var kind: MediaKind { MediaKind(rawValue: mediaResponse.kind ?? "") ?? .album }
     var artistId: Int { mediaResponse.artistId ?? 0 }
     var collectionId: Int { mediaResponse.collectionId ?? 0 }
     var trackId: Int { mediaResponse.trackId ?? 0 }
@@ -34,29 +44,17 @@ struct Media: Identifiable, Codable {
     var trackTimeMillis: Double? { Double(mediaResponse.trackTimeMillis ?? 0) }
     var currency: String { (" " + (mediaResponse.currency ?? "No price")) }
     var country: String { mediaResponse.country ?? "" }
+    var collectionExplicitness: Explicitness { return Explicitness(rawValue: mediaResponse.collectionExplicitness ?? "notExplicit") ?? .notExplicit }
+    var trackExplicitness: Explicitness { return Explicitness(rawValue: mediaResponse.trackExplicitness ?? "notExplicit") ?? .notExplicit }
+    var iTunesUrl: URL { URL(string: mediaResponse.trackViewUrl ?? "") ?? URL(string: "https://www.apple.com/404")! }
+    var previewUrl: URL { URL(string: mediaResponse.previewUrl ?? "") ?? Bundle.main.url(forResource: "Placeholder", withExtension: "mov")! }
     
-    var wrapperType: WrapperType { WrapperType(rawValue: mediaResponse.wrapperType ?? "") ?? .collection }
-    
-    var kind: MediaKind { MediaKind(rawValue: mediaResponse.kind ?? "") ?? .album }
-     
-    var name: String {
-        mediaResponse.name ?? mediaResponse.trackName ?? mediaResponse.collectionName ?? "Unknown media"
-    }
-    
-    var collectionExplicitness: Explicitness {
-        return Explicitness(rawValue: mediaResponse.collectionExplicitness ?? "notExplicit") ?? .notExplicit
-    }
-    
-    var trackExplicitness: Explicitness {
-        return Explicitness(rawValue: mediaResponse.trackExplicitness ?? "notExplicit") ?? .notExplicit
-    }
-
     var releaseDate: String? {
         guard let releaseDateString = mediaResponse.releaseDate,
               let formattedDate = DateFormatter.isoFormatter.date(from: releaseDateString)?.addingTimeInterval(86400) else {
             return nil
         }
-       
+        
         return DateFormatter.defaultFormatter.string(from: formattedDate)
     }
     
@@ -77,7 +75,7 @@ struct Media: Identifiable, Codable {
         guard let releaseYear = releaseYear else {
             return "\(genreName.uppercased())"
         }
-
+        
         return "\(genreName.uppercased()) · \(releaseYear)"
     }
     
@@ -85,10 +83,10 @@ struct Media: Identifiable, Codable {
         guard let releaseYear = releaseYear else {
             return "\(collectionName)"
         }
-
+        
         return "\(collectionName) · \(releaseYear)"
     }
-
+    
     var duration: String {
         let seconds = (mediaResponse.trackTimeMillis ?? 0) / 1000
         let formatter = DateComponentsFormatter()
@@ -96,77 +94,33 @@ struct Media: Identifiable, Codable {
         formatter.unitsStyle = .short
         return formatter.string(from: TimeInterval(seconds)) ?? "nil"
     }
-
-    var iTunesUrl: URL {
-        URL(string: mediaResponse.trackViewUrl ?? "") ?? URL(string: "https://www.apple.com/404")!
-    }
-
-    var previewUrl: URL {
-        URL(string: mediaResponse.previewUrl ?? "") ?? Bundle.main.url(forResource: "Placeholder", withExtension: "mov")!
-    }
-
-    var id: String {
-        mediaResponse.id ?? mediaResponse.trackId?.description ?? mediaResponse.collectionId?.description ?? mediaResponse.artistId?.description ?? UUID().uuidString
-    }
-
-    var shortInfo: [ShortInfoType] {
-        ShortInfoType.allCases.filter( { $0.title(for: self) != "0" && $0.title(for: self) != "0.0" } )
-    }
     
     // MARK: - Library Properties
     
-    var artwork: UIImage? {
-        return mediaResponse.artwork ?? nil
-    }
-
+    var artwork: UIImage? { return mediaResponse.artwork ?? nil }
     var composer: String? { String(mediaResponse.composer ?? "") }
     var isCompilation: Bool? { Bool(mediaResponse.isCompilation ?? false) }
-
-    enum ShortInfoType: String, CaseIterable, Identifiable {
-        case advisory = "Advisory rating"
-        case genre = "Genre"
-        case releaseDate = "Release date"
-        case duration = "Duration"
-        case rentalPrice = "Movie rental price"
-        case moviesInCollection = "Movies in collection"
-        case collectionHDPrice = "Collection HD price"
-
-        var id: String { rawValue }
-
-        func title(for media: Media) -> String {
-            switch self {
-            case .advisory:
-                return media.advisory
-            case .genre:
-                return media.genreName
-            case .releaseDate:
-                return media.releaseDate ?? ""
-            case .duration:
-                return media.duration
-            case .rentalPrice:
-                return media.rentalPrice
-            case .moviesInCollection:
-                return media.trackCount
-            case .collectionHDPrice:
-                return media.collectionPrice + media.currency
-            }
-        }
+    
+    init() {
+        mediaResponse = MediaResponse(id: nil, artistId: nil, collectionId: nil, trackId: nil, wrapperType: nil, kind: nil, name: nil, artistName: nil, collectionName: nil, trackName: nil, collectionCensoredName: nil, artistViewUrl: nil, collectionViewUrl: nil, trackViewUrl: nil, previewUrl: nil, artworkUrl100: nil, collectionPrice: nil, collectionHdPrice: nil, trackPrice: nil, collectionExplicitness: nil, trackExplicitness: nil, discCount: nil, discNumber: nil, trackCount: nil, trackNumber: nil, trackTimeMillis: nil, country: nil, currency: nil, primaryGenreName: nil, description: nil, longDescription: nil, releaseDate: nil, contentAdvisoryRating: nil, trackRentalPrice: nil)
+    }
+    
+    init(mediaResponse: MediaResponse) {
+        self.mediaResponse = mediaResponse
     }
 }
 
-extension Media: Equatable, Hashable {
+// MARK: - Equatable
+extension Media: Equatable {
     static func == (lhs: Media, rhs: Media) -> Bool {
         lhs.id == rhs.id
     }
+}
 
+// MARK: - Hashable
+
+extension Media: Hashable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
-}
-
-
-// MARK: -
-
-enum DefaultString {
-    static let undefined = "Undefined"
 }

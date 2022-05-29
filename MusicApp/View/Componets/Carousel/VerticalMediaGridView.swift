@@ -16,20 +16,20 @@ struct VerticalMediaGridView: View {
     var columns: [GridItem]
     var gridSpacing: CGFloat?
     
-    init(mediaItems: [Media], title: String = "", imageSize: SizeType, rowCount: Int = 1) {
+    init(mediaItems: [Media], title: String = "", imageSize: SizeType) {
         self.mediaItems = mediaItems
         self.title = title
         self.imageSize = imageSize
         
         switch imageSize {
         case .trackRowItem:
-            columns = Array(repeating: .init(.flexible()), count: rowCount)
+            columns = Array(repeating: .init(.flexible(), spacing: 8), count: 1)
             gridSpacing = 0
         case .albumItem, .musicVideoItem:
-            columns = Array(repeating: .init(.flexible(), spacing: 12), count: rowCount)
+            columns = Array(repeating: .init(.flexible(), spacing: 12), count: 2)
             gridSpacing = 12
         default:
-            columns = Array(repeating: .init(.flexible(), spacing: 10), count: rowCount)
+            columns = Array(repeating: .init(.flexible(), spacing: 10), count: 2)
             gridSpacing = 12
         }
     }
@@ -50,7 +50,7 @@ struct VerticalMediaGridView: View {
                         TrackMediaRow(media: media)
                     case .albumItem:
                         AlbumMediaItem(media: media)
-                    case .musicVideoRow:
+                    case .musicVideoItem:
                         VideoMediaRow(media: media)
                     default:
                         VideoMediaItem(media: media)

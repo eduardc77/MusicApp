@@ -13,6 +13,8 @@ struct PlayerView: View {
     @State var offset: CGFloat = 0
     @State private var visibleSide = FlipViewSide.front
     
+    @State var playing: Bool = false
+    
     static let timer = Timer.publish(every: 0.6, tolerance: 0.6, on: .main, in: .common).autoconnect()
     
     var body: some View {
@@ -31,7 +33,7 @@ struct PlayerView: View {
                         playerObservableObject.videoPlayer
                         
                     } else {
-                        MediaImageView(imagePath: playerObservableObject.nowPlayingItem?.artworkPath.resizedPath(size: 600), artworkImage: playerObservableObject.nowPlayingItem?.artwork, sizeType: playerObservableObject.expand ? .largePlayerArtwork : .trackRowItem, cornerRadius: playerObservableObject.expand ? 10 : Metric.defaultCornerRadius, shadowProminence: playerObservableObject.expand ? .full : .none, visibleSide: $visibleSide)
+                        MediaImageView(imagePath: playerObservableObject.nowPlayingItem.media.artworkPath.resizedPath(size: 600), artworkImage: playerObservableObject.nowPlayingItem.media.artwork, sizeType: playerObservableObject.expand ? .largePlayerArtwork : .trackRowItem, cornerRadius: playerObservableObject.expand ? 10 : Metric.defaultCornerRadius, shadowProminence: playerObservableObject.expand ? .full : .none, visibleSide: $visibleSide)
                             .scaleEffect((playerObservableObject.playbackState == .playing && playerObservableObject.expand) ? 1.33 : 1)
                             .animation(.spring(response: 0.5, dampingFraction: 0.5, blendDuration: 0.3), value: playerObservableObject.playbackState)
                         
@@ -41,7 +43,7 @@ struct PlayerView: View {
                     }
                     
                     if !playerObservableObject.expand {
-                        Text(playerObservableObject.nowPlayingItem?.trackName ?? "Not Playing")
+                        Text(playerObservableObject.nowPlayingItem.media.trackName)
                             .font(.body)
                             .foregroundColor(.primary)
                     }
@@ -50,7 +52,6 @@ struct PlayerView: View {
                     if !playerObservableObject.expand {
                         HStack {
                             Button(action: {
-                                guard playerObservableObject.nowPlayingItem != nil else { return }
                                 playerObservableObject.playbackState == .playing ? playerObservableObject.audioPlayer.pause() : playerObservableObject.audioPlayer.play()
                             },
                                    label: {
@@ -68,13 +69,12 @@ struct PlayerView: View {
                             .padding(.trailing)
                             
                             Button(action: {
-                                guard playerObservableObject.nowPlayingItem != nil else { return }
                                 playerObservableObject.audioPlayer.skipToNextItem()
                             },
                                    label: {
                                 Image(systemName: "forward.fill")
                                     .font(.title2)
-                                    .foregroundColor(playerObservableObject.nowPlayingItem != nil ? .primary : .secondary)
+                                    .foregroundColor(!playerObservableObject.nowPlayingItem.media.name.isEmpty ? .primary : .secondary)
                             }
                             )
                         }
@@ -91,9 +91,9 @@ struct PlayerView: View {
                 VStack {
                     HStack {
                         VStack(alignment: .leading, spacing: 2) {
-                            MarqueeText(text: playerObservableObject.nowPlayingItem?.trackName ?? "Not Playing", explicitness: playerObservableObject.nowPlayingItem?.trackExplicitness ?? .notExplicit)
+                            MarqueeText(text: playerObservableObject.nowPlayingItem.media.mediaResponse.name != nil ? playerObservableObject.nowPlayingItem.media.name : "Not Playing", explicitness: playerObservableObject.nowPlayingItem.media.trackExplicitness)
                             
-                            MarqueeText(text: playerObservableObject.nowPlayingItem?.artistName ?? "", color: .lightGrayColor, font: UIFont.systemFont(ofSize: 20))
+                            MarqueeText(text: playerObservableObject.nowPlayingItem.media.artistName, color: .lightGrayColor, font: UIFont.systemFont(ofSize: 20))
                         }
                         Spacer()
                         
@@ -136,7 +136,7 @@ struct PlayerView: View {
         .background(
             VStack(spacing: 0) {
                 if playerObservableObject.expand {
-                    if let artworkUIImage = playerObservableObject.nowPlayingItem?.artwork {
+                    if let artworkUIImage = playerObservableObject.nowPlayingItem.media.artwork {
                         LinearGradient(
                             gradient: Gradient(colors: [Color(artworkUIImage.firstAverageColor ?? .gray), Color(artworkUIImage.secondAverageColor ?? .gray)]),
                             startPoint: .topLeading,
@@ -167,16 +167,22 @@ struct PlayerView: View {
         
         .onReceive(NotificationCenter.default.publisher(for: .MPMusicPlayerControllerPlaybackStateDidChange)){ _ in
             playerObservableObject.playbackState = playerObservableObject.audioPlayer.playbackState
+            
+            switch playerObservableObject.playbackState {
+            case .playing:
+                playing = true
+            default:
+                playing = false
+            }
+            
         }
         
         .onReceive(NotificationCenter.default.publisher(for: .MPMusicPlayerControllerNowPlayingItemDidChange)){ _ in
             playerObservableObject.playerType = .audio
-            guard let mediaItem = playerObservableObject.audioPlayer.nowPlayingItem else {
-                playerObservableObject.makeNowPlaying()
-                return
-            }
+            guard let mediaItem = playerObservableObject.audioPlayer.nowPlayingItem else { return }
             playerObservableObject.progressRate = playerObservableObject.audioPlayer.currentPlaybackTime.toInt
-            playerObservableObject.makeNowPlaying(media: mediaItem)
+            playerObservableObject.makeNowPlaying(media: mediaItem, playing: $playing)
+           
         }
         
         .onAppear {

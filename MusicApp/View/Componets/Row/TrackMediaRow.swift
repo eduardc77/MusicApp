@@ -9,6 +9,7 @@ import SwiftUI
 import MediaPlayer
 
 struct TrackMediaRow: View {
+    @EnvironmentObject private var playerObservableObject: PlayerObservableObject
     var media: Media
 
     var body: some View {
@@ -18,9 +19,9 @@ struct TrackMediaRow: View {
             
             HStack(spacing: 14) {
                 if let uiImage = media.artwork {
-                    MediaImageView(artworkImage: uiImage, sizeType: .trackRowItem)
+                    MediaImageView(artworkImage: uiImage, sizeType: .trackRowItem, playing: playerObservableObject.nowPlayingItem.$playing)
                 } else {
-                    MediaImageView(imagePath: media.artworkPath.resizedPath(size: 160), sizeType: .trackRowItem)
+                    MediaImageView(imagePath: media.artworkPath.resizedPath(size: 160), sizeType: .trackRowItem, playing: playerObservableObject.nowPlayingItem.$playing)
                 }
                 
                 HStack {
@@ -46,7 +47,7 @@ struct TrackMediaRow: View {
                 MPMusicPlayerController.applicationMusicPlayer.play()
             }
         }
-        .frame(width: Metric.largeCarouselItemWidth, height: 55)
+        .frame(width: Metric.largeCarouselItemWidth)
     }
 }
 
