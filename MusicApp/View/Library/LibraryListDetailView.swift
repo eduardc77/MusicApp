@@ -29,8 +29,6 @@ struct LibraryListDetailView: View {
             case .downloaded: VerticalMediaGridView(mediaItems: libraryObservableObject.downloaded, imageSize: .albumItem)
             case .homeSharing: VerticalMediaGridView(mediaItems: libraryObservableObject.homeSharing, imageSize: .albumItem)
             }
-            
-            Spacer(minLength: Metric.playerHeight)
         }
         .navigationTitle(section.title)
         .searchable(text: $searchTerm, prompt: "Find in \(section.title)")

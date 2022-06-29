@@ -21,7 +21,7 @@ struct RadioView: View {
                 
                 HorizontalMediaGridView(mediaItems: musicPlaylists, title: "New Episodes", imageSize: .trackRowItem, rowCount: 4)
                 
-                Spacer(minLength: Metric.playerHeight)
+                Spacer(minLength: Metric.playerBarHeight)
             }
             .navigationTitle("Radio")
         }

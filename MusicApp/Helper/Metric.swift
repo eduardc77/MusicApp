@@ -15,7 +15,9 @@ enum Metric {
     static let largeCarouselItemWidth: CGFloat = Metric.screenWidth * 0.9
     
     // MARK: - Player
-    static let playerHeight: CGFloat = Metric.screenHeight * 0.08
+    static let playerBarHeight: CGFloat = Metric.screenHeight * 0.08
+    static let smallVideoPlayerFrameWidth: CGFloat = Metric.screenHeight * 0.8
+    static let smallVideoPlayerFrameHeight: CGFloat = Metric.screenHeight * 0.04
     static let regularSpacing: CGFloat = 16
     static let yOffset: CGFloat = -48
     static let capsuleWidth: CGFloat = 36
@@ -29,6 +31,7 @@ enum Metric {
     // MARK: - Artwork
     static let albumDetailImageSize: CGFloat = UIScreen.main.bounds.height / 3.56
     
+    
     static let trackCarouselImageSize: CGFloat = Metric.screenHeight * 0.06
     static let searchResultImageSize: CGFloat = Metric.screenHeight * 0.07
     static let playlistRowHeight: CGFloat = Metric.screenHeight * 0.12
@@ -40,9 +43,9 @@ enum Metric {
     static let categoryRowItemWidth: CGFloat = Metric.screenWidth / 2.29
     static let categoryRowItemHeight: CGFloat = Metric.screenHeight * 0.136
     static let largeRowItemHeight: CGFloat = Metric.screenHeight * 0.28
-    static let highlightItemImageSize: CGFloat = Metric.screenHeight * 0.30
+    static let highlightItemImageSize: CGFloat = Metric.screenHeight * 0.28
     
-    static let highlightCarouselItemHeight: CGFloat = Metric.screenHeight * 0.36
+    static let highlightCarouselItemHeight: CGFloat = Metric.screenHeight * 0.38
     
     // MARK: - TimeView
     static let largePoint: CGFloat = 32
@@ -52,6 +55,7 @@ enum Metric {
 
 enum SizeType {
     case trackRowItem
+    case smallVideoPlayer
     case searchRow
     case artistRow
     case albumRow
@@ -70,6 +74,7 @@ enum SizeType {
     var size: Size {
         switch self {
         case .trackRowItem: return Size(width: Metric.trackCarouselImageSize, height: Metric.trackCarouselImageSize)
+        case .smallVideoPlayer: return Size(width: Metric.smallVideoPlayerFrameWidth, height: Metric.smallVideoPlayerFrameHeight)
         case .searchRow, .artistRow: return Size(width: Metric.searchResultImageSize, height: Metric.searchResultImageSize)
         case .albumRow: return Size(width: 100, height: 100)
         case .albumItem: return Size(width: Metric.albumCarouselImageSize, height: Metric.albumCarouselImageSize)

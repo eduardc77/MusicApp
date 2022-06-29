@@ -26,7 +26,7 @@ struct ListenNowView: View {
                     HorizontalMediaGridView(mediaItems: musicPlaylists, title: "New Music", imageSize: .albumItem, rowCount: 2)
                 }
                 
-                Spacer(minLength: Metric.playerHeight)
+                Spacer(minLength: Metric.playerBarHeight)
             }
             .toolbar(content: {
                 AccountNavigationItem()

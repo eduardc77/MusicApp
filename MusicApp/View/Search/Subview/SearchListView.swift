@@ -39,7 +39,7 @@ struct SearchListView: View {
                 }
                 .padding(.horizontal)
                 
-                Spacer(minLength: Metric.playerHeight)
+                Spacer(minLength: Metric.playerBarHeight)
             }
         }
         .safeAreaInset(edge: .top) {

@@ -26,7 +26,7 @@ struct AlbumDetailView: View {
                     AlbumTrackList(media: mediaItemObservableObject.media)
                 }
                 
-                Spacer(minLength: Metric.playerHeight)
+                Spacer(minLength: Metric.playerBarHeight)
             }
             .navigationBarTitleDisplayMode(.inline)
         }

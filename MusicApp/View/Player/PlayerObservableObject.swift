@@ -93,15 +93,16 @@ final class PlayerObservableObject: ObservableObject {
         default: kind = MediaKind.album
         }
         
-        nowPlayingItem = PlayableItem(playing: playing, media: Media(mediaResponse: MediaResponse(id: media.playbackStoreID, artistId: 0, collectionId: 0, trackId: 0, wrapperType: "track", kind: kind.rawValue, name: media.title, artistName: media.artist, collectionName: media.albumTitle, trackName: media.title, collectionCensoredName: media.albumTitle, artistViewUrl: nil, collectionViewUrl: nil, trackViewUrl: nil, previewUrl: nil, artworkUrl100: nil, collectionPrice: nil, collectionHdPrice: 0, trackPrice: 0, collectionExplicitness: nil, trackExplicitness: media.isExplicitItem ? "explicit" : "notExplicit", discCount: 0, discNumber: nil, trackCount: media.albumTrackCount, trackNumber: media.albumTrackNumber, trackTimeMillis: media.playbackDuration.toInt, country: nil, currency: nil, primaryGenreName: media.genre, description: nil, longDescription: nil, releaseDate: media.releaseDate?.ISO8601Format(), contentAdvisoryRating: nil, trackRentalPrice: 0, artwork: media.artwork?.image(at: CGSize(width: 1024, height: 1024)), composer: media.composer, isCompilation: media.isCompilation)))
+        nowPlayingItem = PlayableItem(playing: playing, media: Media(mediaResponse: MediaResponse(id: media.playbackStoreID, artistId: 0, collectionId: 0, trackId: 0, wrapperType: "track", kind: kind.rawValue, name: media.title, artistName: media.artist, collectionName: media.albumTitle, trackName: media.title, collectionCensoredName: media.albumTitle, collectionHdPrice: 0, trackPrice: 0, trackExplicitness: media.isExplicitItem ? "explicit" : "notExplicit", discCount: 0, trackCount: media.albumTrackCount, trackNumber: media.albumTrackNumber, trackTimeMillis: media.playbackDuration.toInt, primaryGenreName: media.genre, releaseDate: media.releaseDate?.ISO8601Format(), trackRentalPrice: 0, artwork: media.artwork?.image(at: CGSize(width: 1024, height: 1024)), composer: media.composer, isCompilation: media.isCompilation)))
         
         
     }
     
     func configureVideoPlayer(with videoMediaUrl: URL) {
         playerType = .video
-        videoPlayer = VideoPlayerView(url: videoMediaUrl)
         expand = true
+        videoPlayer = VideoPlayerView(url: videoMediaUrl)
+        videoPlayer.togglePlayState()
     }
 }
 

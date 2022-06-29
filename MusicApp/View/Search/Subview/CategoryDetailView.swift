@@ -26,7 +26,7 @@ struct CategoryDetailView: View {
                     .navigationBarTitleDisplayMode(.inline)
             }
         }
-        .padding(.bottom, Metric.playerHeight)
+        .padding(.bottom, Metric.playerBarHeight)
     }
 }
 

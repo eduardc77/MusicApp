@@ -38,12 +38,7 @@ struct PlayerControls: View {
             Button {
                 switch playerObservableObject.playerType {
                 case .video:
-                    if playerObservableObject.videoPlayer.isPlaying {
-                        playerObservableObject.videoPlayer.isPlaying = false
-                    }
-                    else {
-                        playerObservableObject.videoPlayer.isPlaying = true
-                    }
+                    playerObservableObject.videoPlayer.togglePlayState()
                 case .audio:
                     playerObservableObject.playbackState == .playing ? playerObservableObject.audioPlayer.pause() : playerObservableObject.audioPlayer.play()
                 }

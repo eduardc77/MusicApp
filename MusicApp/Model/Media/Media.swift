@@ -97,12 +97,12 @@ struct Media: Identifiable, Codable {
     
     // MARK: - Library Properties
     
-    var artwork: UIImage? { return mediaResponse.artwork ?? nil }
+    var artwork: UIImage? { mediaResponse.artwork ?? nil }
     var composer: String? { String(mediaResponse.composer ?? "") }
     var isCompilation: Bool? { Bool(mediaResponse.isCompilation ?? false) }
     
     init() {
-        mediaResponse = MediaResponse(id: nil, artistId: nil, collectionId: nil, trackId: nil, wrapperType: nil, kind: nil, name: nil, artistName: nil, collectionName: nil, trackName: nil, collectionCensoredName: nil, artistViewUrl: nil, collectionViewUrl: nil, trackViewUrl: nil, previewUrl: nil, artworkUrl100: nil, collectionPrice: nil, collectionHdPrice: nil, trackPrice: nil, collectionExplicitness: nil, trackExplicitness: nil, discCount: nil, discNumber: nil, trackCount: nil, trackNumber: nil, trackTimeMillis: nil, country: nil, currency: nil, primaryGenreName: nil, description: nil, longDescription: nil, releaseDate: nil, contentAdvisoryRating: nil, trackRentalPrice: nil)
+        mediaResponse = MediaResponse()
     }
     
     init(mediaResponse: MediaResponse) {

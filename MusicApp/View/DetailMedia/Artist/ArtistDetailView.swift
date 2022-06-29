@@ -29,18 +29,12 @@ struct ArtistDetailView: View {
                     Group {
                         if let recentAlbum = artistObservableObject.albums.first {
                             ZStack(alignment: Alignment(horizontal: .leading, vertical: .bottom)) {
-                                if let videoAssetUrls = artistVideoPreviewUrls {
-                                    MediaPreviewHeader(videoAssetUrls: videoAssetUrls)
-                                    
-                                } else {
-                                    MediaPreviewHeader(imagePath: recentAlbum.artworkPath)
-                                }
+                                MediaPreviewHeader(imagePath: recentAlbum.artworkPath)
                                 
                                 Text(media.artistName)
                                     .padding(12)
                                     .foregroundColor(.white)
                                     .font(.largeTitle.bold())
-                                
                             }
                             
                             VStack {
@@ -50,16 +44,16 @@ struct ArtistDetailView: View {
                                 }
                                 
                                 if !artistObservableObject.tracks.isEmpty {
-                                HorizontalMediaGridView(mediaItems: artistObservableObject.tracks, title: "Top Songs", imageSize: .trackRowItem, rowCount: 4)
-                                    .padding(.top)
+                                    HorizontalMediaGridView(mediaItems: artistObservableObject.tracks, title: "Top Songs", imageSize: .trackRowItem, rowCount: 4)
+                                        .padding(.top)
                                 }
                                 
                                 if !artistObservableObject.albums.isEmpty {
-                                HorizontalMediaGridView(mediaItems: artistObservableObject.albums, title: "Albums", imageSize: .albumItem)
+                                    HorizontalMediaGridView(mediaItems: artistObservableObject.albums, title: "Albums", imageSize: .albumItem)
                                 }
                                 
                                 if !artistObservableObject.musicVideos.isEmpty {
-                                HorizontalMediaGridView(mediaItems: artistObservableObject.musicVideos, title: "Music Videos", imageSize: .musicVideoItem)
+                                    HorizontalMediaGridView(mediaItems: artistObservableObject.musicVideos, title: "Music Videos", imageSize: .musicVideoItem)
                                 }
                                 
                                 if !artistObservableObject.singlesAndEps.isEmpty {
@@ -72,7 +66,7 @@ struct ArtistDetailView: View {
                             }
                             .background()
                             
-                            Spacer(minLength: Metric.playerHeight)
+                            Spacer(minLength: Metric.playerBarHeight)
                         }
                     }
                     

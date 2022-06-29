@@ -59,8 +59,8 @@ struct VerticalMediaGridView: View {
                 }
             }
             .padding(.horizontal)
-            
-            Spacer(minLength: Metric.playerHeight)
         }
+        
+        Spacer(minLength: Metric.playerBarHeight)
     }
 }

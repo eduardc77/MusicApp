@@ -30,6 +30,7 @@ struct PlayerView: View {
                 HStack {
                     if playerObservableObject.expand { Spacer() }
                     if playerObservableObject.playerType == .video {
+                        
                         playerObservableObject.videoPlayer
                         
                     } else {
@@ -82,7 +83,7 @@ struct PlayerView: View {
                 }
                 .padding()
             }
-            .frame(height: playerObservableObject.expand ? UIScreen.main.bounds.height / 2.2 :  Metric.playerHeight)
+            .frame(height: playerObservableObject.expand ? UIScreen.main.bounds.height / 2.2 :  Metric.playerBarHeight)
             
             if !playerObservableObject.expand { Spacer() }
             
@@ -131,18 +132,20 @@ struct PlayerView: View {
                 .frame(height: playerObservableObject.expand ? UIScreen.main.bounds.height / 2.8 : 0)
             }
         }
-        .frame(maxHeight: playerObservableObject.expand ? .infinity : Metric.playerHeight)
+        .frame(maxHeight: playerObservableObject.expand ? .infinity : Metric.playerBarHeight)
         
         .background(
             VStack(spacing: 0) {
                 if playerObservableObject.expand {
-                    if let artworkUIImage = playerObservableObject.nowPlayingItem.media.artwork {
+                    if playerObservableObject.playerType == .video {
+                        Color(.black)
+                    } else if let artworkUIImage = playerObservableObject.nowPlayingItem.media.artwork {
                         LinearGradient(
                             gradient: Gradient(colors: [Color(artworkUIImage.firstAverageColor ?? .gray), Color(artworkUIImage.secondAverageColor ?? .gray)]),
                             startPoint: .topLeading,
                             endPoint: .bottomTrailing)
                     } else {
-                        Color(.black)
+                        Color(.gray)
                     }
                 } else {
                     BlurView()
@@ -182,7 +185,7 @@ struct PlayerView: View {
             guard let mediaItem = playerObservableObject.audioPlayer.nowPlayingItem else { return }
             playerObservableObject.progressRate = playerObservableObject.audioPlayer.currentPlaybackTime.toInt
             playerObservableObject.makeNowPlaying(media: mediaItem, playing: $playing)
-           
+            
         }
         
         .onAppear {

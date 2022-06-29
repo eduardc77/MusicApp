@@ -53,6 +53,47 @@ struct MediaResponse: Codable {
     var isCompilation: Bool?
     var dateAdded: Date?
     
+    init(id: String? = nil, artistId: Int? = nil, collectionId: Int? = nil, trackId: Int? = nil, wrapperType: String? = nil, kind: String? = nil, name: String? = nil, artistName: String? = nil, collectionName: String? = nil, trackName: String? = nil, collectionCensoredName: String? = nil, artistViewUrl: String? = nil, collectionViewUrl: String? = nil, trackViewUrl: String? = nil, previewUrl: String? = nil, artworkUrl100: String? = nil, collectionPrice: Double? = nil, collectionHdPrice: Double? = nil, trackPrice: Double? = nil, collectionExplicitness: String? = nil, trackExplicitness: String? = nil, discCount: Int? = nil, discNumber: Int? = nil, trackCount: Int? = nil, trackNumber: Int? = nil, trackTimeMillis: Int? = nil, country: String? = nil, currency: String? = nil, primaryGenreName: String? = nil, description: String? = nil, longDescription: String? = nil, releaseDate: String? = nil, contentAdvisoryRating: String? = nil, trackRentalPrice: Double? = nil, artwork: UIImage? = nil, composer: String? = nil, isCompilation: Bool? = nil, dateAdded: Date? = nil) {
+         self.id = id
+         self.artistId = artistId
+         self.collectionId = collectionId
+         self.trackId = trackId
+         self.wrapperType = wrapperType
+         self.kind = kind
+         self.name = name
+         self.artistName = artistName
+         self.collectionName = collectionName
+         self.trackName = trackName
+         self.collectionCensoredName = collectionCensoredName
+         self.artistViewUrl = artistViewUrl
+         self.collectionViewUrl = collectionViewUrl
+         self.trackViewUrl = trackViewUrl
+         self.previewUrl = previewUrl
+         self.artworkUrl100 = artworkUrl100
+         self.collectionPrice = collectionPrice
+         self.collectionHdPrice = collectionHdPrice
+         self.trackPrice = trackPrice
+         self.collectionExplicitness = collectionExplicitness
+         self.trackExplicitness = trackExplicitness
+         self.discCount = discCount
+         self.discNumber = discNumber
+         self.trackCount = trackCount
+         self.trackNumber = trackNumber
+         self.trackTimeMillis = trackTimeMillis
+         self.country = country
+         self.currency = currency
+         self.primaryGenreName = primaryGenreName
+         self.description = description
+         self.longDescription = longDescription
+         self.releaseDate = releaseDate
+         self.contentAdvisoryRating = contentAdvisoryRating
+         self.trackRentalPrice = trackRentalPrice
+         self.artwork = artwork
+         self.composer = composer
+         self.isCompilation = isCompilation
+         self.dateAdded = dateAdded
+     }
+    
     private enum CodingKeys: String, CodingKey {
         case id
         case artistId

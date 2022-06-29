@@ -8,11 +8,9 @@
 import SwiftUI
 
 struct MediaPreviewHeader: View {
-    let videoAssetUrls: [URL]?
     let imagePath: String?
     
-    init(videoAssetUrls: [URL]? = nil, imagePath: String? = nil) {
-        self.videoAssetUrls = videoAssetUrls
+    init(imagePath: String? = nil) {
         self.imagePath = imagePath
     }
     
@@ -20,10 +18,8 @@ struct MediaPreviewHeader: View {
         GeometryReader { proxy in
             if proxy.frame(in: .global).minY > -Metric.mediaPreviewHeaderHeight {
                 Group {
-                    if let videoAssetUrls = videoAssetUrls {
-                        VideoHeaderView(videoAssetUrls: videoAssetUrls)
-                    } else {
-                        MediaImageView(imagePath: imagePath?.resizedPath(size: 600), contentMode: .fill)
+                    if let imagePath = imagePath?.resizedPath(size: 600) {
+                        MediaImageView(imagePath: imagePath, contentMode: .fill)
                     }
                 }
                 .offset(y: offsetY(proxy: proxy))
