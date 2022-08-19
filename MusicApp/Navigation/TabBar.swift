@@ -20,7 +20,6 @@ struct TabBar: View {
     var playerObservableObject = PlayerObservableObject()
     
     @State var selection: Tab = .listenNow
-    @State var expand = false
     
     var body: some View {
         ZStack(alignment: .bottom) {

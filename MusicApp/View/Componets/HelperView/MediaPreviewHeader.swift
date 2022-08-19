@@ -8,30 +8,17 @@
 import SwiftUI
 
 struct MediaPreviewHeader: View {
-    let videoAssetUrls: [URL]?
-    let imagePath: String?
-    
-    init(videoAssetUrls: [URL]? = nil, imagePath: String? = nil) {
-        self.videoAssetUrls = videoAssetUrls
-        self.imagePath = imagePath
-    }
+    let imagePath: String
     
     var body: some View {
         GeometryReader { proxy in
             if proxy.frame(in: .global).minY > -Metric.mediaPreviewHeaderHeight {
-                Group {
-                    if let videoAssetUrls = videoAssetUrls {
-                        VideoHeaderView(videoAssetUrls: videoAssetUrls)
-                    } else {
-                        MediaImageView(imagePath: imagePath?.resizedPath(size: 600), contentMode: .fill)
-                    }
-                }
-                .offset(y: offsetY(proxy: proxy))
-                .frame(width: Metric.screenWidth, height: parallaxHeight(proxy: proxy))
+                MediaImageView(imagePath: imagePath.resizedPath(size: 600), contentMode: .fill)
+                    .offset(y: offsetY(proxy: proxy))
+                    .frame(width: Metric.screenWidth, height: parallaxHeight(proxy: proxy))
             }
         }
         .frame(height: Metric.mediaPreviewHeaderHeight)
-        .ignoresSafeArea()
     }
 }
 

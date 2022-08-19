@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DD6F4CB92833B46C0006FB28 /* VideoHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6F4CB82833B46C0006FB28 /* VideoHeaderView.swift */; };
 		EA091E91282C925C00C329FD /* UserDefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA091E90282C925C00C329FD /* UserDefaultsKeys.swift */; };
 		EA099EC22821C0090021EA33 /* NowPlayingEqualizerBars.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA099EC12821C0090021EA33 /* NowPlayingEqualizerBars.swift */; };
 		EA09A28028309ECB00990F55 /* SearchWrapperRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA09A27F28309ECB00990F55 /* SearchWrapperRow.swift */; };
@@ -24,7 +23,6 @@
 		EA3FA3552817783B00F84B09 /* VolumeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3FA3542817783B00F84B09 /* VolumeSlider.swift */; };
 		EA430753282F0604006FFD15 /* VideoMediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA430752282F0604006FFD15 /* VideoMediaItem.swift */; };
 		EA430755282F20F9006FFD15 /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA430754282F20F9006FFD15 /* VideoPlayerView.swift */; };
-		EA59D3122813555C00D58213 /* UIDevice+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA59D3112813555C00D58213 /* UIDevice+Extension.swift */; };
 		EA59D31428135B4C00D58213 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA59D31328135B4C00D58213 /* BlurView.swift */; };
 		EA6744EC2821EA6300AC2010 /* Animation+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6744EB2821EA6300AC2010 /* Animation+Extension.swift */; };
 		EA6CAC8E283998E400193089 /* MediaItemName.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6CAC8D283998E400193089 /* MediaItemName.swift */; };
@@ -113,7 +111,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		DD6F4CB82833B46C0006FB28 /* VideoHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoHeaderView.swift; sourceTree = "<group>"; };
 		EA091E90282C925C00C329FD /* UserDefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKeys.swift; sourceTree = "<group>"; };
 		EA099EC12821C0090021EA33 /* NowPlayingEqualizerBars.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingEqualizerBars.swift; sourceTree = "<group>"; };
 		EA09A27F28309ECB00990F55 /* SearchWrapperRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchWrapperRow.swift; sourceTree = "<group>"; };
@@ -130,7 +127,6 @@
 		EA3FA3542817783B00F84B09 /* VolumeSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeSlider.swift; sourceTree = "<group>"; };
 		EA430752282F0604006FFD15 /* VideoMediaItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoMediaItem.swift; sourceTree = "<group>"; };
 		EA430754282F20F9006FFD15 /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
-		EA59D3112813555C00D58213 /* UIDevice+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extension.swift"; sourceTree = "<group>"; };
 		EA59D31328135B4C00D58213 /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 		EA6744EB2821EA6300AC2010 /* Animation+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Animation+Extension.swift"; sourceTree = "<group>"; };
 		EA6CAC8D283998E400193089 /* MediaItemName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaItemName.swift; sourceTree = "<group>"; };
@@ -295,7 +291,6 @@
 				EAE825CF28382313008F59F2 /* MarqueeText.swift */,
 				EA6CAC8D283998E400193089 /* MediaItemName.swift */,
 				EA3FA3542817783B00F84B09 /* VolumeSlider.swift */,
-				DD6F4CB82833B46C0006FB28 /* VideoHeaderView.swift */,
 				EA099EC12821C0090021EA33 /* NowPlayingEqualizerBars.swift */,
 				EAD01E9028231AA900B01F07 /* DefaultView.swift */,
 				EAD01E972823372500B01F07 /* FlipView.swift */,
@@ -610,7 +605,6 @@
 				EACA1C3B2819B29800CD7E4F /* View+HideKeyboard.swift */,
 				EAD15372280D640E005FD971 /* Date+DateFormatter.swift */,
 				EAD15374280D6416005FD971 /* String+Extension.swift */,
-				EA59D3112813555C00D58213 /* UIDevice+Extension.swift */,
 				EAC53D7628145C7B00785395 /* Enum+Extension.swift */,
 				EAC53D792814888400785395 /* TimeInterval+Extension.swift */,
 				EA23ECF028156AD40040BB58 /* UIImage+Extension.swift */,
@@ -721,7 +715,6 @@
 				EAD01E9328231B2400B01F07 /* ProfileNavigationLink.swift in Sources */,
 				EAD15313280D581B005FD971 /* Media.swift in Sources */,
 				EAD1533E280D5CB8005FD971 /* ListenNowView.swift in Sources */,
-				DD6F4CB92833B46C0006FB28 /* VideoHeaderView.swift in Sources */,
 				EA2216F228359163000A165D /* VideoMediaRow.swift in Sources */,
 				EA59D31428135B4C00D58213 /* BlurView.swift in Sources */,
 				EACA1C402819BCDA00CD7E4F /* MainButton.swift in Sources */,
@@ -732,7 +725,6 @@
 				EAD01E8B2823184C00B01F07 /* DismissButton.swift in Sources */,
 				EAD15368280D6386005FD971 /* Endpoint.swift in Sources */,
 				EA734CC1280F1C7D00FCD2EE /* Metric.swift in Sources */,
-				EA59D3122813555C00D58213 /* UIDevice+Extension.swift in Sources */,
 				EA978846281B184A0032C3AD /* AccountView.swift in Sources */,
 				EA3FA3552817783B00F84B09 /* VolumeSlider.swift in Sources */,
 				EAD152F9280D56A8005FD971 /* MusicApp.swift in Sources */,

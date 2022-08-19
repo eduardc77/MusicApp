@@ -11,7 +11,6 @@ struct MediaImageView: View {
     @StateObject private var mediaImageObservableObject: MediaImageObservableObject
     @Binding private var visibleSide: FlipViewSide
     @Binding var playing: Bool
-    
     @State var animate: Bool = false
     
     private let imagePath: String?
@@ -21,16 +20,13 @@ struct MediaImageView: View {
     private var shadowProminence: ShadowProminence
     private var contentMode: ContentMode
     private var foregroundColor: Color
-
+    
     @State private var shadow: (radius: CGFloat, xPosition: CGFloat, yPosition: CGFloat) = (0, 0, 0)
     
     init(imagePath: String? = nil, artworkImage: UIImage? = nil, sizeType: SizeType = .defaultSize, cornerRadius: CGFloat = Metric.defaultCornerRadius, shadowProminence: ShadowProminence = .none, contentMode: ContentMode = .fit, foregroundColor: Color = .secondary.opacity(0.1), visibleSide: Binding<FlipViewSide> = .constant(.front), playing: Binding<Bool> = .constant(false)) {
         _mediaImageObservableObject = StateObject(wrappedValue: MediaImageObservableObject())
         _visibleSide = visibleSide
-        
         _playing = playing
-        
-        
         
         self.imagePath = imagePath
         self.artworkImage = artworkImage
@@ -39,8 +35,6 @@ struct MediaImageView: View {
         self.shadowProminence = shadowProminence
         self.contentMode = contentMode
         self.foregroundColor = foregroundColor
-        
-        
     }
     
     var body: some View {
@@ -53,7 +47,6 @@ struct MediaImageView: View {
                     artwork
                         .resizable()
                 }
-                
                 else {
                     ZStack {
                         Group {
@@ -103,7 +96,6 @@ struct MediaImageView: View {
             .overlay {
                 ZStack {
                     if playing {
-                        
                         Color.gray.opacity(0.6)
                         
                         NowPlayingEqualizerBars(animating: $animate, color: .white)
@@ -112,10 +104,9 @@ struct MediaImageView: View {
                                 animate.toggle()
                             }
                     }
-                RoundedRectangle(cornerRadius: cornerRadius)
-                    .stroke(Color.secondary.opacity(0.6), lineWidth: 0.1)
+                    RoundedRectangle(cornerRadius: cornerRadius)
+                        .stroke(Color.secondary.opacity(0.6), lineWidth: 0.1)
                 }
-                
             }
             
         } back: {
@@ -140,7 +131,7 @@ struct MediaImageView: View {
         }
         .task {
             guard let imagePath = imagePath else { return }
-            await mediaImageObservableObject.fetchImage(from: imagePath)    
+            await mediaImageObservableObject.fetchImage(from: imagePath)
         }
     }
     
@@ -167,9 +158,15 @@ extension MediaImageView {
 }
 
 
-//
-//struct MediaImageView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        MediaImageView(image: Image("p0"), size: Size(width: 333, height: 333))
-//    }
-//}
+struct MediaImageView_Previews: PreviewProvider {
+    struct MediaImageViewExample: View {
+        @State private var visibleSide = FlipViewSide.front
+
+        var body: some View {
+            MediaImageView(artworkImage: UIImage(named: "p0"), sizeType: .albumDetail, shadowProminence: .full, visibleSide: $visibleSide)
+        }
+    }
+    static var previews: some View {
+        MediaImageViewExample()
+    }
+}

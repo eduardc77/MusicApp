@@ -29,13 +29,8 @@ struct ArtistDetailView: View {
                     Group {
                         if let recentAlbum = artistObservableObject.albums.first {
                             ZStack(alignment: Alignment(horizontal: .leading, vertical: .bottom)) {
-                                if let videoAssetUrls = artistVideoPreviewUrls {
-                                    MediaPreviewHeader(videoAssetUrls: videoAssetUrls)
-                                    
-                                } else {
-                                    MediaPreviewHeader(imagePath: recentAlbum.artworkPath)
-                                }
-                                
+                                MediaPreviewHeader(imagePath: recentAlbum.artworkPath)
+
                                 Text(media.artistName)
                                     .padding(12)
                                     .foregroundColor(.white)
