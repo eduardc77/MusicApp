@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct LibraryListDetailView: View {
+    @EnvironmentObject private var playerObservableObject: PlayerObservableObject
     @ObservedObject var libraryObservableObject: LibraryObservableObject
     var section: LibrarySection
     @State var sort: SortOrder = .forward
@@ -30,7 +31,9 @@ struct LibraryListDetailView: View {
             case .homeSharing: VerticalMediaGridView(mediaItems: libraryObservableObject.homeSharing, imageSize: .albumCarouselItem)
             }
             
-            Spacer(minLength: Metric.playerHeight)
+            if playerObservableObject.showPlayerView {
+                Spacer(minLength: Metric.playerHeight)
+            }
         }
         .navigationTitle(section.title)
         .searchable(text: $searchTerm, prompt: "Find in \(section.title)")

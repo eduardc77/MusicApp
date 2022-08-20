@@ -8,12 +8,11 @@
 import SwiftUI
 
 struct ListenNowView: View {
+    @EnvironmentObject private var playerObservableObject: PlayerObservableObject
+    
     var body: some View {
         NavigationView {
             ScrollView {
-                Divider()
-                    .padding(.horizontal)
-                
                 VStack {
                     HighlightsView(items: selectedStations, imageSize: .highlight)
                     
@@ -26,7 +25,9 @@ struct ListenNowView: View {
                     HorizontalMediaGridView(mediaItems: musicPlaylists, title: "New Music", imageSize: .albumCarouselItem, rowCount: 2)
                 }
                 
-                Spacer(minLength: Metric.playerHeight)
+                if playerObservableObject.showPlayerView {
+                    Spacer(minLength: Metric.playerHeight)
+                }
             }
             .toolbar(content: {
                 AccountNavigationItem()

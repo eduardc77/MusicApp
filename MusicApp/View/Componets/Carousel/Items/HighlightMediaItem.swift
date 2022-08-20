@@ -10,21 +10,20 @@ import SwiftUI
 struct HighlightMediaItem: View {
     var media: Media
     var imageData: Data?
-    var spacing: CGFloat = 10
-    
+
     var body: some View {
-        VStack(spacing: spacing) {
+        VStack {
             VStack(alignment: .leading) {
                 Text(media.kind.entityUppercased)
-                    .font(.caption).bold()
+                    .font(.caption2)
                     .foregroundColor(.secondary)
                 
-                Text(media.collectionName)
-                    .font(.title2)
+                Text(media.name)
+                    .font(.title3)
                 
-                Text(media.description)
+                Text(media.trackName)
                     .foregroundColor(.secondary)
-                    .font(.title2)
+                    .font(.title3)
             }
             .lineLimit(1)
             .frame(maxWidth: .infinity, alignment: .leading)

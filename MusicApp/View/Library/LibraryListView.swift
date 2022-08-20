@@ -36,7 +36,8 @@ struct LibraryListView: View {
         }
         .listStyle(.plain)
         .frame(idealHeight: CGFloat(46 * currentSections.count), maxHeight: .infinity)
-        
+        // FIXME: - Uncomment this when iOS 16 is available
+        .scrollDisabled(true)
         .onChange(of: editMode, perform: { editMode in
             withAnimation {
                 if !editMode.isEditing {

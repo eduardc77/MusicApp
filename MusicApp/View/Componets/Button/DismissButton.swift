@@ -13,8 +13,10 @@ struct DismissButton: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     var body: some View {
-        Button(title) {
-            self.presentationMode.wrappedValue.dismiss()
+        Button {
+            presentationMode.wrappedValue.dismiss()
+        } label: {
+            Text("Done").bold()
         }
     }
 }

@@ -42,7 +42,6 @@ struct TrackMediaRow: View {
             }
             
             .onTapGesture {
-                // FIXME: - Pass the player
                 MPMusicPlayerController.applicationMusicPlayer.setQueue(with: [media.id])
                 MPMusicPlayerController.applicationMusicPlayer.play()
             }

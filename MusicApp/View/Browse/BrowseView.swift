@@ -8,12 +8,13 @@
 import SwiftUI
 
 struct BrowseView: View {
+    @EnvironmentObject private var playerObservableObject: PlayerObservableObject
     let title = "Browse"
     
-    var detailViews: [DefaultView] {
-        var detailsViews = [DefaultView]()
-        for title in BrowseMoreToExplore.allCases {
-            detailsViews.append(DefaultView(title: title.title))
+    var detailViews: [CategoryDetailView] {
+        var detailsViews = [CategoryDetailView]()
+        for browseSection in BrowseMoreToExplore.allCases {
+            detailsViews.append(CategoryDetailView(category: SearchCategoryModel(image: "category\(browseSection.rawValue)", title: browseSection.title, tag: browseSection.rawValue)))
         }
         
         return detailsViews
@@ -22,17 +23,15 @@ struct BrowseView: View {
     var body: some View {
         NavigationView {
             ScrollView() {
-                Divider()
-                    .padding(.horizontal)
-                
                 HighlightsView(items: selectedStations, imageSize: .highlight)
                 
                 HorizontalMediaGridView(mediaItems: musicPlaylists, title: "New Music", imageSize: .trackRowItem, rowCount: 4)
                 
-                NavigationLinkList(rowItems: BrowseMoreToExplore.self, content: detailViews)
-                    .frame(height: 250)
+                NavigationLinkList(rowItems: BrowseMoreToExplore.self, content: detailViews, title: "More to Explore")
                 
-                Spacer(minLength: Metric.playerHeight)
+                if playerObservableObject.showPlayerView {
+                    Spacer(minLength: Metric.playerHeight)
+                }
             }
             .navigationTitle(title)
         }

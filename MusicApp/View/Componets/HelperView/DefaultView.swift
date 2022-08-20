@@ -8,16 +8,15 @@
 import SwiftUI
 
 struct DefaultView: View {
-    let title: String
-    
     @Environment(\.presentationMode) var presentationMode
+    let title: String
     
     var body: some View {
         NavigationView {
             EmptyView()
                 .navigationTitle(title)
                 .navigationBarTitleDisplayMode(.inline)
-                .navigationBarItems(leading: DismissButton(title: "Done", presentationMode: _presentationMode))
+                .navigationBarItems(trailing: DismissButton(title: "Done", presentationMode: _presentationMode))
         }
     }
 }

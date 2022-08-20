@@ -9,6 +9,7 @@ import SwiftUI
 import MediaPlayer
 
 struct AlbumDetailView: View {
+    @EnvironmentObject private var playerObservableObject: PlayerObservableObject
     @StateObject private var mediaItemObservableObject: LibraryMediaItemObservableObject
     
     init(media: Media, searchObservableObject: SearchObservableObject) {
@@ -26,7 +27,9 @@ struct AlbumDetailView: View {
                     AlbumTrackList(media: mediaItemObservableObject.media)
                 }
                 
-                Spacer(minLength: Metric.playerHeight)
+                if playerObservableObject.showPlayerView {
+                    Spacer(minLength: Metric.playerHeight)
+                }
             }
             .navigationBarTitleDisplayMode(.inline)
         }

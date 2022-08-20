@@ -9,8 +9,8 @@ import SwiftUI
 import MediaPlayer
 
 struct SearchListView: View {
+    @EnvironmentObject private var playerObservableObject: PlayerObservableObject
     @ObservedObject var searchObservableObject: SearchObservableObject
-    @StateObject var playerObservableObject: PlayerObservableObject = PlayerObservableObject()
     @State var selectedIndex = 0
     
     var player: MPMusicPlayerController = MPMusicPlayerController.applicationMusicPlayer
@@ -39,9 +39,12 @@ struct SearchListView: View {
                 }
                 .padding(.horizontal)
                 
-                Spacer(minLength: Metric.playerHeight)
+                if playerObservableObject.showPlayerView {
+                    Spacer(minLength: Metric.playerHeight)
+                }
             }
         }
+        .scrollDismissesKeyboard(.interactively)
         .safeAreaInset(edge: .top) {
             Group {
                 Picker("Search In", selection: $selectedIndex) {

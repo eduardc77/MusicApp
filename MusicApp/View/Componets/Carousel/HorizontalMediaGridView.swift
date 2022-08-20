@@ -34,6 +34,9 @@ struct HorizontalMediaGridView: View {
     
     var body: some View {
         VStack(spacing: 8) {
+            Divider()
+                .padding(.horizontal)
+            
             if !title.isEmpty {
                 HStack {
                     Text(title)
@@ -76,9 +79,6 @@ struct HorizontalMediaGridView: View {
             }
             
             Spacer(minLength: 8)
-            
-            Divider()
-                .padding(.horizontal)
         }
     }
 }

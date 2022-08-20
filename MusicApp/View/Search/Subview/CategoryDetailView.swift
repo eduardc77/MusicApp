@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CategoryDetailView: View {
+    @EnvironmentObject private var playerObservableObject: PlayerObservableObject
     var category: SearchCategoryModel
     
     var body: some View {
@@ -19,14 +20,17 @@ struct CategoryDetailView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.horizontal)
                 
-                HighlightsView(items: selectedMusic[category.tag], imageSize: .highlight, rowCount: 2)
+                HighlightsView(items: selectedMusic[category.tag], imageSize: .highlight)
                 
-                HorizontalMediaGridView(mediaItems: musicPlaylists, title: "Best \(category.title) Music", imageSize: .albumCarouselItem)
-                //               mediaItems: musicPlaylists[category.tag]
+                HorizontalMediaGridView(mediaItems: musicPlaylists, title: "Best \(category.title) Music", imageSize: .albumCarouselItem, rowCount: 2)
                     .navigationBarTitleDisplayMode(.inline)
             }
+            
+            if playerObservableObject.showPlayerView {
+                Spacer(minLength: Metric.playerHeight)
+            }
         }
-        .padding(.bottom, Metric.playerHeight)
+        
     }
 }
 

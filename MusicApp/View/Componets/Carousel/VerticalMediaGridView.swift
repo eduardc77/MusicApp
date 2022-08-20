@@ -9,6 +9,7 @@ import SwiftUI
 import MediaPlayer
 
 struct VerticalMediaGridView: View {
+    @EnvironmentObject private var playerObservableObject: PlayerObservableObject
     @State var mediaItems = [Media]()
     
     var title: String
@@ -60,7 +61,9 @@ struct VerticalMediaGridView: View {
             }
             .padding(.horizontal)
             
-            Spacer(minLength: Metric.playerHeight)
+            if playerObservableObject.showPlayerView {
+                Spacer(minLength: Metric.playerHeight)
+            }
         }
     }
 }

@@ -12,7 +12,6 @@ struct HighlightsView: View {
     @State var currentIndex: Int = 0
     
     var imageSize: SizeType
-    var rowCount: Int = 1
     var gridRows: [GridItem]
     
     init(items: [LargePictureModel], imageSize: SizeType, rowCount: Int = 1) {
@@ -31,6 +30,9 @@ struct HighlightsView: View {
     }
     
     var body: some View {
+        Divider()
+            .padding(.horizontal)
+        
         TabView {
             ForEach(items, id: \.self) { item in
                 
@@ -50,9 +52,6 @@ struct HighlightsView: View {
         }
         .frame(height: Metric.highlightCarouselItemHeight)
         .tabViewStyle(.page(indexDisplayMode: .never))
-        
-        Divider()
-            .padding(.horizontal)
     }
 }
 

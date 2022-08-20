@@ -25,6 +25,8 @@ struct LibraryView: View {
                             
                             if !editMode.isEditing {
                                 VerticalMediaGridView(mediaItems: libraryObservableObject.recentlyAdded, title: "Recently Added", imageSize: .albumCarouselItem)
+                                // FIXME: - Uncomment this when iOS 16 is available
+                                    .scrollDisabled(true)
                             }
                         }
                         .navigationTitle("Library")

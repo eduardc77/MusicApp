@@ -9,6 +9,7 @@ import SwiftUI
 import AVKit
 
 struct ArtistDetailView: View {
+    @EnvironmentObject private var playerObservableObject: PlayerObservableObject
     @Environment(\.dismiss) private var dismiss
     @StateObject private var artistObservableObject: ArtistViewObservableObject
     @State var navigationHidden: Bool = true
@@ -67,7 +68,9 @@ struct ArtistDetailView: View {
                             }
                             .background()
                             
-                            Spacer(minLength: Metric.playerHeight)
+                            if playerObservableObject.showPlayerView {
+                                Spacer(minLength: Metric.playerHeight)
+                            }
                         }
                     }
                     
