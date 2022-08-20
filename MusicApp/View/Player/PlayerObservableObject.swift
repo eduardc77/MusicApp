@@ -33,8 +33,7 @@ final class PlayerObservableObject: ObservableObject {
     
     // MARK: - Video Player Properties
     
-    var videoPlayer: VideoPlayerView = VideoPlayerView(url: URL(string: "https://www.apple.com/404")!)
-    var videoAssetUrl: URL = URL(string: "https://www.apple.com/404")!
+    var videoPlayer: VideoPlayerView = VideoPlayerView(videoAssetUrl: URL(string: "https://www.apple.com/404")!)
     
     init() {
         musicPlayerPlayingCancellable = $hasRecentMedia.sink
@@ -115,11 +114,14 @@ final class PlayerObservableObject: ObservableObject {
     }
     
     func configureVideoPlayer(with videoAssetUrl: URL) {
+        videoPlayer.player.seek(to: .zero)
+        videoPlayer.player.pause()
         playerType = .video
-        self.videoAssetUrl = videoAssetUrl
         expand = true
-        playbackState = .playing
-        showPlayerView = true
+        videoPlayer = VideoPlayerView(videoAssetUrl: videoAssetUrl)
+        videoPlayer.playVideoAsset(url: videoAssetUrl)
+        
+        showPlayerView = true    
     }
 }
 

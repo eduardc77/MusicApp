@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct VolumeView: View {
+    var playerType: PlayerType = .audio
+    
     var body: some View {
         VStack {
             HStack {
@@ -27,7 +29,7 @@ struct VolumeView: View {
             .padding(.vertical)
             
             Spacer()
-            BottomToolbar()
+            BottomToolbar(playerType: playerType)
         }
     }
 }

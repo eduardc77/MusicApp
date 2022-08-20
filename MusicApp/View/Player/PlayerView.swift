@@ -22,14 +22,13 @@ struct PlayerView: View {
                 Capsule()
                     .fill(Color.lightGrayColor2)
                     .frame(width: Metric.capsuleWidth, height: Metric.capsuleHeight)
-                
             }
             
             HStack {
                 if playerObservableObject.playerType == .video {
-                    VideoPlayerView(url: playerObservableObject.videoAssetUrl, sizeType: playerObservableObject.expand ? .largeHighlight : .smallPlayerVideo, cornerRadius: playerObservableObject.expand ? 0 : Metric.defaultCornerRadius)
-                    
-                    
+                    playerObservableObject.videoPlayer
+                        .frame(width: playerObservableObject.expand ? SizeType.largeHighlight.size.width : SizeType.smallPlayerVideo.size.width, height: playerObservableObject.expand ? SizeType.largeHighlight.size.height : SizeType.smallPlayerVideo.size.height)
+                        .cornerRadius(playerObservableObject.expand ? 0 : Metric.defaultCornerRadius)
                 } else {
                     MediaImageView(imagePath: playerObservableObject.nowPlayingItem.media.artworkPath.resizedPath(size: 600), artworkImage: playerObservableObject.nowPlayingItem.media.artwork, sizeType: playerObservableObject.expand ? .largePlayerArtwork : .trackRowItem, cornerRadius: playerObservableObject.expand ? 10 : Metric.defaultCornerRadius, shadowProminence: playerObservableObject.expand ? .full : .none, visibleSide: $visibleSide)
                         .scaleEffect((playerObservableObject.playbackState == .playing && playerObservableObject.expand) ? 1.33 : 1)
@@ -40,7 +39,6 @@ struct PlayerView: View {
                             visibleSide.toggle()
                         }
                 }
-                
                 
                 if !playerObservableObject.expand {
                     Group {
@@ -90,20 +88,30 @@ struct PlayerView: View {
                         VStack(alignment: .leading, spacing: 2) {
                             MarqueeText(text: playerObservableObject.nowPlayingItem.media.mediaResponse.name != nil ? playerObservableObject.nowPlayingItem.media.name : "Not Playing", explicitness: playerObservableObject.nowPlayingItem.media.trackExplicitness)
                             
-                            MarqueeText(text: playerObservableObject.nowPlayingItem.media.artistName, color: .lightGrayColor, font: UIFont.systemFont(ofSize: 20))
+                            MarqueeText(text: playerObservableObject.nowPlayingItem.media.artistName, color: playerObservableObject.playerType == .audio ? .lightGrayColor : .accentColor, font: UIFont.systemFont(ofSize: 20))
                         }
                         
                         Spacer()
                         
-                        Button(action: { }) {
-                            Image(systemName: "ellipsis.circle.fill")
-                                .font(.title)
-                                .foregroundStyle(.white, Color.lightGrayColor3)
+                        if playerObservableObject.playerType == .audio {
+                            Button(action: { }) {
+                                Image(systemName: "ellipsis.circle.fill")
+                                    .font(.title)
+                                    .foregroundStyle(.white, Color.lightGrayColor3)
+                            }
+                            .padding(.trailing, 30)
+                            .padding(.leading, 6)
+                        } else {
+                            Button(action: { }) {
+                                Image(systemName: "ellipsis.circle.fill")
+                                    .font(.title)
+                                    .foregroundStyle(Color.accentColor, Color.accentColor.opacity(0.2))
+                            }
+                            .padding(.trailing, 30)
+                            .padding(.leading, 6)
                         }
-                        .padding(.trailing, 30)
-                        .padding(.leading, 6)
                     }
-
+                    
                     VStack {
                         switch playerObservableObject.playerType {
                         case .audio:
@@ -118,7 +126,7 @@ struct PlayerView: View {
                         }    
                         PlayerControls(playerObservableObject: _playerObservableObject)
                         
-                        VolumeView()
+                        VolumeView(playerType: playerObservableObject.playerType)
                     }
                     .padding(.horizontal)
                 }
@@ -132,7 +140,7 @@ struct PlayerView: View {
         .background(
             Group {
                 if playerObservableObject.expand {
-                    if let artworkUIImage = playerObservableObject.nowPlayingItem.media.artwork {
+                    if let artworkUIImage = playerObservableObject.nowPlayingItem.media.artwork, playerObservableObject.playerType == .audio {
                         LinearGradient(
                             gradient: Gradient(colors: [Color(artworkUIImage.firstAverageColor ?? .gray), Color(artworkUIImage.secondAverageColor ?? .gray)]),
                             startPoint: .topLeading,

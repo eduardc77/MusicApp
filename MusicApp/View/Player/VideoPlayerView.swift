@@ -17,42 +17,46 @@ struct VideoPlayerView: View {
     @State var showControls = false
     @State var trackTimePosition = 1
     @State var trackDuration = 1
-    @State var player: AVPlayer
+    var player: AVPlayer
     private var sizeType: SizeType
     private var cornerRadius: CGFloat
+    var videoAssetUrl: URL = URL(string: "https://www.apple.com/404")!
     
-    init(url: URL, sizeType: SizeType = .defaultSize, cornerRadius: CGFloat = Metric.defaultCornerRadius) {
+    
+    init(videoAssetUrl: URL, sizeType: SizeType = .defaultSize, cornerRadius: CGFloat = Metric.defaultCornerRadius) {
         self.sizeType = sizeType
         self.cornerRadius = cornerRadius
-    
-        let asset = AVAsset(url: url)
+        self.videoAssetUrl = videoAssetUrl
+        
+        let asset = AVAsset(url: videoAssetUrl)
         let item = AVPlayerItem(asset: asset)
         player = AVPlayer(playerItem: item)
+        
     }
     
     var body: some View {
-        VideoPlayer(player: $player)
-            .onTapGesture {
-                expand = true
-            }
+        VideoPlayer(player: player)
             .onChange(of: isPlaying) { newValue in
-            if newValue == true {
-                player.play()
-                isPlaying = true
+                togglePlayPause(newValue)
             }
-            else {
+            .onAppear {
+                isPlaying = true
+                trackDuration = getDurationSeconds()
+            }
+            .onDisappear {
                 player.pause()
                 isPlaying = false
             }
-        }
-        .onAppear {
-            player.play()
-            isPlaying = true
-            
-            trackDuration = getDurationSeconds()
-        }
     }
     
+    func playVideoAsset(url: URL) {
+        let asset = AVAsset(url: videoAssetUrl)
+        let item = AVPlayerItem(asset: asset)
+        player.replaceCurrentItem(with: item)
+        
+        isPlaying = true
+        player.play()
+    }
     
     func getProgressRate() -> Int {
         return Int(player.currentTime().seconds)
@@ -63,20 +67,15 @@ struct VideoPlayerView: View {
         
         return Int(durationInSeconds)
     }
-}
-
-struct VideoPlayer: UIViewControllerRepresentable {
-    @Binding var player : AVPlayer
     
-    func makeUIViewController(context: UIViewControllerRepresentableContext<VideoPlayer>) -> AVPlayerViewController {
-        let controller = AVPlayerViewController()
-        controller.player = player
-        
-        return controller
+    private func togglePlayPause(_ newValue: Bool) {
+        if newValue {
+            player.pause()
+            isPlaying = false
+        }
+        else {
+            player.play()
+            isPlaying = true
+        }
     }
-    
-    func updateUIViewController(_ uiViewController: AVPlayerViewController, context: UIViewControllerRepresentableContext<VideoPlayer>) {}
-    
-    
 }
-

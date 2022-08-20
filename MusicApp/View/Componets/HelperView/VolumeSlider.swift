@@ -24,9 +24,12 @@ struct VolumeSlider: UIViewRepresentable {
 }
 
 struct AirplayButton: UIViewRepresentable {
+    var playerType: PlayerType = .audio
+    
     func makeUIView(context: Context) -> UIView {
         let airplayPickerView = AVRoutePickerView(frame: .zero)
-        airplayPickerView.tintColor = .init(white: 0.8, alpha: 1)
+        
+        airplayPickerView.tintColor = playerType == .audio ? UIColor.init(white: 1, alpha: 0.6) : UIColor(named: ("AccentColor"))
         airplayPickerView.activeTintColor = UIColor(named: ("AccentColor"))
       
         return airplayPickerView

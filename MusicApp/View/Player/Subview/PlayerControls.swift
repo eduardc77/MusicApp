@@ -18,7 +18,7 @@ struct PlayerControls: View {
             Button {
                 switch playerObservableObject.playerType {
                 case .video:
-                    playerObservableObject.videoPlayer.player.seek(to: CMTime(seconds: Double(playerObservableObject.videoPlayer.trackTimePosition - 5), preferredTimescale: 1))
+                    playerObservableObject.videoPlayer.player.seek(to: CMTime(seconds: Double(playerObservableObject.videoPlayer.trackTimePosition - 1), preferredTimescale: 1))
                 case .audio:
                     if playerObservableObject.audioPlayer.currentPlaybackTime > 6 {
                         playerObservableObject.audioPlayer.skipToBeginning()

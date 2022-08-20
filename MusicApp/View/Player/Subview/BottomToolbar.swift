@@ -10,21 +10,23 @@ import MediaPlayer
 import AVKit
 
 struct BottomToolbar: View {
+    var playerType: PlayerType = .audio
+    
     var body: some View {
         HStack(spacing: Metric.buttonsSpacing) {
             Button(action: {}) {
                 Image(systemName: "quote.bubble")
                     .font(.title2)
-                    .foregroundColor(.lightGrayColor)
+                    .foregroundColor(playerType == . audio ? .lightGrayColor : .accentColor)
             }
             
-            AirplayButton()
+            AirplayButton(playerType: playerType)
                     .frame(width: 20, height: 20)
             
             Button(action: {}) {
                 Image(systemName: "list.bullet")
                     .font(.title2)
-                    .foregroundColor(.lightGrayColor)
+                    .foregroundColor(playerType == . audio ? .lightGrayColor : .accentColor)
             }
         }
         
