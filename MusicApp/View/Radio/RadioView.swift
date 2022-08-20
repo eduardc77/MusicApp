@@ -17,7 +17,7 @@ struct RadioView: View {
                 
                 HighlightsView(items: selectedStations, imageSize: .highlight)
                 
-                HorizontalMediaGridView(mediaItems: musicPlaylists2, title: "Our Radio Hosts", imageSize: .albumItem)
+                HorizontalMediaGridView(mediaItems: musicPlaylists2, title: "Our Radio Hosts", imageSize: .albumCarouselItem)
                 
                 HorizontalMediaGridView(mediaItems: musicPlaylists, title: "New Episodes", imageSize: .trackRowItem, rowCount: 4)
                 

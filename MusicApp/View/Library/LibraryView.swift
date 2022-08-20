@@ -21,12 +21,10 @@ struct LibraryView: View {
                 if libraryObservableObject.status == .permitted {
                     if !libraryObservableObject.albums.isEmpty {
                         ScrollView {
-                            VStack {
-                                LibraryListView(libraryObservableObject: libraryObservableObject, editMode: $editMode)
-                                
-                                if !editMode.isEditing {
-                                    VerticalMediaGridView(mediaItems: libraryObservableObject.recentlyAdded, title: "Recently Added", imageSize: .albumItem)
-                                }
+                            LibraryListView(libraryObservableObject: libraryObservableObject, editMode: $editMode)
+                            
+                            if !editMode.isEditing {
+                                VerticalMediaGridView(mediaItems: libraryObservableObject.recentlyAdded, title: "Recently Added", imageSize: .albumCarouselItem)
                             }
                         }
                         .navigationTitle("Library")

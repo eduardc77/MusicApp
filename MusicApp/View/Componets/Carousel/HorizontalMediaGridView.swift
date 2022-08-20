@@ -23,9 +23,9 @@ struct HorizontalMediaGridView: View {
         switch imageSize {
         case .trackRowItem:
             gridRows = Array(repeating: .init(.flexible(minimum: Metric.trackRowItemHeight), spacing: 0), count: rowCount)
-        case .albumItem:
+        case .albumCarouselItem:
             gridRows = Array(repeating: .init(.flexible(minimum: Metric.albumRowItemHeight), spacing: 8), count: rowCount)
-        case .musicVideoItem:
+        case .videoCarouselItem:
             gridRows = Array(repeating: .init(.flexible(minimum: Metric.largeRowItemHeight), spacing: 8), count: rowCount)
         default:
             gridRows = Array(repeating: .init(.flexible(minimum: Metric.albumRowItemHeight), spacing: 10), count: rowCount)
@@ -64,9 +64,9 @@ struct HorizontalMediaGridView: View {
                         switch imageSize {
                         case .trackRowItem:
                             TrackMediaRow(media: media)
-                        case .albumItem:
+                        case .albumCarouselItem:
                             AlbumMediaItem(media: media)
-                        case .musicVideoItem:
+                        case .videoCarouselItem:
                             VideoMediaItem(media: media)
                         default: AlbumMediaItem(media: media)
                         }
@@ -85,6 +85,6 @@ struct HorizontalMediaGridView: View {
 
 struct HorizontalMusicListView_Previews: PreviewProvider {
     static var previews: some View {
-        HorizontalMediaGridView(mediaItems: musicPlaylists, title: "You Gotta Hear This", imageSize: .albumItem, rowCount: 1)
+        HorizontalMediaGridView(mediaItems: musicPlaylists, title: "You Gotta Hear This", imageSize: .albumCarouselItem, rowCount: 1)
     }
 }

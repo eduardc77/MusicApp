@@ -22,7 +22,7 @@ struct HighlightsView: View {
         switch imageSize {
         case .trackRowItem:
             gridRows = Array(repeating: .init(.fixed(Metric.trackRowItemHeight)), count: rowCount)
-        case .albumItem:
+        case .albumCarouselItem:
             gridRows = Array(repeating: .init(.fixed(Metric.albumRowItemHeight)), count: rowCount)
         case .highlight:
             gridRows = Array(repeating: .init(.fixed(Metric.highlightCarouselItemHeight)), count: rowCount)
@@ -39,7 +39,7 @@ struct HighlightsView: View {
                 switch imageSize {
                 case .trackRowItem:
                     TrackMediaRow(media: media)
-                case .albumItem:
+                case .albumCarouselItem:
                     AlbumMediaItem(media: media)
                 case .highlight:
                     HighlightMediaItem(media: media)
@@ -59,6 +59,6 @@ struct HighlightsView: View {
 
 struct HighlightsView_Previews: PreviewProvider {
     static var previews: some View {
-        HighlightsView(items: selectedStations, imageSize: .musicVideoItem)
+        HighlightsView(items: selectedStations, imageSize: .videoCarouselItem)
     }
 }

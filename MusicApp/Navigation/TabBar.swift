@@ -17,10 +17,9 @@ enum Tab {
 }
 
 struct TabBar: View {
-    var playerObservableObject = PlayerObservableObject()
-    
+    @EnvironmentObject private var playerObservableObject: PlayerObservableObject
     @State var selection: Tab = .listenNow
-    
+  
     var body: some View {
         ZStack(alignment: .bottom) {
             TabView(selection: $selection) {
@@ -40,12 +39,16 @@ struct TabBar: View {
                     .tabItem { Label("Search", systemImage: "magnifyingglass") }
                     .tag(Tab.search)
             }
-            
+
             PlayerView()
+                .opacity(playerObservableObject.showPlayerView ? 1 : 0)
         }
         .ignoresSafeArea(.keyboard)
         .navigationViewStyle(.stack)
-        .environmentObject(playerObservableObject)
+        
+        .onAppear() {
+            playerObservableObject.initPlayerFromUserDefaults()
+        }
     }
 }
 

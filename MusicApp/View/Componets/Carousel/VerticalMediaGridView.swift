@@ -25,7 +25,7 @@ struct VerticalMediaGridView: View {
         case .trackRowItem:
             columns = Array(repeating: .init(.flexible(), spacing: 8), count: 1)
             gridSpacing = 0
-        case .albumItem, .musicVideoItem:
+        case .albumCarouselItem, .videoCarouselItem:
             columns = Array(repeating: .init(.flexible(), spacing: 12), count: 2)
             gridSpacing = 12
         default:
@@ -48,9 +48,9 @@ struct VerticalMediaGridView: View {
                     switch imageSize {
                     case .trackRowItem:
                         TrackMediaRow(media: media)
-                    case .albumItem:
+                    case .albumCarouselItem:
                         AlbumMediaItem(media: media)
-                    case .musicVideoItem:
+                    case .videoCarouselItem:
                         VideoMediaRow(media: media)
                     default:
                         VideoMediaItem(media: media)

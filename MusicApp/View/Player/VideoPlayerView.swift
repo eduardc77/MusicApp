@@ -18,8 +18,13 @@ struct VideoPlayerView: View {
     @State var trackTimePosition = 1
     @State var trackDuration = 1
     @State var player: AVPlayer
+    private var sizeType: SizeType
+    private var cornerRadius: CGFloat
     
-    init(url: URL) {
+    init(url: URL, sizeType: SizeType = .defaultSize, cornerRadius: CGFloat = Metric.defaultCornerRadius) {
+        self.sizeType = sizeType
+        self.cornerRadius = cornerRadius
+    
         let asset = AVAsset(url: url)
         let item = AVPlayerItem(asset: asset)
         player = AVPlayer(playerItem: item)

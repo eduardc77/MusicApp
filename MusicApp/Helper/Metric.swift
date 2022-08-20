@@ -35,6 +35,7 @@ enum Metric {
     static let albumCarouselImageSize: CGFloat = Metric.screenHeight * 0.196
     static let trackRowItemHeight: CGFloat = Metric.screenHeight * 0.07
     static let albumRowItemHeight: CGFloat = Metric.screenHeight * 0.24
+    static let smallPlayerVideoHeight: CGFloat = Metric.screenHeight * 0.04
     static let videoRowHeight: CGFloat = Metric.screenHeight * 0.11
     static let videoCarouselItemHeight: CGFloat = Metric.screenHeight * 0.233
     static let categoryRowItemWidth: CGFloat = Metric.screenWidth / 2.29
@@ -52,14 +53,16 @@ enum Metric {
 
 enum SizeType {
     case trackRowItem
-    case searchRow
     case artistRow
-    case albumRow
-    case albumItem
+    case searchRow
+    case albumCollectionRow
+    case albumCarouselItem
     case albumDetail
     case categoryItem
-    case musicVideoRow
-    case musicVideoItem
+    case smallPlayerVideo
+    case videoListRow
+    case videoCollectionRow
+    case videoCarouselItem
     case highlight
     case highlightCard
     case largeHighlight
@@ -71,17 +74,20 @@ enum SizeType {
         switch self {
         case .trackRowItem: return Size(width: Metric.trackCarouselImageSize, height: Metric.trackCarouselImageSize)
         case .searchRow, .artistRow: return Size(width: Metric.searchResultImageSize, height: Metric.searchResultImageSize)
-        case .albumRow: return Size(width: 100, height: 100)
-        case .albumItem: return Size(width: Metric.albumCarouselImageSize, height: Metric.albumCarouselImageSize)
+        case .albumCollectionRow: return Size(width: 100, height: 100)
+        case .albumCarouselItem: return Size(width: Metric.albumCarouselImageSize, height: Metric.albumCarouselImageSize)
         case .albumDetail: return Size(width: Metric.albumDetailImageSize, height: Metric.albumDetailImageSize)
         case .categoryItem: return Size(width: Metric.categoryRowItemWidth, height: Metric.categoryRowItemHeight)
-        case .musicVideoRow: return Size(width: Metric.albumCarouselImageSize, height: Metric.videoRowHeight)
-        case .musicVideoItem: return Size(width: Metric.largeCarouselItemWidth , height: Metric.videoCarouselItemHeight)
+        case .smallPlayerVideo: return Size(width: Metric.searchResultImageSize, height: Metric.smallPlayerVideoHeight)
+        case .videoListRow: return Size(width: Metric.searchResultImageSize, height: Metric.searchResultImageSize)
+        case .videoCollectionRow: return Size(width: Metric.albumCarouselImageSize, height: Metric.videoRowHeight)
+        case .videoCarouselItem: return Size(width: Metric.largeCarouselItemWidth , height: Metric.videoCarouselItemHeight)
         case .highlight: return Size(width: Metric.largeCarouselItemWidth, height: Metric.highlightItemImageSize)
         case .highlightCard: return Size()
         case .largeHighlight: return Size()
         case .largePlayerArtwork: return Size(width: Metric.largeMediaImageSize, height: Metric.largeMediaImageSize)
         case .defaultSize: return Size()
+        
         }
     }
 }

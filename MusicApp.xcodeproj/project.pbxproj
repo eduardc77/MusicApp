@@ -422,6 +422,7 @@
 				EA734CBF280F1C5B00FCD2EE /* Helper */,
 				EAD1536F280D63EB005FD971 /* Extension */,
 				EAD1535B280D6144005FD971 /* CoreData */,
+				EAD152FA280D56A8005FD971 /* ContentView.swift */,
 				EA8B07BE2829F379006B0117 /* Placeholder.mov */,
 				EAD152FC280D56A8005FD971 /* Assets.xcassets */,
 				EAD152FE280D56A9005FD971 /* Preview Content */,
@@ -440,7 +441,6 @@
 		EAD1530B280D5783005FD971 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
-				EAD152FA280D56A8005FD971 /* ContentView.swift */,
 				EAD1530C280D579D005FD971 /* TabBar.swift */,
 			);
 			path = Navigation;

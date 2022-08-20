@@ -19,11 +19,11 @@ struct ListenNowView: View {
                     
                     HorizontalMediaGridView(mediaItems: musicPlaylists, title: "Best New Songs", imageSize: .trackRowItem, rowCount: 4)
                     
-                    HorizontalMediaGridView(mediaItems: musicPlaylists, title: "You Gotta Hear", imageSize: .albumItem, rowCount: 1)
+                    HorizontalMediaGridView(mediaItems: musicPlaylists, title: "You Gotta Hear", imageSize: .albumCarouselItem, rowCount: 1)
                     
                     HorizontalMediaGridView(mediaItems: musicPlaylists, title: "Stations for You", imageSize: .trackRowItem, rowCount: 4)
                     
-                    HorizontalMediaGridView(mediaItems: musicPlaylists, title: "New Music", imageSize: .albumItem, rowCount: 2)
+                    HorizontalMediaGridView(mediaItems: musicPlaylists, title: "New Music", imageSize: .albumCarouselItem, rowCount: 2)
                 }
                 
                 Spacer(minLength: Metric.playerHeight)

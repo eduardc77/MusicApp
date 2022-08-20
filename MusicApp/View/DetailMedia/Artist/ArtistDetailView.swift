@@ -50,19 +50,19 @@ struct ArtistDetailView: View {
                                 }
                                 
                                 if !artistObservableObject.albums.isEmpty {
-                                HorizontalMediaGridView(mediaItems: artistObservableObject.albums, title: "Albums", imageSize: .albumItem)
+                                HorizontalMediaGridView(mediaItems: artistObservableObject.albums, title: "Albums", imageSize: .albumCarouselItem)
                                 }
                                 
                                 if !artistObservableObject.musicVideos.isEmpty {
-                                HorizontalMediaGridView(mediaItems: artistObservableObject.musicVideos, title: "Music Videos", imageSize: .musicVideoItem)
+                                HorizontalMediaGridView(mediaItems: artistObservableObject.musicVideos, title: "Music Videos", imageSize: .videoCarouselItem)
                                 }
                                 
                                 if !artistObservableObject.singlesAndEps.isEmpty {
-                                    HorizontalMediaGridView(mediaItems: artistObservableObject.singlesAndEps, title: "Singles & EPs", imageSize: .albumItem)
+                                    HorizontalMediaGridView(mediaItems: artistObservableObject.singlesAndEps, title: "Singles & EPs", imageSize: .albumCarouselItem)
                                 }
                                 
                                 if !artistObservableObject.appearsOn.isEmpty {
-                                    HorizontalMediaGridView(mediaItems: artistObservableObject.appearsOn, title: "Appears On", imageSize: .albumItem)
+                                    HorizontalMediaGridView(mediaItems: artistObservableObject.appearsOn, title: "Appears On", imageSize: .albumCarouselItem)
                                 }
                             }
                             .background()

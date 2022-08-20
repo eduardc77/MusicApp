@@ -7,6 +7,7 @@
 
 import SwiftUI
 import MediaPlayer
+import Combine
 
 enum PlayerType {
     case video
@@ -15,6 +16,9 @@ enum PlayerType {
 
 final class PlayerObservableObject: ObservableObject {
     @Published var expand: Bool = false
+    @Published var hasRecentMedia: Bool = false
+    @Published var showPlayerView = false
+    
     var playerType: PlayerType = .audio
     
     // MARK: - Audio Player Properties
@@ -25,10 +29,21 @@ final class PlayerObservableObject: ObservableObject {
     @Published var progressRate: Int = 0
     
     let audioPlayer = MPMusicPlayerController.applicationMusicPlayer
+    private var musicPlayerPlayingCancellable: AnyCancellable?
     
     // MARK: - Video Player Properties
     
     var videoPlayer: VideoPlayerView = VideoPlayerView(url: URL(string: "https://www.apple.com/404")!)
+    var videoAssetUrl: URL = URL(string: "https://www.apple.com/404")!
+    
+    init() {
+        musicPlayerPlayingCancellable = $hasRecentMedia.sink
+        { [weak self] in
+            if $0 || self?.playbackState == .playing && self?.showPlayerView == false {
+                self?.showPlayerView = true
+            }
+        }
+    }
     
     // MARK: - Public Methods
     
@@ -51,6 +66,7 @@ final class PlayerObservableObject: ObservableObject {
             audioPlayer.setQueue(with: recentTrack)
             audioPlayer.prepareToPlay()
             audioPlayer.skipToBeginning()
+            hasRecentMedia = true
         }
         
         if UserDefaults.standard.bool(forKey: UserDefaultsKey.shuffleDefault) {
@@ -95,13 +111,15 @@ final class PlayerObservableObject: ObservableObject {
         
         nowPlayingItem = PlayableItem(playing: playing, media: Media(mediaResponse: MediaResponse(id: media.playbackStoreID, artistId: 0, collectionId: 0, trackId: 0, wrapperType: "track", kind: kind.rawValue, name: media.title, artistName: media.artist, collectionName: media.albumTitle, trackName: media.title, collectionCensoredName: media.albumTitle, artistViewUrl: nil, collectionViewUrl: nil, trackViewUrl: nil, previewUrl: nil, artworkUrl100: nil, collectionPrice: nil, collectionHdPrice: 0, trackPrice: 0, collectionExplicitness: nil, trackExplicitness: media.isExplicitItem ? "explicit" : "notExplicit", discCount: 0, discNumber: nil, trackCount: media.albumTrackCount, trackNumber: media.albumTrackNumber, trackTimeMillis: media.playbackDuration.toInt, country: nil, currency: nil, primaryGenreName: media.genre, description: nil, longDescription: nil, releaseDate: media.releaseDate?.ISO8601Format(), contentAdvisoryRating: nil, trackRentalPrice: 0, artwork: media.artwork?.image(at: CGSize(width: 1024, height: 1024)), composer: media.composer, isCompilation: media.isCompilation)))
         
-        
+        hasRecentMedia = true
     }
     
-    func configureVideoPlayer(with videoMediaUrl: URL) {
+    func configureVideoPlayer(with videoAssetUrl: URL) {
         playerType = .video
-        videoPlayer = VideoPlayerView(url: videoMediaUrl)
+        self.videoAssetUrl = videoAssetUrl
         expand = true
+        playbackState = .playing
+        showPlayerView = true
     }
 }
 

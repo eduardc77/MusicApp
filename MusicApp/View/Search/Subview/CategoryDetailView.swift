@@ -21,7 +21,7 @@ struct CategoryDetailView: View {
                 
                 HighlightsView(items: selectedMusic[category.tag], imageSize: .highlight, rowCount: 2)
                 
-                HorizontalMediaGridView(mediaItems: musicPlaylists, title: "Best \(category.title) Music", imageSize: .albumItem)
+                HorizontalMediaGridView(mediaItems: musicPlaylists, title: "Best \(category.title) Music", imageSize: .albumCarouselItem)
                 //               mediaItems: musicPlaylists[category.tag]
                     .navigationBarTitleDisplayMode(.inline)
             }
