@@ -32,7 +32,6 @@ struct LibraryListView: View {
                 }
             }
             .onMove(perform: move)
-            .listRowBackground(Color.clear)
         }
         .listStyle(.plain)
         .frame(idealHeight: CGFloat(46 * currentSections.count), maxHeight: .infinity)

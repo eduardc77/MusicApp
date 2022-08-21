@@ -44,7 +44,7 @@ struct SearchListView: View {
                 }
             }
         }
-        .scrollDismissesKeyboard(.interactively)
+        .scrollDismissesKeyboard(.immediately)
         .safeAreaInset(edge: .top) {
             Group {
                 Picker("Search In", selection: $selectedIndex) {

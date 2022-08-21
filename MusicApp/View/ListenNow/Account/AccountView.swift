@@ -9,14 +9,15 @@ import SwiftUI
 
 struct AccountView: View {
     @Environment(\.presentationMode) var presentationMode
-    
     @State var toggleContactsOnAppleMusic = true
     @State var toggleFindingByAppleId = true
+    
+    var userAccount = Account()
     
     var body: some View {
         NavigationView {
             List {
-                Section { ProfileNavigationLink(username: "John Appleseed", email: "john.appleseed@icloud.com") }
+                Section { ProfileNavigationLink(username: userAccount.name, email: userAccount.email) }
                 
                 Section {
                     RowButton(rowTitle: "Redeem Gift Card or Code", navigationTitle: "Redeem Code")
