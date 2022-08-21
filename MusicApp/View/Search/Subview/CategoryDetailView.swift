@@ -26,7 +26,7 @@ struct CategoryDetailView: View {
                     .navigationBarTitleDisplayMode(.inline)
             }
             
-            if playerObservableObject.showPlayerView {
+            if playerObservableObject.showPlayerView, !playerObservableObject.expand {
                 Spacer(minLength: Metric.playerHeight)
             }
         }

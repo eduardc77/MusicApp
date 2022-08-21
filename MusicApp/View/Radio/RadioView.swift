@@ -19,7 +19,7 @@ struct RadioView: View {
                 
                 HorizontalMediaGridView(mediaItems: musicPlaylists, title: "New Episodes", imageSize: .trackRowItem, rowCount: 4)
                 
-                if playerObservableObject.showPlayerView {
+                if playerObservableObject.showPlayerView, !playerObservableObject.expand {
                     Spacer(minLength: Metric.playerHeight)
                 }
             }

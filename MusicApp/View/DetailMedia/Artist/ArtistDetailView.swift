@@ -68,7 +68,7 @@ struct ArtistDetailView: View {
                             }
                             .background()
                             
-                            if playerObservableObject.showPlayerView {
+                            if playerObservableObject.showPlayerView, !playerObservableObject.expand {
                                 Spacer(minLength: Metric.playerHeight)
                             }
                         }

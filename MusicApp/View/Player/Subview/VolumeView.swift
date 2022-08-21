@@ -15,16 +15,16 @@ struct VolumeView: View {
             HStack {
                 Image(systemName: "speaker.fill")
                     .foregroundColor(.lightGrayColor)
-                    .padding(.leading)
+                    .padding(.trailing, 6)
                 
                 VolumeSlider()
                     .accentColor(.lightGrayColor)
                     .controlSize(.regular)
-                    .frame(width: UIScreen.main.bounds.width / 1.4, height: 18)
+                    .frame(width: UIScreen.main.bounds.width / 1.5, height: 18)
                 
                 Image(systemName: "speaker.wave.2.fill")
                     .foregroundColor(.lightGrayColor)
-                    .padding(.trailing)
+                    .padding(.leading, 6)
             }
             .padding(.vertical)
             

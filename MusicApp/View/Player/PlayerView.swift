@@ -22,6 +22,7 @@ struct PlayerView: View {
                 Capsule()
                     .fill(Color.lightGrayColor2)
                     .frame(width: Metric.capsuleWidth, height: Metric.capsuleHeight)
+                    .opacity(playerObservableObject.expand ? 1 : 0)
             }
             
             HStack {
@@ -41,41 +42,39 @@ struct PlayerView: View {
                 }
                 
                 if !playerObservableObject.expand {
-                    Group {
-                        Text(playerObservableObject.nowPlayingItem.media.trackName)
-                            .font(.body)
-                            .foregroundColor(.primary)
-                        
-                        Spacer()
-                        
-                        HStack {
-                            Button(action: {
-                                playerObservableObject.playbackState == .playing ? playerObservableObject.audioPlayer.pause() : playerObservableObject.audioPlayer.play()
-                            },
-                                   label: {
-                                playerObservableObject.playbackState == .playing ?
-                                Image(systemName: "pause.fill")
-                                    .font(.title)
-                                    .foregroundColor(.primary)
-                                
-                                :
-                                Image(systemName: "play.fill")
-                                    .font(.title)
-                                    .foregroundColor(.primary)
-                            }
-                            )
-                            .padding(.trailing)
+                    Text(playerObservableObject.nowPlayingItem.media.trackName)
+                        .font(.body)
+                        .foregroundColor(.primary)
+                    
+                    Spacer()
+                    
+                    HStack {
+                        Button(action: {
+                            playerObservableObject.playbackState == .playing ? playerObservableObject.audioPlayer.pause() : playerObservableObject.audioPlayer.play()
+                        },
+                               label: {
+                            playerObservableObject.playbackState == .playing ?
+                            Image(systemName: "pause.fill")
+                                .font(.title)
+                                .foregroundColor(.primary)
                             
-                            Button(action: {
-                                playerObservableObject.audioPlayer.skipToNextItem()
-                            },
-                                   label: {
-                                Image(systemName: "forward.fill")
-                                    .font(.title2)
-                                    .foregroundColor(!playerObservableObject.nowPlayingItem.media.name.isEmpty ? .primary : .secondary)
-                            }
-                            )
+                            :
+                            Image(systemName: "play.fill")
+                                .font(.title)
+                                .foregroundColor(.primary)
                         }
+                        )
+                        .padding(.trailing)
+                        
+                        Button(action: {
+                            playerObservableObject.audioPlayer.skipToNextItem()
+                        },
+                               label: {
+                            Image(systemName: "forward.fill")
+                                .font(.title2)
+                                .foregroundColor(!playerObservableObject.nowPlayingItem.media.name.isEmpty ? .primary : .secondary)
+                        }
+                        )
                     }
                 }
             }
@@ -123,16 +122,17 @@ struct PlayerView: View {
                                 }
                         case .video:
                             TimeSliderView(playerObservableObject: playerObservableObject, trackDuration: playerObservableObject.videoPlayer.trackDuration, trackTimePosition: $playerObservableObject.videoPlayer.trackTimePosition, player: playerObservableObject.audioPlayer)
-                        }    
+                        }
                         PlayerControls(playerObservableObject: _playerObservableObject)
                         
                         VolumeView(playerType: playerObservableObject.playerType)
                     }
                     .padding(.horizontal)
                 }
-               
-                .transition(.move(edge: .bottom))
+                
                 .frame(height: playerObservableObject.expand ? UIScreen.main.bounds.height / 2.8 : 0)
+                .opacity(playerObservableObject.expand ? 1 : 0)
+                .transition(.move(edge: .bottom))
             }
         }
         .frame(maxHeight: playerObservableObject.expand ? .infinity : Metric.playerHeight)
@@ -161,11 +161,10 @@ struct PlayerView: View {
                     }
                 }
         )
-        
-        .offset(y: offset)
         .offset(y: playerObservableObject.expand ? 0 : Metric.yOffset)
-        .ignoresSafeArea()
+        .offset(y: offset)
         .gesture(DragGesture().onEnded(onEnded(value:)).onChanged(onChanged(value:)))
+        .ignoresSafeArea()
         
         .onReceive(NotificationCenter.default.publisher(for: .MPMusicPlayerControllerPlaybackStateDidChange)){ _ in
             playerObservableObject.playbackState = playerObservableObject.audioPlayer.playbackState
@@ -184,10 +183,6 @@ struct PlayerView: View {
             playerObservableObject.progressRate = playerObservableObject.audioPlayer.currentPlaybackTime.toInt
             playerObservableObject.makeNowPlaying(media: mediaItem, playing: $playing)
         }
-        
-        .onAppear {
-            playerObservableObject.initPlayerFromUserDefaults()
-        }
     }
     
     // pull down Player
@@ -198,12 +193,11 @@ struct PlayerView: View {
     }
     
     func onEnded(value: DragGesture.Value) {
-        withAnimation(.interactiveSpring(response: 0.3, dampingFraction: 0.98, blendDuration: 0.69)) {
+        withAnimation(.interactiveSpring(response: 0.3, dampingFraction: 0.95, blendDuration: 0.95)) {
             if value.translation.height > UIScreen.main.bounds.height / 12 {
                 withAnimation(.spring()) {
                     playerObservableObject.expand = false
                 }
-                
             }
             offset = 0
         }

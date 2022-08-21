@@ -31,7 +31,7 @@ struct LibraryListDetailView: View {
             case .homeSharing: VerticalMediaGridView(mediaItems: libraryObservableObject.homeSharing, imageSize: .albumCarouselItem)
             }
             
-            if playerObservableObject.showPlayerView {
+            if playerObservableObject.showPlayerView, !playerObservableObject.expand {
                 Spacer(minLength: Metric.playerHeight)
             }
         }

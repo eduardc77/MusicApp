@@ -26,6 +26,8 @@ struct TabBar: View {
                 ListenNowView()
                     .tabItem { Label("Listen Now", systemImage: "play.circle.fill") }
                     .tag(Tab.listenNow)
+                    // FIXME: - Uncomment this when iOS 16 is available
+                    .toolbar(playerObservableObject.expand ? .hidden : .automatic, for: .tabBar)
                 BrowseView()
                     .tabItem { Label("Browse", systemImage: "square.grid.2x2.fill") }
                     .tag(Tab.browse)

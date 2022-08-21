@@ -29,7 +29,7 @@ struct BrowseView: View {
                 
                 NavigationLinkList(rowItems: BrowseMoreToExplore.self, content: detailViews, title: "More to Explore")
                 
-                if playerObservableObject.showPlayerView {
+                if playerObservableObject.showPlayerView, !playerObservableObject.expand {
                     Spacer(minLength: Metric.playerHeight)
                 }
             }

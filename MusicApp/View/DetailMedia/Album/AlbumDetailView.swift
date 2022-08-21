@@ -27,7 +27,7 @@ struct AlbumDetailView: View {
                     AlbumTrackList(media: mediaItemObservableObject.media)
                 }
                 
-                if playerObservableObject.showPlayerView {
+                if playerObservableObject.showPlayerView, !playerObservableObject.expand {
                     Spacer(minLength: Metric.playerHeight)
                 }
             }

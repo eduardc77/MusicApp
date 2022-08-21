@@ -31,7 +31,6 @@ struct PlayerControls: View {
                     .font(.largeTitle)
                     .foregroundColor(!playerObservableObject.nowPlayingItem.media.name.isEmpty ? .white : .lightGrayColor2)
             }
-            .padding(.horizontal, 40)
             
             Spacer()
             
@@ -77,7 +76,6 @@ struct PlayerControls: View {
                     .font(.largeTitle)
                     .foregroundColor(!playerObservableObject.nowPlayingItem.media.name.isEmpty ? .white : .lightGrayColor2)
             }
-            .padding(.horizontal, 40)
             
             Spacer()
         }

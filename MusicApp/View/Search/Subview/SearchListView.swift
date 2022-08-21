@@ -39,12 +39,14 @@ struct SearchListView: View {
                 }
                 .padding(.horizontal)
                 
-                if playerObservableObject.showPlayerView {
+                if playerObservableObject.showPlayerView, !playerObservableObject.expand {
                     Spacer(minLength: Metric.playerHeight)
                 }
             }
         }
+        // FIXME: - Uncomment this when iOS 16 is available
         .scrollDismissesKeyboard(.immediately)
+        
         .safeAreaInset(edge: .top) {
             Group {
                 Picker("Search In", selection: $selectedIndex) {

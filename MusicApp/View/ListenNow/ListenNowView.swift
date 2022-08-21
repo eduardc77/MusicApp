@@ -25,7 +25,7 @@ struct ListenNowView: View {
                     HorizontalMediaGridView(mediaItems: musicPlaylists, title: "New Music", imageSize: .albumCarouselItem, rowCount: 2)
                 }
                 
-                if playerObservableObject.showPlayerView {
+                if playerObservableObject.showPlayerView, !playerObservableObject.expand {
                     Spacer(minLength: Metric.playerHeight)
                 }
             }

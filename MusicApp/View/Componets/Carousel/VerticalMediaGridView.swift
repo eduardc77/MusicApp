@@ -61,7 +61,7 @@ struct VerticalMediaGridView: View {
             }
             .padding(.horizontal)
             
-            if playerObservableObject.showPlayerView {
+            if playerObservableObject.showPlayerView, !playerObservableObject.expand {
                 Spacer(minLength: Metric.playerHeight)
             }
         }
