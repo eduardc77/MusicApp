@@ -47,6 +47,7 @@ final class SearchObservableObject: ObservableObject {
     @Published var searchTerm = ""
     @Published var currentGenre: String = ""
     
+    @Published var entity: String = "album"
     
     // MARK: - Initialization
     
@@ -64,12 +65,11 @@ final class SearchObservableObject: ObservableObject {
     
     // MARK: - Public Methods
     
-    func select(_ genre: String) {
-        sortType = .filter(iD: genre)
-        if !searchTerm.isEmpty {
-            searchTerm = ""
-        }
-        currentGenre = genre
+    func select(_ genre: MediaKind) {
+        sortType = .filter(iD: genre.title)
+        entity = genre.entity
+        
+        chain()
     }
 }
 
@@ -92,7 +92,7 @@ private extension SearchObservableObject {
     }
     
     func search(searchQuery: String) -> AnyPublisher<[MediaResponse], NetworkError> {
-        networkService.request(endpoint: .getInfo(by: .search(term: searchQuery, entity: "musicArtist", media: "music", attribute: "artistTerm")))
+        networkService.request(endpoint: .getInfo(by: .search(term: searchQuery, entity: entity, media: "music")))
             .map { $0 as ITunesAPIResponse }
             .map(\.results)
             .map(loaded)

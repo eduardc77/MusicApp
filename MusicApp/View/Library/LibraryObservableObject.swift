@@ -138,7 +138,6 @@ private extension LibraryObservableObject {
                 case .musicVideo: kind = MediaKind.musicVideo
                 case .movie: kind = MediaKind.movie
                 case .anyVideo: kind = MediaKind.musicVideo
-                case .any: kind = MediaKind.mix
                 default: kind = MediaKind.album
                 }
                 

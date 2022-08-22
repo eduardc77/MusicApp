@@ -9,9 +9,11 @@ import SwiftUI
 import MediaPlayer
 
 struct SearchListView: View {
+    @Environment(\.isSearching) private var isSearching
     @EnvironmentObject private var playerObservableObject: PlayerObservableObject
     @ObservedObject var searchObservableObject: SearchObservableObject
-    @State var selectedIndex = 0
+    @State var selectedPickerIndex = 0
+    @Binding var searchSubmit: Bool
     
     var player: MPMusicPlayerController = MPMusicPlayerController.applicationMusicPlayer
     var columns = [GridItem(.flexible(), spacing: 12)]
@@ -49,28 +51,72 @@ struct SearchListView: View {
         
         .safeAreaInset(edge: .top) {
             Group {
-                Picker("Search In", selection: $selectedIndex) {
-                    Text("Apple Music").tag(0)
-                    Text("Your Library").tag(1)
+                if searchSubmit {
+                    MediaKindSegmentedControl(searchObservableObject: searchObservableObject)
+                } else {
+                    Picker("Search In", selection: $selectedPickerIndex) {
+                        Text("Apple Music").tag(0)
+                        Text("Your Library").tag(1)
+                    }
+                    .pickerStyle(.segmented)
+                    .padding(.horizontal)
                 }
-                .pickerStyle(.segmented)
-                .padding(8)
-                .background(BlurView())
-                .clipped()
             }
+            .padding(.vertical, 10)
+            .background(.ultraThinMaterial)
+            .animation(.flipCard, value: searchSubmit)
+        }
+    }
+}
+
+struct MediaKindSegmentedControl: View {
+    @ObservedObject var searchObservableObject: SearchObservableObject
+    @State var selectedMediaType: MediaKind = .album
+    @Namespace var animation
+    
+    var body: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack {
+                ForEach(MediaKind.allCases, id: \.self) { genre in
+                    Button(action: {
+                        withAnimation {
+                            searchObservableObject.select(genre)
+                            selectedMediaType = genre
+                        }
+                    }) {
+                        Text(genre.title)
+                            .font(.footnote.weight(.medium))
+                            .padding(.vertical, 8)
+                            .padding(.horizontal)
+                            .background(
+                                ZStack {
+                                    if selectedMediaType == genre {
+                                        RoundedRectangle(cornerRadius: 20)
+                                            .fill(Color.accentColor)
+                                            .matchedGeometryEffect(id: "TAB", in: animation)
+                                    }
+                                }
+                            )
+                            .foregroundColor(selectedMediaType == genre ? .white : .primary)
+                    }
+                    .buttonStyle(.plain)
+                }
+            }
+            .padding(.horizontal)
         }
     }
 }
 
 
-struct SearchListView_Previews: PreviewProvider {
-    static let searchObservableObject: SearchObservableObject = {
-        let viewModel = SearchObservableObject()
-        
-        return viewModel
-    }()
-    
-    static var previews: some View {
-        SearchListView(searchObservableObject: searchObservableObject)
-    }
-}
+//
+//struct SearchListView_Previews: PreviewProvider {
+//    static let searchObservableObject: SearchObservableObject = {
+//        let viewModel = SearchObservableObject()
+//
+//        return viewModel
+//    }()
+//
+//    static var previews: some View {
+//        SearchListView(searchObservableObject: searchObservableObject, searchSubmit: )
+//    }
+//}

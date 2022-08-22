@@ -31,7 +31,7 @@ struct ArtistDetailView: View {
                         if let recentAlbum = artistObservableObject.albums.first {
                             ZStack(alignment: Alignment(horizontal: .leading, vertical: .bottom)) {
                                 MediaPreviewHeader(imagePath: recentAlbum.artworkPath)
-
+                                
                                 Text(media.artistName)
                                     .padding(12)
                                     .foregroundColor(.white)
@@ -46,16 +46,16 @@ struct ArtistDetailView: View {
                                 }
                                 
                                 if !artistObservableObject.tracks.isEmpty {
-                                HorizontalMediaGridView(mediaItems: artistObservableObject.tracks, title: "Top Songs", imageSize: .trackRowItem, rowCount: 4)
-                                    .padding(.top)
+                                    HorizontalMediaGridView(mediaItems: artistObservableObject.tracks, title: "Top Songs", imageSize: .trackRowItem, rowCount: 4)
+                                        .padding(.top)
                                 }
                                 
                                 if !artistObservableObject.albums.isEmpty {
-                                HorizontalMediaGridView(mediaItems: artistObservableObject.albums, title: "Albums", imageSize: .albumCarouselItem)
+                                    HorizontalMediaGridView(mediaItems: artistObservableObject.albums, title: "Albums", imageSize: .albumCarouselItem)
                                 }
                                 
                                 if !artistObservableObject.musicVideos.isEmpty {
-                                HorizontalMediaGridView(mediaItems: artistObservableObject.musicVideos, title: "Music Videos", imageSize: .videoCarouselItem)
+                                    HorizontalMediaGridView(mediaItems: artistObservableObject.musicVideos, title: "Music Videos", imageSize: .videoCarouselItem)
                                 }
                                 
                                 if !artistObservableObject.singlesAndEps.isEmpty {

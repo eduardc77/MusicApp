@@ -19,9 +19,7 @@ struct MainButton: View {
     var action: () -> Void
     
     var body: some View {
-        Button {
-            action()
-        } label: {
+        Button(action: action) {
             HStack(spacing: spacing) {
                 image
                 

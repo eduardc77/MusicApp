@@ -14,7 +14,7 @@ struct HighlightMediaItem: View {
     var body: some View {
         VStack {
             VStack(alignment: .leading) {
-                Text(media.kind.entityUppercased)
+                Text(media.kind.titleUppercased)
                     .font(.caption2)
                     .foregroundColor(.secondary)
                 

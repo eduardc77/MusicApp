@@ -16,41 +16,26 @@ enum MediaKind: String {
     case tvSeason
     case audiobook
     case podcast
-    case mix
     
     var title: String {
         switch self {
-        case .album:
-            return "Album"
-        case .song:
-            return "Song"
-        case .artist:
-            return "Artist"
-        case .playlist:
-            return "Playlist"
-        case .musicVideo:
-            return "Music Video"
-        case .ebook:
-            return "Ebook"
-        case .movie:
-            return "Movie"
-        case .tvSeason:
-            return "TV Show"
-        case .audiobook:
-            return "Audio Book"
-        case .podcast:
-            return "Podcast"
-        case .mix:
-            return "Mix"
+        case .album, .song, .artist, .ebook, .movie, .audiobook, .podcast: return self.rawValue.capitalized
+        case .playlist: return "Playlists"
+        case .musicVideo: return "Music Videos"
+        case .tvSeason: return "TV Shows"
         }
     }
     
     var entity: String {
-        self.rawValue
+        switch self {
+        case .artist: return "musicArtist"
+        case .playlist: return "playlists"
+        default: return self.rawValue
+        }
     }
     
-    var entityUppercased: String {
-        self.rawValue.uppercased()
+    var titleUppercased: String {
+        title.uppercased()
     }
     
     var id: String { self.rawValue }

@@ -10,70 +10,64 @@ import SwiftUI
 struct SearchView: View {
     @StateObject private var searchObservableObject = SearchObservableObject()
     @State private var searchTerm = ""
+    @State private var selectedIndex = 0
+    @State private var searchSubmit: Bool = false
     
     var body: some View {
         NavigationView {
-            SearchOrCategoryView(searchObservableObject: searchObservableObject)
+            SearchOrCategoryView(searchObservableObject: searchObservableObject, searchSubmit: $searchSubmit)
+                .navigationTitle("Search")
+            
                 .searchable(text: $searchTerm,
                             placement:.navigationBarDrawer(displayMode:.always),
                             prompt: "Artists, Songs, Lyrics, and More",
                             suggestions: {})
-            
                 .onSubmit(of: .search) {
                     searchObservableObject.searchTerm = searchTerm
+                    searchSubmit = true
                 }
+            
                 .onChange(of: searchTerm) { term in
                     searchObservableObject.searchTerm = term
                 }
-            
-//                .alert(isPresented: $searchObservableObject.showErrorAlert) {
-//                    let message = searchObservableObject.errorMessage
-//                    searchObservableObject.errorMessage = nil
-//
-//                    return Alert(
-//                        title: Text("Error"),
-//                        message: Text(message ?? APIError.generic.localizedDescription)
-//                    )
-//                }
-                .navigationTitle("Search")
+                .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardDidShowNotification)) { _ in
+                    searchSubmit = false
+                }
         }
     }
+}
+
+struct SearchOrCategoryView: View {
+    @Environment(\.isSearching) private var isSearching
+    @ObservedObject var searchObservableObject: SearchObservableObject
+    @Binding var searchSubmit: Bool
     
-    struct SearchOrCategoryView: View {
-        @Environment(\.isSearching) private var isSearching
-        @ObservedObject var searchObservableObject: SearchObservableObject
-        
-        var body: some View {
-            if !isSearching {
-                CategoryGridView()
-            } else {
-                SearchResultsView(searchObservableObject: searchObservableObject)
-            }
+    var body: some View {
+        if !isSearching {
+            CategoryGridView()
+        } else {
+            searchResults
         }
     }
 }
 
 // MARK: - Search Results View
 
-extension SearchView {
-    struct SearchResultsView: View {
-        @ObservedObject var searchObservableObject: SearchObservableObject
-        
-        var body: some View {
-            ZStack {
-                SearchListView(searchObservableObject: searchObservableObject)
-                
-                if searchObservableObject.searchLoadedWithNoResults {
-                    VStack {
-                        Text("No Results")
-                            .font(.title2).bold()
-                            .foregroundColor(.primary)
-                        Text("Try a new search.")
-                            .foregroundColor(.secondary)
-                            .font(.body)
-                    }
-                    .padding(.bottom)
+extension SearchOrCategoryView {
+    var searchResults: some View {
+        ZStack {
+            SearchListView(searchObservableObject: searchObservableObject, searchSubmit: $searchSubmit)
+            
+            if searchObservableObject.searchLoadedWithNoResults {
+                VStack {
+                    Text("No Results")
+                        .font(.title2).bold()
+                        .foregroundColor(.primary)
+                    Text("Try a new search.")
+                        .foregroundColor(.secondary)
+                        .font(.body)
                 }
+                .padding(.bottom)
             }
         }
     }
