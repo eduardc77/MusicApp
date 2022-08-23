@@ -10,6 +10,7 @@ import AVKit
 
 struct VideoPlayerView: View {
   @State var expand = false
+  @State var beenExpanded = false
   @State var isPlaying = false
   @State var trackTimePosition = 1
   @State var trackDuration = 1
@@ -26,18 +27,24 @@ struct VideoPlayerView: View {
   }
 
   var body: some View {
-    PlayerViewController(player: player, videoAssetUrl: videoAssetUrl)
+    PlayerViewController(player: player, videoAssetUrl: videoAssetUrl, expand: $expand, beenExpanded: $beenExpanded)
       .onChange(of: isPlaying) { newValue in
         togglePlayPause(newValue)
       }
 
       .onAppear {
-        isPlaying = true
+        expand = false
         trackDuration = getDurationSeconds()
       }
       .onDisappear {
+        guard !expand else { return }
+        beenExpanded = false
         isPlaying = false
         player.pause()
+        player.replaceCurrentItem(with: nil)
+      }
+      .onTapGesture {
+        expand.toggle()
       }
   }
 
@@ -56,6 +63,7 @@ struct VideoPlayerView: View {
   }
 
   private func togglePlayPause(_ newValue: Bool) {
+
     if newValue {
       player.play()
     }
@@ -72,19 +80,37 @@ struct VideoPlayerView: View {
 struct PlayerViewController: UIViewControllerRepresentable {
   var player: AVPlayer
   var videoAssetUrl: URL
+  @Binding var expand: Bool
+  @Binding var beenExpanded: Bool
 
   func makeUIViewController(context: Context) -> AVPlayerViewController {
     let playerVC = AVPlayerViewController()
-    playerVC.player = player
-    return playerVC
+      playerVC.player = player
+    playerVC.exitsFullScreenWhenPlaybackEnds = true
+      return playerVC
   }
 
   func updateUIViewController(_ uiViewController: AVPlayerViewController, context: Context) {
-    resetPlayer(uiViewController)
-    let asset = AVAsset(url: videoAssetUrl)
-    let item = AVPlayerItem(asset: asset)
-    uiViewController.player?.replaceCurrentItem(with: item)
-    uiViewController.player?.play()
+    if expand {
+      DispatchQueue.main.async() {
+        uiViewController.enterFullScreen()
+        uiViewController.showsPlaybackControls = true
+        beenExpanded = true
+      }
+    } else {
+      if !beenExpanded {
+        resetPlayer(uiViewController)
+        let asset = AVAsset(url: videoAssetUrl)
+        let item = AVPlayerItem(asset: asset)
+        uiViewController.player?.replaceCurrentItem(with: item)
+        uiViewController.player?.play()
+      }
+      uiViewController.showsPlaybackControls = false
+
+      DispatchQueue.main.asyncAfter(deadline: .now() + 0.46) {
+        uiViewController.player?.play()
+      }
+    }
   }
 
   func resetPlayer(_ vc: AVPlayerViewController) {
@@ -92,3 +118,10 @@ struct PlayerViewController: UIViewControllerRepresentable {
     vc.player?.replaceCurrentItem(with: nil)
   }
 }
+
+extension AVPlayerViewController {
+    func enterFullScreen(animated: Bool = true) {
+        perform(NSSelectorFromString("enterFullScreenAnimated:completionHandler:"), with: animated, with: nil)
+    }
+}
+
