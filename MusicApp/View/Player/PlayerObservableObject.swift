@@ -116,10 +116,8 @@ final class PlayerObservableObject: ObservableObject {
         videoPlayer.player.seek(to: .zero)
         videoPlayer.player.pause()
         playerType = .video
-        expand = true
         videoPlayer = VideoPlayerView(videoAssetUrl: videoAssetUrl)
-        videoPlayer.playVideoAsset(url: videoAssetUrl)
-        
+        expand = true
         showPlayerView = true    
     }
 }
