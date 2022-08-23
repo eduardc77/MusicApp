@@ -7,7 +7,11 @@
 
 import SwiftUI
 
-struct NavigationLinkList<Content: View, Enum: RawRepresentable & CaseIterable & Hashable> : View where Enum.AllCases: RandomAccessCollection, Enum.RawValue == Int {
+protocol Nameable {
+  var title: String { get }
+}
+
+struct NavigationLinkList<Content: View, Enum: RawRepresentable & CaseIterable & Hashable & Nameable> : View where Enum.AllCases: RandomAccessCollection, Enum.RawValue == Int {
     var rowItems: Enum.Type
     var content: [Content]
     var title: String = ""
@@ -25,11 +29,11 @@ struct NavigationLinkList<Content: View, Enum: RawRepresentable & CaseIterable &
                     .padding(.leading)
                 
                 List {
-                    ForEach(rowItems.allCases, id: \.self) { rowTitle in
+                    ForEach(rowItems.allCases, id: \.self) { enumCase in
                         NavigationLink {
-                            content[rowTitle.rawValue]
+                            content[enumCase.rawValue]
                         } label: {
-                            Text(String(describing: rowTitle))
+                          Text(String(describing: enumCase.title))
                                 .font(.body)
                                 .foregroundColor(.accentColor)
                         }
