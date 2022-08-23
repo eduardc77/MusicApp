@@ -224,6 +224,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EA17316628B4962800A09AAC /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				EAD152FC280D56A8005FD971 /* Assets.xcassets */,
+				EA8B07BE2829F379006B0117 /* Placeholder.mov */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		EA1BE0C8281DC1CE00A3A7A4 /* Library */ = {
 			isa = PBXGroup;
 			children = (
@@ -419,9 +428,7 @@
 				EA734CBF280F1C5B00FCD2EE /* Helper */,
 				EAD1536F280D63EB005FD971 /* Extension */,
 				EAD1535B280D6144005FD971 /* CoreData */,
-				EAD152FA280D56A8005FD971 /* ContentView.swift */,
-				EA8B07BE2829F379006B0117 /* Placeholder.mov */,
-				EAD152FC280D56A8005FD971 /* Assets.xcassets */,
+				EA17316628B4962800A09AAC /* Resources */,
 				EAD152FE280D56A9005FD971 /* Preview Content */,
 			);
 			path = MusicApp;
@@ -478,6 +485,7 @@
 		EAD15323280D5AED005FD971 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				EAD152FA280D56A8005FD971 /* ContentView.swift */,
 				EAD1533C280D5C99005FD971 /* ListenNow */,
 				EAD1533F280D5CCD005FD971 /* Browse */,
 				EAD15343280D5D4F005FD971 /* Radio */,
