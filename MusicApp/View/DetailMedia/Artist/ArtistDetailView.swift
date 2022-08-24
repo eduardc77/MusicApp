@@ -31,14 +31,24 @@ struct ArtistDetailView: View {
                         if let recentAlbum = artistObservableObject.albums.first {
                             ZStack(alignment: Alignment(horizontal: .leading, vertical: .bottom)) {
                                 MediaPreviewHeader(imagePath: recentAlbum.artworkPath)
-                                
+                                    
                                 Text(media.artistName)
                                     .padding(12)
                                     .foregroundColor(.white)
                                     .font(.largeTitle.bold())
-                                
                             }
+                            .navigationTitle(navigationHidden ? "" : media.artistName)
+                            .navigationBarHidden(navigationHidden).animation(.default, value: navigationHidden)
                             
+                            .background(
+                                GeometryReader { proxy in
+                                        Color.clear.preference(
+                                            key: ScrollViewOffsetPreferenceKey.self,
+                                            value: -1 * proxy.frame(in: .named("scroll")).origin.y
+                                        )
+                                }
+                            )
+
                             VStack {
                                 NavigationLink(destination: AlbumDetailView(media: recentAlbum, searchObservableObject: SearchObservableObject())) {
                                     MediumMediaRow(media: recentAlbum, action: {})
@@ -74,20 +84,12 @@ struct ArtistDetailView: View {
                         }
                     }
                     
-                    .background(
-                        GeometryReader { proxy in
-                            Color.clear.preference(
-                                key: ScrollViewOffsetPreferenceKey.self,
-                                value: -1 * proxy.frame(in: .named("scroll")).origin.y
-                            )
-                        }
-                    )
+                    
                     .onPreferenceChange(ScrollViewOffsetPreferenceKey.self) { value in
-                        navigationHidden = value > Metric.mediaPreviewHeaderHeight - 50 ? false : true
+                        guard value > 0 else { return }
+                        navigationHidden = value > Metric.mediaPreviewHeaderHeight - 36 ? false : true
                     }
                 }
-                .navigationBarHidden(navigationHidden)
-                .navigationTitle(media.artistName)
                 .coordinateSpace(name: "scroll")
                 
                 .overlay {
@@ -110,13 +112,11 @@ struct ArtistDetailView: View {
                             }
                         }
                     }
-                    .offset(y: -Metric.mediaPreviewHeaderHeight + 16)
-                    .padding(.horizontal, 6)
-                    .padding(.trailing, 8)
+                    .padding(.horizontal, 12)
                     .opacity(navigationHidden ? 1 : 0)
+                    .offset(y: -Metric.mediaPreviewHeaderHeight + 16)
                 }
             }
-            
         }
         .onAppear {
             artistObservableObject.fetchAllArtistMedia(for: media.id)

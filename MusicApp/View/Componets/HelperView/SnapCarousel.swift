@@ -41,15 +41,12 @@ struct SnapCarousel<Content: View, T: Identifiable>: View {
             let adjustmentWidth = (trailingSpace / 2) - spacing
             let listCount = (list.count  - 1) / rowCount
             
-            LazyHGrid(rows: gridRows) {
-                
+            LazyVGrid(columns: gridRows) {
                 ForEach(list) { item in
                     content(item)
                         .frame(width: abs(proxy.size.width - trailingSpace))
                 }
-                
-                
-                
+   
             }.offset(x: (CGFloat(currentIndex) * -width)
                      + (currentIndex != 0 ? adjustmentWidth : 0)
                      + offset)
@@ -65,8 +62,7 @@ struct SnapCarousel<Content: View, T: Identifiable>: View {
                         let offsetX: CGFloat = value.translation.width
                         let progress: CGFloat = -offsetX / width
                         let roundIndex: CGFloat
-                        
-                        
+                                           
                         switch progress.sign {
                         case .minus:
                             roundIndex = abs(progress) > 0.10 ? -1 : 0
@@ -74,16 +70,11 @@ struct SnapCarousel<Content: View, T: Identifiable>: View {
                             roundIndex = abs(progress) > 0.10 ? 1 : 0
                         }
                         
-                        
                         index = max(min(currentIndex + Int(roundIndex), listCount), 0)
                     })
             )
             .padding(.horizontal, spacing)
-            
-            
-            
-            
-            
+   
         }
         .animation(.easeInOut, value: offset == 0)
     }
