@@ -15,6 +15,6 @@ enum StorageSortingType: String, Identifiable, CaseIterable {
   case name
   case date = "release date"
   case genre
-
+  
   var id: String { rawValue }
 }
