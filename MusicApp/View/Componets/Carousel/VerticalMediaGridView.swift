@@ -11,19 +11,19 @@ import MediaPlayer
 struct VerticalMediaGridView: View {
   @EnvironmentObject private var playerObservableObject: PlayerObservableObject
   @State var mediaItems = [Media]()
-
+  
   var title: String
   var imageSize: SizeType
   var columns: [GridItem]
   var gridSpacing: CGFloat?
   var scrollDisabled: Bool
-
+  
   init(mediaItems: [Media], title: String = "", imageSize: SizeType, scrollDisabled: Bool = false) {
     self.mediaItems = mediaItems
     self.title = title
     self.imageSize = imageSize
     self.scrollDisabled = scrollDisabled
-
+    
     switch imageSize {
     case .trackRowItem:
       columns = Array(repeating: .init(.flexible(), spacing: 8), count: 1)
@@ -36,7 +36,7 @@ struct VerticalMediaGridView: View {
       gridSpacing = 12
     }
   }
-
+  
   var body: some View {
     if !title.isEmpty {
       Text(title)
@@ -44,7 +44,7 @@ struct VerticalMediaGridView: View {
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.horizontal)
     }
-
+    
     ScrollView {
       LazyVGrid(columns: columns, spacing: gridSpacing) {
         ForEach(Array(zip(mediaItems.indices, mediaItems)), id: \.0) { _, media in
@@ -58,11 +58,11 @@ struct VerticalMediaGridView: View {
           default:
             VideoMediaItem(media: media)
           }
-
+          
         }
       }
       .padding(.horizontal)
-
+      
       if playerObservableObject.showPlayerView, !playerObservableObject.expand {
         Spacer(minLength: Metric.playerHeight)
       }

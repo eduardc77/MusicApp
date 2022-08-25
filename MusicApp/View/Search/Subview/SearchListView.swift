@@ -13,18 +13,18 @@ struct SearchListView: View {
   @EnvironmentObject private var playerObservableObject: PlayerObservableObject
   @ObservedObject var searchObservableObject: SearchObservableObject
   @State var selectedPickerIndex = 0
-
+  
   var columns = [GridItem(.flexible(), spacing: 12)]
-
+  
   var body: some View {
     ScrollView {
       LazyVGrid(columns: columns) {
         Divider()
           .padding(.horizontal)
-
+        
         ForEach(searchObservableObject.searchResults, id: \.id) { media in
           Spacer(minLength: 12)
-
+          
           switch media.wrapperType {
           case .collection:
             SearchWrapperRow(media: media, destinationView: AlbumDetailView(media: media, searchObservableObject: searchObservableObject))
@@ -33,18 +33,18 @@ struct SearchListView: View {
           case .artist:
             SearchWrapperRow(media: media, destinationView: ArtistDetailView(media: media))
           }
-
+          
           Divider()
         }
         .padding(.horizontal)
-
+        
         if playerObservableObject.showPlayerView, !playerObservableObject.expand {
           Spacer(minLength: Metric.playerHeight)
         }
       }
     }
     .dismissKeyboardOnScroll()
-
+    
     .safeAreaInset(edge: .top) {
       Group {
         if searchObservableObject.searchSubmit {
@@ -57,7 +57,7 @@ struct SearchListView: View {
           
           .pickerStyle(.segmented)
           .padding(.horizontal)
-
+          
           .onChange(of: selectedPickerIndex) { tag in
             if tag == 0 {
               searchObservableObject.searchPrompt = .appleMusic
@@ -72,7 +72,7 @@ struct SearchListView: View {
       }
       .padding(.vertical, 10)
       .background(.ultraThinMaterial)
-      .animation(.flipCard, value: searchObservableObject.searchSubmit)
+      
     }
   }
 }
@@ -81,7 +81,7 @@ struct MediaKindSegmentedControl: View {
   @ObservedObject var searchObservableObject: SearchObservableObject
   @State var selectedMediaKind: MediaKind = .album
   @Namespace var animation
-
+  
   var body: some View {
     ScrollView(.horizontal, showsIndicators: false) {
       HStack {

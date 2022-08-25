@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ScrollDisabledModifier: ViewModifier {
   var value: Bool
-
+  
   func body(content: Content) -> some View {
     if #available(iOS 16, *) {
       content

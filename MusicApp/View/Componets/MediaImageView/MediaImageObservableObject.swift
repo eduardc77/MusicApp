@@ -9,15 +9,15 @@ import SwiftUI
 
 @MainActor
 final class MediaImageObservableObject: ObservableObject {
-    private let dataLoader: ImageLoaderProtocol
-    
-    @Published private(set) var image: UIImage?
-    
-    init(dataLoader: ImageLoaderProtocol = ImageLoader()) {
-        self.dataLoader = dataLoader
-    }
-    
-    func fetchImage(from path: String) async {
-        image = try? await dataLoader.fetchImage(from: path)
-    }
+  private let dataLoader: ImageLoaderProtocol
+  
+  @Published private(set) var image: UIImage?
+  
+  init(dataLoader: ImageLoaderProtocol = ImageLoader()) {
+    self.dataLoader = dataLoader
+  }
+  
+  func fetchImage(from path: String) async {
+    image = try? await dataLoader.fetchImage(from: path)
+  }
 }

@@ -9,13 +9,13 @@ import Foundation
 import Combine
 
 final class SearchObservableObject: ObservableObject {
-
+  
   // MARK: - Properties
-
+  
   private let networkService: NetworkServiceProtocol
   private var anyCancellable: Set<AnyCancellable> = []
   private var media: [Media] = []
-
+  
   var filteredContent: [Media] {
     switch sortType {
     case .noSorting:
@@ -27,18 +27,18 @@ final class SearchObservableObject: ObservableObject {
       return searchResults.filter { $0.genreName == iD }
     }
   }
-
+  
   var genresResult: [String] {
     Set(searchResults.map(\.genreName)).sorted()
   }
-
+  
   var searchLoadedWithNoResults: Bool {
     guard nothingFound, !searchLoading, searchTerm.count > 0 else { return false }
     return true
   }
-
+  
   // MARK: - Publishers
-
+  
   @Published private(set) var searchResults: [Media] = []
   @Published private(set) var searchLoading = false
   @Published private(set) var nothingFound = false
@@ -48,26 +48,26 @@ final class SearchObservableObject: ObservableObject {
   @Published var searchSubmit = false
   @Published var sortType: SortingType = .noSorting
   @Published var mediaKind: MediaKind = .album
-
+  
   // MARK: - Initialization
-
+  
   init(networkService: NetworkServiceProtocol = NetworkService()) {
     self.networkService = networkService
-
+    
     $sortType
       .map { $0 == .search(searchTerm: "") }
       .map { _ in return "" }
       .assign(to: &$currentGenre)
-
+    
     chain()
   }
-
+  
   // MARK: - Public Methods
-
+  
   func select(_ mediaKind: MediaKind) {
     sortType = .filter(iD: mediaKind.title)
     self.mediaKind = mediaKind
-
+    
     chain()
   }
 }
@@ -89,7 +89,7 @@ private extension SearchObservableObject {
       .map(\.isEmpty)
       .assign(to: &$nothingFound)
   }
-
+  
   func search(searchQuery: String) -> AnyPublisher<[MediaResponse], NetworkError> {
     networkService.request(endpoint: .getInfo(by: .search(term: searchQuery, entity: mediaKind.entity, media: "music")))
       .map { $0 as ITunesAPIResponse }
@@ -97,24 +97,24 @@ private extension SearchObservableObject {
       .map(loaded)
       .eraseToAnyPublisher()
   }
-
+  
   func validSearching(with query: String) -> Bool {
     searchResults = []
     return query.count > 0
   }
-
+  
   func loaded(results: [MediaResponse]) -> [MediaResponse] {
     searchLoading = false
     return results
   }
-
+  
   func handleResult() -> [Media] {
     let media = self.media.reduce([Media]()) { result, media in
       result.contains(media) ? result : result + [media]
     }
     return media
   }
-
+  
   func handleError(_ networkError: NetworkError) -> Empty<ITunesAPIResponse, Never> {
     .init()
   }

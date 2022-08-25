@@ -8,21 +8,21 @@
 import SwiftUI
 
 struct NavigationLinkRow<Content: View>: View {
-    let text: String
-    var destinationView: Content
-    
-    var body: some View {
-        NavigationLink(destination: destinationView) {
-            HStack {
-                Text(text)
-            }
-        }
+  let text: String
+  var destinationView: Content
+  
+  var body: some View {
+    NavigationLink(destination: destinationView) {
+      HStack {
+        Text(text)
+      }
     }
+  }
 }
 
 
 struct NavigationLinkRow_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationLinkRow(text: "Notifications", destinationView: ProfileView())
-    }
+  static var previews: some View {
+    NavigationLinkRow(text: "Notifications", destinationView: ProfileView())
+  }
 }

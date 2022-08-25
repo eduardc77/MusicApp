@@ -10,25 +10,25 @@ import SwiftUI
 struct BrowseView: View {
   @EnvironmentObject private var playerObservableObject: PlayerObservableObject
   let title = "Browse"
-
+  
   var detailViews: [CategoryDetailView] {
     var detailsViews = [CategoryDetailView]()
     for browseSection in BrowseMoreToExplore.allCases {
       detailsViews.append(CategoryDetailView(category: SearchCategoryModel(image: "category\(browseSection.rawValue)", title: browseSection.title, tag: browseSection.rawValue)))
     }
-
+    
     return detailsViews
   }
-
+  
   var body: some View {
     NavigationView {
       ScrollView() {
         HighlightsView(items: selectedStations, imageSize: .highlight)
-
+        
         HorizontalMediaGridView(mediaItems: musicPlaylists, title: "New Music", imageSize: .trackRowItem, rowCount: 4)
-
+        
         NavigationLinkList(rowItems: BrowseMoreToExplore.self, content: detailViews, title: "More to Explore")
-
+        
         if playerObservableObject.showPlayerView, !playerObservableObject.expand {
           Spacer(minLength: Metric.playerHeight)
         }

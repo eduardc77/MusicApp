@@ -8,22 +8,22 @@
 import SwiftUI
 
 struct DismissButton: View {
-    var title: String
-    
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    
-    var body: some View {
-        Button {
-            presentationMode.wrappedValue.dismiss()
-        } label: {
-            Text("Done").bold()
-        }
+  var title: String
+  
+  @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+  
+  var body: some View {
+    Button {
+      presentationMode.wrappedValue.dismiss()
+    } label: {
+      Text("Done").bold()
     }
+  }
 }
 
 
 struct DismissButton_Previews: PreviewProvider {
-    static var previews: some View {
-        DismissButton(title: "Cancel")
-    }
+  static var previews: some View {
+    DismissButton(title: "Cancel")
+  }
 }

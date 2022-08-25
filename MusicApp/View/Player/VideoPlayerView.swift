@@ -17,21 +17,21 @@ struct VideoPlayerView: View {
   private var sizeType: SizeType
   private var cornerRadius: CGFloat
   var videoAssetUrl: URL = URL(string: "https://www.apple.com/404")!
-
+  
   var player: AVPlayer = AVPlayer()
-
+  
   init(videoAssetUrl: URL, sizeType: SizeType = .defaultSize, cornerRadius: CGFloat = Metric.defaultCornerRadius) {
     self.sizeType = sizeType
     self.cornerRadius = cornerRadius
     self.videoAssetUrl = videoAssetUrl
   }
-
+  
   var body: some View {
     PlayerViewController(player: player, videoAssetUrl: videoAssetUrl, expand: $expand, beenExpanded: $beenExpanded)
       .onChange(of: isPlaying) { newValue in
         togglePlayPause(newValue)
       }
-
+    
       .onAppear {
         expand = false
         trackDuration = getDurationSeconds()
@@ -47,7 +47,7 @@ struct VideoPlayerView: View {
         expand.toggle()
       }
   }
-
+  
   func getProgressRate() -> Int {
     if player.currentItem?.status == .readyToPlay {
       return Int(player.currentTime().seconds)
@@ -55,15 +55,15 @@ struct VideoPlayerView: View {
       return 0
     }
   }
-
+  
   func getDurationSeconds() -> Int {
     guard let durationInSeconds = player.currentItem?.asset.duration.seconds else { return 0 }
-
+    
     return Int(durationInSeconds)
   }
-
+  
   private func togglePlayPause(_ newValue: Bool) {
-
+    
     if newValue {
       player.play()
     }
@@ -71,7 +71,7 @@ struct VideoPlayerView: View {
       player.pause()
     }
   }
-
+  
   func toggleIsPlaying() {
     isPlaying.toggle()
   }
@@ -82,14 +82,14 @@ struct PlayerViewController: UIViewControllerRepresentable {
   var videoAssetUrl: URL
   @Binding var expand: Bool
   @Binding var beenExpanded: Bool
-
+  
   func makeUIViewController(context: Context) -> AVPlayerViewController {
     let playerVC = AVPlayerViewController()
-      playerVC.player = player
+    playerVC.player = player
     playerVC.exitsFullScreenWhenPlaybackEnds = true
-      return playerVC
+    return playerVC
   }
-
+  
   func updateUIViewController(_ uiViewController: AVPlayerViewController, context: Context) {
     if expand {
       DispatchQueue.main.async() {
@@ -106,13 +106,13 @@ struct PlayerViewController: UIViewControllerRepresentable {
         uiViewController.player?.play()
       }
       uiViewController.showsPlaybackControls = false
-
+      
       DispatchQueue.main.asyncAfter(deadline: .now() + 0.46) {
         uiViewController.player?.play()
       }
     }
   }
-
+  
   func resetPlayer(_ vc: AVPlayerViewController) {
     vc.player?.pause()
     vc.player?.replaceCurrentItem(with: nil)
@@ -120,8 +120,8 @@ struct PlayerViewController: UIViewControllerRepresentable {
 }
 
 extension AVPlayerViewController {
-    func enterFullScreen(animated: Bool = true) {
-        perform(NSSelectorFromString("enterFullScreenAnimated:completionHandler:"), with: animated, with: nil)
-    }
+  func enterFullScreen(animated: Bool = true) {
+    perform(NSSelectorFromString("enterFullScreenAnimated:completionHandler:"), with: animated, with: nil)
+  }
 }
 

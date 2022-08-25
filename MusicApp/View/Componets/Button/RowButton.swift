@@ -8,24 +8,24 @@
 import SwiftUI
 
 struct RowButton: View {
-    @State var isPresented = false
-    
-    let rowTitle: String
-    var navigationTitle: String = ""
-    
-    var body: some View {
-        Button { isPresented = true } label: {
-            Text(rowTitle)
-        }
-        .sheet(isPresented: self.$isPresented) {
-            DefaultView(title: navigationTitle.isEmpty ? rowTitle : navigationTitle)
-        }
+  @State var isPresented = false
+  
+  let rowTitle: String
+  var navigationTitle: String = ""
+  
+  var body: some View {
+    Button { isPresented = true } label: {
+      Text(rowTitle)
     }
+    .sheet(isPresented: self.$isPresented) {
+      DefaultView(title: navigationTitle.isEmpty ? rowTitle : navigationTitle)
+    }
+  }
 }
 
 
 struct RowButton_Previews: PreviewProvider {
-    static var previews: some View {
-        RowButton(isPresented: false, rowTitle: "Account Settings")
-    }
+  static var previews: some View {
+    RowButton(isPresented: false, rowTitle: "Account Settings")
+  }
 }
