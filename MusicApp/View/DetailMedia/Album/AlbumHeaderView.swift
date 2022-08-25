@@ -34,7 +34,6 @@ struct AlbumHeaderView: View {
                 .padding(.leading)
                 .padding(.bottom, 3)
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
     
     var albumDetails: some View {

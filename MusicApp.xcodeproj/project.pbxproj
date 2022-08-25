@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		DD2A899728B67B9E008D5D96 /* UINavigationController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2A899628B67B9E008D5D96 /* UINavigationController+Extension.swift */; };
+		EA0409DF28B6AE43001C8F72 /* ScrollDisabledModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0409DE28B6AE43001C8F72 /* ScrollDisabledModifier.swift */; };
+		EA0409E128B6B140001C8F72 /* TabBarHiddenModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0409E028B6B140001C8F72 /* TabBarHiddenModifier.swift */; };
+		EA0409E528B6B5C4001C8F72 /* ScrollDismissesKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0409E428B6B5C4001C8F72 /* ScrollDismissesKeyboard.swift */; };
 		EA091E91282C925C00C329FD /* UserDefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA091E90282C925C00C329FD /* UserDefaultsKeys.swift */; };
 		EA099EC22821C0090021EA33 /* NowPlayingEqualizerBars.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA099EC12821C0090021EA33 /* NowPlayingEqualizerBars.swift */; };
 		EA09A28028309ECB00990F55 /* SearchWrapperRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA09A27F28309ECB00990F55 /* SearchWrapperRow.swift */; };
@@ -113,6 +116,9 @@
 
 /* Begin PBXFileReference section */
 		DD2A899628B67B9E008D5D96 /* UINavigationController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extension.swift"; sourceTree = "<group>"; };
+		EA0409DE28B6AE43001C8F72 /* ScrollDisabledModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollDisabledModifier.swift; sourceTree = "<group>"; };
+		EA0409E028B6B140001C8F72 /* TabBarHiddenModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarHiddenModifier.swift; sourceTree = "<group>"; };
+		EA0409E428B6B5C4001C8F72 /* ScrollDismissesKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollDismissesKeyboard.swift; sourceTree = "<group>"; };
 		EA091E90282C925C00C329FD /* UserDefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKeys.swift; sourceTree = "<group>"; };
 		EA099EC12821C0090021EA33 /* NowPlayingEqualizerBars.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingEqualizerBars.swift; sourceTree = "<group>"; };
 		EA09A27F28309ECB00990F55 /* SearchWrapperRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchWrapperRow.swift; sourceTree = "<group>"; };
@@ -293,7 +299,7 @@
 			path = Items;
 			sourceTree = "<group>";
 		};
-		EAA0CD3228319AE0007F4728 /* HelperView */ = {
+		EAA0CD3228319AE0007F4728 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
 				EAD01E9928233CCB00B01F07 /* NavigationLinkList.swift */,
@@ -307,8 +313,11 @@
 				EAD01E9028231AA900B01F07 /* DefaultView.swift */,
 				EAD01E972823372500B01F07 /* FlipView.swift */,
 				EABCBD0A2831463100A04D2E /* LoadingView.swift */,
+				EA0409DE28B6AE43001C8F72 /* ScrollDisabledModifier.swift */,
+				EA0409E428B6B5C4001C8F72 /* ScrollDismissesKeyboard.swift */,
+				EA0409E028B6B140001C8F72 /* TabBarHiddenModifier.swift */,
 			);
-			path = HelperView;
+			path = Helper;
 			sourceTree = "<group>";
 		};
 		EAA265F02829A1E20035D9E1 /* Addition */ = {
@@ -549,7 +558,7 @@
 				EAD01E9628232BB200B01F07 /* Button */,
 				EABCBD0E2831986400A04D2E /* Carousel */,
 				EABCBD0F283198D200A04D2E /* Row */,
-				EAA0CD3228319AE0007F4728 /* HelperView */,
+				EAA0CD3228319AE0007F4728 /* Helper */,
 			);
 			path = Componets;
 			sourceTree = "<group>";
@@ -753,10 +762,12 @@
 				EA3FA3532817697200F84B09 /* Color.swift in Sources */,
 				EA978849281B18900032C3AD /* Account.swift in Sources */,
 				EAD1532D280D5B39005FD971 /* MediaImageView.swift in Sources */,
+				EA0409E128B6B140001C8F72 /* TabBarHiddenModifier.swift in Sources */,
 				EA6744EC2821EA6300AC2010 /* Animation+Extension.swift in Sources */,
 				EAD01E872823122500B01F07 /* AlbumHeaderView.swift in Sources */,
 				EAD15315280D5835005FD971 /* MediaKind.swift in Sources */,
 				EAD15325280D5AFD005FD971 /* HighlightsView.swift in Sources */,
+				EA0409DF28B6AE43001C8F72 /* ScrollDisabledModifier.swift in Sources */,
 				EA1BE0CA281DC1DF00A3A7A4 /* LibrarySection.swift in Sources */,
 				EAA266092829B0B10035D9E1 /* ArtistViewObservableObject.swift in Sources */,
 				EABCBD0B2831463100A04D2E /* LoadingView.swift in Sources */,
@@ -778,6 +789,7 @@
 				EAD1530D280D579D005FD971 /* TabBar.swift in Sources */,
 				EAD01E9128231AA900B01F07 /* DefaultView.swift in Sources */,
 				EA430753282F0604006FFD15 /* VideoMediaItem.swift in Sources */,
+				EA0409E528B6B5C4001C8F72 /* ScrollDismissesKeyboard.swift in Sources */,
 				EAD15371280D6403005FD971 /* Collection+Grouped.swift in Sources */,
 				EAA266022829AAC10035D9E1 /* ArtistDetailView.swift in Sources */,
 				EAD15327280D5B16005FD971 /* HorizontalMediaGridView.swift in Sources */,
@@ -851,7 +863,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -905,7 +917,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -935,7 +947,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -970,7 +982,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

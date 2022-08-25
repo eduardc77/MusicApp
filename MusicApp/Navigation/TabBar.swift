@@ -9,54 +9,54 @@ import SwiftUI
 import MediaPlayer
 
 enum Tab {
-    case listenNow
-    case browse
-    case radio
-    case library
-    case search
+  case listenNow
+  case browse
+  case radio
+  case library
+  case search
 }
 
 struct TabBar: View {
-    @EnvironmentObject private var playerObservableObject: PlayerObservableObject
-    @State var selection: Tab = .listenNow
+  @EnvironmentObject private var playerObservableObject: PlayerObservableObject
+  @State var selection: Tab = .listenNow
   
-    var body: some View {
-        ZStack(alignment: .bottom) {
-            TabView(selection: $selection) {
-                ListenNowView()
-                    .tabItem { Label("Listen Now", systemImage: "play.circle.fill") }
-                    .tag(Tab.listenNow)
-                    // FIXME: - Uncomment this when iOS 16 is available
-                    .toolbar(playerObservableObject.expand ? .hidden : .automatic, for: .tabBar)
-                BrowseView()
-                    .tabItem { Label("Browse", systemImage: "square.grid.2x2.fill") }
-                    .tag(Tab.browse)
-                RadioView()
-                    .tabItem { Label("Radio", systemImage: "dot.radiowaves.left.and.right") }
-                    .tag(Tab.radio)
-                LibraryView(tabSelection: $selection)
-                    .tabItem { Label("Library", image: "music.stack.fill") }
-                    .tag(Tab.library)
-                SearchView()
-                    .tabItem { Label("Search", systemImage: "magnifyingglass") }
-                    .tag(Tab.search)
-            }
+  var body: some View {
+    ZStack(alignment: .bottom) {
+      TabView(selection: $selection) {
+        ListenNowView()
+          .tabItem { Label("Listen Now", systemImage: "play.circle.fill") }
+          .tag(Tab.listenNow)
+          .tabBarHidden(playerObservableObject.expand ? .hidden : .automatic)
 
-            PlayerView()
-                .opacity(playerObservableObject.showPlayerView ? 1 : 0)
-        }
-        .ignoresSafeArea(.keyboard)
-        .navigationViewStyle(.stack)
-        
-        .onAppear() {
-            playerObservableObject.initPlayerFromUserDefaults()
-        }
+        BrowseView()
+          .tabItem { Label("Browse", systemImage: "square.grid.2x2.fill") }
+          .tag(Tab.browse)
+        RadioView()
+          .tabItem { Label("Radio", systemImage: "dot.radiowaves.left.and.right") }
+          .tag(Tab.radio)
+        LibraryView(tabSelection: $selection)
+          .tabItem { Label("Library", image: "music.stack.fill") }
+          .tag(Tab.library)
+        SearchView()
+          .tabItem { Label("Search", systemImage: "magnifyingglass") }
+          .tag(Tab.search)
+      }
+
+      PlayerView()
+        .opacity(playerObservableObject.showPlayerView ? 1 : 0)
     }
+    .ignoresSafeArea(.keyboard)
+    .navigationViewStyle(.stack)
+
+    .onAppear() {
+      playerObservableObject.initPlayerFromUserDefaults()
+    }
+  }
 }
 
 struct TabBar_Previews: PreviewProvider {
-    static var previews: some View {
-        TabBar()
-    }
+  static var previews: some View {
+    TabBar()
+  }
 }
 

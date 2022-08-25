@@ -8,17 +8,17 @@
 import SwiftUI
 
 struct ContentView: View {
-    private let playerObservableObject = PlayerObservableObject()
-    
-    var body: some View {
-        TabBar()
-            .accentColor(.appAccentColor)
-            .environmentObject(playerObservableObject)
-    }
+  private let playerObservableObject = PlayerObservableObject()
+  
+  var body: some View {
+    TabBar()
+      .accentColor(.appAccentColor)
+      .environmentObject(playerObservableObject)
+  }
 }
 
 struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
+  static var previews: some View {
+    ContentView()
+  }
 }

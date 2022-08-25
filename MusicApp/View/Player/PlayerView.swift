@@ -79,17 +79,45 @@ struct PlayerView: View {
                 }
             }
             .padding()
-            .frame(height: playerObservableObject.expand ? UIScreen.main.bounds.height / 2.2 :  Metric.playerHeight)
+            .frame(height: playerObservableObject.expand ? Metric.screenHeight / 2.2 :  Metric.playerHeight)
             
             if playerObservableObject.expand {
                 VStack {
                     HStack {
                         VStack(alignment: .leading, spacing: 2) {
-                            MarqueeText(text: playerObservableObject.nowPlayingItem.media.mediaResponse.name != nil ? playerObservableObject.nowPlayingItem.media.name : "Not Playing", explicitness: playerObservableObject.nowPlayingItem.media.trackExplicitness)
-                            
+                          MarqueeText(text: playerObservableObject.nowPlayingItem.media.mediaResponse.name != nil ? playerObservableObject.nowPlayingItem.media.name : "Not Playing", explicitness: playerObservableObject.nowPlayingItem.media.trackExplicitness)
+
+                          Menu {
+                            Button {  } label: {
+                              HStack {
+                                VStack {
+                                  Text("Go to Album")
+
+                                  Text(playerObservableObject.nowPlayingItem.media.collectionName)
+                                }
+                                .font(.caption2)
+
+                                Image(systemName: "square.stack")
+                              }
+                            }
+
+                            Button {  } label: {
+                              HStack {
+                                VStack {
+                                  Text("Go to Artist")
+                                  Text(playerObservableObject.nowPlayingItem.media.artistName)
+                                }.font(.caption2)
+
+                                Image(systemName: "music.mic")
+                              }
+
+                            }
+                          } label: {
                             MarqueeText(text: playerObservableObject.nowPlayingItem.media.artistName, color: playerObservableObject.playerType == .audio ? .lightGrayColor : .accentColor, font: UIFont.systemFont(ofSize: 20))
+                          }
+
                         }
-                        
+
                         Spacer()
                         
                         if playerObservableObject.playerType == .audio {
@@ -130,7 +158,7 @@ struct PlayerView: View {
                     .padding(.horizontal)
                 }
                 
-                .frame(height: playerObservableObject.expand ? UIScreen.main.bounds.height / 2.8 : 0)
+                .frame(height: playerObservableObject.expand ? Metric.screenHeight / 2.8 : 0)
                 .opacity(playerObservableObject.expand ? 1 : 0)
                 .transition(.move(edge: .bottom))
             }
@@ -194,7 +222,7 @@ struct PlayerView: View {
     
     func onEnded(value: DragGesture.Value) {
         withAnimation(.interactiveSpring(response: 0.3, dampingFraction: 0.95, blendDuration: 0.95)) {
-            if value.translation.height > UIScreen.main.bounds.height / 12 {
+            if value.translation.height > Metric.screenHeight / 12 {
                 withAnimation(.spring()) {
                     playerObservableObject.expand = false
                 }

@@ -40,9 +40,7 @@ struct NavigationLinkList<Content: View, Enum: RawRepresentable & CaseIterable &
                     }
                 }
                 .listStyle(.plain)
-                
-                // FIXME: - Uncomment this when iOS 16 is available
-                .scrollDisabled(true)
+                .scrollingDisabled(true)
                 
                 Divider()
                     .padding(.leading)
