@@ -12,7 +12,7 @@ enum Metric {
   static let screenWidth: CGFloat = UIScreen.main.bounds.width
   static let screenHeight: CGFloat = UIScreen.main.bounds.height
   static let defaultCornerRadius: CGFloat = 4
-
+  
   // MARK: - Player
   static let playerHeight: CGFloat = screenHeight * 0.08
   static let regularSpacing: CGFloat = 16
@@ -20,13 +20,13 @@ enum Metric {
   static let capsuleWidth: CGFloat = 36
   static let capsuleHeight: CGFloat = 5
   static let largeMediaArtworkSize: CGFloat = screenHeight / 3.33
-
+  
   // MARK: - Artist Detail
   static let mediaPreviewHeaderHeight: CGFloat = screenHeight / 2.45
-
+  
   // MARK: - Album Detail
   static let albumDetailArtworkSize: CGFloat = screenHeight / 3.56
-
+  
   // MARK: - Carousel
   static let trackCarouselImageSize: CGFloat = Metric.screenHeight * 0.06
   static let searchResultImageSize: CGFloat = Metric.screenHeight * 0.07
@@ -43,7 +43,7 @@ enum Metric {
   static let largeRowItemHeight: CGFloat = Metric.screenHeight * 0.28
   static let highlightItemImageSize: CGFloat = Metric.screenHeight * 0.29
   static let highlightCarouselItemHeight: CGFloat = Metric.screenHeight * 0.42
-
+  
   // MARK: - TimeView
   static let largePoint: CGFloat = 32
   static let smallPoint: CGFloat = 6
