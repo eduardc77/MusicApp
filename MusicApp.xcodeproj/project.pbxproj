@@ -459,6 +459,7 @@
 		EAD1530B280D5783005FD971 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
+				EAD152FA280D56A8005FD971 /* ContentView.swift */,
 				EAD1530C280D579D005FD971 /* TabBar.swift */,
 			);
 			path = Navigation;
@@ -499,7 +500,6 @@
 		EAD15323280D5AED005FD971 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				EAD152FA280D56A8005FD971 /* ContentView.swift */,
 				EAD1533C280D5C99005FD971 /* ListenNow */,
 				EAD1533F280D5CCD005FD971 /* Browse */,
 				EAD15343280D5D4F005FD971 /* Radio */,
