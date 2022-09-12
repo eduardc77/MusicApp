@@ -29,6 +29,7 @@ struct LibraryListView: View {
               .font(.title2)
           }
           .frame(minWidth: 36)
+          .navigationBarHidden(true)
         }
       }
       .onMove(perform: move)
