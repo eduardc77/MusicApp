@@ -21,6 +21,8 @@ struct NavigationLinkRow<Content: View>: View {
 }
 
 
+// MARK: - Previews
+
 struct NavigationLinkRow_Previews: PreviewProvider {
   static var previews: some View {
     NavigationLinkRow(text: "Notifications", destinationView: ProfileView())

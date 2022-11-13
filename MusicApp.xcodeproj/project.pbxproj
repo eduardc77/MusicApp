@@ -11,7 +11,6 @@
 		EA0409DF28B6AE43001C8F72 /* ScrollDisabledModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0409DE28B6AE43001C8F72 /* ScrollDisabledModifier.swift */; };
 		EA0409E128B6B140001C8F72 /* TabBarHiddenModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0409E028B6B140001C8F72 /* TabBarHiddenModifier.swift */; };
 		EA0409E528B6B5C4001C8F72 /* ScrollDismissesKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0409E428B6B5C4001C8F72 /* ScrollDismissesKeyboard.swift */; };
-		EA0409E928B6F774001C8F72 /* SnapCarousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0409E828B6F774001C8F72 /* SnapCarousel.swift */; };
 		EA091E91282C925C00C329FD /* UserDefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA091E90282C925C00C329FD /* UserDefaultsKeys.swift */; };
 		EA099EC22821C0090021EA33 /* NowPlayingEqualizerBars.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA099EC12821C0090021EA33 /* NowPlayingEqualizerBars.swift */; };
 		EA09A28028309ECB00990F55 /* SearchWrapperRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA09A27F28309ECB00990F55 /* SearchWrapperRow.swift */; };
@@ -119,7 +118,6 @@
 		EA0409DE28B6AE43001C8F72 /* ScrollDisabledModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollDisabledModifier.swift; sourceTree = "<group>"; };
 		EA0409E028B6B140001C8F72 /* TabBarHiddenModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarHiddenModifier.swift; sourceTree = "<group>"; };
 		EA0409E428B6B5C4001C8F72 /* ScrollDismissesKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollDismissesKeyboard.swift; sourceTree = "<group>"; };
-		EA0409E828B6F774001C8F72 /* SnapCarousel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapCarousel.swift; sourceTree = "<group>"; };
 		EA091E90282C925C00C329FD /* UserDefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKeys.swift; sourceTree = "<group>"; };
 		EA099EC12821C0090021EA33 /* NowPlayingEqualizerBars.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingEqualizerBars.swift; sourceTree = "<group>"; };
 		EA09A27F28309ECB00990F55 /* SearchWrapperRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchWrapperRow.swift; sourceTree = "<group>"; };
@@ -306,7 +304,6 @@
 				EAA2660A2829B3B90035D9E1 /* MediaPreviewHeader.swift */,
 				EA59D31328135B4C00D58213 /* BlurView.swift */,
 				EAE825CF28382313008F59F2 /* MarqueeText.swift */,
-				EA0409E828B6F774001C8F72 /* SnapCarousel.swift */,
 				EA6CAC8D283998E400193089 /* MediaItemName.swift */,
 				EA3FA3542817783B00F84B09 /* VolumeSlider.swift */,
 				EA099EC12821C0090021EA33 /* NowPlayingEqualizerBars.swift */,
@@ -375,8 +372,8 @@
 				EA09A27F28309ECB00990F55 /* SearchWrapperRow.swift */,
 				EA3FA34E2817251500F84B09 /* TrackMediaRow.swift */,
 				EABCBD0C2831892600A04D2E /* MediumMediaRow.swift */,
-				EAD01E9428231C1D00B01F07 /* NavigationLinkRow.swift */,
 				EA2216F128359163000A165D /* VideoMediaRow.swift */,
+				EAD01E9428231C1D00B01F07 /* NavigationLinkRow.swift */,
 			);
 			path = Row;
 			sourceTree = "<group>";
@@ -436,12 +433,12 @@
 				EAD152F8280D56A8005FD971 /* MusicApp.swift */,
 				EAD15362280D635F005FD971 /* Networking */,
 				EAD1530B280D5783005FD971 /* Navigation */,
-				EAD1531A280D589D005FD971 /* Remove These */,
 				EAD15323280D5AED005FD971 /* View */,
 				EAD1530E280D57C2005FD971 /* Model */,
 				EA734CBF280F1C5B00FCD2EE /* Helper */,
 				EAD1536F280D63EB005FD971 /* Extension */,
 				EAD1535B280D6144005FD971 /* CoreData */,
+				EAD1531A280D589D005FD971 /* Mocks */,
 				EA17316628B4962800A09AAC /* Resources */,
 				EAD152FE280D56A9005FD971 /* Preview Content */,
 			);
@@ -487,14 +484,14 @@
 			path = Media;
 			sourceTree = "<group>";
 		};
-		EAD1531A280D589D005FD971 /* Remove These */ = {
+		EAD1531A280D589D005FD971 /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
 				EAD1531F280D5901005FD971 /* SmallPictureModel.swift */,
 				EAE825D128382962008F59F2 /* LargePictureModel.swift */,
 				EAD15321280D5A84005FD971 /* SearchCategoryModel.swift */,
 			);
-			path = "Remove These";
+			path = Mocks;
 			sourceTree = "<group>";
 		};
 		EAD15323280D5AED005FD971 /* View */ = {
@@ -792,7 +789,6 @@
 				EAD15371280D6403005FD971 /* Collection+Grouped.swift in Sources */,
 				EAA266022829AAC10035D9E1 /* ArtistDetailView.swift in Sources */,
 				EAD15327280D5B16005FD971 /* HorizontalMediaGridView.swift in Sources */,
-				EA0409E928B6F774001C8F72 /* SnapCarousel.swift in Sources */,
 				EA23ECF328156F570040BB58 /* Int+Extension.swift in Sources */,
 				EAD15322280D5A84005FD971 /* SearchCategoryModel.swift in Sources */,
 				EAD15319280D5883005FD971 /* ImageLoader.swift in Sources */,
@@ -863,7 +859,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -917,7 +913,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -947,7 +943,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -982,7 +978,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

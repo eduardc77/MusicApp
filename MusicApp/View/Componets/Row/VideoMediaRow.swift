@@ -39,3 +39,13 @@ struct VideoMediaRow: View {
     }
   }
 }
+
+
+// MARK: - Previews
+
+struct VideoMediaRow_Previews: PreviewProvider {
+	static var previews: some View {
+		VideoMediaRow(media: musicPlaylists2.first ?? Media())
+			.environmentObject(PlayerObservableObject())
+	}
+}

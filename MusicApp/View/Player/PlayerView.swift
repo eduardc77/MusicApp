@@ -142,14 +142,14 @@ struct PlayerView: View {
           VStack {
             switch playerObservableObject.playerType {
             case .audio:
-              TimeSliderView(playerObservableObject: playerObservableObject, trackDuration: playerObservableObject.audioPlayer.nowPlayingItem?.playbackDuration.toInt ?? 1, trackTimePosition: $playerObservableObject.progressRate, player: playerObservableObject.audioPlayer)
+              TimeSliderView(trackDuration: playerObservableObject.audioPlayer.nowPlayingItem?.playbackDuration.toInt ?? 1, trackTimePosition: $playerObservableObject.progressRate, player: playerObservableObject.audioPlayer)
               
                 .onReceive(PlayerView.timer) { _ in
                   guard playerObservableObject.playerType == .audio else { return }
                   playerObservableObject.progressRate = playerObservableObject.audioPlayer.currentPlaybackTime.toInt
                 }
             case .video:
-              TimeSliderView(playerObservableObject: playerObservableObject, trackDuration: playerObservableObject.videoPlayer.trackDuration, trackTimePosition: $playerObservableObject.videoPlayer.trackTimePosition, player: playerObservableObject.audioPlayer)
+              TimeSliderView(trackDuration: playerObservableObject.videoPlayer.trackDuration, trackTimePosition: $playerObservableObject.videoPlayer.trackTimePosition, player: playerObservableObject.audioPlayer)
             }
             PlayerControls(playerObservableObject: _playerObservableObject)
             
@@ -233,10 +233,12 @@ struct PlayerView: View {
 }
 
 
+// MARK: - Previews
+
 struct PlayerView_Previews: PreviewProvider {
   struct PlayerViewExample: View {
     @Namespace var animation
-    @State var expand: Bool = true
+    @State var expand: Bool = false
     
     var player = MPMusicPlayerController.applicationMusicPlayer
     
@@ -250,7 +252,7 @@ struct PlayerView_Previews: PreviewProvider {
   }
   
   static var previews: some View {
-    PlayerViewExample()
+		PlayerView()
       .environmentObject(PlayerObservableObject())
   }
 }

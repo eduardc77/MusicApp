@@ -12,6 +12,7 @@ struct LibraryListView: View {
   @Binding var editMode: EditMode
   @State var selection = Set<LibrarySection>()
   @State var currentSections = LibrarySection.allCases
+
   
   var body: some View {
     List(selection: $selection) {
@@ -28,22 +29,25 @@ struct LibraryListView: View {
             Text(section.title)
               .font(.title2)
           }
+
           .frame(minWidth: 36)
         }
       }
+
       .onMove(perform: move)
     }
     .listStyle(.plain)
+
     .frame(idealHeight: CGFloat(46 * currentSections.count), maxHeight: .infinity)
-    // FIXME: - Uncomment this when iOS 16 is available
     .scrollingDisabled(true)
+
     .onChange(of: editMode, perform: { editMode in
       withAnimation {
         if !editMode.isEditing {
           currentSections = currentSections.filter { selection.contains($0) }
-          UserDefaults.standard.set(try? PropertyListEncoder().encode(currentSections), forKey: UserDefaultsKey.libraryListSelection)
+          UserDefaults.standard.set(try? libraryObservableObject.propertyListEncoder.encode(currentSections), forKey: UserDefaultsKey.libraryListSelection)
         } else {
-          if let data = UserDefaults.standard.value(forKey: UserDefaultsKey.orderedLibraryList) as? Data, let orderedLibraryList = try? PropertyListDecoder().decode(Array<LibrarySection>.self, from: data) {
+					if let data = UserDefaults.standard.value(forKey: UserDefaultsKey.orderedLibraryList) as? Data, let orderedLibraryList = try? libraryObservableObject.propertyListDecoder.decode(Array<LibrarySection>.self, from: data) {
             currentSections = orderedLibraryList
           } else {
             currentSections = LibrarySection.allCases
@@ -51,8 +55,9 @@ struct LibraryListView: View {
         }
       }
     })
+
     .onAppear {
-      if let data = UserDefaults.standard.value(forKey: UserDefaultsKey.libraryListSelection) as? Data, let librarySelection = try? PropertyListDecoder().decode(Array<LibrarySection>.self, from: data) {
+      if let data = UserDefaults.standard.value(forKey: UserDefaultsKey.libraryListSelection) as? Data, let librarySelection = try? libraryObservableObject.propertyListDecoder.decode(Array<LibrarySection>.self, from: data) {
         selection = Set(librarySelection)
         currentSections = Array(librarySelection)
       } else {
@@ -67,6 +72,9 @@ struct LibraryListView: View {
     UserDefaults.standard.set(try? PropertyListEncoder().encode(currentSections), forKey: UserDefaultsKey.orderedLibraryList)
   }
 }
+
+
+// MARK: - Previews
 
 struct LibraryListView_Previews: PreviewProvider {
   struct LibraryListViewExample: View {

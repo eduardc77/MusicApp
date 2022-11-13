@@ -34,9 +34,13 @@ struct CategoryDetailView: View {
   }
 }
 
+
+// MARK: - Previews
+
 struct SearchDetailView_Previews: PreviewProvider {
   static var previews: some View {
     CategoryDetailView(category: searchCategories[0])
+			.environmentObject(PlayerObservableObject())
   }
 }
 

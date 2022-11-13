@@ -49,8 +49,12 @@ struct CategoryGridView: View {
   }
 }
 
+
+// MARK: - Previews
+
 struct CategoryGridView_Previews: PreviewProvider {
   static var previews: some View {
     CategoryGridView()
+			.environmentObject(PlayerObservableObject())
   }
 }

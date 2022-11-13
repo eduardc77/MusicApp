@@ -84,3 +84,12 @@ struct LibraryAlbumTrackList: View {
     
   }
 }
+
+
+// MARK: - Previews
+
+struct LibraryAlbumTrackList_Previews: PreviewProvider {
+	static var previews: some View {
+		LibraryAlbumTrackList(libraryMediaObservableObject: LibraryMediaItemObservableObject(media: musicPlaylists2.first ?? Media(), searchObservableObject: SearchObservableObject()))
+	}
+}

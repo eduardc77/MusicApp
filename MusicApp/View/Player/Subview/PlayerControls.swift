@@ -77,3 +77,14 @@ struct PlayerControls: View {
     .padding(.vertical)
   }
 }
+
+
+// MARK: - Previews
+
+struct PlayerControls_Previews: PreviewProvider {
+	static var previews: some View {
+		PlayerControls()
+			.environmentObject(PlayerObservableObject())
+			.background(.secondary)
+	}
+}

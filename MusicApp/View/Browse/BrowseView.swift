@@ -22,7 +22,7 @@ struct BrowseView: View {
   
   var body: some View {
     NavigationView {
-      ScrollView() {
+      ScrollView {
         HighlightsView(items: selectedStations, imageSize: .highlight)
         
         HorizontalMediaGridView(mediaItems: musicPlaylists, title: "New Music", imageSize: .trackRowItem, rowCount: 4)
@@ -73,8 +73,11 @@ extension BrowseMoreToExplore: CaseIterable, Identifiable, Hashable {
 }
 
 
+// MARK: - Previews
+
 struct BrowseView_Previews: PreviewProvider {
   static var previews: some View {
     BrowseView()
+			.environmentObject(PlayerObservableObject())
   }
 }

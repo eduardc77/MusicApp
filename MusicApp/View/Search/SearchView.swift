@@ -83,8 +83,11 @@ enum SearchPrompt: Int {
 }
 
 
+// MARK: - Previews
+
 struct SearchView_Previews: PreviewProvider {
-  static var previews: some View {
-    SearchView()
-  }
+		static var previews: some View {
+			SearchView()
+				.environmentObject(PlayerObservableObject())
+		}
 }

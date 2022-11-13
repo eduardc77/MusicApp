@@ -158,6 +158,8 @@ extension MediaImageView {
 }
 
 
+// MARK: - Previews
+
 struct MediaImageView_Previews: PreviewProvider {
   struct MediaImageViewExample: View {
     @State private var visibleSide = FlipViewSide.front

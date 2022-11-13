@@ -33,9 +33,18 @@ struct BottomToolbar: View {
   }
 }
 
+
+// MARK: - Previews
+
 struct BottomToolBar_Previews: PreviewProvider {
   static var previews: some View {
-    BottomToolbar()
+		VStack {
+			Spacer()
+			
+			BottomToolbar()
+				.background(.secondary)
+				.padding()
+		}
   }
 }
 

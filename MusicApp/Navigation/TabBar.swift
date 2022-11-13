@@ -29,7 +29,7 @@ struct TabBar: View {
           .tabBarHidden(playerObservableObject.expand ? .hidden : .automatic)
 
         BrowseView()
-          .tabItem { Label("Browse", systemImage: "square.grid.2x2.fill") }
+          .tabItem { Label("Browse", systemImage: "square.grid.2x2.fill").font(.largeTitle) }
           .tag(Tab.browse)
         RadioView()
           .tabItem { Label("Radio", systemImage: "dot.radiowaves.left.and.right") }
@@ -54,9 +54,13 @@ struct TabBar: View {
   }
 }
 
+
+// MARK: - Previews
+
 struct TabBar_Previews: PreviewProvider {
   static var previews: some View {
     TabBar()
+			.environmentObject(PlayerObservableObject())
   }
 }
 

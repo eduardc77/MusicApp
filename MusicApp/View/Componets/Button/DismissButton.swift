@@ -22,6 +22,8 @@ struct DismissButton: View {
 }
 
 
+// MARK: - Previews
+
 struct DismissButton_Previews: PreviewProvider {
   static var previews: some View {
     DismissButton(title: "Cancel")

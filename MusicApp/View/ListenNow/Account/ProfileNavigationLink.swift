@@ -33,6 +33,8 @@ struct ProfileNavigationLink: View {
 }
 
 
+// MARK: - Previews
+
 struct ProfileNavigationLink_Previews: PreviewProvider {
   static var previews: some View {
     ProfileNavigationLink(username: "John Appleseed", email: "john.appleseed@icloud.com")

@@ -28,8 +28,12 @@ struct RadioView: View {
   }
 }
 
+
+// MARK: - Previews
+
 struct RadioView_Previews: PreviewProvider {
   static var previews: some View {
     RadioView()
+			.environmentObject(PlayerObservableObject())
   }
 }

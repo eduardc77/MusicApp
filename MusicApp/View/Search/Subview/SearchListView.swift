@@ -116,15 +116,11 @@ struct MediaKindSegmentedControl: View {
 }
 
 
-//
-//struct SearchListView_Previews: PreviewProvider {
-//    static let searchObservableObject: SearchObservableObject = {
-//        let viewModel = SearchObservableObject()
-//
-//        return viewModel
-//    }()
-//
-//    static var previews: some View {
-//        SearchListView(searchObservableObject: searchObservableObject, searchSubmit: )
-//    }
-//}
+// MARK: - Previews
+
+struct SearchListView_Previews: PreviewProvider {
+    static var previews: some View {
+        SearchListView(searchObservableObject: SearchObservableObject())
+				.environmentObject(PlayerObservableObject())
+    }
+}

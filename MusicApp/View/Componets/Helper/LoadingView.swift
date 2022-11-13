@@ -8,13 +8,24 @@
 import SwiftUI
 
 struct LoadingView: View {
+	var title: String = "LOADING"
+
   var body: some View {
     VStack(spacing: 3) {
       ProgressView()
-      Text("LOADING")
+
+      Text(title)
         .font(.footnote)
         .foregroundColor(.secondary)
     }
   }
 }
 
+
+// MARK: - Previews
+
+struct LoadingView_Previews: PreviewProvider {
+	static var previews: some View {
+		LoadingView()
+	}
+}
