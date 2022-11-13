@@ -34,8 +34,18 @@ struct VolumeView: View {
   }
 }
 
+
+// MARK: - Previews
+
 struct VolumeView_Previews: PreviewProvider {
   static var previews: some View {
-    VolumeView()
+		VStack {
+			Spacer()
+
+			VolumeView()
+				.background(.secondary)
+				.frame(height: 100)
+				.padding()
+		}
   }
 }

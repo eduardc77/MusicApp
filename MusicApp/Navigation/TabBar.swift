@@ -54,9 +54,13 @@ struct TabBar: View {
   }
 }
 
+
+// MARK: - Previews
+
 struct TabBar_Previews: PreviewProvider {
   static var previews: some View {
     TabBar()
+			.environmentObject(PlayerObservableObject())
   }
 }
 

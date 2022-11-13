@@ -49,3 +49,30 @@ struct NavigationLinkList<Content: View, Enum: RawRepresentable & CaseIterable &
     .frame(idealHeight: CGFloat(50 * rowItems.allCases.count), maxHeight: .infinity)
   }
 }
+
+
+// MARK: - Previews
+
+struct NavigationLinkList_Previews: PreviewProvider {
+	struct NavigationLinkListExample: View {
+
+		var detailViews: [CategoryDetailView] {
+			var detailsViews = [CategoryDetailView]()
+
+			for browseSection in BrowseMoreToExplore.allCases {
+				detailsViews.append(CategoryDetailView(category: SearchCategoryModel(image: "category\(browseSection.rawValue)", title: browseSection.title, tag: browseSection.rawValue)))
+			}
+
+			return detailsViews
+		}
+
+		var body: some View {
+			NavigationLinkList(rowItems: BrowseMoreToExplore.self, content: detailViews, title: "More to Explore")
+				.padding()
+		}
+	}
+
+	static var previews: some View {
+		NavigationLinkListExample()
+	}
+}

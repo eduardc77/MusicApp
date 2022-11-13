@@ -47,8 +47,11 @@ struct LibraryListDetailView: View {
 }
 
 
+// MARK: - Previews
+
 struct LibraryListDetailView_Previews: PreviewProvider {
   static var previews: some View {
     LibraryListDetailView(libraryObservableObject: LibraryObservableObject(), section: .albums)
+			.environmentObject(PlayerObservableObject())
   }
 }

@@ -16,7 +16,7 @@ struct ListenNowView: View {
         VStack {
           HighlightsView(items: selectedStations, imageSize: .highlight)
 
-          HorizontalMediaGridView(mediaItems: musicPlaylists, title: "Best New Songs", imageSize: .trackRowItem, rowCount: 4)
+          HorizontalMediaGridView(mediaItems: musicPlaylists2, title: "Best New Songs", imageSize: .trackRowItem, rowCount: 4)
 
           HorizontalMediaGridView(mediaItems: musicPlaylists, title: "You Gotta Hear", imageSize: .albumCarouselItem, rowCount: 1)
 
@@ -39,8 +39,11 @@ struct ListenNowView: View {
 }
 
 
+// MARK: - Previews
+
 struct ListenNowView_Previews: PreviewProvider {
   static var previews: some View {
     ListenNowView()
+			.environmentObject(PlayerObservableObject())
   }
 }

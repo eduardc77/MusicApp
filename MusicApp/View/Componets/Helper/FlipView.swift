@@ -74,12 +74,36 @@ struct FlipModifier: AnimatableModifier {
   }
 }
 
+
+// MARK: - Previews
+
 struct FlipView_Previews: PreviewProvider {
-  static var previews: some View {
-    FlipView(visibleSide: .front) {
-      Text(verbatim: "Front Side")
-    } back: {
-      Text(verbatim: "Back Side")
-    }
-  }
+	struct FlipViewExample: View {
+		@State var side: FlipViewSide = .front
+
+		var body: some View {
+			VStack {
+				FlipView(visibleSide: side) {
+					Text(verbatim: "Front Side")
+						.frame(width: 200, height: 200)
+						.background(.pink.opacity(0.8))
+
+				} back: {
+					Text(verbatim: "Back Side")
+						.frame(width: 200, height: 200)
+						.background(.purple.opacity(0.8))
+				}
+				.animation(.flipCard, value: side)
+
+				Button { side.toggle() } label: {
+					Label("Flip Card", systemImage: "square.stack.3d.forward.dottedline")
+				}
+			}
+		}
+	}
+
+	static var previews: some View {
+		FlipViewExample()
+	}
 }
+

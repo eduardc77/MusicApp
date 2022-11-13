@@ -21,10 +21,14 @@ struct LibraryView: View {
         if libraryObservableObject.status == .permitted {
           if !libraryObservableObject.albums.isEmpty {
             ScrollView {
-              LibraryListView(libraryObservableObject: libraryObservableObject, editMode: $editMode)
+							Section {
+								LibraryListView(libraryObservableObject: libraryObservableObject, editMode: $editMode)
+							}
 
               if !editMode.isEditing {
-                VerticalMediaGridView(mediaItems: libraryObservableObject.recentlyAdded, title: "Recently Added", imageSize: .albumCarouselItem)
+								Section {
+									VerticalMediaGridView(mediaItems: libraryObservableObject.recentlyAdded, title: "Recently Added", imageSize: .albumCarouselItem, scrollDisabled: true)
+								}
               }
             }
             .navigationTitle("Library")
@@ -121,13 +125,18 @@ struct LibraryView: View {
   }
 }
 
+
+// MARK: - Previews
+
 struct LibraryView_Previews: PreviewProvider {
   struct LibraryViewExample: View {
-    @State var editMode: EditMode = .active
-    @State var tabSelection: Tab = .browse
+    @State var editMode: EditMode = .inactive
+    @State var tabSelection: Tab = .library
 
     var body: some View {
-      LibraryView(tabSelection: $tabSelection)
+			VStack {
+				LibraryView(tabSelection: $tabSelection, editMode: editMode)
+			}
     }
   }
 

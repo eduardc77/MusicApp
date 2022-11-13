@@ -61,6 +61,9 @@ struct EqualizerBar: Shape {
   }
 }
 
+
+// MARK: - Previews
+
 struct NowPlayingEqualizerBars_Previews: PreviewProvider {
   struct NowPlayingEqualizerBarsExample: View {
     @State var animating: Bool = false

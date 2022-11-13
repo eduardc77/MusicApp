@@ -52,16 +52,10 @@ struct MediumMediaRow: View {
 }
 
 
+// MARK: - Previews
+
 struct MediumMediaRow_Previews: PreviewProvider {
-  struct LargeMediaRowItemExample: View {
-    let media = Media(mediaResponse: MediaResponse(id: nil, artistId: nil, collectionId: nil, trackId: nil, wrapperType: nil, kind: nil, name: "Espacio en Tu Corazon - Single", artistName: "Artist", collectionName: "Collection", trackName: "Track", collectionCensoredName: nil, artistViewUrl: nil, collectionViewUrl: nil, trackViewUrl: nil, previewUrl: nil, artworkUrl100: nil, collectionPrice: nil, collectionHdPrice: nil, trackPrice: nil, collectionExplicitness: nil, trackExplicitness: nil, discCount: nil, discNumber: nil, trackCount: nil, trackNumber: nil, trackTimeMillis: nil, country: nil, currency: nil, primaryGenreName: nil, description: nil, longDescription: nil, releaseDate: "28 MAR 2022", contentAdvisoryRating: nil, trackRentalPrice: nil))
-    
-    var body: some View {
-      MediumMediaRow(media: media, action: {})
-    }
-  }
-  
-  static var previews: some View {
-    LargeMediaRowItemExample()
-  }
+	static var previews: some View {
+		MediumMediaRow(media: musicPlaylists2.first ?? Media(), action: {})
+	}
 }

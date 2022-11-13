@@ -9,7 +9,7 @@ import SwiftUI
 import MediaPlayer
 
 struct TimeSliderView: View {
-  @ObservedObject var playerObservableObject: PlayerObservableObject
+  @EnvironmentObject var playerObservableObject: PlayerObservableObject
   
   // MARK: - Private Properties
   
@@ -23,8 +23,7 @@ struct TimeSliderView: View {
   private var player: MPMusicPlayerController?
   private let trackDuration: Int
   
-  init(playerObservableObject: PlayerObservableObject, trackDuration: Int, trackTimePosition: Binding<Int>, player: MPMusicPlayerController) {
-    self.playerObservableObject = playerObservableObject
+  init(trackDuration: Int, trackTimePosition: Binding<Int>, player: MPMusicPlayerController) {
     self.trackDuration = trackDuration
     self._trackTimePosition = trackTimePosition
     self.player = player
@@ -127,14 +126,15 @@ struct TimeSliderView: View {
 
 struct TimeView_Previews: PreviewProvider {
   struct TimeView: View {
-    @StateObject var playerObservableObject = PlayerObservableObject()
     @State var trackTimePosition: Int = 0
+		var player = MPMusicPlayerController.applicationMusicPlayer
     
     var body: some View {
       VStack {
-        TimeSliderView(playerObservableObject: playerObservableObject, trackDuration: 215, trackTimePosition: $trackTimePosition, player: MPMusicPlayerController.applicationMusicPlayer)
+        TimeSliderView(trackDuration: 215, trackTimePosition: $trackTimePosition, player: player)
+					.environmentObject(PlayerObservableObject())
       }
-      .background(.gray)
+      .background(.secondary)
     }
   }
   

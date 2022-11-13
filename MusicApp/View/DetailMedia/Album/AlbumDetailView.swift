@@ -43,7 +43,7 @@ struct AlbumDetailView: View {
             .foregroundStyle(Color.appAccentColor, Color.secondary.opacity(0.16))
         }
         
-        Button{ } label: {
+        Button { } label: {
           Image(systemName: "ellipsis.circle.fill")
             .resizable()
             .frame(width: 28, height: 28)
@@ -52,4 +52,14 @@ struct AlbumDetailView: View {
       }
     }
   }
+}
+
+
+// MARK: - Previews
+
+struct AlbumDetailView_Previews: PreviewProvider {
+	static var previews: some View {
+		AlbumDetailView(media: musicPlaylists2.first ?? Media(), searchObservableObject: SearchObservableObject())
+			.environmentObject(PlayerObservableObject())
+	}
 }

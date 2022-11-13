@@ -159,3 +159,13 @@ struct ScrollViewOffsetPreferenceKey: PreferenceKey {
     _ = nextValue()
   }
 }
+
+
+// MARK: - Previews
+
+struct ArtistDetailView_Previews: PreviewProvider {
+	static var previews: some View {
+		ArtistDetailView(media: musicPlaylists2.first ?? Media())
+			.environmentObject(PlayerObservableObject())
+	}
+}

@@ -34,7 +34,7 @@ struct VideoPlayerView: View {
     
       .onAppear {
         expand = false
-        trackDuration = getDurationSeconds()
+
       }
       .onDisappear {
         guard !expand else { return }
@@ -55,13 +55,7 @@ struct VideoPlayerView: View {
       return 0
     }
   }
-  
-  func getDurationSeconds() -> Int {
-    guard let durationInSeconds = player.currentItem?.asset.duration.seconds else { return 0 }
-    
-    return Int(durationInSeconds)
-  }
-  
+
   private func togglePlayPause(_ newValue: Bool) {
     
     if newValue {
@@ -123,5 +117,28 @@ extension AVPlayerViewController {
   func enterFullScreen(animated: Bool = true) {
     perform(NSSelectorFromString("enterFullScreenAnimated:completionHandler:"), with: animated, with: nil)
   }
+}
+
+
+// MARK: - Previews
+
+struct VideoPlayerView_Previews: PreviewProvider {
+	struct VideoPlayerViewExample: View {
+		@State var expand: Bool = false
+
+		var body: some View {
+			VStack {
+				Spacer()
+
+				VideoPlayerView(videoAssetUrl: URL(string: "https://www.apple.com/404")!)
+					.frame(width: 400, height: 260)
+			}
+		}
+	}
+
+	static var previews: some View {
+		VideoPlayerViewExample()
+			.environmentObject(PlayerObservableObject())
+	}
 }
 

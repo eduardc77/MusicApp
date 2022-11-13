@@ -63,6 +63,8 @@ struct AccountView: View {
 }
 
 
+// MARK: - Previews
+
 struct AccountView_Previews: PreviewProvider {
   static var previews: some View {
     AccountView()

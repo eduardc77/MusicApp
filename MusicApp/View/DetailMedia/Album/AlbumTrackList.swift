@@ -98,3 +98,12 @@ struct AlbumTrackList: View {
     }
   }
 }
+
+
+// MARK: - Previews
+
+struct AlbumTrackList_Previews: PreviewProvider {
+	static var previews: some View {
+		AlbumTrackList(media: musicPlaylists2.first ?? Media())
+	}
+}

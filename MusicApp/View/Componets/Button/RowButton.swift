@@ -24,6 +24,8 @@ struct RowButton: View {
 }
 
 
+// MARK: - Previews
+
 struct RowButton_Previews: PreviewProvider {
   static var previews: some View {
     RowButton(isPresented: false, rowTitle: "Account Settings")

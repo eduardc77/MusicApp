@@ -78,3 +78,12 @@ struct AlbumHeaderView: View {
     .padding(.top, 6)
   }
 }
+
+
+// MARK: - Previews
+
+struct AlbumHeaderView_Previews: PreviewProvider {
+	static var previews: some View {
+		AlbumHeaderView(libraryMediaObservableObject: LibraryMediaItemObservableObject(media: musicPlaylists2.first ?? Media(), searchObservableObject: SearchObservableObject()))
+	}
+}

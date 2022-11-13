@@ -33,3 +33,20 @@ private extension MediaPreviewHeader {
 }
 
 
+// MARK: - Previews
+
+struct MediaPreviewHeader_Previews: PreviewProvider {
+	struct MediaPreviewHeaderExample: View {
+		@State var playing: Bool = false
+
+		var body: some View {
+			MediaPreviewHeader(imagePath: musicPlaylists2.first?.artworkPath ?? "http://is2.mzstatic.com/image/thumb/Music3/v4/13/ae/73/13ae735e-33d0-1480-f51b-4150d4a45696/source/60x60bb.jpg")
+				.padding()
+		}
+	}
+
+	static var previews: some View {
+		MediaPreviewHeaderExample()
+	}
+}
+

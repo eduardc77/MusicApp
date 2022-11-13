@@ -21,6 +21,9 @@ struct DefaultView: View {
   }
 }
 
+
+// MARK: - Previews
+
 struct DefaultView_Previews: PreviewProvider {
   static var previews: some View {
     DefaultView(title: "Default")

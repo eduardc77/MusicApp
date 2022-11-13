@@ -12,6 +12,8 @@ final class LibraryObservableObject: ObservableObject {
   @Published private(set) var status: AuthorizationStatus = .notYetDetermined
   @Published private(set) var refreshingLibrary: Bool = false
   @Published private(set) var refreshComplete: Bool = false
+	@Published var propertyListEncoder = PropertyListEncoder()
+	@Published var propertyListDecoder = PropertyListDecoder()
   
   // MARK: - Library Contents
   
