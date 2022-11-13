@@ -1,3 +1,5 @@
 # MusicApp
 
-Apple Music Replica built with SwiftUI and Combine.
+Apple Music app replica built with SwiftUI and Combine. 
+
+Build on an actual device while having an active Apple Music subscription to experience all the app's features.
