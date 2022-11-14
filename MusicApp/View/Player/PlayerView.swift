@@ -142,14 +142,14 @@ struct PlayerView: View {
           VStack {
             switch playerObservableObject.playerType {
             case .audio:
-              TimeSliderView(trackDuration: playerObservableObject.audioPlayer.nowPlayingItem?.playbackDuration.toInt ?? 1, trackTimePosition: $playerObservableObject.progressRate, player: playerObservableObject.audioPlayer)
+              TimeSliderView(playerObservableObject: playerObservableObject, trackDuration: playerObservableObject.audioPlayer.nowPlayingItem?.playbackDuration.toInt ?? 1, trackTimePosition: $playerObservableObject.progressRate, player: playerObservableObject.audioPlayer)
               
                 .onReceive(PlayerView.timer) { _ in
                   guard playerObservableObject.playerType == .audio else { return }
                   playerObservableObject.progressRate = playerObservableObject.audioPlayer.currentPlaybackTime.toInt
                 }
             case .video:
-              TimeSliderView(trackDuration: playerObservableObject.videoPlayer.trackDuration, trackTimePosition: $playerObservableObject.videoPlayer.trackTimePosition, player: playerObservableObject.audioPlayer)
+              TimeSliderView(playerObservableObject: playerObservableObject, trackDuration: playerObservableObject.videoPlayer.trackDuration, trackTimePosition: $playerObservableObject.videoPlayer.trackTimePosition, player: playerObservableObject.audioPlayer)
             }
             PlayerControls(playerObservableObject: _playerObservableObject)
             
