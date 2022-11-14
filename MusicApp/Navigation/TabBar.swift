@@ -48,7 +48,7 @@ struct TabBar: View {
     .ignoresSafeArea(.keyboard)
     .navigationViewStyle(.stack)
 
-    .onAppear() {
+    .onAppear {
       playerObservableObject.initPlayerFromUserDefaults()
     }
   }
