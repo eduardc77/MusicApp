@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-  private let playerObservableObject = PlayerObservableObject()
+	@StateObject private var playerObservableObject = PlayerObservableObject()
   
   var body: some View {
     TabBar()

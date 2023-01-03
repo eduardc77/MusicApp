@@ -61,13 +61,14 @@ final class PlayerObservableObject: ObservableObject {
       audioPlayer.repeatMode = .none
       playerOption.repeatMode = .noRepeat
     }
-    if let recentTrack = UserDefaults.standard.array(forKey: UserDefaultsKey.queueDefault) as? [String] {
-      audioPlayer.setQueue(with: recentTrack)
-      audioPlayer.prepareToPlay()
-      audioPlayer.skipToBeginning()
-      hasRecentMedia = true
-    }
-    
+
+		if let recentMedia = UserDefaults.standard.array(forKey: UserDefaultsKey.queueDefault) as? [String] {
+			audioPlayer.setQueue(with: recentMedia)
+			audioPlayer.prepareToPlay()
+			audioPlayer.skipToBeginning()
+			hasRecentMedia = true
+		}
+
     if UserDefaults.standard.bool(forKey: UserDefaultsKey.shuffleDefault) {
       audioPlayer.shuffleMode = MPMusicShuffleMode.songs
     }

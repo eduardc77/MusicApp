@@ -76,7 +76,7 @@ enum SearchPrompt: Int {
   
   var message: String {
     switch self {
-    case .appleMusic: return "Artists, Songs, Lyrics, and More"
+    case .appleMusic: return "Artists, Songs, Lyrics and More"
     case .library: return "Your Library"
     }
   }

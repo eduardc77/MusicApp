@@ -9,12 +9,12 @@ import SwiftUI
 import MediaPlayer
 
 struct PlayerView: View {
-  @EnvironmentObject private var playerObservableObject: PlayerObservableObject
+  @ObservedObject var playerObservableObject: PlayerObservableObject
   @State private var offset: CGFloat = 0
   @State private var visibleSide = FlipViewSide.front
   @State private var playing: Bool = false
   
-  static let timer = Timer.publish(every: 0.6, tolerance: 0.6, on: .main, in: .common).autoconnect()
+	static let timer = Timer.publish(every: 0, on: .main, in: .common).autoconnect()
   
   var body: some View {
     VStack {
@@ -142,16 +142,16 @@ struct PlayerView: View {
           VStack {
             switch playerObservableObject.playerType {
             case .audio:
-              TimeSliderView(playerObservableObject: playerObservableObject, trackDuration: playerObservableObject.audioPlayer.nowPlayingItem?.playbackDuration.toInt ?? 1, trackTimePosition: $playerObservableObject.progressRate, player: playerObservableObject.audioPlayer)
+              TimeSliderView(playerObservableObject: playerObservableObject, trackDuration: playerObservableObject.audioPlayer.nowPlayingItem?.playbackDuration.toInt ?? 1, trackTimePosition: $playerObservableObject.progressRate)
               
                 .onReceive(PlayerView.timer) { _ in
                   guard playerObservableObject.playerType == .audio else { return }
                   playerObservableObject.progressRate = playerObservableObject.audioPlayer.currentPlaybackTime.toInt
                 }
             case .video:
-              TimeSliderView(playerObservableObject: playerObservableObject, trackDuration: playerObservableObject.videoPlayer.trackDuration, trackTimePosition: $playerObservableObject.videoPlayer.trackTimePosition, player: playerObservableObject.audioPlayer)
+              TimeSliderView(playerObservableObject: playerObservableObject, trackDuration: playerObservableObject.videoPlayer.trackDuration, trackTimePosition: $playerObservableObject.videoPlayer.trackTimePosition)
             }
-            PlayerControls(playerObservableObject: _playerObservableObject)
+            PlayerControls()
             
             VolumeView(playerType: playerObservableObject.playerType)
           }
@@ -246,14 +246,15 @@ struct PlayerView_Previews: PreviewProvider {
       VStack {
         Spacer()
         
-        PlayerView()
+				PlayerView(playerObservableObject: PlayerObservableObject())
+					.environmentObject(PlayerObservableObject())
       }
     }
   }
   
   static var previews: some View {
-		PlayerView()
-      .environmentObject(PlayerObservableObject())
+		PlayerViewExample()
+
   }
 }
 

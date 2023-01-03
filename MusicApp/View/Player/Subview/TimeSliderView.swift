@@ -19,15 +19,13 @@ struct TimeSliderView: View {
   @State private var isDragging = false
   @State private var timeBegin: Int = 0
   @State private var timeRemain: Int = 0
-  
-  private var player: MPMusicPlayerController?
+
   private let trackDuration: Int
   
-  init(playerObservableObject: PlayerObservableObject, trackDuration: Int, trackTimePosition: Binding<Int>, player: MPMusicPlayerController) {
+  init(playerObservableObject: PlayerObservableObject, trackDuration: Int, trackTimePosition: Binding<Int>) {
     self.playerObservableObject = playerObservableObject
     self.trackDuration = trackDuration
     self._trackTimePosition = trackTimePosition
-    self.player = player
     
     _timeBegin = State(wrappedValue: $trackTimePosition.wrappedValue)
     _timeRemain = State(initialValue: trackDuration - timeBegin)
@@ -58,8 +56,6 @@ struct TimeSliderView: View {
             .gesture(
               DragGesture(minimumDistance: 0)
                 .onChanged { value in
-                  guard player != nil else { return }
-                  
                   isDragging = true
                   
                   if abs(value.translation.width) < 0.1 {
@@ -77,8 +73,8 @@ struct TimeSliderView: View {
                   timeRemain = trackDuration - timeBegin
                 }
                 .onEnded { _ in
-                  isDragging = false
-                  player?.currentPlaybackTime = TimeInterval(trackTimePosition)
+									playerObservableObject.audioPlayer.currentPlaybackTime = TimeInterval(trackTimePosition)
+									isDragging = false
                 }
               
             )
@@ -88,8 +84,7 @@ struct TimeSliderView: View {
         .onReceive(PlayerView.timer) { _ in
           switch playerObservableObject.playerType {
           case .audio:
-            guard let currentPlaybackTime = player?.currentPlaybackTime else { return }
-            timeBegin = Int(currentPlaybackTime)
+            timeBegin = Int(playerObservableObject.audioPlayer.currentPlaybackTime)
             timeRemain = trackDuration - timeBegin
           case .video:
             
@@ -129,11 +124,10 @@ struct TimeView_Previews: PreviewProvider {
   struct TimeView: View {
     @StateObject var playerObservableObject = PlayerObservableObject()
     @State var trackTimePosition: Int = 0
-		var player = MPMusicPlayerController.applicationMusicPlayer
-    
+
     var body: some View {
       VStack {
-        TimeSliderView(playerObservableObject: playerObservableObject, trackDuration: 215, trackTimePosition: $trackTimePosition, player: MPMusicPlayerController.applicationMusicPlayer)
+        TimeSliderView(playerObservableObject: playerObservableObject, trackDuration: 215, trackTimePosition: $trackTimePosition)
       }
       .background(.secondary)
     }

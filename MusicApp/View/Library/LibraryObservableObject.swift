@@ -88,23 +88,23 @@ final class LibraryObservableObject: ObservableObject {
 private extension LibraryObservableObject {
   func checkForLibraryAuthorization()  {
     let status = MPMediaLibrary.authorizationStatus()
-    
-    switch status {
-    case .authorized:
-      self.status = .permitted
-    case .notDetermined:
-      MPMediaLibrary.requestAuthorization() { status in
-        DispatchQueue.main.async {
-          if status == .authorized {
-            self.status = .permitted
-          } else {
-            self.status = .notPermitted
-          }
-        }
-      }
-    default:
-      self.status = .notPermitted
-    }
+
+		DispatchQueue.main.async {
+			switch status {
+			case .authorized:
+				self.status = .permitted
+			case .notDetermined:
+				MPMediaLibrary.requestAuthorization() { status in
+					if status == .authorized {
+						self.status = .permitted
+					} else {
+						self.status = .notPermitted
+					}
+				}
+			default:
+				self.status = .notPermitted
+			}
+		}
   }
   
   func loadMedia(forSection librarySection: LibrarySection) -> [Media] {

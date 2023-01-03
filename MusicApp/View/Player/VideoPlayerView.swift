@@ -97,11 +97,10 @@ struct PlayerViewController: UIViewControllerRepresentable {
         let asset = AVAsset(url: videoAssetUrl)
         let item = AVPlayerItem(asset: asset)
         uiViewController.player?.replaceCurrentItem(with: item)
-        uiViewController.player?.play()
       }
       uiViewController.showsPlaybackControls = false
       
-      DispatchQueue.main.asyncAfter(deadline: .now() + 0.46) {
+			DispatchQueue.global(qos: .background).async {
         uiViewController.player?.play()
       }
     }

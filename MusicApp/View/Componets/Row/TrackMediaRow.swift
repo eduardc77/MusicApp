@@ -42,8 +42,12 @@ struct TrackMediaRow: View {
 			}
 			
 			.onTapGesture {
-				MPMusicPlayerController.applicationMusicPlayer.setQueue(with: [media.id])
-				MPMusicPlayerController.applicationMusicPlayer.play()
+				playerObservableObject.audioPlayer.stop()
+				playerObservableObject.audioPlayer.setQueue(with: [media.id])
+				UserDefaults.standard.set([media.id], forKey: UserDefaultsKey.queueDefault)
+				playerObservableObject.audioPlayer.shuffleMode = MPMusicShuffleMode.off
+				UserDefaults.standard.set(false, forKey: UserDefaultsKey.shuffleDefault)
+				playerObservableObject.audioPlayer.play()
 			}
 		}
 		.frame(width: Metric.largeCarouselItemWidth)
