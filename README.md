@@ -1,5 +1,5 @@
 <!-- HEADER -->
-<img src=".Resources/Assets/AppIcon.png" width="40" align="right"/>
+<img src=".Resources/Assets/Icon-Small@2x-1" width="60" align="right"/>
 <h1> MusicApp </h1>
 
 [![Swift](https://img.shields.io/badge/Swift-5.0-orange.svg?longCache=true&style=flat&logo=swift)][Swift]
