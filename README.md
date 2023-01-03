@@ -1,4 +1,5 @@
-# MusicApp.  ![Icon-Small](https://user-images.githubusercontent.com/36419167/210294050-b6befc7b-dfa6-407d-8b67-c730e2e4e0c9.png)
+# MusicApp.                                                                                                                  ![Icon-60@2x](https://user-images.githubusercontent.com/36419167/210294109-d438c083-17b2-4734-8ee4-52484eafe106.png)
+
 
 Apple Music app replica built with SwiftUI and Combine. 
 
