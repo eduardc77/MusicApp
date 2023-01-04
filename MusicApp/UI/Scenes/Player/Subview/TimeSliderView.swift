@@ -20,6 +20,8 @@ struct TimeSliderView: View {
 	@State private var timeBegin: Int = 0
 	@State private var timeRemain: Int = 0
 
+	@State var timer = Timer.publish(every: 0.6, tolerance: 0.3, on: .main, in: .default).autoconnect()
+
 	private let trackDuration: Int
 
 	init(playerObservableObject: PlayerObservableObject, trackDuration: Int, trackTimePosition: Binding<Int>) {
@@ -57,7 +59,7 @@ struct TimeSliderView: View {
 							DragGesture(minimumDistance: 0)
 								.onChanged { value in
 									isDragging = true
-
+									timer.upstream.connect().cancel()
 									if abs(value.translation.width) < 0.1 {
 										lastOffset = CGFloat(trackTimePosition) / CGFloat(trackDuration) * geometry.size.width
 									}
@@ -75,21 +77,23 @@ struct TimeSliderView: View {
 								.onEnded { _ in
 									playerObservableObject.audioPlayer.currentPlaybackTime = TimeInterval(trackTimePosition)
 									isDragging = false
+									timer = Timer.publish(every: 0.6, tolerance: 0.3, on: .main, in: .default).autoconnect()
 								}
 
 						)
 						.animation(.linear(duration: 0.16), value: isDragging)
 				}
 
-				.onReceive(playerObservableObject.timer) { _ in
-					guard playerObservableObject.videoPlayer.isPlaying else { return }
+				.onReceive(timer) { _ in
 
 					switch playerObservableObject.playerType {
 					case .audio:
+						guard playerObservableObject.audioPlayer.playbackState == .playing else { return }
 						timeBegin = Int(playerObservableObject.audioPlayer.currentPlaybackTime)
 						timeRemain = trackDuration - timeBegin
 						playerObservableObject.progressRate = playerObservableObject.audioPlayer.currentPlaybackTime.toInt
 					case .video:
+						guard playerObservableObject.videoPlayer.isPlaying else { return }
 						timeBegin = playerObservableObject.videoPlayer.getProgressRate()
 						timeRemain = playerObservableObject.videoPlayer.trackDuration - timeBegin
 						playerObservableObject.videoPlayer.trackTimePosition = timeBegin
