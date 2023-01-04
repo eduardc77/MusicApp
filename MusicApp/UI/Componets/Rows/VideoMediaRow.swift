@@ -31,7 +31,7 @@ struct VideoMediaRow: View {
       .font(.caption)
       .lineLimit(1)
     }
-    
+	 .contentShape(Rectangle())
     .onTapGesture {
       withAnimation {
         playerObservableObject.configureVideoPlayer(with: media.previewUrl)

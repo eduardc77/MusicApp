@@ -22,7 +22,8 @@ final class PlayerObservableObject: ObservableObject {
   var playerType: PlayerType = .audio
   
   // MARK: - Audio Player Properties
-  
+
+   @Published var timer = Timer.publish(every: 0, on: .main, in: .common).autoconnect()
   @Published var nowPlayingItem: PlayableItem = PlayableItem(playing: .constant(false), media: Media())
   @Published var playbackState: MPMusicPlaybackState? = MPMusicPlayerController.applicationMusicPlayer.playbackState
   @Published var playerOption = PlayerOption()

@@ -47,7 +47,7 @@ struct LibraryAlbumTrackList: View {
 					}
 					.frame(maxWidth: .infinity, maxHeight: .infinity)
 				}
-				.frame(maxWidth: .infinity, maxHeight: .infinity)
+				.contentShape(Rectangle())
 				.padding(.leading)
 
 				.onTapGesture {

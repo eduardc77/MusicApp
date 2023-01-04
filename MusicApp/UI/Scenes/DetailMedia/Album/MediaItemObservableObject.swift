@@ -47,12 +47,13 @@ final class MediaItemObservableObject: ObservableObject {
 	
 	func fetchTracks(for collectionId: String) {
 		cleanErrorState()
-		
+
 		networkService.request(endpoint: .getInfo(by: .lookup(id: collectionId, entity: "song",  media: "music", attribute: "songTerm")))
 			.compactMap { $0 as ITunesAPIResponse }
 			.catch(handleError)
 				.map(\.results)
 				.map { $0.map(Media.init) }
+
 			.assign(to: &$trackResults)
 	}
 	
@@ -89,11 +90,10 @@ final class MediaItemObservableObject: ObservableObject {
 
 		tracks.forEach { track in
 			trackIDsQueue.append(String(track.trackId))
-			albumDuration += Double(track.duration) ?? 0
+			albumDuration += Double(track.playbackDuration)
 			albumTrackCount += 1
 		}
-		
-		self.albumDuration = Int((albumDuration / 60).truncatingRemainder(dividingBy: 60))
+		self.albumDuration = Int((albumDuration / 60).rounded(.up))
 	}
 }
 

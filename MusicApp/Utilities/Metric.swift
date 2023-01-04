@@ -14,7 +14,7 @@ enum Metric {
   static let defaultCornerRadius: CGFloat = 4
   
   // MARK: - Player
-  static let playerHeight: CGFloat = screenHeight * 0.075
+  static let playerHeight: CGFloat = screenHeight * 0.08
   static let regularSpacing: CGFloat = 16
   static let yOffset: CGFloat = -48
   static let capsuleWidth: CGFloat = 36
@@ -28,7 +28,7 @@ enum Metric {
   static let albumDetailArtworkSize: CGFloat = screenHeight / 3.56
   
   // MARK: - Carousel
-  static let trackCarouselImageSize: CGFloat = Metric.screenHeight * 0.057
+  static let trackCarouselImageSize: CGFloat = Metric.screenHeight * 0.06
   static let searchResultImageSize: CGFloat = Metric.screenHeight * 0.07
   static let playlistRowHeight: CGFloat = Metric.screenHeight * 0.12
   static let albumCarouselImageSize: CGFloat = Metric.screenHeight * 0.196

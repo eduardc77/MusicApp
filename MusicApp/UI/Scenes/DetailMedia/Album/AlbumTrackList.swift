@@ -55,7 +55,7 @@ struct AlbumTrackList: View {
 							}
 							.frame(maxWidth: .infinity, maxHeight: .infinity)
 						}
-						.frame(maxWidth: .infinity, maxHeight: .infinity)
+						.contentShape(Rectangle())
 						.padding(.leading)
 
 						.onTapGesture {
@@ -77,7 +77,7 @@ struct AlbumTrackList: View {
 							Text("\(releaseDate)")
 						}
 
-						Text("\(media.trackCount) songs, \(media.duration) minutes")
+						Text("\(mediaItemObservableObject.albumTrackCount) songs, \(mediaItemObservableObject.albumDuration) minutes")
 					}
 					.font(.footnote)
 					.foregroundColor(.secondary)
@@ -88,9 +88,8 @@ struct AlbumTrackList: View {
 
 			}
 		}
-		.onAppear {
-			mediaItemObservableObject.fetchTracks(for: media.id)
-			mediaItemObservableObject.configureAlbumDetails()
+		.task {
+         mediaItemObservableObject.fetchTracks(for: media.id)
 		}
 	}
 }

@@ -87,12 +87,9 @@ struct Media: Identifiable, Codable {
     return "\(collectionName) · \(releaseYear)"
   }
   
-  var duration: String {
+  var playbackDuration: Double {
     let seconds = (mediaResponse.trackTimeMillis ?? 0) / 1000
-    let formatter = DateComponentsFormatter()
-    formatter.allowedUnits = [.hour, .minute]
-    formatter.unitsStyle = .short
-    return formatter.string(from: TimeInterval(seconds)) ?? "nil"
+    return TimeInterval(seconds)
   }
   
   // MARK: - Library Properties

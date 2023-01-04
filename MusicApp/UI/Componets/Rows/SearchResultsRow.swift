@@ -41,6 +41,8 @@ struct SearchResultsRow: View {
 					.padding(.trailing, 6)
 			}
 		}
+		.contentShape(Rectangle())
+		
 		.onTapGesture {
 			playerObservableObject.audioPlayer.stop()
 			playerObservableObject.audioPlayer.setQueue(with: [media.id])

@@ -44,7 +44,7 @@ struct TrackMediaRow: View {
 			}
 		}
 		.frame(width: Metric.largeCarouselItemWidth)
-
+		.contentShape(Rectangle())
 		.onTapGesture {
 			playerObservableObject.audioPlayer.stop()
 			playerObservableObject.audioPlayer.setQueue(with: [media.id])

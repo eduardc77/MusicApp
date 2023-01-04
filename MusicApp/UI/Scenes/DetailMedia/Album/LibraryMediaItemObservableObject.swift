@@ -123,15 +123,13 @@ private extension LibraryMediaItemObservableObject {
 	
 	func configureAlbumDetailsForLibraryAlbum() {
 		var albumDuration: TimeInterval = 0
-		
 		trackIDsQueue.removeAll()
 		albumContents.libraryTracks.forEach { track in
 			trackIDsQueue.append(track.playbackStoreID)
 			albumDuration += track.playbackDuration
 			albumTrackCount += 1
 		}
-		
-		self.albumDuration = Int((albumDuration / 60).truncatingRemainder(dividingBy: 60))
+		self.albumDuration = Int((albumDuration / 60).rounded(.up))
 	}
 	
 	func getTracks(for album: String) -> [MPMediaItem]? {
