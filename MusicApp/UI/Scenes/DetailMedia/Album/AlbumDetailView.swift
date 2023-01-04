@@ -10,21 +10,22 @@ import MediaPlayer
 
 struct AlbumDetailView: View {
   @EnvironmentObject private var playerObservableObject: PlayerObservableObject
-  @StateObject private var mediaItemObservableObject: LibraryMediaItemObservableObject
+  @StateObject private var libraryItemObservableObject: LibraryMediaItemObservableObject
+	@StateObject private var mediaItemObservableObject: MediaItemObservableObject = MediaItemObservableObject()
   
   init(media: Media, searchObservableObject: SearchObservableObject) {
-    _mediaItemObservableObject = StateObject(wrappedValue: LibraryMediaItemObservableObject(media: media, searchObservableObject: searchObservableObject))
+    _libraryItemObservableObject = StateObject(wrappedValue: LibraryMediaItemObservableObject(media: media, searchObservableObject: searchObservableObject))
   }
   
   var body: some View {
     ScrollView {
       VStack {
-        AlbumHeaderView(libraryMediaObservableObject: mediaItemObservableObject)
+			AlbumHeaderView(libraryMediaObservableObject: libraryItemObservableObject, mediaItemObservableObject: mediaItemObservableObject)
         
-        if mediaItemObservableObject.media.collectionId == 0 {
-          LibraryAlbumTrackList(libraryMediaObservableObject: mediaItemObservableObject)
+        if libraryItemObservableObject.media.collectionId == 0 {
+          LibraryAlbumTrackList(libraryMediaObservableObject: libraryItemObservableObject)
         } else {
-          AlbumTrackList(media: mediaItemObservableObject.media)
+			  AlbumTrackList(mediaItemObservableObject: mediaItemObservableObject, media: libraryItemObservableObject.media)
         }
         
         if playerObservableObject.showPlayerView, !playerObservableObject.expand {

@@ -121,6 +121,12 @@ final class PlayerObservableObject: ObservableObject {
     expand = true
     showPlayerView = true    
   }
+
+	func isNowPlaying(media: Media) -> Bool {
+		return (media.trackName == nowPlayingItem.media.trackName &&
+		 media.collectionName == nowPlayingItem.media.collectionName &&
+		 media.artistName == nowPlayingItem.media.artistName)
+	}
 }
 
 // MARK: - Types

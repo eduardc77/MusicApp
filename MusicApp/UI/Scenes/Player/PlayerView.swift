@@ -49,46 +49,38 @@ struct PlayerView: View {
           Spacer()
           
           HStack {
-            Button(action: {
+            Button {
               playerObservableObject.playbackState == .playing ? playerObservableObject.audioPlayer.pause() : playerObservableObject.audioPlayer.play()
-            },
-                   label: {
+            } label: {
               playerObservableObject.playbackState == .playing ?
               Image(systemName: "pause.fill")
-                .font(.title)
-                .foregroundColor(.primary)
-              
               :
               Image(systemName: "play.fill")
-                .font(.title)
-                .foregroundColor(.primary)
             }
-            )
             .padding(.trailing)
+				.font(.title)
             
-            Button(action: {
+            Button {
               playerObservableObject.audioPlayer.skipToNextItem()
-            },
-                   label: {
+            } label: {
               Image(systemName: "forward.fill")
                 .font(.title2)
-                .foregroundColor(!playerObservableObject.nowPlayingItem.media.name.isEmpty ? .primary : .secondary)
             }
-            )
           }
+			 .foregroundColor(!playerObservableObject.nowPlayingItem.media.name.isEmpty ? .primary : .secondary)
         }
       }
       .padding()
-      .frame(height: playerObservableObject.expand ? Metric.screenHeight / 2.2 :  Metric.playerHeight)
+		.frame(height: playerObservableObject.expand ? Metric.screenHeight / 2.2 :  Metric.playerHeight)
       
       if playerObservableObject.expand {
         VStack {
           HStack {
             VStack(alignment: .leading, spacing: 2) {
-              MarqueeText(text: playerObservableObject.nowPlayingItem.media.mediaResponse.name != nil ? playerObservableObject.nowPlayingItem.media.name : "Not Playing", explicitness: playerObservableObject.nowPlayingItem.media.trackExplicitness)
+					InfiniteScrollText(text: playerObservableObject.nowPlayingItem.media.mediaResponse.name != nil ? playerObservableObject.nowPlayingItem.media.name : "Not Playing", explicitness: playerObservableObject.nowPlayingItem.media.trackExplicitness)
               
               Menu {
-                Button {  } label: {
+                Button { } label: {
                   HStack {
                     VStack {
                       Text("Go to Album")
@@ -101,7 +93,7 @@ struct PlayerView: View {
                   }
                 }
                 
-                Button {  } label: {
+                Button { } label: {
                   HStack {
                     VStack {
                       Text("Go to Artist")
@@ -113,9 +105,8 @@ struct PlayerView: View {
                   
                 }
               } label: {
-                MarqueeText(text: playerObservableObject.nowPlayingItem.media.artistName, color: playerObservableObject.playerType == .audio ? .lightGrayColor : .accentColor, font: UIFont.systemFont(ofSize: 20))
+					  InfiniteScrollText(text: playerObservableObject.nowPlayingItem.media.artistName, textColor: playerObservableObject.playerType == .audio ? .lightGrayColor : .accentColor, font: UIFont.systemFont(ofSize: 20))
               }
-              
             }
             
             Spacer()
@@ -158,7 +149,7 @@ struct PlayerView: View {
           .padding(.horizontal)
         }
         
-        .frame(height: playerObservableObject.expand ? Metric.screenHeight / 2.8 : 0)
+		  .frame(height: playerObservableObject.expand ? Metric.screenHeight / 2.8 : 0)
         .opacity(playerObservableObject.expand ? 1 : 0)
         .transition(.move(edge: .bottom))
       }
@@ -221,7 +212,7 @@ struct PlayerView: View {
   }
   
   func onEnded(value: DragGesture.Value) {
-    withAnimation(.interactiveSpring(response: 0.3, dampingFraction: 0.95, blendDuration: 0.95)) {
+    withAnimation(.interactiveSpring(response: 0.3, dampingFraction: 0.95, blendDuration: 0.4)) {
       if value.translation.height > Metric.screenHeight / 12 {
         withAnimation(.spring()) {
           playerObservableObject.expand = false

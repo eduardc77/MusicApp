@@ -54,7 +54,7 @@ struct AccountView: View {
           Spacer(minLength: 1)
         }
       }
-      .listStyle(.grouped)
+      .listStyle(.insetGrouped)
       .navigationTitle("Account")
       .navigationBarTitleDisplayMode(.inline)
       .navigationBarItems(trailing: DismissButton(title: "Done", presentationMode: _presentationMode))

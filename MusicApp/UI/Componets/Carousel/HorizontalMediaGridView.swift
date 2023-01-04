@@ -78,11 +78,8 @@ struct HorizontalMediaGridView: View {
 				}
 				.padding(.horizontal)
 			}
-			
-			if playerObservableObject.showPlayerView, !playerObservableObject.expand {
-				Spacer(minLength: Metric.playerHeight)
-			}
 		}
+		.padding(.vertical)
 	}
 }
 

@@ -25,13 +25,13 @@ struct HighlightsView: View {
 			gridRows = Array(repeating: .init(.fixed(Metric.albumRowItemHeight)), count: rowCount)
 		case .highlight:
 			gridRows = Array(repeating: .init(.fixed(Metric.highlightCarouselItemHeight)), count: rowCount)
-		default: gridRows = Array(repeating: .init(.fixed(Metric.albumRowItemHeight)), count: rowCount)
+		default:
+			gridRows = Array(repeating: .init(.fixed(Metric.albumRowItemHeight)), count: rowCount)
 		}
 	}
 	
 	var body: some View {
-		Divider()
-			.padding(.horizontal)
+		Divider().padding(.horizontal)
 		
 		TabView {
 			ForEach(items, id: \.self) { item in

@@ -7,9 +7,7 @@
 
 import SwiftUI
 
-protocol Nameable {
-  var title: String { get }
-}
+protocol Nameable { var title: String { get } }
 
 struct NavigationLinkList<Content: View, Enum: RawRepresentable & CaseIterable & Hashable & Nameable> : View where Enum.AllCases: RandomAccessCollection, Enum.RawValue == Int {
   var rowItems: Enum.Type
@@ -41,12 +39,10 @@ struct NavigationLinkList<Content: View, Enum: RawRepresentable & CaseIterable &
         }
         .listStyle(.plain)
         .scrollingDisabled(true)
-        
-        Divider()
-          .padding(.leading)
       }
     }
     .frame(idealHeight: CGFloat(50 * rowItems.allCases.count), maxHeight: .infinity)
+	 .padding(.vertical)
   }
 }
 

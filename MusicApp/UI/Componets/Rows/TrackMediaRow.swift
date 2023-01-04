@@ -10,7 +10,7 @@ import MediaPlayer
 
 struct TrackMediaRow: View {
 	@EnvironmentObject private var playerObservableObject: PlayerObservableObject
-	var media: Media
+	@State var media: Media
 	
 	var body: some View {
 		VStack(spacing: 5) {
@@ -19,9 +19,11 @@ struct TrackMediaRow: View {
 			
 			HStack(spacing: 14) {
 				if let uiImage = media.artwork {
-					MediaImageView(artworkImage: uiImage, sizeType: .trackRowItem, playing: playerObservableObject.nowPlayingItem.$playing)
+					MediaImageView(artworkImage: uiImage, sizeType: .trackRowItem,
+										playing: playerObservableObject.isNowPlaying(media: media) ? playerObservableObject.nowPlayingItem.$playing : .constant(false))
 				} else {
-					MediaImageView(imagePath: media.artworkPath.resizedPath(size: 160), sizeType: .trackRowItem, playing: playerObservableObject.nowPlayingItem.$playing)
+					MediaImageView(imagePath: media.artworkPath.resizedPath(size: 160), sizeType: .trackRowItem,
+										playing: playerObservableObject.isNowPlaying(media: media) ? playerObservableObject.nowPlayingItem.$playing : .constant(false))
 				}
 				
 				HStack {
@@ -40,17 +42,17 @@ struct TrackMediaRow: View {
 						.padding(.trailing, 6)
 				}
 			}
-			
-			.onTapGesture {
-				playerObservableObject.audioPlayer.stop()
-				playerObservableObject.audioPlayer.setQueue(with: [media.id])
-				UserDefaults.standard.set([media.id], forKey: UserDefaultsKey.queueDefault)
-				playerObservableObject.audioPlayer.shuffleMode = MPMusicShuffleMode.off
-				UserDefaults.standard.set(false, forKey: UserDefaultsKey.shuffleDefault)
-				playerObservableObject.audioPlayer.play()
-			}
 		}
 		.frame(width: Metric.largeCarouselItemWidth)
+
+		.onTapGesture {
+			playerObservableObject.audioPlayer.stop()
+			playerObservableObject.audioPlayer.setQueue(with: [media.id])
+			UserDefaults.standard.set([media.id], forKey: UserDefaultsKey.queueDefault)
+			playerObservableObject.audioPlayer.shuffleMode = MPMusicShuffleMode.off
+			UserDefaults.standard.set(false, forKey: UserDefaultsKey.shuffleDefault)
+			playerObservableObject.audioPlayer.play()
+		}
 	}
 }
 

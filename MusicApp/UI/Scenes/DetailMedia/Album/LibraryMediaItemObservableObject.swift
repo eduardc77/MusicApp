@@ -74,15 +74,15 @@ final class LibraryMediaItemObservableObject: ObservableObject {
 	func currentMediaItem() -> MPMediaItem? {
 		let mediaItemQuery = MPMediaQuery.songs()
 		mediaItemQuery.addFilterPredicate(MPMediaPropertyPredicate(value: media.id,
-																															 forProperty: MPMediaItemPropertyPersistentID,
-																															 comparisonType: MPMediaPredicateComparison.equalTo))
+																					  forProperty: MPMediaItemPropertyPersistentID,
+																					  comparisonType: MPMediaPredicateComparison.equalTo))
 		if let mediaItem = mediaItemQuery.items?.first {
 			return mediaItem
 		} else {
 			
 			mediaItemQuery.addFilterPredicate(MPMediaPropertyPredicate(value: media.name,
-																																 forProperty: MPMediaItemPropertyTitle,
-																																 comparisonType: MPMediaPredicateComparison.contains))
+																						  forProperty: MPMediaItemPropertyTitle,
+																						  comparisonType: MPMediaPredicateComparison.contains))
 			
 			if let mediaItem = mediaItemQuery.items?.first {
 				return mediaItem
@@ -136,8 +136,8 @@ private extension LibraryMediaItemObservableObject {
 	
 	func getTracks(for album: String) -> [MPMediaItem]? {
 		let albumTitleFilter = MPMediaPropertyPredicate(value: album,
-																										forProperty: MPMediaItemPropertyAlbumTitle,
-																										comparisonType: .equalTo)
+																		forProperty: MPMediaItemPropertyAlbumTitle,
+																		comparisonType: .equalTo)
 		
 		if let collections = MPMediaQuery(filterPredicates: Set(arrayLiteral: albumTitleFilter)).items, !collections.isEmpty {
 			return collections
