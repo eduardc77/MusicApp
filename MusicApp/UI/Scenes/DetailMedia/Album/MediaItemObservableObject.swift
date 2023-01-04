@@ -41,8 +41,6 @@ final class MediaItemObservableObject: ObservableObject {
 		$trackResults
 			.map(\.isEmpty)
 			.assign(to: &$loadingTracks)
-
-		print(trackResults)
 	}
 	
 	// MARK: - Public Methods
@@ -56,8 +54,6 @@ final class MediaItemObservableObject: ObservableObject {
 				.map(\.results)
 				.map { $0.map(Media.init) }
 			.assign(to: &$trackResults)
-
-		print(trackResults)
 	}
 	
 	func playTrack(withId id: String) {
@@ -89,10 +85,9 @@ final class MediaItemObservableObject: ObservableObject {
 	
 	func configureAlbumDetails() {
 		var albumDuration: TimeInterval = 0
-		print(trackResults)
 		trackIDsQueue.removeAll()
+
 		tracks.forEach { track in
-			print(track.trackName)
 			trackIDsQueue.append(String(track.trackId))
 			albumDuration += Double(track.duration) ?? 0
 			albumTrackCount += 1

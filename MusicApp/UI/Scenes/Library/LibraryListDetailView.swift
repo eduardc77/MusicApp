@@ -40,7 +40,6 @@ struct LibraryListDetailView: View {
     
     .toolbar {
       Button("Sort") {
-        print("Sort button tapped!")
       }
     }
   }
