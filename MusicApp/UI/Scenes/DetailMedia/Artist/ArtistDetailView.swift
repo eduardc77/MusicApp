@@ -51,7 +51,7 @@ struct ArtistDetailView: View {
               
               VStack {
                 NavigationLink(destination: AlbumDetailView(media: recentAlbum, searchObservableObject: SearchObservableObject())) {
-                  MediumMediaRow(media: recentAlbum, action: {})
+                  AlbumMediaRow(media: recentAlbum, action: {})
                     .padding(.top)
                 }
                 

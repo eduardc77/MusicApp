@@ -13,7 +13,6 @@ struct AlbumTrackList: View {
 	@StateObject var mediaItemObservableObject: MediaItemObservableObject
 	@State private var playingStarted: Bool = false
 
-	private let player = MPMusicPlayerController.applicationMusicPlayer
 	var media: Media
 
 	var body: some View {
@@ -64,9 +63,9 @@ struct AlbumTrackList: View {
 						}
 
 						.onReceive(NotificationCenter.default.publisher(for: .MPMusicPlayerControllerPlaybackStateDidChange)){ _ in
-							if player.playbackState == .playing {
+							if PlayerObservableObject.audioPlayer.playbackState == .playing {
 								playingStarted = true
-							} else if player.playbackState == .paused {
+							} else if PlayerObservableObject.audioPlayer.playbackState == .paused {
 								playingStarted = false
 							}
 						}

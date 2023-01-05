@@ -12,8 +12,7 @@ struct MediaImageView: View {
 	@Binding private var visibleSide: FlipViewSide
 	@Binding var playing: Bool
 	@State var animate: Bool = false
-	@State private var shadow: (radius: CGFloat, xPosition: CGFloat, yPosition: CGFloat) = (0, 0, 0)
-
+	var selected: Bool = false
 	private let imagePath: String?
 	private var artworkImage: UIImage?
 	private var sizeType: SizeType
@@ -22,10 +21,11 @@ struct MediaImageView: View {
 	private var contentMode: ContentMode
 	private var foregroundColor: Color
 
-	init(imagePath: String? = nil, artworkImage: UIImage? = nil, sizeType: SizeType = .defaultSize, cornerRadius: CGFloat = Metric.defaultCornerRadius, shadowProminence: ShadowProminence = .none, contentMode: ContentMode = .fit, foregroundColor: Color = .secondary.opacity(0.1), visibleSide: Binding<FlipViewSide> = .constant(.front), playing: Binding<Bool> = .constant(false)) {
+	init(imagePath: String? = nil, artworkImage: UIImage? = nil, sizeType: SizeType = .defaultSize, cornerRadius: CGFloat = Metric.defaultCornerRadius, shadowProminence: ShadowProminence = .none, contentMode: ContentMode = .fit, foregroundColor: Color = .secondary.opacity(0.1), visibleSide: Binding<FlipViewSide> = .constant(.front), selected: Bool = false, playing: Binding<Bool> = .constant(false)) {
 		_mediaImageObservableObject = StateObject(wrappedValue: MediaImageObservableObject())
 		_visibleSide = visibleSide
 		_playing = playing
+		self.selected = selected
 		self.imagePath = imagePath
 		self.artworkImage = artworkImage
 		self.sizeType = sizeType
@@ -39,11 +39,9 @@ struct MediaImageView: View {
 		FlipView(visibleSide: visibleSide) {
 			Group {
 				if let uiImage = mediaImageObservableObject.image {
-					Image(uiImage: uiImage)
-						.resizable()
+					Image(uiImage: uiImage).resizable()
 				} else if let artworkImage = artworkImage, let artwork = Image(uiImage: artworkImage) {
-					artwork
-						.resizable()
+					artwork.resizable()
 				}
 				else {
 					ZStack {
@@ -79,28 +77,26 @@ struct MediaImageView: View {
 				}
 			}
 			.aspectRatio(contentMode: contentMode)
+			.contentShape(Rectangle())
 			.frame(width: sizeType.size.width, height: sizeType.size.height)
 			.cornerRadius(cornerRadius)
-			.shadow(radius: shadow.radius, x: shadow.xPosition, y: shadow.yPosition)
 
 			.overlay {
 				ZStack {
-					if playing {
+					if selected {
 						Color.gray.opacity(0.6)
 
-						NowPlayingEqualizerBars(animating: $animate, color: .white)
+						NowPlayingEqualizerBars(animating: $playing, color: .white)
 							.frame(width: 16, height: 8)
-							.onAppear { animate.toggle() }
+
 					}
 					RoundedRectangle(cornerRadius: cornerRadius)
 						.stroke(Color.secondary.opacity(0.6), lineWidth: 0.1)
 				}
 			}
-
 		} back: {
 			ZStack {
-				Rectangle()
-					.fill(.secondary)
+				Rectangle().fill(Color(.lightGray))
 					.frame(width: sizeType.size.width, height: sizeType.size.height)
 					.cornerRadius(cornerRadius)
 
@@ -111,26 +107,12 @@ struct MediaImageView: View {
 					.frame(width: (sizeType.size.height ?? Metric.albumCarouselImageSize) / 1.6, height: (sizeType.size.height ?? Metric.albumCarouselImageSize) / 1.6)
 			}
 		}
-		.contentShape(Rectangle())
+		.shadow(radius: shadowProminence.shadow.radius, x: shadowProminence.shadow.xPosition, y: shadowProminence.shadow.yPosition)
 		.animation(.flipCard, value: visibleSide)
 
-		.onAppear {
-			setupShadowProminence()
-		}
 		.task {
 			guard let imagePath = imagePath else { return }
 			await mediaImageObservableObject.fetchImage(from: imagePath)
-		}
-	}
-
-	func setupShadowProminence() {
-		switch shadowProminence {
-		case .none:
-			shadow = (0, 0, 0)
-		case .mild:
-			shadow = (radius: 2, xPosition: 0, yPosition: 2)
-		case .full:
-			shadow = (radius: 16, xPosition: -6, yPosition: 6)
 		}
 	}
 }
@@ -138,10 +120,21 @@ struct MediaImageView: View {
 // MARK: - Types
 
 extension MediaImageView {
-	enum ShadowProminence: Int {
-		case none = 0
-		case mild = 2
-		case full = 16
+	enum ShadowProminence {
+		case none
+		case mild
+		case full
+
+		var shadow: (radius: CGFloat, xPosition: CGFloat, yPosition: CGFloat) {
+			switch self {
+			case .none:
+				return (radius: 0, xPosition: 0, yPosition: 0)
+			case .mild:
+				return (radius: 2, xPosition: 0, yPosition: 0)
+			case .full:
+				return (radius: 16, xPosition: 3, yPosition: 3)
+			}
+		}
 	}
 }
 

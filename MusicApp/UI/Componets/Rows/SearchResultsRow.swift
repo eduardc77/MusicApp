@@ -11,19 +11,18 @@ import MediaPlayer
 struct SearchResultsRow: View {
 	@EnvironmentObject private var playerObservableObject: PlayerObservableObject
 	var media: Media
-	@State var playing: Bool = false
+	@State private var playingStarted: Bool = false
 	
-	init(media: Media, isPlaying: Binding<Bool>) {
+	init(media: Media) {
 		self.media = media
-		_playing = State(wrappedValue: isPlaying.wrappedValue)
 	}
 	
 	var body: some View {
 		HStack {
 			if let uiImage = media.artwork {
-				MediaImageView(artworkImage: uiImage, sizeType: .searchRow, playing: playerObservableObject.isNowPlaying(media: media) ? playerObservableObject.nowPlayingItem.$playing : .constant(false))
+				MediaImageView(artworkImage: uiImage, sizeType: .searchRow, selected: playerObservableObject.isNowPlaying(media: media), playing: $playingStarted)
 			} else {
-				MediaImageView(imagePath: media.artworkPath.resizedPath(size: 100), sizeType: .searchRow, playing: playerObservableObject.isNowPlaying(media: media) ? playerObservableObject.nowPlayingItem.$playing : .constant(false))
+				MediaImageView(imagePath: media.artworkPath.resizedPath(size: 100), sizeType: .searchRow, selected: playerObservableObject.isNowPlaying(media: media), playing: playerObservableObject.isNowPlaying(media: media) ? $playingStarted : .constant(false))
 			}
 			
 			HStack {
@@ -44,12 +43,21 @@ struct SearchResultsRow: View {
 		.contentShape(Rectangle())
 		
 		.onTapGesture {
-			playerObservableObject.audioPlayer.stop()
-			playerObservableObject.audioPlayer.setQueue(with: [media.id])
+			PlayerObservableObject.audioPlayer.stop()
+			PlayerObservableObject.audioPlayer.setQueue(with: [media.id])
 			UserDefaults.standard.set([media.id], forKey: UserDefaultsKey.queueDefault)
-			playerObservableObject.audioPlayer.shuffleMode = MPMusicShuffleMode.off
+			PlayerObservableObject.audioPlayer.shuffleMode = MPMusicShuffleMode.off
 			UserDefaults.standard.set(false, forKey: UserDefaultsKey.shuffleDefault)
-			playerObservableObject.audioPlayer.play()
+			playingStarted = true
+			PlayerObservableObject.audioPlayer.play()
+		}
+
+		.onReceive(NotificationCenter.default.publisher(for: .MPMusicPlayerControllerPlaybackStateDidChange)){ _ in
+			if PlayerObservableObject.audioPlayer.playbackState == .playing {
+				playingStarted = true
+			} else if PlayerObservableObject.audioPlayer.playbackState == .paused {
+				playingStarted = false
+			}
 		}
 	}
 }
@@ -59,10 +67,9 @@ struct SearchResultsRow: View {
 
 struct SearchResultsRow_Previews: PreviewProvider {
 	struct SearchResultsRowExample: View {
-		@State var playing: Bool = false
 		
 		var body: some View {
-			SearchResultsRow(media: musicPlaylists2.first ?? Media(), isPlaying: $playing)
+			SearchResultsRow(media: musicPlaylists2.first ?? Media())
 				.environmentObject(PlayerObservableObject())
 				.padding()
 		}

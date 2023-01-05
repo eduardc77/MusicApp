@@ -20,10 +20,10 @@ struct PlayerControls: View {
         case .video:
           playerObservableObject.videoPlayer.player.seek(to: CMTime(seconds: Double(playerObservableObject.videoPlayer.trackTimePosition - 1), preferredTimescale: 1))
         case .audio:
-          if playerObservableObject.audioPlayer.currentPlaybackTime > 6 {
-            playerObservableObject.audioPlayer.skipToBeginning()
+          if PlayerObservableObject.audioPlayer.currentPlaybackTime > 6 {
+            PlayerObservableObject.audioPlayer.skipToBeginning()
           } else {
-            playerObservableObject.audioPlayer.skipToPreviousItem()
+            PlayerObservableObject.audioPlayer.skipToPreviousItem()
           }
         }
       } label: {
@@ -31,7 +31,8 @@ struct PlayerControls: View {
           .font(.largeTitle)
           .foregroundColor(!playerObservableObject.nowPlayingItem.media.name.isEmpty ? .white : .lightGrayColor2)
       }
-      
+		.buttonStyle(.circle(padding: .large))
+
       Spacer()
       
       Button {
@@ -39,7 +40,7 @@ struct PlayerControls: View {
         case .video:
           playerObservableObject.videoPlayer.toggleIsPlaying()
         case .audio:
-          playerObservableObject.playbackState == .playing ? playerObservableObject.audioPlayer.pause() : playerObservableObject.audioPlayer.play()
+          playerObservableObject.playbackState == .playing ? PlayerObservableObject.audioPlayer.pause() : PlayerObservableObject.audioPlayer.play()
         }
         
       } label: {
@@ -56,7 +57,8 @@ struct PlayerControls: View {
             .foregroundColor(.white)
         }
       }
-      
+		.buttonStyle(.circle(padding: .large))
+
       Spacer()
       
       Button {
@@ -64,7 +66,7 @@ struct PlayerControls: View {
         case .video:
           playerObservableObject.videoPlayer.player.seek(to: CMTime(seconds: Double(playerObservableObject.videoPlayer.trackTimePosition + 5), preferredTimescale: 1))
         case .audio:
-          playerObservableObject.audioPlayer.skipToNextItem()
+          PlayerObservableObject.audioPlayer.skipToNextItem()
         }
       } label: {
         Image(systemName: "forward.fill")
@@ -74,7 +76,8 @@ struct PlayerControls: View {
       
       Spacer()
     }
-    .padding(.vertical)
+	 .buttonStyle(.circle(padding: .large))
+ 
   }
 }
 

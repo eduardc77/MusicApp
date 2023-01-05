@@ -35,9 +35,6 @@ struct HorizontalMediaGridView: View {
 	
 	var body: some View {
 		VStack(spacing: 8) {
-			Divider()
-				.padding(.horizontal)
-			
 			if !title.isEmpty {
 				HStack {
 					Text(title)
@@ -59,8 +56,7 @@ struct HorizontalMediaGridView: View {
 				}
 				.padding(.horizontal)
 			}
-			
-			
+
 			ScrollView(.horizontal, showsIndicators: false) {
 				LazyHGrid(rows: gridRows, spacing: 12) {
 					ForEach(mediaItems.prefix(maxHighlightShowing), id: \.id) { media in

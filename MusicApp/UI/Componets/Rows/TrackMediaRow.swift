@@ -28,10 +28,10 @@ struct TrackMediaRow: View {
 				
 				HStack {
 					VStack(alignment: .leading, spacing: 3) {
-						MediaItemName(name: media.name, explicitness: media.trackExplicitness, font: .subheadline)
+						MediaItemName(name: media.name, explicitness: media.trackExplicitness, font: .body)
 						
 						Text(media.albumAndReleaseYear)
-							.font(.caption)
+							.font(.footnote)
 							.foregroundColor(.secondary)
 					}
 					
@@ -46,19 +46,19 @@ struct TrackMediaRow: View {
 		.frame(width: Metric.largeCarouselItemWidth)
 		.contentShape(Rectangle())
 		.onTapGesture {
-			playerObservableObject.audioPlayer.stop()
-			playerObservableObject.audioPlayer.setQueue(with: [media.id])
+			PlayerObservableObject.audioPlayer.stop()
+			PlayerObservableObject.audioPlayer.setQueue(with: [media.id])
 			UserDefaults.standard.set([media.id], forKey: UserDefaultsKey.queueDefault)
-			playerObservableObject.audioPlayer.shuffleMode = MPMusicShuffleMode.off
+			PlayerObservableObject.audioPlayer.shuffleMode = MPMusicShuffleMode.off
 			UserDefaults.standard.set(false, forKey: UserDefaultsKey.shuffleDefault)
-			playerObservableObject.audioPlayer.play()
+			PlayerObservableObject.audioPlayer.play()
 		}
 	}
 }
 
 // MARK: - Previews
 
-struct SmallMediaRowItem_Previews: PreviewProvider {
+struct TrackMediaRow_Previews: PreviewProvider {
 	static var previews: some View {
 		TrackMediaRow(media: musicPlaylists2.first ?? Media())
 			.environmentObject(PlayerObservableObject())

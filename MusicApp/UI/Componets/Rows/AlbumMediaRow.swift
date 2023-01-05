@@ -1,14 +1,13 @@
 //
-//  MediumMediaRow.swift
+//  AlbumMediaRow.swift
 //  MusicApp
 //
 //  Created by Eduard Caziuc on 15.05.2022.
 //
 
 import SwiftUI
-import MediaPlayer
 
-struct MediumMediaRow: View {
+struct AlbumMediaRow: View {
   var media: Media
   var imageData: Data?
   var action: () -> Void
@@ -35,7 +34,6 @@ struct MediumMediaRow: View {
                 .foregroundColor(.secondary)
                 .font(.footnote)
             }
-            
             .frame(maxWidth: .infinity, alignment: .leading)
             .lineLimit(2)
             
@@ -54,8 +52,8 @@ struct MediumMediaRow: View {
 
 // MARK: - Previews
 
-struct MediumMediaRow_Previews: PreviewProvider {
+struct AlbumMediaRow_Previews: PreviewProvider {
 	static var previews: some View {
-		MediumMediaRow(media: musicPlaylists2.first ?? Media(), action: {})
+		AlbumMediaRow(media: musicPlaylists2.first ?? Media(), action: {})
 	}
 }

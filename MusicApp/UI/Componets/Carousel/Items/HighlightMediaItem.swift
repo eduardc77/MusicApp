@@ -15,15 +15,15 @@ struct HighlightMediaItem: View {
 		VStack {
 			VStack(alignment: .leading) {
 				Text(media.kind.titleUppercased)
-					.font(.caption2)
+					.font(.caption.weight(.semibold))
 					.foregroundColor(.secondary)
 				
 				Text(media.name)
-					.font(.title3)
+					.font(.title2)
 				
 				Text(media.trackName)
 					.foregroundColor(.secondary)
-					.font(.title3)
+					.font(.title2)
 			}
 			.lineLimit(1)
 			.frame(maxWidth: .infinity, alignment: .leading)

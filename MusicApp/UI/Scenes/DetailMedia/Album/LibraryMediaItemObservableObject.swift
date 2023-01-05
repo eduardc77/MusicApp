@@ -15,8 +15,7 @@ final class LibraryMediaItemObservableObject: ObservableObject {
 	@Published private(set) var albumContents: AlbumContents = AlbumContents()
 	
 	// MARK: - Properties
-	
-	private(set) var player = MPMusicPlayerController.applicationMusicPlayer
+
 	private(set) var media: Media
 	private(set) var albumDuration: Int = 0
 	private(set) var albumTrackCount: Int = 0
@@ -45,30 +44,30 @@ final class LibraryMediaItemObservableObject: ObservableObject {
 	// MARK: - Public Methods
 	
 	func playTrack(at index: Int) {
-		player.stop()
-		player.setQueue(with: trackIDsQueue)
+		PlayerObservableObject.audioPlayer.stop()
+		PlayerObservableObject.audioPlayer.setQueue(with: trackIDsQueue)
 		UserDefaults.standard.set(trackIDsQueue, forKey: UserDefaultsKey.queueDefault)
-		player.play()
-		player.nowPlayingItem = albumContents.libraryTracks[index]
+		PlayerObservableObject.audioPlayer.play()
+		PlayerObservableObject.audioPlayer.nowPlayingItem = albumContents.libraryTracks[index]
 		UserDefaults.standard.set(false, forKey: UserDefaultsKey.shuffleDefault)
-		player.shuffleMode = MPMusicShuffleMode.off
+		PlayerObservableObject.audioPlayer.shuffleMode = MPMusicShuffleMode.off
 	}
 	
 	func playAllTracks(isShuffle: Bool) {
-		player.stop()
-		player.setQueue(with: trackIDsQueue)
+		PlayerObservableObject.audioPlayer.stop()
+		PlayerObservableObject.audioPlayer.setQueue(with: trackIDsQueue)
 		UserDefaults.standard.set(trackIDsQueue, forKey: UserDefaultsKey.queueDefault)
 		
 		if isShuffle {
-			player.shuffleMode = MPMusicShuffleMode.songs
+			PlayerObservableObject.audioPlayer.shuffleMode = MPMusicShuffleMode.songs
 			UserDefaults.standard.set(true, forKey: UserDefaultsKey.shuffleDefault)
-			player.shuffleMode = MPMusicShuffleMode.songs
+			PlayerObservableObject.audioPlayer.shuffleMode = MPMusicShuffleMode.songs
 		} else {
 			UserDefaults.standard.set(false, forKey: UserDefaultsKey.shuffleDefault)
-			player.shuffleMode = MPMusicShuffleMode.off
+			PlayerObservableObject.audioPlayer.shuffleMode = MPMusicShuffleMode.off
 		}
 		
-		player.play()
+		PlayerObservableObject.audioPlayer.play()
 	}
 	
 	func currentMediaItem() -> MPMediaItem? {

@@ -15,8 +15,6 @@ struct CategoryGridView: View {
   var body: some View {
     
     ScrollView {
-      Divider().padding(.horizontal)
-      
       Text("Browse Categories")
         .font(.title2).bold()
         .frame(maxWidth: .infinity, alignment: .leading)

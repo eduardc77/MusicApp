@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import MediaPlayer
 
 struct SearchWrapperRow<Content: View>: View {
 	var media: Media
@@ -42,9 +41,7 @@ struct SearchWrapperRow<Content: View>: View {
 						MediaItemName(name: media.artistName, font: .callout)
 						MediaItemName(name: "Artist", font: .callout)
 					}
-					
 				}
-				
 				Spacer()
 				
 				Image(systemName: "chevron.right")

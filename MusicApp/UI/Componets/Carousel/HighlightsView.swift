@@ -31,8 +31,6 @@ struct HighlightsView: View {
 	}
 	
 	var body: some View {
-		Divider().padding(.horizontal)
-		
 		TabView {
 			ForEach(items, id: \.self) { item in
 				

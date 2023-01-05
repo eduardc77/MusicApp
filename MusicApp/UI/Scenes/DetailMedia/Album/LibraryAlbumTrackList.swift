@@ -10,7 +10,7 @@ import SwiftUI
 struct LibraryAlbumTrackList: View {
 	@EnvironmentObject private var playerObservableObject: PlayerObservableObject
 	@StateObject var libraryMediaObservableObject: LibraryMediaItemObservableObject
-	@State private var playingStarted: Bool = true
+	@State private var playingStarted: Bool = false
 
 	var body: some View {
 		VStack(alignment: .leading) {
@@ -51,15 +51,13 @@ struct LibraryAlbumTrackList: View {
 				.padding(.leading)
 
 				.onTapGesture {
-					playingStarted = true
-
 					libraryMediaObservableObject.playTrack(at: trackIndex)
 				}
 
 				.onReceive(NotificationCenter.default.publisher(for: .MPMusicPlayerControllerPlaybackStateDidChange)) { _ in
-					if libraryMediaObservableObject.player.playbackState == .playing {
+					if PlayerObservableObject.audioPlayer.playbackState == .playing {
 						playingStarted = true
-					} else if libraryMediaObservableObject.player.playbackState == .paused {
+					} else if PlayerObservableObject.audioPlayer.playbackState == .paused {
 						playingStarted = false
 					}
 				}

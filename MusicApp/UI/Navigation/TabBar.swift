@@ -42,7 +42,7 @@ struct TabBar: View {
           .tag(Tab.search)
       }
 
-			PlayerView(playerObservableObject: playerObservableObject)
+			PlayerView()
         .opacity(playerObservableObject.showPlayerView ? 1 : 0)
     }
     .ignoresSafeArea(.keyboard)

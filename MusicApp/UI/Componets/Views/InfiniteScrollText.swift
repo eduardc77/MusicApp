@@ -43,7 +43,7 @@ struct InfiniteScrollText: View {
 
 	private var infiniteScrollText: some View {
 		return GeometryReader { geoReader in
-			InfiniteCarousel(animationDuration: animationSpeed * geoReader.size.width,
+			InfiniteCarousel(animationDuration: animationSpeed * text.size(withFont: font).width,
 								  animationDelay: delayTime,
 								  scrollingDirection: .left,
 								  contentSize: text.size(withFont: font),

@@ -10,10 +10,9 @@ import MediaPlayer
 
 final class MediaItemObservableObject: ObservableObject {
 	// MARK: - Properties
-	
+
 	private let networkService: NetworkServiceProtocol
 	private var anyCancellable: Set<AnyCancellable> = []
-	private var player = MPMusicPlayerController.applicationMusicPlayer
 	private(set) var albumDuration: Int = 0
 	private(set) var albumTrackCount: Int = 0
 	
@@ -58,30 +57,30 @@ final class MediaItemObservableObject: ObservableObject {
 	}
 	
 	func playTrack(withId id: String) {
-		player.stop()
-		player.setQueue(with: [id])
+		PlayerObservableObject.audioPlayer.stop()
+		PlayerObservableObject.audioPlayer.setQueue(with: [id])
 		UserDefaults.standard.set([id], forKey: UserDefaultsKey.queueDefault)
 
-		player.play()
-		player.shuffleMode = MPMusicShuffleMode.off
+		PlayerObservableObject.audioPlayer.play()
+		PlayerObservableObject.audioPlayer.shuffleMode = MPMusicShuffleMode.off
 		UserDefaults.standard.set(false, forKey: UserDefaultsKey.shuffleDefault)
 	}
 	
 	func playAllTracks(isShuffle: Bool) {
 		configureAlbumDetails()
-		player.stop()
-		player.setQueue(with: trackIDsQueue)
+		PlayerObservableObject.audioPlayer.stop()
+		PlayerObservableObject.audioPlayer.setQueue(with: trackIDsQueue)
 
 		UserDefaults.standard.set(trackIDsQueue, forKey: UserDefaultsKey.queueDefault)
 		if isShuffle {
-			player.shuffleMode = MPMusicShuffleMode.songs
+			PlayerObservableObject.audioPlayer.shuffleMode = MPMusicShuffleMode.songs
 			UserDefaults.standard.set(true, forKey: UserDefaultsKey.shuffleDefault)
-			player.shuffleMode = MPMusicShuffleMode.songs
+			PlayerObservableObject.audioPlayer.shuffleMode = MPMusicShuffleMode.songs
 		} else {
 			UserDefaults.standard.set(false, forKey: UserDefaultsKey.shuffleDefault)
-			player.shuffleMode = MPMusicShuffleMode.off
+			PlayerObservableObject.audioPlayer.shuffleMode = MPMusicShuffleMode.off
 		}
-		player.play()
+		PlayerObservableObject.audioPlayer.play()
 	}
 	
 	func configureAlbumDetails() {

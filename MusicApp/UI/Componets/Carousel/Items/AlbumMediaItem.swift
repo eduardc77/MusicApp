@@ -20,14 +20,14 @@ struct AlbumMediaItem: View {
 				}
 				
 				VStack {
-					MediaItemName(name: media.collectionName, explicitness: media.collectionExplicitness)
+					MediaItemName(name: media.collectionName, explicitness: media.collectionExplicitness, font: .callout)
 						.frame(maxWidth: Metric.albumCarouselImageSize, alignment: .leading)
 					
 					Text(media.artistName)
 						.foregroundColor(.secondary)
 						.frame(maxWidth: Metric.albumCarouselImageSize, alignment: .leading)
+						.font(.footnote)
 				}
-				.font(.caption)
 				.lineLimit(1)
 			}
 			
@@ -38,7 +38,7 @@ struct AlbumMediaItem: View {
 
 // MARK: - Previews
 
-struct MediumMediaRowItem_Previews: PreviewProvider {
+struct AlbumMediaItem_Previews: PreviewProvider {
 	static var previews: some View {
 		AlbumMediaItem(media: musicPlaylists2.first ?? Media())
 	}
