@@ -10,7 +10,6 @@ import SwiftUI
 struct MediaImageView: View {
 	@StateObject private var mediaImageObservableObject: MediaImageObservableObject
 	@Binding private var visibleSide: FlipViewSide
-	@Binding var playing: Bool
 	@State var animate: Bool = false
 	var selected: Bool = false
 	private let imagePath: String?
@@ -21,10 +20,9 @@ struct MediaImageView: View {
 	private var contentMode: ContentMode
 	private var foregroundColor: Color
 
-	init(imagePath: String? = nil, artworkImage: UIImage? = nil, sizeType: SizeType = .defaultSize, cornerRadius: CGFloat = Metric.defaultCornerRadius, shadowProminence: ShadowProminence = .none, contentMode: ContentMode = .fit, foregroundColor: Color = .secondary.opacity(0.1), visibleSide: Binding<FlipViewSide> = .constant(.front), selected: Bool = false, playing: Binding<Bool> = .constant(false)) {
+	init(imagePath: String? = nil, artworkImage: UIImage? = nil, sizeType: SizeType = .defaultSize, cornerRadius: CGFloat = Metric.defaultCornerRadius, shadowProminence: ShadowProminence = .none, contentMode: ContentMode = .fit, foregroundColor: Color = .secondary.opacity(0.1), visibleSide: Binding<FlipViewSide> = .constant(.front), selected: Bool = false) {
 		_mediaImageObservableObject = StateObject(wrappedValue: MediaImageObservableObject())
 		_visibleSide = visibleSide
-		_playing = playing
 		self.selected = selected
 		self.imagePath = imagePath
 		self.artworkImage = artworkImage
@@ -86,9 +84,8 @@ struct MediaImageView: View {
 					if selected {
 						Color.gray.opacity(0.6)
 
-						NowPlayingEqualizerBars(animating: $playing, color: .white)
+						NowPlayingEqualizerBars(color: .white)
 							.frame(width: 16, height: 8)
-
 					}
 					RoundedRectangle(cornerRadius: cornerRadius)
 						.stroke(Color.secondary.opacity(0.6), lineWidth: 0.1)

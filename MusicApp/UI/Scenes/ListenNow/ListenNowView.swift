@@ -29,10 +29,7 @@ struct ListenNowView: View {
           Spacer(minLength: Metric.playerHeight)
         }
       }
-      .toolbar(content: {
-        AccountNavigationItem()
-      })
-      
+      .toolbar { AccountNavigationItem() }
       .navigationTitle("Listen Now")
     }
   }

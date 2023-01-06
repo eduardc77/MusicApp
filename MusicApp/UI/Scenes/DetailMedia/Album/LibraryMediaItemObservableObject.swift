@@ -24,7 +24,6 @@ final class LibraryMediaItemObservableObject: ObservableObject {
 	
 	var trackCount: Int {
 		guard !albumContents.libraryTracks.isEmpty else { return 0 }
-		
 		return albumContents.libraryTracks.count
 	}
 	
@@ -44,7 +43,6 @@ final class LibraryMediaItemObservableObject: ObservableObject {
 	// MARK: - Public Methods
 	
 	func playTrack(at index: Int) {
-		PlayerObservableObject.audioPlayer.stop()
 		PlayerObservableObject.audioPlayer.setQueue(with: trackIDsQueue)
 		UserDefaults.standard.set(trackIDsQueue, forKey: UserDefaultsKey.queueDefault)
 		PlayerObservableObject.audioPlayer.play()
@@ -54,7 +52,6 @@ final class LibraryMediaItemObservableObject: ObservableObject {
 	}
 	
 	func playAllTracks(isShuffle: Bool) {
-		PlayerObservableObject.audioPlayer.stop()
 		PlayerObservableObject.audioPlayer.setQueue(with: trackIDsQueue)
 		UserDefaults.standard.set(trackIDsQueue, forKey: UserDefaultsKey.queueDefault)
 		
@@ -82,12 +79,10 @@ final class LibraryMediaItemObservableObject: ObservableObject {
 			mediaItemQuery.addFilterPredicate(MPMediaPropertyPredicate(value: media.name,
 																						  forProperty: MPMediaItemPropertyTitle,
 																						  comparisonType: MPMediaPredicateComparison.contains))
-			
 			if let mediaItem = mediaItemQuery.items?.first {
 				return mediaItem
 			}
 		}
-		
 		return nil
 	}
 	

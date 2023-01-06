@@ -37,11 +37,10 @@ struct LibraryListView: View {
       .onMove(perform: move)
     }
     .listStyle(.plain)
-
     .frame(idealHeight: CGFloat(46 * currentSections.count), maxHeight: .infinity)
     .scrollingDisabled(true)
 
-    .onChange(of: editMode, perform: { editMode in
+    .onChange(of: editMode) { editMode in
       withAnimation {
         if !editMode.isEditing {
           currentSections = currentSections.filter { selection.contains($0) }
@@ -54,7 +53,7 @@ struct LibraryListView: View {
           }
         }
       }
-    })
+    }
 
     .onAppear {
       if let data = UserDefaults.standard.value(forKey: UserDefaultsKey.libraryListSelection) as? Data, let librarySelection = try? libraryObservableObject.propertyListDecoder.decode(Array<LibrarySection>.self, from: data) {

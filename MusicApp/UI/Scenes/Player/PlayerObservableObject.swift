@@ -20,16 +20,14 @@ final class PlayerObservableObject: ObservableObject {
 	@Published var expand: Bool = false
 	@Published var hasRecentMedia: Bool = false
 	@Published var showPlayerView = false
-	
 	var playerType: PlayerType = .audio
 	
 	// MARK: - Audio Player Properties
 	
-	@Published var nowPlayingItem: PlayableItem = PlayableItem(playing: .constant(false), media: Media())
-	@Published var playbackState: MPMusicPlaybackState?
+	@Published var nowPlayingItem: Media = Media()
+	@Published var playbackState: MPMusicPlaybackState = .stopped
 	@Published var playerOption = PlayerOption()
 	@Published var progressRate: Int = 0
-	
 	private var musicPlayerPlayingCancellable: AnyCancellable?
 	
 	// MARK: - Video Player Properties
@@ -66,7 +64,6 @@ final class PlayerObservableObject: ObservableObject {
 		if let recentMedia = UserDefaults.standard.array(forKey: UserDefaultsKey.queueDefault) as? [String] {
 			PlayerObservableObject.audioPlayer.setQueue(with: recentMedia)
 			PlayerObservableObject.audioPlayer.prepareToPlay()
-			PlayerObservableObject.audioPlayer.skipToBeginning()
 			hasRecentMedia = true
 		}
 		
@@ -91,7 +88,7 @@ final class PlayerObservableObject: ObservableObject {
 		}
 	}
 	
-	func makeNowPlaying(media: MPMediaItem? = nil, playing: Binding<Bool>) {
+	func makeNowPlaying(media: MPMediaItem? = nil) {
 		guard let media = media else { return }
 		
 		let kind: MediaKind
@@ -109,7 +106,7 @@ final class PlayerObservableObject: ObservableObject {
 		default: kind = MediaKind.album
 		}
 		
-		nowPlayingItem = PlayableItem(playing: playing, media: Media(mediaResponse: MediaResponse(id: media.playbackStoreID, artistId: 0, collectionId: 0, trackId: 0, wrapperType: "track", kind: kind.rawValue, name: media.title, artistName: media.artist, collectionName: media.albumTitle, trackName: media.title, collectionCensoredName: media.albumTitle, artistViewUrl: nil, collectionViewUrl: nil, trackViewUrl: nil, previewUrl: nil, artworkUrl100: nil, collectionPrice: nil, collectionHdPrice: 0, trackPrice: 0, collectionExplicitness: nil, trackExplicitness: media.isExplicitItem ? "explicit" : "notExplicit", discCount: 0, discNumber: nil, trackCount: media.albumTrackCount, trackNumber: media.albumTrackNumber, trackTimeMillis: media.playbackDuration.toInt, country: nil, currency: nil, primaryGenreName: media.genre, description: nil, longDescription: nil, releaseDate: media.releaseDate?.ISO8601Format(), contentAdvisoryRating: nil, trackRentalPrice: 0, artwork: media.artwork?.image(at: CGSize(width: 1024, height: 1024)), composer: media.composer, isCompilation: media.isCompilation)))
+		nowPlayingItem = Media(mediaResponse: MediaResponse(id: media.playbackStoreID, artistId: 0, collectionId: 0, trackId: 0, wrapperType: "track", kind: kind.rawValue, name: media.title, artistName: media.artist, collectionName: media.albumTitle, trackName: media.title, collectionCensoredName: media.albumTitle, artistViewUrl: nil, collectionViewUrl: nil, trackViewUrl: nil, previewUrl: nil, artworkUrl100: nil, collectionPrice: nil, collectionHdPrice: 0, trackPrice: 0, collectionExplicitness: nil, trackExplicitness: media.isExplicitItem ? "explicit" : "notExplicit", discCount: 0, discNumber: nil, trackCount: media.albumTrackCount, trackNumber: media.albumTrackNumber, trackTimeMillis: media.playbackDuration, country: nil, currency: nil, primaryGenreName: media.genre, description: nil, longDescription: nil, releaseDate: media.releaseDate?.ISO8601Format(), contentAdvisoryRating: nil, trackRentalPrice: 0, artwork: media.artwork?.image(at: CGSize(width: 1024, height: 1024)), composer: media.composer, isCompilation: media.isCompilation))
 		
 		hasRecentMedia = true
 	}
@@ -121,12 +118,21 @@ final class PlayerObservableObject: ObservableObject {
 		videoPlayer = VideoPlayerView(videoAssetUrl: videoAssetUrl)
 		expand = true
 		showPlayerView = true
+		
 	}
 	
 	func isNowPlaying(media: Media) -> Bool {
-		return (media.trackName == nowPlayingItem.media.trackName &&
-				  media.collectionName == nowPlayingItem.media.collectionName &&
-				  media.artistName == nowPlayingItem.media.artistName)
+		return (media.trackName == nowPlayingItem.trackName &&
+				  media.collectionName == nowPlayingItem.collectionName &&
+				  media.artistName == nowPlayingItem.artistName)
+	}
+
+	func play(_ media: Media) {
+		PlayerObservableObject.audioPlayer.setQueue(with: [media.id])
+		UserDefaults.standard.set([media.id], forKey: UserDefaultsKey.queueDefault)
+		PlayerObservableObject.audioPlayer.shuffleMode = MPMusicShuffleMode.off
+		UserDefaults.standard.set(false, forKey: UserDefaultsKey.shuffleDefault)
+		PlayerObservableObject.audioPlayer.play()
 	}
 }
 

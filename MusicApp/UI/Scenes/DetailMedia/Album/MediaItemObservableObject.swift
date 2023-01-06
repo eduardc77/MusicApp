@@ -15,6 +15,7 @@ final class MediaItemObservableObject: ObservableObject {
 	private var anyCancellable: Set<AnyCancellable> = []
 	private(set) var albumDuration: Int = 0
 	private(set) var albumTrackCount: Int = 0
+	private(set) var albumReleaseDate: String = ""
 	
 	// MARK: - Publishers
 	
@@ -26,11 +27,15 @@ final class MediaItemObservableObject: ObservableObject {
 	
 	var tracks: [Media] {
 		guard !trackResults.isEmpty else { return [] }
-		
 		var tracks = trackResults
 		tracks.removeFirst()
-		
 		return tracks
+	}
+
+	var album: Media? {
+		guard !trackResults.isEmpty else { return nil }
+		var tracks = trackResults
+		return tracks.removeFirst()
 	}
 	
 	// MARK: - Initialization
@@ -55,12 +60,10 @@ final class MediaItemObservableObject: ObservableObject {
 
 			.assign(to: &$trackResults)
 	}
-	
+
 	func playTrack(withId id: String) {
-		PlayerObservableObject.audioPlayer.stop()
 		PlayerObservableObject.audioPlayer.setQueue(with: [id])
 		UserDefaults.standard.set([id], forKey: UserDefaultsKey.queueDefault)
-
 		PlayerObservableObject.audioPlayer.play()
 		PlayerObservableObject.audioPlayer.shuffleMode = MPMusicShuffleMode.off
 		UserDefaults.standard.set(false, forKey: UserDefaultsKey.shuffleDefault)
@@ -68,7 +71,6 @@ final class MediaItemObservableObject: ObservableObject {
 	
 	func playAllTracks(isShuffle: Bool) {
 		configureAlbumDetails()
-		PlayerObservableObject.audioPlayer.stop()
 		PlayerObservableObject.audioPlayer.setQueue(with: trackIDsQueue)
 
 		UserDefaults.standard.set(trackIDsQueue, forKey: UserDefaultsKey.queueDefault)
@@ -92,6 +94,7 @@ final class MediaItemObservableObject: ObservableObject {
 			albumDuration += Double(track.playbackDuration)
 			albumTrackCount += 1
 		}
+		self.albumReleaseDate = album?.releaseDate ?? ""
 		self.albumDuration = Int((albumDuration / 60).rounded(.up))
 	}
 }

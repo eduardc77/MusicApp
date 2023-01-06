@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct NowPlayingEqualizerBars: View {
-	@Binding var animating: Bool
+	@State var animating: Bool = false
 	var color: Color = .appAccentColor
 	var numberOfBars = 4
 	var spacerWidthRatio: CGFloat = 0.6
 
 	private var barWidthScaleFactor: CGFloat {
-		1 / ( CGFloat(numberOfBars) + CGFloat(numberOfBars - 1) * spacerWidthRatio)
+		1 / (CGFloat(numberOfBars) + CGFloat(numberOfBars - 1) * spacerWidthRatio)
 	}
 
 	var body: some View {
@@ -31,16 +31,19 @@ struct NowPlayingEqualizerBars: View {
 				}
 			}
 			.clipped()
-			.onAppear {
-				if animating == false {
-					if PlayerObservableObject.audioPlayer.playbackState == .playing {
-						animating = true
-					} else if PlayerObservableObject.audioPlayer.playbackState == .paused {
-						animating = false
-					}
-				}
-			}
 		}
+		.onAppear { setupAnimation() }
+
+		.onReceive(NotificationCenter.default.publisher(for: .MPMusicPlayerControllerPlaybackStateDidChange)) { _ in
+			setupAnimation()
+		}
+		.onReceive(NotificationCenter.default.publisher(for: .MPMusicPlayerControllerNowPlayingItemDidChange)) { _ in
+			setupAnimation()
+		}
+	}
+
+	private func setupAnimation() {
+		animating = PlayerObservableObject.audioPlayer.playbackState == .playing
 	}
 }
 
@@ -81,7 +84,7 @@ struct NowPlayingEqualizerBars_Previews: PreviewProvider {
 		var body: some View {
 			VStack {
 				Spacer()
-				NowPlayingEqualizerBars(animating: $animating)
+				NowPlayingEqualizerBars()
 					.frame(width: 40, height: 24)
 
 				Spacer()

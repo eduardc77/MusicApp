@@ -11,8 +11,6 @@ import MediaPlayer
 struct AlbumTrackList: View {
 	@EnvironmentObject private var playerObservableObject: PlayerObservableObject
 	@StateObject var mediaItemObservableObject: MediaItemObservableObject
-	@State private var playingStarted: Bool = false
-
 	var media: Media
 
 	var body: some View {
@@ -26,8 +24,8 @@ struct AlbumTrackList: View {
 							VStack {
 								HStack {
 									Group {
-										if playerObservableObject.nowPlayingItem.media.trackName == track.trackName {
-											NowPlayingEqualizerBars(animating: $playingStarted)
+										if playerObservableObject.nowPlayingItem.trackName == track.trackName {
+											NowPlayingEqualizerBars()
 												.frame(width: 16, height: 8)
 										} else {
 											Text(track.trackNumber)
@@ -58,16 +56,7 @@ struct AlbumTrackList: View {
 						.padding(.leading)
 
 						.onTapGesture {
-							playingStarted = true
 							mediaItemObservableObject.playTrack(withId: track.id)
-						}
-
-						.onReceive(NotificationCenter.default.publisher(for: .MPMusicPlayerControllerPlaybackStateDidChange)){ _ in
-							if PlayerObservableObject.audioPlayer.playbackState == .playing {
-								playingStarted = true
-							} else if PlayerObservableObject.audioPlayer.playbackState == .paused {
-								playingStarted = false
-							}
 						}
 					}
 
@@ -76,7 +65,7 @@ struct AlbumTrackList: View {
 							Text("\(releaseDate)")
 						}
 
-						Text("\(mediaItemObservableObject.albumTrackCount) songs, \(mediaItemObservableObject.albumDuration) minutes")
+						Text("\(media.trackCount) songs, \(mediaItemObservableObject.albumDuration) minutes")
 					}
 					.font(.footnote)
 					.foregroundColor(.secondary)

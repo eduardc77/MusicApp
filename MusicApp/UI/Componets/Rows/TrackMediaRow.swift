@@ -19,11 +19,9 @@ struct TrackMediaRow: View {
 			
 			HStack(spacing: 14) {
 				if let uiImage = media.artwork {
-					MediaImageView(artworkImage: uiImage, sizeType: .trackRowItem,
-										playing: playerObservableObject.isNowPlaying(media: media) ? playerObservableObject.nowPlayingItem.$playing : .constant(false))
+					MediaImageView(artworkImage: uiImage, sizeType: .trackRowItem, selected: playerObservableObject.isNowPlaying(media: media))
 				} else {
-					MediaImageView(imagePath: media.artworkPath.resizedPath(size: 160), sizeType: .trackRowItem,
-										playing: playerObservableObject.isNowPlaying(media: media) ? playerObservableObject.nowPlayingItem.$playing : .constant(false))
+					MediaImageView(imagePath: media.artworkPath.resizedPath(size: 160), sizeType: .trackRowItem, selected: playerObservableObject.isNowPlaying(media: media))
 				}
 				
 				HStack {
@@ -46,12 +44,7 @@ struct TrackMediaRow: View {
 		.frame(width: Metric.largeCarouselItemWidth)
 		.contentShape(Rectangle())
 		.onTapGesture {
-			PlayerObservableObject.audioPlayer.stop()
-			PlayerObservableObject.audioPlayer.setQueue(with: [media.id])
-			UserDefaults.standard.set([media.id], forKey: UserDefaultsKey.queueDefault)
-			PlayerObservableObject.audioPlayer.shuffleMode = MPMusicShuffleMode.off
-			UserDefaults.standard.set(false, forKey: UserDefaultsKey.shuffleDefault)
-			PlayerObservableObject.audioPlayer.play()
+			playerObservableObject.play(media)
 		}
 	}
 }

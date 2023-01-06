@@ -10,7 +10,6 @@ import SwiftUI
 struct LibraryAlbumTrackList: View {
 	@EnvironmentObject private var playerObservableObject: PlayerObservableObject
 	@StateObject var libraryMediaObservableObject: LibraryMediaItemObservableObject
-	@State private var playingStarted: Bool = false
 
 	var body: some View {
 		VStack(alignment: .leading) {
@@ -19,8 +18,8 @@ struct LibraryAlbumTrackList: View {
 					VStack {
 						HStack {
 							Group {
-								if playerObservableObject.nowPlayingItem.media.trackName == libraryMediaObservableObject.trackTitle(at: trackIndex) {
-									NowPlayingEqualizerBars(animating: $playingStarted)
+								if playerObservableObject.nowPlayingItem.trackName == libraryMediaObservableObject.trackTitle(at: trackIndex) {
+									NowPlayingEqualizerBars()
 										.frame(width: 16, height: 8)
 								} else {
 									Text(String(libraryMediaObservableObject.trackNumber(at: trackIndex)))
@@ -52,14 +51,6 @@ struct LibraryAlbumTrackList: View {
 
 				.onTapGesture {
 					libraryMediaObservableObject.playTrack(at: trackIndex)
-				}
-
-				.onReceive(NotificationCenter.default.publisher(for: .MPMusicPlayerControllerPlaybackStateDidChange)) { _ in
-					if PlayerObservableObject.audioPlayer.playbackState == .playing {
-						playingStarted = true
-					} else if PlayerObservableObject.audioPlayer.playbackState == .paused {
-						playingStarted = false
-					}
 				}
 			}
 

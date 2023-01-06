@@ -37,7 +37,7 @@ struct MediaResponse: Codable {
   let discNumber: Int?
   let trackCount: Int?
   let trackNumber: Int?
-  let trackTimeMillis: Int?
+  let trackTimeMillis: Double?
   let country: String?
   let currency: String?
   let primaryGenreName: String?

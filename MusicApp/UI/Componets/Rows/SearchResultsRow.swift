@@ -11,7 +11,6 @@ import MediaPlayer
 struct SearchResultsRow: View {
 	@EnvironmentObject private var playerObservableObject: PlayerObservableObject
 	var media: Media
-	@State private var playingStarted: Bool = false
 	
 	init(media: Media) {
 		self.media = media
@@ -20,9 +19,9 @@ struct SearchResultsRow: View {
 	var body: some View {
 		HStack {
 			if let uiImage = media.artwork {
-				MediaImageView(artworkImage: uiImage, sizeType: .searchRow, selected: playerObservableObject.isNowPlaying(media: media), playing: $playingStarted)
+				MediaImageView(artworkImage: uiImage, sizeType: .searchRow, selected: playerObservableObject.isNowPlaying(media: media))
 			} else {
-				MediaImageView(imagePath: media.artworkPath.resizedPath(size: 100), sizeType: .searchRow, selected: playerObservableObject.isNowPlaying(media: media), playing: playerObservableObject.isNowPlaying(media: media) ? $playingStarted : .constant(false))
+				MediaImageView(imagePath: media.artworkPath.resizedPath(size: 100), sizeType: .searchRow, selected: playerObservableObject.isNowPlaying(media: media))
 			}
 			
 			HStack {
@@ -43,21 +42,7 @@ struct SearchResultsRow: View {
 		.contentShape(Rectangle())
 		
 		.onTapGesture {
-			PlayerObservableObject.audioPlayer.stop()
-			PlayerObservableObject.audioPlayer.setQueue(with: [media.id])
-			UserDefaults.standard.set([media.id], forKey: UserDefaultsKey.queueDefault)
-			PlayerObservableObject.audioPlayer.shuffleMode = MPMusicShuffleMode.off
-			UserDefaults.standard.set(false, forKey: UserDefaultsKey.shuffleDefault)
-			playingStarted = true
-			PlayerObservableObject.audioPlayer.play()
-		}
-
-		.onReceive(NotificationCenter.default.publisher(for: .MPMusicPlayerControllerPlaybackStateDidChange)){ _ in
-			if PlayerObservableObject.audioPlayer.playbackState == .playing {
-				playingStarted = true
-			} else if PlayerObservableObject.audioPlayer.playbackState == .paused {
-				playingStarted = false
-			}
+			playerObservableObject.play(media)
 		}
 	}
 }
