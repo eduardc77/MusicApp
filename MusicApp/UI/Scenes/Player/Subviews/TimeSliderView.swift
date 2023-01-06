@@ -19,7 +19,7 @@ struct TimeSliderView: View {
 	@State private var isDragging = false
 	@State private var timeBegin: Int = 0
 	@State private var timeRemain: Int = 0
-	@State private var timer = Timer.publish(every: 1, tolerance: 0.3, on: .main, in: .default).autoconnect()
+	@State private var timer = Timer.publish(every: 0.3, on: .main, in: .default).autoconnect()
 	private let trackDuration: Int
 	private var scaleAnimationDuration = 0.15
 
@@ -41,7 +41,7 @@ struct TimeSliderView: View {
 					Rectangle()
 						.fill(Color.lightGrayColor)
 						.frame(width: CGFloat(trackTimePosition) / CGFloat(trackDuration) * geometry.size.width, height: isDragging ? Metric.timeLineHeight * 2 : Metric.timeLineHeight)
-						.animation(.linear(duration: isDragging && timeBegin != 0 && timeRemain != trackDuration ? 0 : 1), value: timeRemain)
+						//.animation(.linear(duration: isDragging && timeBegin != 0 && timeRemain != trackDuration ? 0 : 1), value: timeRemain)
 				}
 				.clipShape(Capsule(style: .continuous))
 
@@ -97,7 +97,7 @@ struct TimeSliderView: View {
 						PlayerObservableObject.audioPlayer.currentPlaybackTime = TimeInterval(trackTimePosition)
 						DispatchQueue.main.asyncAfter(deadline: .now() + scaleAnimationDuration) {
 							isDragging = false
-							timer = Timer.publish(every: 1, tolerance: 0.3, on: .main, in: .default).autoconnect()
+							timer = Timer.publish(every: 0.3, on: .main, in: .default).autoconnect()
 						}
 					}
 			)
