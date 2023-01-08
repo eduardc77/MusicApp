@@ -129,7 +129,7 @@ final class ArtistViewObservableObject: ObservableObject {
     guard trackResults.isEmpty else { return }
     cleanErrorState()
     
-    networkService.request(endpoint: .getInfo(by: .lookup(id: artistId, entity: "song", media: "music", attribute: "songTerm", limit: "100", sort: "recent")))
+    networkService.request(endpoint: .getInfo(by: .lookup(id: artistId, entity: "song", media: "music", attribute: "songTerm", limit: "100", sort: "ratingIndex")))
       .compactMap { $0 as ITunesAPIResponse }
       .catch(handleError)
         .map(\.results)

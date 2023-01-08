@@ -51,15 +51,18 @@ struct PlayerView: View {
 			model.playbackState = PlayerObservableObject.audioPlayer.playbackState
 		}
 		.onReceive(NotificationCenter.default.publisher(for: .MPMusicPlayerControllerNowPlayingItemDidChange)) { _ in
-			model.playerType = .audio
 			guard let mediaItem = PlayerObservableObject.audioPlayer.nowPlayingItem else { return }
-			model.progressRate = PlayerObservableObject.audioPlayer.currentPlaybackTime.toInt
-			model.makeNowPlaying(media: mediaItem)
+			
+			model.setNowPlaying(media: mediaItem)
 		}
 	}
+}
 
+// MARK: - Private Methods
+
+private extension PlayerView {
 	// Drag Player
-	private func onChanged(value: DragGesture.Value) {
+	func onChanged(value: DragGesture.Value) {
 		withAnimation(.linear) {
 			if value.translation.height > 0 && model.expand {
 				offset = value.translation.height
@@ -68,7 +71,7 @@ struct PlayerView: View {
 	}
 
 	// Close Player
-	private func onEnded(value: DragGesture.Value) {
+	func onEnded(value: DragGesture.Value) {
 		withAnimation(.closePlayer) {
 			if value.translation.height > Metric.screenHeight / 12 {
 				model.expand = false
@@ -77,8 +80,8 @@ struct PlayerView: View {
 		}
 	}
 
-	private func expandPlayer() {
-		withAnimation(Animation.openPlayer) {
+	func expandPlayer() {
+		withAnimation(.openPlayer) {
 			model.expand = true
 		}
 	}
@@ -152,7 +155,7 @@ private extension PlayerView {
 	@ViewBuilder
 	var expandedMediaDetails: some View {
 		VStack(alignment: .leading, spacing: 2) {
-			InfiniteScrollText(text: model.nowPlayingItem.mediaResponse.name != nil ? model.nowPlayingItem.name : "Not Playing", explicitness: model.nowPlayingItem.trackExplicitness)
+			InfiniteScrollText(text: model.nowPlayingItem.mediaResponse.trackName != nil ? model.nowPlayingItem.trackName : "Not Playing", explicitness: model.nowPlayingItem.trackExplicitness)
 
 			Menu {
 				Button { } label: {
@@ -208,14 +211,8 @@ private extension PlayerView {
 	@ViewBuilder
 	var expandedControlsBlock: some View {
 		VStack {
-			switch model.playerType {
-			case .audio:
-				TimeSliderView(playerObservableObject: model, trackDuration: model.nowPlayingItem.trackTimeMillis.toInt, trackTimePosition: $model.progressRate)
-			case .video:
-				TimeSliderView(playerObservableObject: model, trackDuration: model.videoPlayer.trackDuration, trackTimePosition: $model.videoPlayer.trackTimePosition)
-			}
+			TimeSliderView()
 			PlayerControls()
-
 			VolumeView(playerType: model.playerType)
 		}
 	}
@@ -232,6 +229,7 @@ private extension PlayerView {
 						endPoint: .bottomTrailing)
 
 				} else {
+					// Video Player background
 					Color(.black)
 				}
 			} else {

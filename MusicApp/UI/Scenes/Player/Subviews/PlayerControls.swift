@@ -42,7 +42,7 @@ struct PlayerControls: View {
       } label: {
         switch playerObservableObject.playerType {
         case .video:
-          (playerObservableObject.videoPlayer.isPlaying ? Image(systemName: "pause.fill") : Image(systemName: "play.fill"))
+          (playerObservableObject.videoPlayer.player.timeControlStatus == .playing ? Image(systemName: "pause.fill") : Image(systemName: "play.fill"))
             .resizable()
             .frame(width: 36, height: 40)
             .foregroundColor(.white)

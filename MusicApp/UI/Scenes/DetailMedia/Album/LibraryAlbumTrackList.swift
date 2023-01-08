@@ -12,9 +12,11 @@ struct LibraryAlbumTrackList: View {
 	@StateObject var libraryMediaObservableObject: LibraryMediaItemObservableObject
 
 	var body: some View {
-		VStack(alignment: .leading) {
+		LazyVStack(alignment: .leading) {
 			ForEach(0 ..< libraryMediaObservableObject.trackCount, id: \.self) { trackIndex in
-				HStack {
+				Button {
+					libraryMediaObservableObject.playTrack(at: trackIndex)
+				} label: {
 					VStack {
 						HStack {
 							Group {
@@ -42,16 +44,14 @@ struct LibraryAlbumTrackList: View {
 						.background(.white.opacity(0.001))
 
 						Divider()
-							.padding(.leading, 24)
+
 					}
 					.frame(maxWidth: .infinity, maxHeight: .infinity)
-				}
-				.contentShape(Rectangle())
-				.padding(.leading)
 
-				.onTapGesture {
-					libraryMediaObservableObject.playTrack(at: trackIndex)
+					.contentShape(Rectangle())
+					.padding(.leading, 24)
 				}
+				.buttonStyle(.rowButton)
 			}
 
 			VStack(alignment: .leading, spacing: 4) {

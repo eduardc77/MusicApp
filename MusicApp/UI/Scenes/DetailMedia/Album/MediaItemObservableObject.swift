@@ -95,7 +95,7 @@ final class MediaItemObservableObject: ObservableObject {
 			albumTrackCount += 1
 		}
 		self.albumReleaseDate = album?.releaseDate ?? ""
-		self.albumDuration = Int((albumDuration / 60).rounded(.up))
+		self.albumDuration = (albumDuration / 60).rounded(.up).toInt
 	}
 }
 

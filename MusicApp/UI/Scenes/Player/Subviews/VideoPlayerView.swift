@@ -7,124 +7,162 @@
 
 import SwiftUI
 import AVKit
+import Combine
 
 struct VideoPlayerView: View {
-  @State var expand = false
-  @State var beenExpanded = false
-  @State var isPlaying = false
-  @State var trackTimePosition = 1
-  @State var trackDuration = 1
-  private var sizeType: SizeType
-  private var cornerRadius: CGFloat
-  var videoAssetUrl: URL = URL(string: "https://www.apple.com/404")!
-  
-  var player: AVPlayer = AVPlayer()
-  
-  init(videoAssetUrl: URL, sizeType: SizeType = .defaultSize, cornerRadius: CGFloat = Metric.defaultCornerRadius) {
-    self.sizeType = sizeType
-    self.cornerRadius = cornerRadius
-    self.videoAssetUrl = videoAssetUrl
-  }
-  
-  var body: some View {
-    PlayerViewController(player: player, videoAssetUrl: videoAssetUrl, expand: $expand, beenExpanded: $beenExpanded)
-      .onChange(of: isPlaying) { newValue in
-        togglePlayPause(newValue)
-      }
-    
-      .onAppear {
-        expand = false
+	@State var expand = false
+	private var sizeType: SizeType
+	private var cornerRadius: CGFloat
+	private var videoAssetUrl: URL = URL(string: "https://www.apple.com/404")!
 
-      }
-      .onDisappear {
-        guard !expand else { return }
-        beenExpanded = false
-        isPlaying = false
-        player.pause()
-        player.replaceCurrentItem(with: nil)
-      }
-      .onTapGesture {
-        expand.toggle()
-      }
-  }
-  
-  func getProgressRate() -> Int {
-    if player.currentItem?.status == .readyToPlay {
-      return Int(player.currentTime().seconds)
-    } else {
-      return 0
-    }
-  }
+	@State var player: AVPlayer = AVPlayer()
 
-  private func togglePlayPause(_ newValue: Bool) {
-    
-    if newValue {
-      player.play()
-    }
-    else {
-      player.pause()
-    }
-  }
-  
-  func toggleIsPlaying() {
-    isPlaying.toggle()
-  }
+	var trackTimePosition: Int {
+		if player.currentItem?.status == .readyToPlay  {
+			return CMTimeGetSeconds(player.currentTime()).toInt
+		} else {
+			return 0
+		}
+	}
+
+	var trackDuration: Int {
+		if player.currentItem?.status == .readyToPlay, CMTimeGetSeconds(player.currentItem?.duration ?? CMTime.zero).toInt != 0 {
+			return CMTimeGetSeconds(player.currentItem?.duration ?? CMTime.zero).toInt
+		} else {
+			return 1
+		}
+	}
+
+	init(videoAssetUrl: URL, sizeType: SizeType = .defaultSize, cornerRadius: CGFloat = Metric.defaultCornerRadius) {
+		self.sizeType = sizeType
+		self.cornerRadius = cornerRadius
+		self.videoAssetUrl = videoAssetUrl
+	}
+
+	var body: some View {
+		AVPlayerControllerRepresentable(player: $player, videoAssetUrl: videoAssetUrl, expand: $expand)
+
+			.onTapGesture {
+				expand.toggle()
+			}
+	}
+
+	func toggleIsPlaying() {
+		if player.timeControlStatus == .playing {
+			player.pause()
+		} else {
+			player.play()
+		}
+	}
+
 }
 
-struct PlayerViewController: UIViewControllerRepresentable {
-  var player: AVPlayer
-  var videoAssetUrl: URL
-  @Binding var expand: Bool
-  @Binding var beenExpanded: Bool
-  
-  func makeUIViewController(context: Context) -> AVPlayerViewController {
-    let playerVC = AVPlayerViewController()
-    playerVC.player = player
-    playerVC.exitsFullScreenWhenPlaybackEnds = true
-    return playerVC
-  }
-  
-  func updateUIViewController(_ uiViewController: AVPlayerViewController, context: Context) {
-    if expand {
-      DispatchQueue.main.async() {
-        uiViewController.enterFullScreen()
-        uiViewController.showsPlaybackControls = true
-        beenExpanded = true
-      }
-    } else {
-      if !beenExpanded {
-        resetPlayer(uiViewController)
-        let asset = AVAsset(url: videoAssetUrl)
-        let item = AVPlayerItem(asset: asset)
-        uiViewController.player?.replaceCurrentItem(with: item)
-      }
-      uiViewController.showsPlaybackControls = false
-      
+struct AVPlayerControllerRepresentable: UIViewControllerRepresentable {
+	@Binding var player: AVPlayer
+	var videoAssetUrl: URL
+	@Binding var expand: Bool
+
+	@State private var beenExpanded: Bool = false
+
+	func makeUIViewController(context: UIViewControllerRepresentableContext<AVPlayerControllerRepresentable>) -> AVPlayerViewController {
+		let controller  = AVPlayerViewController()
+		controller.player = player
+
+		player.preventsDisplaySleepDuringVideoPlayback = true
+		player.allowsExternalPlayback = true
+
+		controller.modalPresentationStyle = UIModalPresentationStyle.overFullScreen
+		context.coordinator.playerController = controller
+
+		return controller
+	}
+
+	func updateUIViewController(_  uiViewController: AVPlayerViewController , context: UIViewControllerRepresentableContext<AVPlayerControllerRepresentable>) {
+		if expand {
+			DispatchQueue.main.async() {
+				uiViewController.showsPlaybackControls = true
+				enterFullScreen(for: uiViewController)
+			}
+		} else {
+			if !beenExpanded {
+				uiViewController.showsPlaybackControls = false
+				let asset = AVAsset(url: videoAssetUrl)
+				let item = AVPlayerItem(asset: asset)
+				replacePlayerItem(for: uiViewController, with: item)
+				uiViewController.player?.play()
+			} else {
+				DispatchQueue.main.async() {
+					exitFullScreen(for: uiViewController)
+				}
+			}
+
+		}
+
+		func enterFullScreen(for playerController: AVPlayerViewController, animated: Bool = true) {
+			beenExpanded = true
+			playerController.perform(NSSelectorFromString("enterFullScreenAnimated:completionHandler:"), with: animated, with: nil)
+		}
+
+		func exitFullScreen(for playerController: AVPlayerViewController, animated: Bool = true) {
+			playerController.perform(NSSelectorFromString("exitFullScreenAnimated:completionHandler:"), with: animated, with: nil)
+
+			expand = false
+		}
+
+		func replacePlayerItem(for vc: AVPlayerViewController, with item: AVPlayerItem) {
 			DispatchQueue.global(qos: .background).async {
-        uiViewController.player?.play()
-      }
-    }
-  }
-  
-  func resetPlayer(_ vc: AVPlayerViewController) {
-    vc.player?.pause()
-    vc.player?.replaceCurrentItem(with: nil)
-  }
-}
+				vc.player?.replaceCurrentItem(with: item)
+			}
+		}
+	}
 
-extension AVPlayerViewController {
-  func enterFullScreen(animated: Bool = true) {
-    perform(NSSelectorFromString("enterFullScreenAnimated:completionHandler:"), with: animated, with: nil)
-  }
-}
+	class Coordinator: NSObject, AVPlayerViewControllerDelegate {
+		weak var playerController: AVPlayerViewController? {
+			didSet {
+				playerController?.delegate = self
+			}
+		}
+		private var subscriber: AnyCancellable? = nil
 
+		override init() {
+			super.init()
+
+			subscriber = NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)
+				.sink { [weak self] _ in
+					self?.deviceRotated()
+				}
+		}
+
+		func deviceRotated() {
+			if UIDevice.current.orientation.isLandscape {
+				self.enterFullScreen(animated: true)
+			}
+		}
+
+		func enterFullScreen(animated: Bool = true) {
+			playerController?.showsPlaybackControls = true
+			playerController?.perform(NSSelectorFromString("enterFullScreenAnimated:completionHandler:"), with: animated, with: nil)
+		}
+
+		func playerViewController(_ playerViewController: AVPlayerViewController, willEndFullScreenPresentationWithAnimationCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+			coordinator.animate(alongsideTransition: nil) { transitionContext in
+				playerViewController.player?.play()
+
+			}
+		}
+	}
+
+
+
+	func makeCoordinator() -> Coordinator {
+		Coordinator()
+	}
+}
 
 // MARK: - Previews
 
 struct VideoPlayerView_Previews: PreviewProvider {
 	struct VideoPlayerViewExample: View {
-		@State var expand: Bool = false
-
 		var body: some View {
 			VStack {
 				Spacer()

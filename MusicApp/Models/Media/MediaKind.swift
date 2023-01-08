@@ -2,43 +2,44 @@
 //  MediaKind.swift
 //  MusicApp
 //
-//  Created by Eduard Caziuc on 18.04.2022.
+//  Created by Eduard Caziuc on 07.01.2023.
 //
 
 enum MediaKind: String {
-  case album
-  case song
-  case artist
-  case playlist
-  case musicVideo
-  case ebook
-  case movie
-  case tvSeason
-  case audiobook
-  case podcast
-  
-  var title: String {
-    switch self {
-    case .album, .song, .artist, .ebook, .movie, .audiobook, .podcast: return self.rawValue.capitalized
-    case .playlist: return "Playlists"
-    case .musicVideo: return "Music Videos"
-    case .tvSeason: return "TV Shows"
-    }
-  }
-  
-  var entity: String {
-    switch self {
-    case .artist: return "musicArtist"
-    case .playlist: return "playlists"
-    default: return self.rawValue
-    }
-  }
-  
-  var titleUppercased: String {
-    title.uppercased()
-  }
-  
-  var id: String { self.rawValue }
+	case album
+	case song
+	case artist
+	case mix
+	case musicVideo
+	case interactiveBooklet
+	case featureMovie
+	case tvEpisode
+	case ebook
+	case podcastEpisode
+
+	var value: String {
+		switch self {
+		case .interactiveBooklet: return "interactive-booklet"
+		case .featureMovie: return "feature-movie"
+		case .podcastEpisode: return "podcast-episode"
+		case .musicVideo: return "music-video"
+		case .tvEpisode: return "tv-episode"
+		default: return self.rawValue
+		}
+	}
+
+	var title: String {
+		switch self {
+		case .musicVideo: return "Music Video"
+		case .podcastEpisode: return "Podcast"
+		case .tvEpisode: return "TV Show"
+		case .interactiveBooklet: return "Ebook"
+		case .featureMovie: return "Movie"
+		default: return self.value.capitalized
+		}
+	}
+
+	var titleUppercased: String { title.uppercased() }
 }
 
-extension MediaKind: CaseIterable, Identifiable, Codable { }
+extension MediaKind: CaseIterable, Codable { }

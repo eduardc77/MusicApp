@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct InfiniteScrollText: View {
-	@State var text: String
+	var text: String
 	var explicitness: Explicitness = .notExplicit
 	var textColor: Color = .white.opacity(0.9)
 	var animationSpeed: Double = 0.03

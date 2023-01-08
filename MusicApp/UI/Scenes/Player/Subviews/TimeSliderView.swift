@@ -9,27 +9,18 @@ import SwiftUI
 import MediaPlayer
 
 struct TimeSliderView: View {
-	@ObservedObject var playerObservableObject: PlayerObservableObject
+	@EnvironmentObject private var model: PlayerObservableObject
 
 	// MARK: - Private Properties
 
-	@Binding private var trackTimePosition: Int
 	@State private var xOffset: CGFloat = 0
 	@State private var lastOffset: CGFloat = 0
 	@State private var isDragging = false
-	@State private var timeBegin: Int = 0
+	@State private var trackTimePosition: Int = 0
 	@State private var timeRemain: Int = 0
-	@State private var timer = Timer.publish(every: 0.3, on: .main, in: .default).autoconnect()
-	private let trackDuration: Int
+	@State private var timer = Timer.publish(every: 0, on: .main, in: .default).autoconnect()
+	@State private var trackDuration: Int = 1
 	private var scaleAnimationDuration = 0.15
-
-	init(playerObservableObject: PlayerObservableObject, trackDuration: Int, trackTimePosition: Binding<Int>) {
-		self.playerObservableObject = playerObservableObject
-		self.trackDuration = trackDuration
-		self._trackTimePosition = trackTimePosition
-		_timeBegin = State(wrappedValue: $trackTimePosition.wrappedValue)
-		_timeRemain = State(initialValue: trackDuration - timeBegin)
-	}
 
 	var body: some View {
 		GeometryReader { geometry in
@@ -41,34 +32,33 @@ struct TimeSliderView: View {
 					Rectangle()
 						.fill(Color.lightGrayColor)
 						.frame(width: CGFloat(trackTimePosition) / CGFloat(trackDuration) * geometry.size.width, height: isDragging ? Metric.timeLineHeight * 2 : Metric.timeLineHeight)
-						//.animation(.linear(duration: isDragging && timeBegin != 0 && timeRemain != trackDuration ? 0 : 1), value: timeRemain)
+
+
 				}
 				.clipShape(Capsule(style: .continuous))
 
 				.onReceive(timer) { _ in
-					switch playerObservableObject.playerType {
+					switch model.playerType {
 					case .audio:
-						guard PlayerObservableObject.audioPlayer.playbackState == .playing else { return }
-						timeBegin = Int(PlayerObservableObject.audioPlayer.currentPlaybackTime)
-						timeRemain = trackDuration - timeBegin
-						playerObservableObject.progressRate = PlayerObservableObject.audioPlayer.currentPlaybackTime.toInt
+						trackDuration = model.nowPlayingItem.trackTimeMillis.toInt
+						trackTimePosition = PlayerObservableObject.audioPlayer.currentPlaybackTime.toInt
+						timeRemain = trackDuration - trackTimePosition
 					case .video:
-						guard playerObservableObject.videoPlayer.isPlaying else { return }
-						timeBegin = playerObservableObject.videoPlayer.getProgressRate()
-						timeRemain = playerObservableObject.videoPlayer.trackDuration - timeBegin
-						playerObservableObject.videoPlayer.trackTimePosition = timeBegin
+						trackDuration = model.videoPlayer.trackDuration
+						trackTimePosition = model.videoPlayer.trackTimePosition
+						timeRemain = trackDuration - trackTimePosition
 					}
 				}
 				.frame(height: Metric.trackTimeSliderHeight)
 
 				HStack() {
-					Text(timeBegin.toTime())
+					Text(trackTimePosition.toTime)
 						.font(.caption2).bold()
 						.foregroundColor( isDragging ? .white.opacity(0.9) : Color.lightGrayColor2)
 
 					Spacer()
 
-					Text("-" + timeRemain.toTime())
+					Text("-" + timeRemain.toTime)
 						.font(.caption2).bold()
 						.foregroundColor( isDragging ? .white.opacity(0.9) : Color.lightGrayColor2)
 				}
@@ -90,14 +80,13 @@ struct TimeSliderView: View {
 						xOffset = sliderPos
 						let sliderVal = sliderPos / geometry.size.width * 100
 						trackTimePosition = Int(sliderVal * CGFloat(trackDuration) / 100)
-						timeBegin = trackTimePosition
-						timeRemain = trackDuration - timeBegin
+						timeRemain = trackDuration - trackTimePosition
 					}
 					.onEnded { _ in
 						PlayerObservableObject.audioPlayer.currentPlaybackTime = TimeInterval(trackTimePosition)
 						DispatchQueue.main.asyncAfter(deadline: .now() + scaleAnimationDuration) {
 							isDragging = false
-							timer = Timer.publish(every: 0.3, on: .main, in: .default).autoconnect()
+							timer = Timer.publish(every: 0, on: .main, in: .default).autoconnect()
 						}
 					}
 			)
@@ -106,7 +95,6 @@ struct TimeSliderView: View {
 		.padding(.top, 8)
 		.scaleEffect(x: isDragging ? 1.06 : 1, y: isDragging ? 1.16 : 1)
 		.animation(.linear(duration:scaleAnimationDuration), value: isDragging)
-		
 	}
 }
 
@@ -116,11 +104,11 @@ struct TimeSliderView: View {
 struct TimeView_Previews: PreviewProvider {
 	struct TimeView: View {
 		@StateObject var playerObservableObject = PlayerObservableObject()
-		@State var trackTimePosition: Int = 0
+		var trackTimePosition: Int = 0
 
 		var body: some View {
 			VStack {
-				TimeSliderView(playerObservableObject: playerObservableObject, trackDuration: 215, trackTimePosition: $trackTimePosition)
+				TimeSliderView()
 			}
 			.background(.secondary)
 		}

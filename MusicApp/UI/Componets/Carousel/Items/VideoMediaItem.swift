@@ -35,9 +35,9 @@ struct VideoMediaItem: View {
 		}
 		
 		.onTapGesture {         
-			withAnimation {
-				playerObservableObject.configureVideoPlayer(with: media.previewUrl)
-			}
+
+				playerObservableObject.play(media, videoAssetUrl: media.previewUrl)
+			
 		}
 	}
 }

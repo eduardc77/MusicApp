@@ -21,9 +21,9 @@ extension FavoriteMedia {
   @NSManaged public var image: String?
   @NSManaged public var createdAt: Date
   
-  var mediaType: MediaKind? {
+  var mediaType: MediaType? {
     get {
-      MediaKind(rawValue: type) ?? nil
+      MediaType(rawValue: type) ?? nil
     }
     set {
       if let newValue = newValue {

@@ -26,7 +26,7 @@ class CoreDataManager {
       } else if number <= 14 {
         favorite.mediaType = .movie
       } else {
-        favorite.mediaType = .tvSeason
+        favorite.mediaType = .tvShow
       }
     }
     

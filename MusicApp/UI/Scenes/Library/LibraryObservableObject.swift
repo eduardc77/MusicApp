@@ -115,7 +115,7 @@ private extension LibraryObservableObject {
     case .artists: collections = MPMediaQuery.artists().collections
     case .albums: collections = MPMediaQuery.albums().collections
     case .songs: collections = MPMediaQuery.songs().collections
-    case .musicVideos: collections = MPMediaQuery.songs().collections
+	 case .musicVideos: collections = MPMediaQuery.playlists().collections
     case .genres: collections = MPMediaQuery.genres().collections
     case .compilations: collections = MPMediaQuery.compilations().collections
     case .composers: collections = MPMediaQuery.composers().collections
@@ -128,21 +128,26 @@ private extension LibraryObservableObject {
       collections.forEach({ libraryMediaItemCollection in
         guard let libraryMedia = libraryMediaItemCollection.representativeItem else { return }
         
-        let kind: MediaKind
+        let mediaKind: MediaKind
         
         switch libraryMedia.mediaType {
-        case .music: kind = MediaKind.song
-        case .podcast: kind = MediaKind.podcast
-        case .audioBook: kind = MediaKind.audiobook
-        case .anyAudio: kind = MediaKind.song
-        case .movie: kind = MediaKind.movie
-        case .tvShow: kind = MediaKind.tvSeason
-        case .musicVideo: kind = MediaKind.musicVideo
-        case .movie: kind = MediaKind.movie
-        case .anyVideo: kind = MediaKind.musicVideo
-        default: kind = MediaKind.album
+		  case .music: mediaKind = .song
+		  case .podcast: mediaKind = .podcastEpisode
+		  case .audioBook: mediaKind = .ebook
+		  case .anyAudio: mediaKind = .song
+        case .movie: mediaKind = .featureMovie
+		  case .videoPodcast: mediaKind = .podcastEpisode
+        case .tvShow: mediaKind = .tvEpisode
+        case .musicVideo: mediaKind = .musicVideo
+		  case .anyAudio: mediaKind = .song
+		  case .audioITunesU: mediaKind = .song
+		  case .videoITunesU: mediaKind = .musicVideo
+		  case .homeVideo: mediaKind = .musicVideo
+		  case .anyVideo: mediaKind = .musicVideo
+		  case .any: mediaKind = .song
+		  default: mediaKind = .song
         }
-        
+
         let wrapperType: WrapperType
         
         switch librarySection {
@@ -151,7 +156,7 @@ private extension LibraryObservableObject {
         default: wrapperType = .collection
         }
         
-        let newLibraryMedia = Media(mediaResponse: MediaResponse(id: libraryMedia.playbackStoreID, artistId: 0, collectionId: 0, trackId: 0, wrapperType: wrapperType.rawValue, kind: kind.rawValue, name: libraryMedia.title, artistName: libraryMedia.artist, collectionName: libraryMedia.albumTitle, trackName: libraryMedia.title, collectionCensoredName: libraryMedia.albumTitle, artistViewUrl: nil, collectionViewUrl: nil, trackViewUrl: nil, previewUrl: nil, artworkUrl100: nil, collectionPrice: nil, collectionHdPrice: 0, trackPrice: 0, collectionExplicitness: nil, trackExplicitness: libraryMedia.isExplicitItem ? "explicit" : "notExplicit", discCount: 0, discNumber: nil, trackCount: libraryMedia.albumTrackCount, trackNumber: libraryMedia.albumTrackNumber, trackTimeMillis: libraryMedia.playbackDuration, country: nil, currency: nil, primaryGenreName: libraryMedia.genre, description: nil, longDescription: nil, releaseDate: libraryMedia.releaseDate?.ISO8601Format().description, contentAdvisoryRating: nil, trackRentalPrice: 0, artwork: libraryMedia.artwork?.image(at: CGSize(width: 1024, height: 1024)), composer: libraryMedia.composer, isCompilation: libraryMedia.isCompilation, dateAdded: libraryMedia.dateAdded))
+			let newLibraryMedia = Media(mediaResponse: MediaResponse(id: libraryMedia.playbackStoreID, artistId: 0, collectionId: 0, trackId: 0, wrapperType: wrapperType.rawValue, kind: mediaKind.value, name: libraryMedia.title, artistName: libraryMedia.artist, collectionName: libraryMedia.albumTitle, trackName: libraryMedia.title, collectionCensoredName: libraryMedia.albumTitle, artistViewUrl: nil, collectionViewUrl: nil, trackViewUrl: nil, previewUrl: nil, artworkUrl100: nil, collectionPrice: nil, collectionHdPrice: 0, trackPrice: 0, collectionExplicitness: nil, trackExplicitness: libraryMedia.isExplicitItem ? "explicit" : "notExplicit", discCount: 0, discNumber: nil, trackCount: libraryMedia.albumTrackCount, trackNumber: libraryMedia.albumTrackNumber, trackTimeMillis: libraryMedia.playbackDuration, country: nil, currency: nil, primaryGenreName: libraryMedia.genre, description: nil, longDescription: nil, releaseDate: libraryMedia.releaseDate?.ISO8601Format().description, contentAdvisoryRating: nil, trackRentalPrice: 0, artwork: libraryMedia.artwork?.image(at: CGSize(width: 1024, height: 1024)), composer: libraryMedia.composer, isCompilation: libraryMedia.isCompilation, dateAdded: libraryMedia.dateAdded))
         
         // Set Recently added albums
         if librarySection == .albums, let oneYearBefore = Calendar.current.date(byAdding: .year, value: -2, to: Date()), libraryMedia.dateAdded >= oneYearBefore {

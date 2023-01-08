@@ -72,20 +72,19 @@ struct SearchListView: View {
       }
       .padding(.vertical, 10)
       .background(.ultraThinMaterial)
-      
     }
   }
 }
 
 struct MediaKindSegmentedControl: View {
   @ObservedObject var searchObservableObject: SearchObservableObject
-  @State var selectedMediaKind: MediaKind = .album
+  @State var selectedMediaKind: MediaType = .topResult
   @Namespace var animation
   
   var body: some View {
     ScrollView(.horizontal, showsIndicators: false) {
       HStack {
-        ForEach(MediaKind.allCases, id: \.self) { mediaKind in
+        ForEach(MediaType.allCases, id: \.self) { mediaKind in
           Button(action: {
             withAnimation {
               searchObservableObject.select(mediaKind)
