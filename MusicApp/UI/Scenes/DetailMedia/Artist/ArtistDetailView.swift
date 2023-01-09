@@ -63,6 +63,7 @@ struct ArtistDetailView: View {
 									NavigationLink(destination: AlbumDetailView(media: featureAlbum, searchObservableObject: SearchObservableObject())) {
 										ArtistFeaturedAlbumRow(media: featureAlbum, action: {})
 									}
+									.padding(.bottom)
 								}
 							case .topSongs:
 								if !artistObservableObject.tracks.isEmpty {
