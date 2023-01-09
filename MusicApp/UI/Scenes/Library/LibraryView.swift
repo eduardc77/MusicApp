@@ -17,18 +17,15 @@ struct LibraryView: View {
 		NavigationView {
 			if libraryObservableObject.refreshingLibrary {
 				LoadingView()
+
 			} else {
 				if libraryObservableObject.status == .permitted {
 					if !libraryObservableObject.albums.isEmpty {
 						ScrollView {
-							Section {
-								LibraryListView(libraryObservableObject: libraryObservableObject, editMode: $editMode)
-							}
+							LibraryListView(libraryObservableObject: libraryObservableObject, editMode: $editMode)
 
 							if !editMode.isEditing {
-								Section {
-									VerticalMediaGridView(mediaItems: libraryObservableObject.recentlyAdded, title: "Recently Added", imageSize: .albumCarouselItem, scrollDisabled: true)
-								}
+								VerticalMediaGridView(mediaItems: libraryObservableObject.recentlyAdded, title: "Recently Added", imageSize: .albumCarouselItem, scrollDisabled: true, topPadding: 0)
 							}
 						}
 						.navigationTitle("Library")

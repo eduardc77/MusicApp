@@ -8,39 +8,41 @@
 import SwiftUI
 
 struct ListenNowView: View {
-  @EnvironmentObject private var playerObservableObject: PlayerObservableObject
+	@EnvironmentObject private var playerObservableObject: PlayerObservableObject
 
-  var body: some View {
-    NavigationView {
-      ScrollView {
-        VStack {
-          HighlightsView(items: selectedStations, imageSize: .highlight)
+	var body: some View {
+		NavigationView {
+			ScrollView {
+				VStack {
+					HighlightsView(items: selectedStations, imageSize: .highlightCarouselItem)
 
-          HorizontalMediaGridView(mediaItems: musicPlaylists2, title: "Best New Songs", imageSize: .trackRowItem, rowCount: 4)
+					HorizontalMediaGridView(mediaItems: musicPlaylists, title: "Recently Played", imageSize: .albumCarouselItem)
 
-          HorizontalMediaGridView(mediaItems: musicPlaylists, title: "You Gotta Hear", imageSize: .albumCarouselItem, rowCount: 1)
+					HorizontalMediaGridView(mediaItems: musicPlaylists2, title: "Top Picks", imageSize: .albumCarouselItem)
 
-          HorizontalMediaGridView(mediaItems: musicPlaylists, title: "Stations for You", imageSize: .trackRowItem, rowCount: 4)
+					HorizontalMediaGridView(mediaItems: musicPlaylists, title: "Stations for You", imageSize: .trackRowItem, rowCount: 4)
 
-          HorizontalMediaGridView(mediaItems: musicPlaylists, title: "New Music", imageSize: .albumCarouselItem, rowCount: 2)
-        }
+					HorizontalMediaGridView(mediaItems: musicPlaylists2, title: "Chill", imageSize: .albumCarouselItem)
 
-        if playerObservableObject.showPlayerView, !playerObservableObject.expand {
-          Spacer(minLength: Metric.playerHeight)
-        }
-      }
-      .toolbar { AccountNavigationItem() }
-      .navigationTitle("Listen Now")
-    }
-  }
+					HorizontalMediaGridView(mediaItems: musicPlaylists2, title: "Made for You", imageSize: .trackRowItem, rowCount: 4)
+
+					HorizontalMediaGridView(mediaItems: musicPlaylists2, title: "New Releases", imageSize: .albumCarouselItem, rowCount: 2)
+				}
+
+				if playerObservableObject.showPlayerView, !playerObservableObject.expand { Spacer(minLength: Metric.playerHeight) }
+			}
+			.toolbar { AccountNavigationItem() }
+			.navigationTitle("Listen Now")
+		}
+	}
 }
 
 
 // MARK: - Previews
 
 struct ListenNowView_Previews: PreviewProvider {
-  static var previews: some View {
-    ListenNowView()
+	static var previews: some View {
+		ListenNowView()
 			.environmentObject(PlayerObservableObject())
-  }
+	}
 }

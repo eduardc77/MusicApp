@@ -72,9 +72,7 @@ final class SearchObservableObject: ObservableObject {
 
 	var chainTopResultsSearch: Void {
 		guard selectedMediaType == .topResult else { return }
-
 	}
-
 }
 
 // MARK: - Private Methods
@@ -82,7 +80,7 @@ final class SearchObservableObject: ObservableObject {
 private extension SearchObservableObject {
 	var chainSearch: Void {
 		$searchTerm
-			.debounce(for: .seconds(0.3), scheduler: RunLoop.main)
+			.debounce(for: .seconds(0.6), scheduler: DispatchQueue.main)
 			.filter(validSearching)
 			.flatMap(search)
 			.map { $0.map(Media.init) }

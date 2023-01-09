@@ -15,13 +15,6 @@ struct NavigationLinkList<Content: View, Enum: RawRepresentable & CaseIterable &
   var title: String = ""
   
   var body: some View {
-    VStack(spacing: 8) {
-      if !title.isEmpty {
-        Text(title)
-          .font(.title2.bold())
-          .frame(maxWidth: .infinity, alignment: .leading)
-          .padding(.horizontal)
-      }
       VStack(spacing: 0) {
         Divider()
           .padding(.leading)
@@ -32,7 +25,7 @@ struct NavigationLinkList<Content: View, Enum: RawRepresentable & CaseIterable &
               content[enumCase.rawValue]
             } label: {
               Text(String(describing: enumCase.title))
-                .font(.body)
+                .font(.title3)
                 .foregroundColor(.accentColor)
             }
           }
@@ -40,9 +33,10 @@ struct NavigationLinkList<Content: View, Enum: RawRepresentable & CaseIterable &
         .listStyle(.plain)
         .scrollingDisabled(true)
       }
-    }
+
     .frame(idealHeight: CGFloat(50 * rowItems.allCases.count), maxHeight: .infinity)
-	 .padding(.vertical)
+	 .labeledViewModifier(header: !title.isEmpty ? title : nil)
+	 .padding(.top)
   }
 }
 

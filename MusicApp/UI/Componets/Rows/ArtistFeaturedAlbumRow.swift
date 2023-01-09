@@ -1,5 +1,5 @@
 //
-//  AlbumMediaRow.swift
+//  ArtistFeaturedAlbumRow.swift
 //  MusicApp
 //
 //  Created by Eduard Caziuc on 15.05.2022.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct AlbumMediaRow: View {
+struct ArtistFeaturedAlbumRow: View {
   var media: Media
   var imageData: Data?
   var action: () -> Void
@@ -16,9 +16,9 @@ struct AlbumMediaRow: View {
     VStack {
       HStack(spacing: 16) {
         if let uiImage = media.artwork {
-          MediaImageView(artworkImage: uiImage, sizeType: .albumCollectionRow)
+          MediaImageView(artworkImage: uiImage, sizeType: .artistFeatureAlbumItem)
         } else {
-          MediaImageView(imagePath: media.artworkPath.resizedPath(size: 260), sizeType: .albumCollectionRow)
+          MediaImageView(imagePath: media.artworkPath.resizedPath(size: 260), sizeType: .artistFeatureAlbumItem)
         }
         
         VStack(alignment: .leading) {
@@ -45,7 +45,7 @@ struct AlbumMediaRow: View {
         }
       }
     }
-    .padding()
+	 .padding()
   }
 }
 
@@ -54,6 +54,6 @@ struct AlbumMediaRow: View {
 
 struct AlbumMediaRow_Previews: PreviewProvider {
 	static var previews: some View {
-		AlbumMediaRow(media: musicPlaylists2.first ?? Media(), action: {})
+		ArtistFeaturedAlbumRow(media: musicPlaylists2.first ?? Media(), action: {})
 	}
 }

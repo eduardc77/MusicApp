@@ -22,11 +22,11 @@ struct HighlightsView: View {
 		case .trackRowItem:
 			gridRows = Array(repeating: .init(.fixed(Metric.trackRowItemHeight)), count: rowCount)
 		case .albumCarouselItem:
-			gridRows = Array(repeating: .init(.fixed(Metric.albumRowItemHeight)), count: rowCount)
-		case .highlight:
+			gridRows = Array(repeating: .init(.fixed(Metric.albumCarouselImageSize)), count: rowCount)
+		case .highlightCarouselItem:
 			gridRows = Array(repeating: .init(.fixed(Metric.highlightCarouselItemHeight)), count: rowCount)
 		default:
-			gridRows = Array(repeating: .init(.fixed(Metric.albumRowItemHeight)), count: rowCount)
+			gridRows = Array(repeating: .init(.fixed(Metric.albumCarouselImageSize)), count: rowCount)
 		}
 	}
 	
@@ -41,7 +41,7 @@ struct HighlightsView: View {
 					TrackMediaRow(media: media)
 				case .albumCarouselItem:
 					AlbumMediaItem(media: media)
-				case .highlight:
+				case .highlightCarouselItem:
 					HighlightMediaItem(media: media)
 				default: AlbumMediaItem(media: media)
 				}
@@ -59,7 +59,7 @@ struct HighlightsView: View {
 struct HighlightsView_Previews: PreviewProvider {
 	static var previews: some View {
 		VStack {
-			HighlightsView(items: selectedStations, imageSize: .highlight)
+			HighlightsView(items: selectedStations, imageSize: .highlightCarouselItem)
 		}
 	}
 }

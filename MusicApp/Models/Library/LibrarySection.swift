@@ -66,4 +66,4 @@ enum LibrarySection: String {
   }
 }
 
-extension LibrarySection: CaseIterable, Codable, Hashable { }
+extension LibrarySection: CaseIterable, Codable, Hashable {}

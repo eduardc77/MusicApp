@@ -14,43 +14,43 @@ struct VerticalMediaGridView: View {
 	
 	var title: String
 	var imageSize: SizeType
+	var topPadding: CGFloat = 8
 	var columns: [GridItem]
-	var gridSpacing: CGFloat?
+	@State var gridSpacing: CGFloat?
 	var scrollDisabled: Bool
 	
-	init(mediaItems: [Media], title: String = "", imageSize: SizeType, scrollDisabled: Bool = false) {
+	init(mediaItems: [Media], title: String = "", imageSize: SizeType, scrollDisabled: Bool = false, topPadding: CGFloat = 8) {
 		self.mediaItems = mediaItems
 		self.title = title
 		self.imageSize = imageSize
 		self.scrollDisabled = scrollDisabled
+		self.topPadding = topPadding
 		
 		switch imageSize {
 		case .trackRowItem:
-			columns = Array(repeating: .init(.flexible(), spacing: 8), count: 1)
-			gridSpacing = 0
+			columns = Array(repeating: .init(.flexible(), spacing: 0), count: 1)
+			setupGridSpacing(gridSpacing, defaultSpace: 2)
+		case .albumRow:
+			columns = Array(repeating: .init(.flexible(), spacing: 0), count: 1)
+			setupGridSpacing(gridSpacing, defaultSpace: 2)
 		case .albumCarouselItem, .videoCarouselItem:
-			columns = Array(repeating: .init(.flexible(), spacing: 12), count: 2)
-			gridSpacing = 12
+			columns = Array(repeating: .init(.flexible(), spacing: 24), count: 2)
+			setupGridSpacing(gridSpacing, defaultSpace: 24)
 		default:
 			columns = Array(repeating: .init(.flexible(), spacing: 10), count: 2)
-			gridSpacing = 12
+			setupGridSpacing(gridSpacing, defaultSpace: 16)
 		}
 	}
 	
 	var body: some View {
-		if !title.isEmpty {
-			Text(title)
-				.font(.title2.bold())
-				.frame(maxWidth: .infinity, alignment: .leading)
-				.padding(.horizontal)
-		}
-		
 		ScrollView {
 			LazyVGrid(columns: columns, spacing: gridSpacing) {
 				ForEach(Array(zip(mediaItems.indices, mediaItems)), id: \.0) { _, media in
 					switch imageSize {
 					case .trackRowItem:
 						TrackMediaRow(media: media)
+					case .albumRow:
+						TrackMediaRow(media: media, sizeType: .albumRow)
 					case .albumCarouselItem:
 						AlbumMediaItem(media: media)
 					case .videoCarouselItem:
@@ -58,16 +58,25 @@ struct VerticalMediaGridView: View {
 					default:
 						VideoMediaItem(media: media)
 					}
-					
 				}
 			}
+			.padding(.top, topPadding)
 			.padding(.horizontal)
-			
-			if playerObservableObject.showPlayerView, !playerObservableObject.expand {
-				Spacer(minLength: Metric.playerHeight)
-			}
+
+			if playerObservableObject.showPlayerView, !playerObservableObject.expand { Spacer(minLength: Metric.playerHeight) }
 		}
 		.scrollingDisabled(scrollDisabled)
+
+		.labeledViewModifier(header: !title.isEmpty ? title : nil)
+
+	}
+
+	private func setupGridSpacing(_ spacing: CGFloat?, defaultSpace: CGFloat) {
+		if let spacing = spacing {
+			gridSpacing = spacing
+		} else {
+			gridSpacing = defaultSpace
+		}
 	}
 }
 

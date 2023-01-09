@@ -17,15 +17,15 @@ struct MediaImageView: View {
 	private var shadowProminence: ShadowProminence
 	private var contentMode: ContentMode
 
-	init(imagePath: String? = nil, artworkImage: UIImage? = nil, sizeType: SizeType = .defaultSize, cornerRadius: CGFloat = Metric.defaultCornerRadius, shadowProminence: ShadowProminence = .none, contentMode: ContentMode = .fit, visibleSide: Binding<FlipViewSide> = .constant(.front), selected: Bool = false) {
+	init(imagePath: String? = nil, artworkImage: UIImage? = nil, sizeType: SizeType = .none, shadowProminence: ShadowProminence = .none, contentMode: ContentMode = .fit, visibleSide: Binding<FlipViewSide> = .constant(.front), selected: Bool = false) {
 		_visibleSide = visibleSide
 		self.selected = selected
 		self.imagePath = imagePath
 		self.artworkImage = artworkImage
 		self.sizeType = sizeType
-		self.cornerRadius = cornerRadius
 		self.shadowProminence = shadowProminence
 		self.contentMode = contentMode
+		self.cornerRadius = sizeType.cornerRadius
 	}
 
 	var body: some View {
@@ -38,6 +38,7 @@ struct MediaImageView: View {
 				}
 			}
 			.aspectRatio(contentMode: contentMode)
+			.frame(width: sizeType.size.width, height: sizeType.size.height)
 
 			.overlay {
 				if selected {
@@ -49,17 +50,19 @@ struct MediaImageView: View {
 					}
 				}
 			}
-			.overlay { RoundedRectangle(cornerRadius: cornerRadius).stroke(sizeType != .artistRow ? Color.secondary.opacity(0.8) : .clear, lineWidth: 0.1) }
-			.clipShape(sizeType == .artistRow ? RoundedRectangle(cornerRadius: (sizeType.size.height ?? Metric.albumCarouselImageSize) / 2) : RoundedRectangle(cornerRadius: cornerRadius))
-
+			.clipShape(sizeType == .artistRow ? RoundedRectangle(cornerRadius: (sizeType.size.height ?? Metric.albumCarouselImageSize) / 2, style: .continuous) : RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
+			.overlay { RoundedRectangle(cornerRadius: cornerRadius).stroke(Color.secondary, lineWidth: 0.08) }
 		} back: {
-			DefaultImage(sizeType: sizeType)
-				.overlay { RoundedRectangle(cornerRadius: cornerRadius).stroke(sizeType != .artistRow ? Color.secondary.opacity(0.8) : .clear, lineWidth: 0.1) }
-				.clipShape(sizeType == .artistRow ? RoundedRectangle(cornerRadius: (sizeType.size.height ?? Metric.albumCarouselImageSize) / 2) : RoundedRectangle(cornerRadius: cornerRadius))
+			if visibleSide == .back {
+				DefaultImage(sizeType: sizeType)
+					.frame(width: sizeType.size.width, height: sizeType.size.height)
+					.clipShape(sizeType == .artistRow ? RoundedRectangle(cornerRadius: (sizeType.size.height ?? Metric.albumCarouselImageSize) / 2, style: .continuous) : RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
+					.overlay { RoundedRectangle(cornerRadius: cornerRadius).stroke(Color.secondary, lineWidth: 0.08) }
+			}
 		}
-		.frame(width: sizeType.size.width, height: sizeType.size.height)
+
 		.shadow(radius: shadowProminence.shadow.radius, x: shadowProminence.shadow.xPosition, y: shadowProminence.shadow.yPosition)
-		.animation(.flipCard, value: visibleSide)
+		.animation(.flipCard, value: visibleSide == .back)
 	}
 }
 

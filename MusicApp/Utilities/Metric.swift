@@ -12,7 +12,6 @@ enum Metric {
 
 	static let screenWidth: CGFloat = UIScreen.main.bounds.size.width
 	static let screenHeight: CGFloat = UIScreen.main.bounds.size.height
-	static let defaultCornerRadius: CGFloat = 4
 
 	// MARK: - Player
 
@@ -22,6 +21,7 @@ enum Metric {
 	static let capsuleWidth: CGFloat = 36
 	static let capsuleHeight: CGFloat = 5
 	static let largeMediaArtworkSize: CGFloat = screenHeight / 3.33
+	static let smallPlayerImageSize: CGFloat = Metric.screenHeight * 0.06
 
 	// MARK: - Artist Detail
 
@@ -33,12 +33,13 @@ enum Metric {
 
 	// MARK: - Carousel
 
-	static let trackCarouselImageSize: CGFloat = Metric.screenHeight * 0.06
+	static let trackCarouselImageSize: CGFloat = Metric.screenHeight * 0.068
 	static let searchResultImageSize: CGFloat = Metric.screenHeight * 0.07
-	static let playlistRowHeight: CGFloat = Metric.screenHeight * 0.12
+	static let albumRowHeight: CGFloat = Metric.screenHeight * 0.15
+	static let artistFeaturedAlbumRowHeight: CGFloat = Metric.screenHeight * 0.13
 	static let albumCarouselImageSize: CGFloat = Metric.screenHeight * 0.196
+	static let albumCarouselItemHeight: CGFloat = Metric.screenHeight * 0.26
 	static let trackRowItemHeight: CGFloat = Metric.screenHeight * 0.07
-	static let albumRowItemHeight: CGFloat = Metric.screenHeight * 0.26
 	static let smallPlayerVideoHeight: CGFloat = Metric.screenHeight * 0.04
 	static let videoRowHeight: CGFloat = Metric.screenHeight * 0.11
 	static let videoCarouselItemHeight: CGFloat = Metric.screenHeight * 0.233

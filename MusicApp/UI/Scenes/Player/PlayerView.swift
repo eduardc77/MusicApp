@@ -102,10 +102,10 @@ private extension PlayerView {
 	var mediaView: some View {
 		if model.playerType == .video {
 			model.videoPlayer
-				.frame(width: model.expand ? SizeType.largeHighlight.size.width : SizeType.smallPlayerVideo.size.width, height: model.expand ? SizeType.largeHighlight.size.height : SizeType.smallPlayerVideo.size.height)
-				.cornerRadius(model.expand ? 0 : Metric.defaultCornerRadius)
+				.frame(width: model.expand ? SizeType.none.size.width : SizeType.smallPlayerVideo.size.width, height: model.expand ? SizeType.none.size.height : SizeType.smallPlayerVideo.size.height)
+				.cornerRadius(model.expand ?  SizeType.none.cornerRadius : SizeType.smallPlayerVideo.cornerRadius)
 		} else {
-			MediaImageView(imagePath: model.nowPlayingItem.artworkPath.resizedPath(size: 600), artworkImage: model.nowPlayingItem.artwork, sizeType: model.expand ? .largePlayerArtwork : .trackRowItem, cornerRadius: model.expand ? 10 : Metric.defaultCornerRadius, shadowProminence: model.expand ? .full : .none, visibleSide: $visibleSide)
+			MediaImageView(imagePath: model.nowPlayingItem.artworkPath.resizedPath(size: 600), artworkImage: model.nowPlayingItem.artwork, sizeType: model.expand ? .largePlayerArtwork : .smallPlayerAudio, shadowProminence: model.expand ? .full : .none, visibleSide: $visibleSide)
 				.scaleEffect((model.playbackState == .playing && model.expand) ? 1.33 : 1)
 				.animation(model.expand ? .scaleCard : .none, value: model.playbackState)
 
@@ -131,10 +131,7 @@ private extension PlayerView {
 				Button {
 					model.playbackState == .playing ? PlayerObservableObject.audioPlayer.pause() : PlayerObservableObject.audioPlayer.play()
 				} label: {
-					model.playbackState == .playing ?
-					Image(systemName: "pause.fill")
-					:
-					Image(systemName: "play.fill")
+					model.playbackState == .playing ? Image(systemName: "pause.fill") : Image(systemName: "play.fill")
 				}
 				.font(.title).imageScale(.medium)
 				.buttonStyle(.circle)

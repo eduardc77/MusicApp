@@ -19,7 +19,7 @@ struct TimeSliderView: View {
 	@State private var trackTimePosition: Int = 0
 	@State private var timeRemain: Int = 0
 	@State private var timer = Timer.publish(every: 0, on: .main, in: .default).autoconnect()
-	@State private var trackDuration: Int = 1
+	@State private var trackDuration: Int = 0
 	private var scaleAnimationDuration = 0.15
 
 	var body: some View {
@@ -31,9 +31,8 @@ struct TimeSliderView: View {
 						.frame(height: isDragging ? Metric.timeLineHeight * 2 : Metric.timeLineHeight)
 					Rectangle()
 						.fill(Color.lightGrayColor)
-						.frame(width: CGFloat(trackTimePosition) / CGFloat(trackDuration) * geometry.size.width, height: isDragging ? Metric.timeLineHeight * 2 : Metric.timeLineHeight)
-
-
+						.frame(width: (trackDuration != 0) ? (CGFloat(trackTimePosition) / CGFloat(trackDuration) * geometry.size.width) : CGFloat.zero,
+								 height: isDragging ? Metric.timeLineHeight * 2 : Metric.timeLineHeight)
 				}
 				.clipShape(Capsule(style: .continuous))
 

@@ -79,6 +79,7 @@ struct LibraryListView_Previews: PreviewProvider {
 
 		var body: some View {
 			LibraryListView(libraryObservableObject: LibraryObservableObject(), editMode: $editMode)
+				.padding()
 		}
 	}
 

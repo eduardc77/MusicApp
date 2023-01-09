@@ -33,7 +33,7 @@ struct VideoPlayerView: View {
 		}
 	}
 
-	init(videoAssetUrl: URL, sizeType: SizeType = .defaultSize, cornerRadius: CGFloat = Metric.defaultCornerRadius) {
+	init(videoAssetUrl: URL, sizeType: SizeType = .none, cornerRadius: CGFloat = SizeType.none.cornerRadius) {
 		self.sizeType = sizeType
 		self.cornerRadius = cornerRadius
 		self.videoAssetUrl = videoAssetUrl

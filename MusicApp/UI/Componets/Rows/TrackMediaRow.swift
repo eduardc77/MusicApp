@@ -11,21 +11,26 @@ import MediaPlayer
 struct TrackMediaRow: View {
 	@EnvironmentObject private var playerObservableObject: PlayerObservableObject
 	@State var media: Media
+	var sizeType: SizeType = .trackRowItem
 	
 	var body: some View {
 		Button {
 			playerObservableObject.play(media)
 		} label: {
-			VStack(spacing: 5) {
-				Divider()
-					.padding(.leading, 60)
 
-				HStack(spacing: 14) {
+			HStack(spacing: 10) {
+				Group {
 					if let uiImage = media.artwork {
-						MediaImageView(artworkImage: uiImage, sizeType: .trackRowItem, selected: playerObservableObject.isNowPlaying(media: media))
+						MediaImageView(artworkImage: uiImage, sizeType: sizeType, selected: playerObservableObject.isNowPlaying(media: media))
 					} else {
-						MediaImageView(imagePath: media.artworkPath.resizedPath(size: 160), sizeType: .trackRowItem, selected: playerObservableObject.isNowPlaying(media: media))
+						MediaImageView(imagePath: media.artworkPath.resizedPath(size: 160), sizeType: sizeType, selected: playerObservableObject.isNowPlaying(media: media))
 					}
+				}
+				.scaleEffect(0.88).offset(x: -4)
+
+				VStack(spacing: 0) {
+					Divider()
+					Spacer()
 
 					HStack {
 						VStack(alignment: .leading, spacing: 3) {
@@ -41,6 +46,7 @@ struct TrackMediaRow: View {
 						Image(systemName: "ellipsis")
 							.padding(.trailing, 6)
 					}
+					Spacer()
 				}
 			}
 			.frame(width: Metric.largeCarouselItemWidth)

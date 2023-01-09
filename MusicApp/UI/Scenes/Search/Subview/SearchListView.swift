@@ -98,7 +98,7 @@ struct MediaKindSegmentedControl: View {
               .background(
                 ZStack {
                   if selectedMediaKind == mediaKind {
-                    RoundedRectangle(cornerRadius: 20)
+                    Capsule()
                       .fill(Color.accentColor)
                       .matchedGeometryEffect(id: "TAB", in: animation)
                   }
