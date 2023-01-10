@@ -32,6 +32,11 @@ final class MediaItemObservableObject: ObservableObject {
 		return tracks
 	}
 
+	var trackCount: Int {
+		guard !tracks.isEmpty else { return 0 }
+		return tracks.count
+	}
+
 	var album: Media? {
 		guard !trackResults.isEmpty else { return nil }
 		var tracks = trackResults
@@ -62,26 +67,20 @@ final class MediaItemObservableObject: ObservableObject {
 	}
 
 	func playTrack(withId id: String) {
+		PlayerObservableObject.audioPlayer.stop()
 		PlayerObservableObject.audioPlayer.setQueue(with: [id])
 		UserDefaults.standard.set([id], forKey: UserDefaultsKey.queueDefault)
 		PlayerObservableObject.audioPlayer.play()
-		PlayerObservableObject.audioPlayer.shuffleMode = MPMusicShuffleMode.off
-		UserDefaults.standard.set(false, forKey: UserDefaultsKey.shuffleDefault)
+		PlayerObservableObject.setShuffleMode(false)
 	}
 	
 	func playAllTracks(isShuffle: Bool) {
 		configureAlbumDetails()
+		PlayerObservableObject.audioPlayer.stop()
 		PlayerObservableObject.audioPlayer.setQueue(with: trackIDsQueue)
 
 		UserDefaults.standard.set(trackIDsQueue, forKey: UserDefaultsKey.queueDefault)
-		if isShuffle {
-			PlayerObservableObject.audioPlayer.shuffleMode = MPMusicShuffleMode.songs
-			UserDefaults.standard.set(true, forKey: UserDefaultsKey.shuffleDefault)
-			PlayerObservableObject.audioPlayer.shuffleMode = MPMusicShuffleMode.songs
-		} else {
-			UserDefaults.standard.set(false, forKey: UserDefaultsKey.shuffleDefault)
-			PlayerObservableObject.audioPlayer.shuffleMode = MPMusicShuffleMode.off
-		}
+		PlayerObservableObject.setShuffleMode(isShuffle)
 		PlayerObservableObject.audioPlayer.play()
 	}
 	

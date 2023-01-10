@@ -9,15 +9,18 @@ import SwiftUI
 
 struct LibraryAlbumTrackList: View {
 	@EnvironmentObject private var playerObservableObject: PlayerObservableObject
-	@StateObject var libraryMediaObservableObject: LibraryMediaItemObservableObject
+	@ObservedObject var libraryMediaObservableObject: LibraryMediaItemObservableObject
 
 	var body: some View {
-		LazyVStack(alignment: .leading) {
-			ForEach(0 ..< libraryMediaObservableObject.trackCount, id: \.self) { trackIndex in
+		LazyVStack(alignment: .leading, spacing: 0) {
+			ForEach(libraryMediaObservableObject.libraryTracks.indices, id: \.self) { trackIndex in
 				Button {
 					libraryMediaObservableObject.playTrack(at: trackIndex)
 				} label: {
 					VStack {
+						if trackIndex == 0 { Divider() }
+						Spacer()
+						
 						HStack {
 							Group {
 								if playerObservableObject.nowPlayingItem.trackName == libraryMediaObservableObject.trackTitle(at: trackIndex) {
@@ -33,41 +36,38 @@ struct LibraryAlbumTrackList: View {
 							.frame(width: 20, height: 8)
 
 							MediaItemName(name: libraryMediaObservableObject.trackTitle(at: trackIndex), explicitness: libraryMediaObservableObject.trackExplicitness(at: trackIndex) ? .explicit : .notExplicit)
-
+							
 							Spacer()
-
+							
 							Image(systemName: "ellipsis")
 								.padding(.trailing)
 						}
 						.padding(.vertical, 8)
-						.frame(maxWidth: .infinity, maxHeight: .infinity)
-						.background(.white.opacity(0.001))
 
-						Divider()
+						Spacer()
 
+						Divider().padding(.leading, trackIndex == libraryMediaObservableObject.trackCount - 1 ? 0 : 20)
 					}
+					.padding(.leading, 20)
 					.frame(maxWidth: .infinity, maxHeight: .infinity)
-
 					.contentShape(Rectangle())
-					.padding(.leading, 24)
 				}
 				.buttonStyle(.rowButton)
 			}
-
-			VStack(alignment: .leading, spacing: 4) {
-				if let releaseDate = libraryMediaObservableObject.media.releaseDate {
-					Text("\(releaseDate)")
-				}
-
-				Text("\(libraryMediaObservableObject.albumTrackCount) songs, \(libraryMediaObservableObject.albumDuration) minutes")
-			}
-			.font(.footnote)
-			.foregroundColor(.secondary)
-			.frame(maxWidth: .infinity, alignment: .leading)
-			.padding(.horizontal)
-			.padding(.vertical, 4)
 		}
 
+		VStack(alignment: .leading, spacing: 4) {
+			if let releaseDate = libraryMediaObservableObject.media.releaseDate {
+				Text("\(releaseDate)")
+			}
+
+			Text("\(libraryMediaObservableObject.trackCount) songs, \(libraryMediaObservableObject.albumDuration) minutes")
+		}
+		.font(.footnote)
+		.foregroundColor(.secondary)
+		.frame(maxWidth: .infinity, alignment: .leading)
+		.padding(.vertical, 8)
+		.padding(.horizontal)
 	}
 }
 
@@ -76,6 +76,6 @@ struct LibraryAlbumTrackList: View {
 
 struct LibraryAlbumTrackList_Previews: PreviewProvider {
 	static var previews: some View {
-		LibraryAlbumTrackList(libraryMediaObservableObject: LibraryMediaItemObservableObject(media: musicPlaylists2.first ?? Media(), searchObservableObject: SearchObservableObject()))
+		LibraryAlbumTrackList(libraryMediaObservableObject: LibraryMediaItemObservableObject(media: musicPlaylists2.first ?? Media()))
 	}
 }

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct NowPlayingEqualizerBars: View {
+	@EnvironmentObject private var playerObservableObject: PlayerObservableObject
 	@State var animating: Bool = false
 	var color: Color = .appAccentColor
 	var numberOfBars = 4
@@ -37,13 +38,10 @@ struct NowPlayingEqualizerBars: View {
 		.onReceive(NotificationCenter.default.publisher(for: .MPMusicPlayerControllerPlaybackStateDidChange)) { _ in
 			setupAnimation()
 		}
-		.onReceive(NotificationCenter.default.publisher(for: .MPMusicPlayerControllerNowPlayingItemDidChange)) { _ in
-			setupAnimation()
-		}
 	}
 
 	private func setupAnimation() {
-		animating = PlayerObservableObject.audioPlayer.playbackState == .playing
+		animating = playerObservableObject.playbackState == .playing
 	}
 }
 

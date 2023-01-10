@@ -19,25 +19,35 @@ struct SearchListView: View {
   var body: some View {
     ScrollView {
       LazyVGrid(columns: columns) {
-        Divider()
-          .padding(.horizontal)
-        
-        ForEach(searchObservableObject.searchResults, id: \.id) { media in
-          Spacer(minLength: 12)
-          
-          switch media.wrapperType {
-          case .collection:
-            SearchWrapperRow(media: media, destinationView: AlbumDetailView(media: media, searchObservableObject: searchObservableObject))
-          case .track:
-            SearchResultsRow(media: media)
-          case .artist:
-            SearchWrapperRow(media: media, destinationView: ArtistDetailView(media: media))
-          }
-          
-          Divider()
-        }
-        .padding(.horizontal)
-        
+			ForEach(Array(searchObservableObject.searchResults.enumerated()), id: \.element) { mediaIndex, media in
+				Button {
+					withAnimation {
+						playerObservableObject.play(media, videoAssetUrl: media.previewUrl)
+					}
+				} label: {
+					VStack(spacing: 0) {
+						if mediaIndex == 0 { Divider() }
+						Spacer()
+
+						switch media.wrapperType {
+						case .collection:
+							SearchWrapperRow(media: media, destinationView: AlbumDetailView(media: media))
+						case .track:
+							SearchResultsRow(media: media)
+						case .artist:
+							SearchWrapperRow(media: media, destinationView: ArtistDetailView(media: media))
+						}
+
+						Spacer()
+						Divider()
+					}
+					.padding(.horizontal)
+					.frame(maxWidth: .infinity)
+					.contentShape(Rectangle())
+				}
+				.buttonStyle(.rowButton)
+			}
+
         if playerObservableObject.showPlayerView, !playerObservableObject.expand {
           Spacer(minLength: Metric.playerHeight)
         }

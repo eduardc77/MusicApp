@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CategoryGridView: View {
-	@EnvironmentObject var playerObservableObject: PlayerObservableObject
+	@EnvironmentObject private var playerObservableObject: PlayerObservableObject
 	@State var categories = searchCategories
 	var columns: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
 

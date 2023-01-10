@@ -12,26 +12,28 @@ struct HighlightMediaItem: View {
 	var imageData: Data?
 	
 	var body: some View {
-		VStack {
-			VStack(alignment: .leading) {
-				Text(media.mediaType.titleUppercased)
-					.font(.caption.weight(.semibold))
-					.foregroundColor(.secondary)
-				
-				Text(media.name)
-					.font(.title2)
-				
-				Text(media.trackName)
-					.foregroundColor(.secondary)
-					.font(.title2)
-			}
-			.lineLimit(1)
-			.frame(maxWidth: .infinity, alignment: .leading)
-			
-			if let uiImage = media.artwork {
-				MediaImageView(artworkImage: uiImage, sizeType: .highlightCarouselItem, contentMode: .fill)
-			} else {
-				MediaImageView(imagePath: media.artworkPath.resizedPath(size: 800), sizeType: .highlightCarouselItem, contentMode: .fill)
+		NavigationLink(destination: AlbumDetailView(media: media)) {
+			VStack {
+				VStack(alignment: .leading) {
+					Text(media.mediaType.titleUppercased)
+						.font(.caption.weight(.semibold))
+						.foregroundColor(.secondary)
+
+					Text(media.name)
+						.font(.title2)
+
+					Text(media.trackName)
+						.foregroundColor(.secondary)
+						.font(.title2)
+				}
+				.lineLimit(1)
+				.frame(maxWidth: .infinity, alignment: .leading)
+
+				if let uiImage = media.artwork {
+					MediaImageView(artworkImage: uiImage, sizeType: .highlightCarouselItem, contentMode: .fill)
+				} else {
+					MediaImageView(imagePath: media.artworkPath.resizedPath(size: 800), sizeType: .highlightCarouselItem, contentMode: .fill)
+				}
 			}
 		}
 	}

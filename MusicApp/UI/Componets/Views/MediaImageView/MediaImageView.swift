@@ -16,7 +16,7 @@ struct MediaImageView: View {
 	private var cornerRadius: CGFloat
 	private var shadowProminence: ShadowProminence
 	private var contentMode: ContentMode
-
+	
 	init(imagePath: String? = nil, artworkImage: UIImage? = nil, sizeType: SizeType = .none, shadowProminence: ShadowProminence = .none, contentMode: ContentMode = .fit, visibleSide: Binding<FlipViewSide> = .constant(.front), selected: Bool = false) {
 		_visibleSide = visibleSide
 		self.selected = selected
@@ -27,7 +27,7 @@ struct MediaImageView: View {
 		self.contentMode = contentMode
 		self.cornerRadius = sizeType.cornerRadius
 	}
-
+	
 	var body: some View {
 		FlipView(visibleSide: visibleSide) {
 			Group {
@@ -39,12 +39,12 @@ struct MediaImageView: View {
 			}
 			.aspectRatio(contentMode: contentMode)
 			.frame(width: sizeType.size.width, height: sizeType.size.height)
-
+			
 			.overlay {
 				if selected {
 					ZStack {
 						Color.gray.opacity(0.6)
-
+						
 						NowPlayingEqualizerBars(color: .white)
 							.frame(width: 16, height: 8)
 					}
@@ -53,14 +53,12 @@ struct MediaImageView: View {
 			.clipShape(sizeType == .artistRow ? RoundedRectangle(cornerRadius: (sizeType.size.height ?? Metric.albumCarouselImageSize) / 2, style: .continuous) : RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
 			.overlay { RoundedRectangle(cornerRadius: cornerRadius).stroke(Color.secondary, lineWidth: 0.08) }
 		} back: {
-			if visibleSide == .back {
-				DefaultImage(sizeType: sizeType)
-					.frame(width: sizeType.size.width, height: sizeType.size.height)
-					.clipShape(sizeType == .artistRow ? RoundedRectangle(cornerRadius: (sizeType.size.height ?? Metric.albumCarouselImageSize) / 2, style: .continuous) : RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
-					.overlay { RoundedRectangle(cornerRadius: cornerRadius).stroke(Color.secondary, lineWidth: 0.08) }
-			}
+			DefaultImage(sizeType: sizeType)
+				.frame(width: sizeType.size.width, height: sizeType.size.height)
+				.clipShape(sizeType == .artistRow ? RoundedRectangle(cornerRadius: (sizeType.size.height ?? Metric.albumCarouselImageSize) / 2, style: .continuous) : RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
+				.overlay { RoundedRectangle(cornerRadius: cornerRadius).stroke(Color.secondary, lineWidth: 0.08) }
 		}
-
+		
 		.shadow(radius: shadowProminence.shadow.radius, x: shadowProminence.shadow.xPosition, y: shadowProminence.shadow.yPosition)
 		.animation(.flipCard, value: visibleSide == .back)
 	}
@@ -73,7 +71,7 @@ extension MediaImageView {
 		case none
 		case mild
 		case full
-
+		
 		var shadow: (radius: CGFloat, xPosition: CGFloat, yPosition: CGFloat) {
 			switch self {
 			case .none:
@@ -93,11 +91,11 @@ extension MediaImageView {
 struct MediaImageView_Previews: PreviewProvider {
 	struct MediaImageViewExample: View {
 		@State private var visibleSide = FlipViewSide.front
-
+		
 		var body: some View {
 			ZStack {
 				Color.indigo
-
+				
 				MediaImageView(artworkImage: UIImage(named: "p0"), sizeType: .albumDetail, shadowProminence: .full, visibleSide: $visibleSide)
 					.onTapGesture {
 						visibleSide.toggle()

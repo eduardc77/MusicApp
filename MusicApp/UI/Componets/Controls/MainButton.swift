@@ -42,7 +42,7 @@ struct MainButton: View {
 
 struct MainButton_Previews: PreviewProvider {
   static var previews: some View {
-    MainButton(title: "Button", image: Image(systemName: "shuffle"), action: {})
+    MainButton(title: "Shuffle", image: Image(systemName: "shuffle"), action: {})
 			.padding(30)
   }
 }

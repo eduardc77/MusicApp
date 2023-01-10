@@ -50,9 +50,9 @@ struct PlayerView: View {
 		.onReceive(NotificationCenter.default.publisher(for: .MPMusicPlayerControllerPlaybackStateDidChange)) { _ in
 			model.playbackState = PlayerObservableObject.audioPlayer.playbackState
 		}
+
 		.onReceive(NotificationCenter.default.publisher(for: .MPMusicPlayerControllerNowPlayingItemDidChange)) { _ in
 			guard let mediaItem = PlayerObservableObject.audioPlayer.nowPlayingItem else { return }
-			
 			model.setNowPlaying(media: mediaItem)
 		}
 	}

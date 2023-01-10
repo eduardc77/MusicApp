@@ -12,30 +12,26 @@ final class LibraryMediaItemObservableObject: ObservableObject {
 	// MARK: - Publishers
 	
 	@Published private var trackIDsQueue: [String] = []
-	@Published private(set) var albumContents: AlbumContents = AlbumContents()
+	@Published private(set) var libraryTracks: [MPMediaItem] = []
 	
 	// MARK: - Properties
 
 	private(set) var media: Media
 	private(set) var albumDuration: Int = 0
-	private(set) var albumTrackCount: Int = 0
-	
-	@ObservedObject var searchObservableObject: SearchObservableObject
 	
 	var trackCount: Int {
-		guard !albumContents.libraryTracks.isEmpty else { return 0 }
-		return albumContents.libraryTracks.count
+		guard !libraryTracks.isEmpty else { return 0 }
+		return libraryTracks.count
 	}
-	
+
 	// MARK: - Initialization
 	
-	init(media: Media, searchObservableObject: SearchObservableObject) {
+	init(media: Media) {
 		self.media = media
-		self.searchObservableObject = searchObservableObject
 		
 		setAlbumContents()
 		
-		if !albumContents.libraryTracks.isEmpty {
+		if !libraryTracks.isEmpty {
 			configureAlbumDetailsForLibraryAlbum()
 		}
 	}
@@ -43,27 +39,19 @@ final class LibraryMediaItemObservableObject: ObservableObject {
 	// MARK: - Public Methods
 	
 	func playTrack(at index: Int) {
+		PlayerObservableObject.audioPlayer.stop()
 		PlayerObservableObject.audioPlayer.setQueue(with: trackIDsQueue)
 		UserDefaults.standard.set(trackIDsQueue, forKey: UserDefaultsKey.queueDefault)
 		PlayerObservableObject.audioPlayer.play()
-		PlayerObservableObject.audioPlayer.nowPlayingItem = albumContents.libraryTracks[index]
-		UserDefaults.standard.set(false, forKey: UserDefaultsKey.shuffleDefault)
-		PlayerObservableObject.audioPlayer.shuffleMode = MPMusicShuffleMode.off
+		PlayerObservableObject.setShuffleMode(false)
+		PlayerObservableObject.audioPlayer.nowPlayingItem = libraryTracks[index]
 	}
 	
 	func playAllTracks(isShuffle: Bool) {
+		PlayerObservableObject.audioPlayer.stop()
 		PlayerObservableObject.audioPlayer.setQueue(with: trackIDsQueue)
 		UserDefaults.standard.set(trackIDsQueue, forKey: UserDefaultsKey.queueDefault)
-		
-		if isShuffle {
-			PlayerObservableObject.audioPlayer.shuffleMode = MPMusicShuffleMode.songs
-			UserDefaults.standard.set(true, forKey: UserDefaultsKey.shuffleDefault)
-			PlayerObservableObject.audioPlayer.shuffleMode = MPMusicShuffleMode.songs
-		} else {
-			UserDefaults.standard.set(false, forKey: UserDefaultsKey.shuffleDefault)
-			PlayerObservableObject.audioPlayer.shuffleMode = MPMusicShuffleMode.off
-		}
-		
+		PlayerObservableObject.setShuffleMode(isShuffle)
 		PlayerObservableObject.audioPlayer.play()
 	}
 	
@@ -87,16 +75,16 @@ final class LibraryMediaItemObservableObject: ObservableObject {
 	}
 	
 	func trackNumber(at index: Int) -> Int {
-		return albumContents.libraryTracks[index].albumTrackNumber
+		return libraryTracks[index].albumTrackNumber
 	}
 	
 	func trackTitle(at index: Int) -> String {
-		return albumContents.libraryTracks[index].title ?? ""
+		return libraryTracks[index].title ?? ""
 	}
 	
 	func trackExplicitness(at index: Int) -> Bool {
-		if !albumContents.libraryTracks.isEmpty {
-			return albumContents.libraryTracks[index].isExplicitItem
+		if !libraryTracks.isEmpty {
+			return libraryTracks[index].isExplicitItem
 		} else {
 			return false
 		}
@@ -107,8 +95,8 @@ final class LibraryMediaItemObservableObject: ObservableObject {
 
 private extension LibraryMediaItemObservableObject {
 	func setAlbumContents() {
-		if let libraryAlbums = getTracks(for: media.collectionName), !libraryAlbums.isEmpty {
-			albumContents = AlbumContents(libraryTracks: libraryAlbums)
+		if let libraryTracks = getTracks(for: media.collectionName), !libraryTracks.isEmpty {
+			self.libraryTracks = libraryTracks
 		} else {
 			//                 searchTracksForCurrentMedia()
 			//                self.albumContents = AlbumContents(tracks: self.searchObservableObject.collectionContentResults)
@@ -118,10 +106,9 @@ private extension LibraryMediaItemObservableObject {
 	func configureAlbumDetailsForLibraryAlbum() {
 		var albumDuration: TimeInterval = 0
 		trackIDsQueue.removeAll()
-		albumContents.libraryTracks.forEach { track in
+		libraryTracks.forEach { track in
 			trackIDsQueue.append(track.playbackStoreID)
 			albumDuration += track.playbackDuration
-			albumTrackCount += 1
 		}
 		self.albumDuration = (albumDuration / 60).rounded(.up).toInt
 	}
@@ -140,13 +127,5 @@ private extension LibraryMediaItemObservableObject {
 	
 	func searchTracksForCurrentMedia() {
 		//     searchObservableObject.lookUpAlbum(for: media)
-	}
-}
-
-// MARK: - Types
-
-extension LibraryMediaItemObservableObject {
-	struct AlbumContents {
-		var libraryTracks: [MPMediaItem] = []
 	}
 }

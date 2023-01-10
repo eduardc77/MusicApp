@@ -29,11 +29,8 @@ struct AlbumHeaderView: View {
 			albumControls
 
 			Spacer(minLength: 20)
-
-			Divider()
-				.padding(.leading)
-				.padding(.bottom, 3)
 		}
+		.padding(.bottom, 3)
 	}
 
 	var albumDetails: some View {
@@ -84,6 +81,6 @@ struct AlbumHeaderView: View {
 
 struct AlbumHeaderView_Previews: PreviewProvider {
 	static var previews: some View {
-		AlbumHeaderView(libraryMediaObservableObject: LibraryMediaItemObservableObject(media: musicPlaylists2.first ?? Media(), searchObservableObject: SearchObservableObject()), mediaItemObservableObject: MediaItemObservableObject())
+		AlbumHeaderView(libraryMediaObservableObject: LibraryMediaItemObservableObject(media: musicPlaylists2.first ?? Media()), mediaItemObservableObject: MediaItemObservableObject())
 	}
 }

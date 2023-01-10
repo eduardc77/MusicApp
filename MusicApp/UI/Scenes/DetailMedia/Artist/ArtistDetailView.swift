@@ -60,7 +60,7 @@ struct ArtistDetailView: View {
 							switch section {
 							case .featuredAlbum:
 								if let featureAlbum = artistObservableObject.artistFeatureAlbum {
-									NavigationLink(destination: AlbumDetailView(media: featureAlbum, searchObservableObject: SearchObservableObject())) {
+									NavigationLink(destination: AlbumDetailView(media: featureAlbum)) {
 										ArtistFeaturedAlbumRow(media: featureAlbum, action: {})
 									}
 									.padding(.bottom)

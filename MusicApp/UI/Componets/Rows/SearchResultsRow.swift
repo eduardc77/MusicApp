@@ -17,11 +17,6 @@ struct SearchResultsRow: View {
 	}
 	
 	var body: some View {
-		Button {
-			withAnimation {
-				playerObservableObject.play(media, videoAssetUrl: media.previewUrl)
-			}
-		} label: {
 			HStack {
 				if let uiImage = media.artwork {
 					MediaImageView(artworkImage: uiImage, sizeType: .searchRow, selected: playerObservableObject.isNowPlaying(media: media))
@@ -44,10 +39,6 @@ struct SearchResultsRow: View {
 						.padding(.trailing, 6)
 				}
 			}
-			.frame(width: Metric.largeCarouselItemWidth)
-			.contentShape(Rectangle())
-		}
-		.buttonStyle(.rowButton)
 	}
 }
 

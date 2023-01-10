@@ -138,18 +138,20 @@ final class PlayerObservableObject: ObservableObject {
 		videoMedia = media.mediaType == .musicVideo
 
 		if videoMedia == false {
-			DispatchQueue.global(qos: .background).async {
-				PlayerObservableObject.audioPlayer.setQueue(with: [media.id])
-				UserDefaults.standard.set([media.id], forKey: UserDefaultsKey.queueDefault)
-				PlayerObservableObject.audioPlayer.shuffleMode = MPMusicShuffleMode.off
-				UserDefaults.standard.set(false, forKey: UserDefaultsKey.shuffleDefault)
-				PlayerObservableObject.audioPlayer.play()
-				self.playerType = .audio
-			}
+			self.playerType = .audio
+			PlayerObservableObject.audioPlayer.stop()
+			PlayerObservableObject.audioPlayer.setQueue(with: [media.id])
+			PlayerObservableObject.setShuffleMode(false)
+			PlayerObservableObject.audioPlayer.play()
 		} else {
 
 			configureVideoPlayer(with: videoAssetUrl ?? URL(string: "https://www.apple.com/404")!)
 		}
+	}
+
+	static func setShuffleMode(_ value: Bool) {
+		UserDefaults.standard.set(value, forKey: UserDefaultsKey.shuffleDefault)
+		PlayerObservableObject.audioPlayer.shuffleMode = value ? MPMusicShuffleMode.songs : MPMusicShuffleMode.off
 	}
 }
 

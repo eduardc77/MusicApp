@@ -11,7 +11,7 @@ struct AlbumMediaItem: View {
 	var media: Media
 	
 	var body: some View {
-		NavigationLink(destination: AlbumDetailView(media: media, searchObservableObject: SearchObservableObject())) {
+		NavigationLink(destination: AlbumDetailView(media: media)) {
 			VStack(alignment: .leading) {
 				if let uiImage = media.artwork {
 					MediaImageView(artworkImage: uiImage, sizeType: .albumCarouselItem)

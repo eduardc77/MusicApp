@@ -14,9 +14,9 @@ struct AlbumDetailView: View {
 	@StateObject private var mediaItemObservableObject: MediaItemObservableObject = MediaItemObservableObject()
 	var media: Media
 
-	init(media: Media, searchObservableObject: SearchObservableObject) {
+	init(media: Media) {
 		self.media = media
-		_libraryItemObservableObject = StateObject(wrappedValue: LibraryMediaItemObservableObject(media: media, searchObservableObject: searchObservableObject))
+		_libraryItemObservableObject = StateObject(wrappedValue: LibraryMediaItemObservableObject(media: media))
 	}
 
 	var body: some View {
@@ -62,7 +62,7 @@ struct AlbumDetailView: View {
 
 struct AlbumDetailView_Previews: PreviewProvider {
 	static var previews: some View {
-		AlbumDetailView(media: musicPlaylists2.first ?? Media(), searchObservableObject: SearchObservableObject())
+		AlbumDetailView(media: musicPlaylists2.first ?? Media())
 			.environmentObject(PlayerObservableObject())
 	}
 }

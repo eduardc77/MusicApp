@@ -10,75 +10,69 @@ import MediaPlayer
 
 struct AlbumTrackList: View {
 	@EnvironmentObject private var playerObservableObject: PlayerObservableObject
-	@StateObject var mediaItemObservableObject: MediaItemObservableObject
+	@ObservedObject var mediaItemObservableObject: MediaItemObservableObject
 	var media: Media
 
 	var body: some View {
-		Group {
-			if mediaItemObservableObject.loadingTracks {
-				LoadingView()
-			} else {
-				VStack(alignment: .leading) {
-					ForEach(Array(zip(mediaItemObservableObject.tracks.indices, mediaItemObservableObject.tracks)), id: \.0) { trackIndex, track in
+		LazyVStack(alignment: .leading, spacing: 0) {
+			ForEach(Array(mediaItemObservableObject.tracks.enumerated()), id: \.element) { trackIndex, track in
+				Button {
+					mediaItemObservableObject.playTrack(withId: track.id)
+				} label: {
+					VStack {
+						if trackIndex == 0 { Divider() }
+						Spacer()
+
 						HStack {
-							VStack {
-								HStack {
-									Group {
-										if playerObservableObject.nowPlayingItem.trackName == track.trackName {
-											NowPlayingEqualizerBars()
-												.frame(width: 16, height: 8)
-										} else {
-											Text(track.trackNumber)
-												.font(.body)
-												.foregroundColor(.secondary)
-												.lineLimit(1)
-										}
-									}
-									.frame(width: 20, height: 8)
-
-									MediaItemName(name: track.trackName, explicitness: track.trackExplicitness)
-
-									Spacer()
-
-									Image(systemName: "ellipsis")
-										.padding(.trailing)
+							Group {
+								if playerObservableObject.nowPlayingItem.trackName == track.trackName {
+									NowPlayingEqualizerBars()
+										.frame(width: 16, height: 8)
+								} else {
+									Text(track.trackNumber)
+										.font(.body)
+										.foregroundColor(.secondary)
+										.lineLimit(1)
 								}
-								.padding(.vertical, 8)
-								.frame(maxWidth: .infinity, maxHeight: .infinity)
-								.background(.white.opacity(0.001))
-
-								Divider()
-									.padding(.leading, 24)
 							}
-							.frame(maxWidth: .infinity, maxHeight: .infinity)
-						}
-						.contentShape(Rectangle())
-						.padding(.leading)
+							.frame(width: 20, height: 8)
 
-						.onTapGesture {
-							mediaItemObservableObject.playTrack(withId: track.id)
+							MediaItemName(name: track.trackName, explicitness: track.trackExplicitness)
+
+							Spacer()
+
+							Image(systemName: "ellipsis")
+								.padding(.trailing)
 						}
+						.padding(.vertical, 8)
+
+						Spacer()
+
+						Divider().padding(.leading, trackIndex == mediaItemObservableObject.trackCount - 1 ? 0 : 20)
 					}
-
-					VStack(alignment: .leading, spacing: 4) {
-						if let releaseDate = media.releaseDate {
-							Text("\(releaseDate)")
-						}
-
-						Text("\(media.trackCount) songs, \(mediaItemObservableObject.albumDuration) minutes")
-					}
-					.font(.footnote)
-					.foregroundColor(.secondary)
-					.frame(maxWidth: .infinity, alignment: .leading)
-					.padding(.horizontal)
-					.padding(.vertical, 4)
+					.padding(.leading, 20)
+					.frame(maxWidth: .infinity, maxHeight: .infinity)
+					.contentShape(Rectangle())
 				}
-
+				.buttonStyle(.rowButton)
 			}
 		}
 		.task {
-         mediaItemObservableObject.fetchTracks(for: media.id)
+			mediaItemObservableObject.fetchTracks(for: media.id)
 		}
+
+		VStack(alignment: .leading, spacing: 4) {
+			if let releaseDate = media.releaseDate {
+				Text("\(releaseDate)")
+			}
+
+			Text("\(media.trackCount) songs, \(mediaItemObservableObject.albumDuration) minutes")
+		}
+		.font(.footnote)
+		.foregroundColor(.secondary)
+		.frame(maxWidth: .infinity, alignment: .leading)
+		.padding(.vertical, 8)
+		.padding(.horizontal)
 	}
 }
 
