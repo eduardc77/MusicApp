@@ -41,3 +41,4 @@ The app is still work in progress.
 	<img src="./Preview/ipad-preview.gif" width= "400" height="500"/>
 </p>
 
+<!-- FOOTER -->
