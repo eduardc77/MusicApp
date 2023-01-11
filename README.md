@@ -9,20 +9,8 @@
 
 
 
+
 <!-- BODY -->
-
-## Frameworks
-- Foundation
-- SwiftUI
-- Combine
-- Asynchronous (async) Functions
-
-## Description
-Apple Music app replica built with SwiftUI, Combine and the MVVM design pattern using Apple iTunes API.
-Build on an actual device while having an active Apple Music subscription to experience all the app's features.
-
-The app is still work in progress.
-
 
 ## Preview
 
@@ -40,6 +28,24 @@ The app is still work in progress.
 <p align="left">
 	<img src="./Preview/ipad-preview.gif" width= "500" height="600"/>
 </p>
+
+
+## Frameworks
+- Foundation
+- SwiftUI
+- Combine
+- Asynchronous (async) Functions
+
+
+## Description
+Apple Music app replica built with SwiftUI, Combine and the MVVM design pattern using Apple iTunes API.
+Build on an actual device while having an active Apple Music subscription to experience all the app's features.
+
+The app is still work in progress.
+
+
+
+
 
 <!-- FOOTER -->
 <!-- Permanent links -->
