@@ -11,7 +11,7 @@
 
 <!-- BODY -->
 
-## Frameworks/External dependencies
+## Frameworks
 - Foundation
 - SwiftUI
 - Combine
