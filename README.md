@@ -27,6 +27,10 @@ The app is still work in progress.
 
 ## Preview
 
+![iphone![iphone-recording-2](https://user-images.githubusercontent.com/36419167/211917795-e5e26a50-ee64-4094-83d4-2a4dbee1dba8.gif)
+-recording-1](https://user-images.githubusercontent.com/36419167/211916695-80d52986-4db8-4a95-ac34-3680424c18e9.gif)
+
+
 
 <!-- FOOTER -->
 <!-- Permanent links -->
