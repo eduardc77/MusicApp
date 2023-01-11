@@ -27,7 +27,7 @@ The app is still work in progress.
 ## Preview
 
 <p align="left">
-	<img src="./Preview/iphone-preview-1.gif" height="500"/>
+	<img src="./Preview/iphone-preview-1.gif" width= "200" height="500"/>
 	<img src="./Assets/iphone-preview-2.png" height="500"/>
 	<img src="./Assets/iphone-preview-3.png" height="500"/>
 	<img src="./Assets/iphone-preview-4.png" height="500"/>
