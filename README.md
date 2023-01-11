@@ -15,19 +15,17 @@
 ## Frameworks/External dependencies
 - Foundation
 - SwiftUI
-
+- Combine
+- Asynchronous (async) Functions
 
 ## Description
-Apple Music app replica built with SwiftUI and Combine. 
+Apple Music app replica built with SwiftUI, Combine and the MVVM design pattern using Apple iTunes API.
 Build on an actual device while having an active Apple Music subscription to experience all the app's features.
-The app is still work in progress.
 
-The **goal** of this project is to **put into practice the concepts learned in SwiftUI** and understand better how views are divided, reused and connected in a multi-tab-application.
+The app is still work in progress.
 
 
 ## Preview
-Those are the most relevant screenshots of the app.
-
 
 
 <!-- FOOTER -->
