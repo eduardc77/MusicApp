@@ -28,18 +28,12 @@ The app is still work in progress.
 
 <p align="left">
 	<img src="./Preview/iphone-preview-1.gif" width="250" height="500"/>
+	
 	<img src="./Preview/iphone-preview-2.gif" width="250" height="500"/>
 	<img src="./Preview/iphone-preview-3.gif" width="250" height="500"/>
 	<img src="./Preview/iphone-preview-4.gif" width="250" height="500"/>
 	<img src="./Preview/iphone-preview-darkmode.gif" width= "250" height="500"/>
 	<img src="./Preview/ipad-preview.gif" width= "400" height="500"/>
 </p>
-
-<!-- FOOTER -->
-<!-- Permanent links -->
-[Swift]: https://www.swift.org
-[iOS]: https://developer.apple.com/ios/
-
-
 
 
