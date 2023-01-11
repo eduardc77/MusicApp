@@ -38,7 +38,7 @@ The app is still work in progress.
 </p>
 
 <p align="left">
-	<img src="./Preview/ipad-preview.gif" width= "400" height="500"/>
+	<img src="./Preview/ipad-preview.gif" width= "500" height="600"/>
 </p>
 
 <!-- FOOTER -->
