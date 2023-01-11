@@ -44,5 +44,5 @@ The app is still work in progress.
 <!-- FOOTER -->
 <!-- Permanent links -->
 [Swift]: https://www.swift.org
-[SwiftUI]: https://developer.apple.com/documentation/swiftui
+[SwiftUI]: https://developer.apple.com/documentation/swiftui/
 [iOS]: https://developer.apple.com/ios/
