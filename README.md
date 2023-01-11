@@ -33,8 +33,16 @@ The app is still work in progress.
 ![iphone-recording-2](https://user-images.githubusercontent.com/36419167/211918002-ab7842c1-8a14-441d-b84d-54b9eab6f16b.gif)
 
 
+![iphone-recording-3](https://user-images.githubusercontent.com/36419167/211918941-e1ff0098-f77c-4ae4-86d3-6af2fb129653.gif)
 
 
+![iphone-recording-4](https://user-images.githubusercontent.com/36419167/211919692-5ab26a9b-d9a4-4b8a-9636-db49a352d44f.gif)
+
+
+![iphone-darkmode-1](https://user-images.githubusercontent.com/36419167/211920384-db4a6c8e-8c77-43a2-bc22-902d0b962c46.gif)
+
+
+![iPad-recording-1](https://user-images.githubusercontent.com/36419167/211921925-a576a21d-c086-4fec-abdc-2b31a84cb9cc.gif)
 
 
 
