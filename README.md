@@ -42,3 +42,6 @@ The app is still work in progress.
 </p>
 
 <!-- FOOTER -->
+<!-- Permanent links -->
+[Swift]: https://www.swift.org
+[iOS]: https://developer.apple.com/ios/
