@@ -15,18 +15,18 @@
 ## Preview
 
 <p align="left">
-	<img src="./Preview/iphone-preview-1.gif" width="250" height="500"/>
-	<img src="./Preview/iphone-preview-2.gif" width="250" height="500"/>
-	<img src="./Preview/iphone-preview-darkmode.gif" width= "250" height="500"/>
+	<img src="./Preview/iphone-preview-1.gif" width="260" height="500"/>
+	<img src="./Preview/iphone-preview-2.gif" width="260" height="500"/>
+	<img src="./Preview/iphone-preview-darkmode.gif" width= "260" height="500"/>
 </p>
 
 <p align="left">
-	<img src="./Preview/iphone-preview-3.gif" width="250" height="500"/>
-	<img src="./Preview/iphone-preview-4.gif" width="250" height="500"/>
+	<img src="./Preview/iphone-preview-3.gif" width="260" height="500"/>
+	<img src="./Preview/iphone-preview-4.gif" width="260" height="500"/>
 </p>
 
 <p align="left">
-	<img src="./Preview/ipad-preview.gif" width= "500" height="600"/>
+	<img src="./Preview/ipad-preview.gif" width= "520" height="600"/>
 </p>
 
 
