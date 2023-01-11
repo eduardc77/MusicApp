@@ -27,12 +27,12 @@ The app is still work in progress.
 ## Preview
 
 <p align="left">
-	<img src="./Preview/iphone-preview-1.gif" width= "200" height="500"/>
-	<img src="./Assets/iphone-preview-2.png" height="500"/>
-	<img src="./Assets/iphone-preview-3.png" height="500"/>
-	<img src="./Assets/iphone-preview-4.png" height="500"/>
-	<img src="./Assets/iphone-preview-darkmode.png" height="500"/>
-	<img src="./Assets/ipad-preview.png" height="500"/>
+	<img src="./Preview/iphone-preview-1.gif" width= "300" height="500"/>
+	<img src="./Preview/iphone-preview-2.png" width= "300" height="500"/>
+	<img src="./Preview/iphone-preview-3.png" width= "300" height="500"/>
+	<img src="./Preview/iphone-preview-4.png" width= "300" height="500"/>
+	<img src="./Preview/iphone-preview-darkmode.png" width= "300" height="500"/>
+	<img src="./Preview/ipad-preview.png"  width= "500" height="600"/>
 </p>
 
 <!-- FOOTER -->
