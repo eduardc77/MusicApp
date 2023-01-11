@@ -32,7 +32,7 @@ The app is still work in progress.
 	<img src="./Preview/iphone-preview-3.gif" width="250" height="500"/>
 	<img src="./Preview/iphone-preview-4.gif" width="250" height="500"/>
 	<img src="./Preview/iphone-preview-darkmode.gif" width= "250" height="500"/>
-	<img src="./Preview/ipad-preview.gif" width= "300" height="500"/>
+	<img src="./Preview/ipad-preview.gif" width= "400" height="500"/>
 </p>
 
 <!-- FOOTER -->
