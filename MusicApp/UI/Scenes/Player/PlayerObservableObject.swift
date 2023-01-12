@@ -120,12 +120,13 @@ final class PlayerObservableObject: ObservableObject {
 	}
 	
 	func configureVideoPlayer(with videoAssetUrl: URL) {
-		
 		playerType = .video
+		PlayerObservableObject.audioPlayer.stop()
+		PlayerObservableObject.audioPlayer.nowPlayingItem = nil
+
 		videoPlayer = VideoPlayerView(videoAssetUrl: videoAssetUrl)
 		expand = true
 		showPlayerView = true
-		
 	}
 	
 	func isNowPlaying(media: Media) -> Bool {
@@ -144,7 +145,6 @@ final class PlayerObservableObject: ObservableObject {
 			PlayerObservableObject.setShuffleMode(false)
 			PlayerObservableObject.audioPlayer.play()
 		} else {
-
 			configureVideoPlayer(with: videoAssetUrl ?? URL(string: "https://www.apple.com/404")!)
 		}
 	}

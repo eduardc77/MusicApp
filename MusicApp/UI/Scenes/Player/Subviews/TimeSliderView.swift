@@ -24,11 +24,13 @@ struct TimeSliderView: View {
 
 	var body: some View {
 		GeometryReader { geometry in
-			VStack(spacing: 0) {
+			VStack(spacing: 8) {
+				Spacer()
 				ZStack(alignment: .leading) {
 					Rectangle()
 						.fill(Color.lightGrayColor2)
 						.frame(height: isDragging ? Metric.timeLineHeight * 2 : Metric.timeLineHeight)
+
 					Rectangle()
 						.fill(Color.lightGrayColor)
 						.frame(width: (trackDuration != 0) ? (CGFloat(trackTimePosition) / CGFloat(trackDuration) * geometry.size.width) : CGFloat.zero,
@@ -42,25 +44,32 @@ struct TimeSliderView: View {
 						trackDuration = model.nowPlayingItem.trackTimeMillis.toInt
 						trackTimePosition = PlayerObservableObject.audioPlayer.currentPlaybackTime.toInt
 						timeRemain = trackDuration - trackTimePosition
+
 					case .video:
 						trackDuration = model.videoPlayer.trackDuration
 						trackTimePosition = model.videoPlayer.trackTimePosition
 						timeRemain = trackDuration - trackTimePosition
 					}
 				}
-				.frame(height: Metric.trackTimeSliderHeight)
 
-				HStack() {
+				HStack {
 					Text(trackTimePosition.toTime)
 						.font(.caption2).bold()
 						.foregroundColor( isDragging ? .white.opacity(0.9) : Color.lightGrayColor2)
+						.frame(maxWidth: 80, alignment: .leading)
+
+					Spacer()
+
+					LosslessLogo().offset(y: 1.6)
 
 					Spacer()
 
 					Text("-" + timeRemain.toTime)
 						.font(.caption2).bold()
 						.foregroundColor( isDragging ? .white.opacity(0.9) : Color.lightGrayColor2)
+						.frame(maxWidth: 80, alignment: .trailing)
 				}
+				Spacer()
 			}
 			.contentShape(Rectangle())
 
@@ -90,8 +99,8 @@ struct TimeSliderView: View {
 					}
 			)
 		}
-		.padding([.horizontal, .bottom])
-		.padding(.top, 8)
+		.padding(.horizontal)
+		.frame(height: Metric.trackTimeSliderHeight)
 		.scaleEffect(x: isDragging ? 1.06 : 1, y: isDragging ? 1.16 : 1)
 		.animation(.linear(duration:scaleAnimationDuration), value: isDragging)
 	}

@@ -35,7 +35,7 @@ enum Metric {
 
 	static let trackCarouselImageSize: CGFloat = Metric.screenHeight * 0.068
 	static let searchResultImageSize: CGFloat = Metric.screenHeight * 0.07
-	static let albumRowHeight: CGFloat = Metric.screenHeight * 0.15
+	static let stationRowHeight: CGFloat = Metric.screenHeight * 0.15
 	static let artistFeaturedAlbumRowHeight: CGFloat = Metric.screenHeight * 0.13
 	static let albumCarouselImageSize: CGFloat = Metric.screenHeight * 0.196
 	static let albumCarouselItemHeight: CGFloat = Metric.screenHeight * 0.26
@@ -52,6 +52,6 @@ enum Metric {
 
 	// MARK: - Time Slider View
 
-	static let trackTimeSliderHeight: CGFloat = 32
+	static let trackTimeSliderHeight: CGFloat = 50
 	static let timeLineHeight: CGFloat = 6.6
 }

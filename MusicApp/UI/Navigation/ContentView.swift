@@ -12,7 +12,6 @@ struct ContentView: View {
   
   var body: some View {
     TabBar()
-      .accentColor(.appAccentColor)
       .environmentObject(playerObservableObject)
   }
 }

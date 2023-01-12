@@ -20,8 +20,7 @@ struct AlbumHeaderView: View {
 					MediaImageView(imagePath: libraryMediaObservableObject.media.artworkPath.resizedPath(size: 800), sizeType: .albumDetail, shadowProminence: .full)
 				}
 
-				albumDetails
-					.padding(.top, 6)
+				albumDetails.padding(.top, 6)
 			}
 			.padding(.top, 6)
 			.padding(.horizontal)
@@ -43,9 +42,13 @@ struct AlbumHeaderView: View {
 				.font(.title3)
 				.foregroundColor(.appAccentColor)
 
-			Text(libraryMediaObservableObject.media.genreAndReleaseYear)
-				.font(.caption.bold())
-				.foregroundColor(.secondary)
+			HStack(spacing: 1) {
+				Text(libraryMediaObservableObject.media.genreAndReleaseYear)
+            Text("·")
+				LosslessLogo(bordered: false, color: .secondary)
+			}
+			.font(.caption.bold())
+			.foregroundColor(.secondary)
 		}
 		.lineLimit(2)
 		.multilineTextAlignment(.center)

@@ -39,19 +39,9 @@ struct AlbumDetailView: View {
 
 		.toolbar {
 			HStack {
-				Button { } label: {
-					Image(systemName: "arrow.down.circle.fill")
-						.resizable()
-						.frame(width: 28, height: 28)
-						.foregroundStyle(Color.appAccentColor, Color.secondary.opacity(0.16))
-				}
+				DownloadButton(font: .title2, action: {})
 
-				Button { } label: {
-					Image(systemName: "ellipsis.circle.fill")
-						.resizable()
-						.frame(width: 28, height: 28)
-						.foregroundStyle(Color.appAccentColor, Color.secondary.opacity(0.16))
-				}
+				MenuButton(circled: true, font: .title2, foregroundColor: .appAccentColor, backgroundColor: .secondaryButtonBackgroundColor)
 			}
 		}
 	}

@@ -40,10 +40,10 @@ struct HighlightsView: View {
 				case .trackRowItem:
 					TrackMediaRow(media: media)
 				case .albumCarouselItem:
-					AlbumMediaItem(media: media)
+					AlbumMediaRowItem(media: media)
 				case .highlightCarouselItem:
 					HighlightMediaItem(media: media)
-				default: AlbumMediaItem(media: media)
+				default: AlbumMediaRowItem(media: media)
 				}
 			}
 			.padding(.horizontal)

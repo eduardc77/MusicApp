@@ -28,8 +28,8 @@ struct SearchView: View {
 				.onChange(of: searchTerm) { term in
 					searchObservableObject.searchTerm = term
 				}
-				.onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { _ in
 
+				.onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { _ in
 					searchObservableObject.searchSubmit = false
 					searchObservableObject.selectedMediaType = .topResult
 				}
@@ -43,7 +43,9 @@ struct SearchOrCategoryView: View {
 
 	var body: some View {
 		if !isSearching {
-			CategoryGridView()
+			ScrollView {
+				CategoryGridView()
+			}
 		} else {
 			searchResults
 		}

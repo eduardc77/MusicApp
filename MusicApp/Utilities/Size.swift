@@ -16,7 +16,7 @@ enum SizeType {
 	case trackRowItem
 	case artistRow
 	case searchRow
-	case albumRow
+	case stationRow
 	case albumCarouselItem
 	case artistFeatureAlbumItem
 	case albumDetail
@@ -34,7 +34,7 @@ enum SizeType {
 		switch self {
 		case .trackRowItem: return Size(width: Metric.trackCarouselImageSize, height: Metric.trackCarouselImageSize)
 		case .searchRow, .artistRow: return Size(width: Metric.searchResultImageSize, height: Metric.searchResultImageSize)
-		case .albumRow: return Size(width: Metric.albumRowHeight, height: Metric.albumRowHeight)
+		case .stationRow: return Size(width: Metric.stationRowHeight, height: Metric.stationRowHeight)
 		case .albumCarouselItem: return Size(width: Metric.albumCarouselImageSize, height: Metric.albumCarouselImageSize)
 		case .artistFeatureAlbumItem:  return Size(width: Metric.artistFeaturedAlbumRowHeight, height: Metric.artistFeaturedAlbumRowHeight)
 		case .albumDetail: return Size(width: Metric.albumDetailArtworkSize, height: Metric.albumDetailArtworkSize)
@@ -53,7 +53,7 @@ enum SizeType {
 	var cornerRadius: CGFloat {
 		switch self {
 		case .trackRowItem, .searchRow, .artistRow, .smallPlayerVideo, .smallPlayerAudio: return 4
-		case .albumRow, .albumCarouselItem, .albumDetail, .artistFeatureAlbumItem, .categoryCollectionRow, .videoListRow, .videoCollectionRow, .videoCarouselItem: return 8
+		case .stationRow, .albumCarouselItem, .albumDetail, .artistFeatureAlbumItem, .categoryCollectionRow, .videoListRow, .videoCollectionRow, .videoCarouselItem: return 8
 		case .highlightCarouselItem, .largePlayerArtwork: return 12
 		case .none: return 0
 		}

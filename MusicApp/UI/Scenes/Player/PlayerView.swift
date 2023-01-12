@@ -17,14 +17,18 @@ struct PlayerView: View {
 		VStack(spacing: 0) {
 			handleBar
 
-			HStack(spacing: 12) {
+			HStack(spacing: 0) {
 				mediaView
 
-				if !model.expand { smallPlayerViewDetails }
+				if !model.expand {
+					smallPlayerViewDetails
+						.padding(.leading, 12)
+						.padding(.trailing, 6)
+				}
 			}
-			.padding([.vertical, .leading])
-			.padding(.trailing, 8)
-			.frame(height: model.expand ? Metric.screenHeight / 2.1 :  Metric.playerHeight)
+			.padding(.leading, model.expand ? 0 : nil)
+
+			.frame(height: model.expand ? Metric.screenHeight / 2 :  Metric.playerHeight)
 
 			if model.expand {
 				VStack {
@@ -33,9 +37,10 @@ struct PlayerView: View {
 						Spacer()
 						ellipsisButton
 					}
+					Spacer()
 					expandedControlsBlock.padding(.horizontal)
 				}
-				.frame(height: model.expand ? Metric.screenHeight / 2.7 : 0)
+				.frame(height: model.expand ? Metric.screenHeight / 2.74 : 0)
 				.opacity(model.expand ? 1 : 0)
 				.transition(.move(edge: .bottom))
 			}
@@ -45,7 +50,7 @@ struct PlayerView: View {
 		.offset(y: model.expand ? 0 : Metric.tabBarHeight)
 		.offset(y: offset)
 		.ignoresSafeArea()
-		.gesture(DragGesture().onEnded(onEnded(value:)).onChanged(onChanged(value:)))
+		.gesture(DragGesture().onEnded(onEnded).onChanged(onChanged))
 
 		.onReceive(NotificationCenter.default.publisher(for: .MPMusicPlayerControllerPlaybackStateDidChange)) { _ in
 			model.playbackState = PlayerObservableObject.audioPlayer.playbackState
@@ -146,12 +151,11 @@ private extension PlayerView {
 			}
 			.foregroundColor(!model.nowPlayingItem.name.isEmpty ? .primary : .secondary)
 		}
-		.frame(maxWidth: .infinity)
 	}
 
 	@ViewBuilder
 	var expandedMediaDetails: some View {
-		VStack(alignment: .leading, spacing: 2) {
+		VStack(alignment: .leading, spacing: 0) {
 			InfiniteScrollText(text: model.nowPlayingItem.mediaResponse.trackName != nil ? model.nowPlayingItem.trackName : "Not Playing", explicitness: model.nowPlayingItem.trackExplicitness)
 
 			Menu {
@@ -179,37 +183,32 @@ private extension PlayerView {
 					}
 				}
 			} label: {
-				InfiniteScrollText(text: model.nowPlayingItem.artistName, textColor: model.playerType == .audio ? .lightGrayColor : .accentColor, font: UIFont.systemFont(ofSize: 20))
+				InfiniteScrollText(text: model.nowPlayingItem.artistName, textColor: model.playerType == .audio ? .lightGrayColor : .appAccentColor)
 			}
 		}
 	}
 
 	@ViewBuilder
 	var ellipsisButton: some View {
-		if model.playerType == .audio {
-			Button(action: { }) {
-				Image(systemName: "ellipsis.circle.fill")
-					.font(.title)
-					.foregroundStyle(.white, Color.lightGrayColor3)
+		Group {
+			switch model.playerType {
+			case .audio:
+				MenuButton(circled: true, font: .title, foregroundColor: .white)
+			case .video:
+				MenuButton(circled: true, font: .title, foregroundColor: .appAccentColor)
 			}
-			.padding(.trailing, 30)
-			.padding(.leading, 6)
-		} else {
-			Button(action: { }) {
-				Image(systemName: "ellipsis.circle.fill")
-					.font(.title)
-					.foregroundStyle(Color.accentColor, Color.accentColor.opacity(0.2))
-			}
-			.padding(.trailing, 30)
-			.padding(.leading, 6)
 		}
+		.padding(.trailing, 30)
+		.padding(.leading, 6)
 	}
 
 	@ViewBuilder
 	var expandedControlsBlock: some View {
 		VStack {
 			TimeSliderView()
+			Spacer()
 			PlayerControls()
+			Spacer()
 			VolumeView(playerType: model.playerType)
 		}
 	}
@@ -218,14 +217,18 @@ private extension PlayerView {
 	var playerBackground: some View {
 		Group {
 			if model.expand {
-				if let artworkUIImage = model.nowPlayingItem.artwork, model.playerType == .audio {
-					LinearGradient(
-						gradient: Gradient(colors: [Color(artworkUIImage.firstAverageColor ?? .gray),
-															 Color(artworkUIImage.secondAverageColor ?? .gray)]),
-						startPoint: .topLeading,
-						endPoint: .bottomTrailing)
-
-				} else {
+				switch model.playerType {
+				case .audio:
+					if let artworkUIImage = model.nowPlayingItem.artwork {
+						LinearGradient(
+							gradient: Gradient(colors: [Color(artworkUIImage.firstAverageColor ?? .gray),
+																 Color(artworkUIImage.secondAverageColor ?? .gray)]),
+							startPoint: .topLeading,
+							endPoint: .bottomTrailing)
+					} else {
+						Color(.gray)
+					}
+				case .video:
 					// Video Player background
 					Color(.black)
 				}

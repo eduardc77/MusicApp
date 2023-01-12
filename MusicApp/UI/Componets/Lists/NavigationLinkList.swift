@@ -26,7 +26,7 @@ struct NavigationLinkList<Content: View, Enum: RawRepresentable & CaseIterable &
             } label: {
               Text(String(describing: enumCase.title))
                 .font(.title3)
-                .foregroundColor(.accentColor)
+                .foregroundColor(.appAccentColor)
             }
           }
         }
