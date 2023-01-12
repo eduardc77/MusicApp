@@ -1,5 +1,5 @@
 //
-//  AlbumMediaItem.swift
+//  AlbumMediaRowItem.swift
 //  MusicApp
 //
 //  Created by Eduard Caziuc on 24.04.2022.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct AlbumMediaItem: View {
+struct AlbumMediaRowItem: View {
 	var media: Media
 	
 	var body: some View {
@@ -40,6 +40,6 @@ struct AlbumMediaItem: View {
 
 struct AlbumMediaItem_Previews: PreviewProvider {
 	static var previews: some View {
-		AlbumMediaItem(media: musicPlaylists2.first ?? Media())
+		AlbumMediaRowItem(media: musicPlaylists2.first ?? Media())
 	}
 }

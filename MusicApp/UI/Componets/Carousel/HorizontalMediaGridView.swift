@@ -24,8 +24,8 @@ struct HorizontalMediaGridView: View {
 		switch imageSize {
 		case .trackRowItem:
 			gridRows = Array(repeating: .init(.flexible(minimum: Metric.trackRowItemHeight), spacing: 0), count: rowCount)
-		case .albumRow:
-			gridRows = Array(repeating: .init(.flexible(minimum: Metric.albumRowHeight), spacing: 0), count: rowCount)
+		case .stationRow:
+			gridRows = Array(repeating: .init(.flexible(minimum: Metric.stationRowHeight), spacing: 0), count: rowCount)
 		case .albumCarouselItem:
 			gridRows = Array(repeating: .init(.flexible(minimum: Metric.albumCarouselItemHeight), spacing: 8), count: rowCount)
 		case .videoCarouselItem:
@@ -43,13 +43,13 @@ struct HorizontalMediaGridView: View {
 					switch imageSize {
 					case .trackRowItem:
 						TrackMediaRow(media: media)
-					case .albumRow:
-						TrackMediaRow(media: media, sizeType: .albumRow)
+					case .stationRow:
+						TrackMediaRow(media: media, sizeType: .stationRow)
 					case .albumCarouselItem:
-						AlbumMediaItem(media: media)
+						AlbumMediaRowItem(media: media)
 					case .videoCarouselItem:
 						VideoMediaItem(media: media)
-					default: AlbumMediaItem(media: media)
+					default: AlbumMediaRowItem(media: media)
 					}
 				}
 			}

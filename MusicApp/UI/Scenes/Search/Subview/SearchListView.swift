@@ -109,7 +109,7 @@ struct MediaKindSegmentedControl: View {
                 ZStack {
                   if selectedMediaKind == mediaKind {
                     Capsule()
-                      .fill(Color.accentColor)
+                      .fill(Color.appAccentColor)
                       .matchedGeometryEffect(id: "TAB", in: animation)
                   }
                 }

@@ -13,32 +13,28 @@ struct CategoryGridView: View {
 	var columns: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
 
 	var body: some View {
-		ScrollView {
-			LazyVGrid(columns: columns) {
-				ForEach(categories, id: \.self) { category in
-					NavigationLink(destination: CategoryDetailView(category: category))
-					{
-						ZStack(alignment: Alignment(horizontal: .leading, vertical: .bottom)) {
-							MediaImageView(artworkImage: UIImage(named: category.image),
-												sizeType: .categoryCollectionRow,
-												contentMode: .fill)
+		LazyVGrid(columns: columns) {
+			ForEach(categories, id: \.self) { category in
+				NavigationLink(destination: CategoryDetailView(category: category)) {
+					ZStack(alignment: Alignment(horizontal: .leading, vertical: .bottom)) {
+						MediaImageView(artworkImage: UIImage(named: category.image),
+											sizeType: .categoryCollectionRow,
+											contentMode: .fill)
 
-							Text(category.title)
-								.padding(10)
-								.foregroundColor(.white)
-								.font(.callout.bold())
-						}
+						Text(category.title)
+							.padding(10)
+							.foregroundColor(.white)
+							.font(.callout.bold())
 					}
 				}
 			}
-			.padding(.horizontal)
-
-			if playerObservableObject.showPlayerView, !playerObservableObject.expand {
-				Spacer(minLength: Metric.playerHeight)
-			}
 		}
+		.padding(.horizontal)
 		.labeledViewModifier(header: "Browse Categories", spacing: 6)
-		.scrollingDisabled(true)
+
+		if playerObservableObject.showPlayerView, !playerObservableObject.expand {
+			Spacer(minLength: Metric.playerHeight)
+		}
 	}
 }
 

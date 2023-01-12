@@ -27,7 +27,7 @@ struct RadioView: View {
 					
 					HorizontalMediaGridView(mediaItems: musicPlaylists, title: "Recently Played", imageSize: .albumCarouselItem)
 					
-					HorizontalMediaGridView(mediaItems: musicPlaylists2, title: "New Episodes", imageSize: .albumRow, rowCount: 3)
+					HorizontalMediaGridView(mediaItems: musicPlaylists2, title: "New Episodes", imageSize: .stationRow, rowCount: 3)
 					
 					HorizontalMediaGridView(mediaItems: musicPlaylists, title: "Our Radio Hosts", imageSize: .albumCarouselItem)
 					
@@ -37,9 +37,9 @@ struct RadioView: View {
 					
 					HorizontalMediaGridView(mediaItems: musicPlaylists, title: "Apple Music 1", imageSize: .albumCarouselItem)
 					
-					HorizontalMediaGridView(mediaItems: musicPlaylists2, title: "Local Broadcasters", imageSize: .albumRow, rowCount: 3)
+					HorizontalMediaGridView(mediaItems: musicPlaylists2, title: "Local Broadcasters", imageSize: .stationRow, rowCount: 3)
 					
-					HorizontalMediaGridView(mediaItems: musicPlaylists, title: "International Broadcasters", imageSize: .albumRow, rowCount: 3)
+					HorizontalMediaGridView(mediaItems: musicPlaylists, title: "International Broadcasters", imageSize: .stationRow, rowCount: 3)
 					
 					NavigationLinkList(rowItems: BrowseMoreToExplore.self, content: detailViews, title: "More to Explore")
 				}

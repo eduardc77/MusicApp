@@ -12,7 +12,7 @@ struct PlayerControls: View {
   @EnvironmentObject var playerObservableObject: PlayerObservableObject
   
   var body: some View {
-    HStack() {
+    HStack {
       Spacer()
       
       Button {
@@ -27,8 +27,6 @@ struct PlayerControls: View {
           .font(.largeTitle)
           .foregroundColor(!playerObservableObject.nowPlayingItem.name.isEmpty ? .white : .lightGrayColor2)
       }
-		.buttonStyle(.circle(padding: .large))
-
       Spacer()
       
       Button {
@@ -53,8 +51,6 @@ struct PlayerControls: View {
             .foregroundColor(.white)
         }
       }
-		.buttonStyle(.circle(padding: .large))
-
       Spacer()
       
       Button {
@@ -70,11 +66,9 @@ struct PlayerControls: View {
           .font(.largeTitle)
           .foregroundColor(!playerObservableObject.nowPlayingItem.name.isEmpty ? .white : .lightGrayColor2)
       }
-      
       Spacer()
     }
 	 .buttonStyle(.circle(padding: .large))
- 
   }
 }
 

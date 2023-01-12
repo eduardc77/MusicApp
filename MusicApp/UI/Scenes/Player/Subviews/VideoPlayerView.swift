@@ -10,12 +10,11 @@ import AVKit
 import Combine
 
 struct VideoPlayerView: View {
+	@State var player: AVPlayer = AVPlayer()
 	@State var expand = false
 	private var sizeType: SizeType
 	private var cornerRadius: CGFloat
 	private var videoAssetUrl: URL = URL(string: "https://www.apple.com/404")!
-
-	@State var player: AVPlayer = AVPlayer()
 
 	var trackTimePosition: Int {
 		if player.currentItem?.status == .readyToPlay  {
@@ -41,7 +40,6 @@ struct VideoPlayerView: View {
 
 	var body: some View {
 		AVPlayerControllerRepresentable(player: $player, videoAssetUrl: videoAssetUrl, expand: $expand)
-
 			.onTapGesture {
 				expand.toggle()
 			}
@@ -54,7 +52,6 @@ struct VideoPlayerView: View {
 			player.play()
 		}
 	}
-
 }
 
 struct AVPlayerControllerRepresentable: UIViewControllerRepresentable {

@@ -39,8 +39,7 @@ struct LibraryAlbumTrackList: View {
 							
 							Spacer()
 							
-							Image(systemName: "ellipsis")
-								.padding(.trailing)
+							MenuButton().padding(.trailing)
 						}
 						.padding(.vertical, 8)
 
@@ -54,6 +53,7 @@ struct LibraryAlbumTrackList: View {
 				}
 				.buttonStyle(.rowButton)
 			}
+
 		}
 
 		VStack(alignment: .leading, spacing: 4) {
