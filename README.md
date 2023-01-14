@@ -30,19 +30,18 @@
 </p>
 
 
-## Built with:
-- Foundation
-- SwiftUI
-- Combine
-- Asynchronous (async) Functions
-
-
 ## Description
 Apple Music app replica built with SwiftUI, Combine and the MVVM design pattern using Apple iTunes API.
 Build on an actual device while having an active Apple Music subscription to experience all the app's features.
 
 The app is still work in progress.
 
+
+## Built with:
+- Foundation
+- SwiftUI
+- Combine
+- Asynchronous (async) Functions
 
 
 
