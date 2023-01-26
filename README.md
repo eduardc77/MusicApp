@@ -41,7 +41,7 @@ The app is still work in progress.
 - Foundation
 - SwiftUI
 - Combine
-- Asynchronous (async) Functions
+- Asynchronous (async/await) Functions
 
 
 
