@@ -14,7 +14,7 @@ struct LibraryView: View {
 	@StateObject private var libraryObservableObject = LibraryObservableObject()
 
 	var body: some View {
-		NavigationView {
+		NavigationStack {
 			if libraryObservableObject.refreshingLibrary {
 				LoadingView()
 

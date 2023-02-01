@@ -11,7 +11,7 @@ struct ListenNowView: View {
 	@EnvironmentObject private var playerObservableObject: PlayerObservableObject
 
 	var body: some View {
-		NavigationView {
+		NavigationStack {
 			ScrollView {
 				VStack {
 					HighlightsView(items: selectedStations, imageSize: .highlightCarouselItem)

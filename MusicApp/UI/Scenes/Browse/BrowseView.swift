@@ -21,7 +21,7 @@ struct BrowseView: View {
 	}
 	
 	var body: some View {
-		NavigationView {
+		NavigationStack {
 			ScrollView {
 				HighlightsView(items: selectedStations, imageSize: .highlightCarouselItem)
 
