@@ -12,7 +12,7 @@ struct SearchView: View {
 	@State private var searchTerm = ""
 
 	var body: some View {
-		NavigationView {
+		NavigationStack {
 			SearchOrCategoryView(searchObservableObject: searchObservableObject)
 				.navigationTitle("Search")
 

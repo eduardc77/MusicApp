@@ -79,8 +79,10 @@ final class SearchObservableObject: ObservableObject {
 
 private extension SearchObservableObject {
 	var chainSearch: Void {
+		let debounceSeconds = selectedMediaType == .topResult ? 0.6 : 0.2
+
 		$searchTerm
-			.debounce(for: .seconds(0.6), scheduler: DispatchQueue.main)
+			.debounce(for: .seconds(debounceSeconds), scheduler: DispatchQueue.main)
 			.filter(validSearching)
 			.flatMap(search)
 			.map { $0.map(Media.init) }

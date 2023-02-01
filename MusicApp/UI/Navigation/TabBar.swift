@@ -46,7 +46,6 @@ struct TabBar: View {
         .opacity(playerObservableObject.showPlayerView ? 1 : 0)
     }
     .ignoresSafeArea(.keyboard)
-    .navigationViewStyle(.stack)
 
     .onAppear {
       playerObservableObject.initPlayerFromUserDefaults()

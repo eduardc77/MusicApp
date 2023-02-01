@@ -20,7 +20,7 @@ struct RadioView: View {
 	}
 	
 	var body: some View {
-		NavigationView {
+		NavigationStack {
 			ScrollView {
 				VStack {
 					HighlightsView(items: selectedStations, imageSize: .highlightCarouselItem)
