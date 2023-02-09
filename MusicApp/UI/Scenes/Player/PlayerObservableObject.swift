@@ -9,11 +9,6 @@ import SwiftUI
 import MediaPlayer
 import Combine
 
-enum PlayerType {
-	case video
-	case audio
-}
-
 final class PlayerObservableObject: ObservableObject {
 	static let audioPlayer = MPMusicPlayerController.applicationMusicPlayer
 	
@@ -91,7 +86,6 @@ final class PlayerObservableObject: ObservableObject {
 	
 	func setNowPlaying(media: MPMediaItem? = nil, videoAssetUrl: URL? = nil) {
 		guard let media = media else { return }
-		
 		let mediaKind: MediaKind
 
 		switch media.mediaType {
@@ -117,6 +111,7 @@ final class PlayerObservableObject: ObservableObject {
 		if !videoMedia {
 			playerType = .audio
 		}
+		hasRecentMedia = true
 	}
 	
 	func configureVideoPlayer(with videoAssetUrl: URL) {
@@ -168,4 +163,9 @@ extension PlayerObservableObject {
 		var repeatMode: RepeatMode = .noRepeat
 		var isShuffle: Bool = false
 	}
+}
+
+enum PlayerType {
+	case video
+	case audio
 }

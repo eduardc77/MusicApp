@@ -41,16 +41,14 @@ final class LibraryObservableObject: ObservableObject {
   
   func refreshAllLibrary() {
     guard  status == .permitted else { return }
-    self.refreshingLibrary = true
-    
-    DispatchQueue.main.async {
+	 refreshingLibrary = true
+
       LibrarySection.allCases.forEach { section in
-        self.refreshLibrary(for: section)
+			DispatchQueue.main.async {
+				self.refreshLibrary(for: section)
+
+			}
       }
-      
-      self.refreshingLibrary = false
-      self.refreshComplete = true
-    }
   }
   
   func refreshLibrary(for librarySection: LibrarySection) {
@@ -80,32 +78,34 @@ final class LibraryObservableObject: ObservableObject {
     case .homeSharing:
       homeSharing = loadMedia(forSection: .homeSharing)
     }
+	  self.refreshingLibrary = false
+	  self.refreshComplete = true
   }
 }
 
 // MARK: - Private Methods
 
 private extension LibraryObservableObject {
-  func checkForLibraryAuthorization()  {
-    let status = MPMediaLibrary.authorizationStatus()
+	func checkForLibraryAuthorization()  {
+		let status = MPMediaLibrary.authorizationStatus()
 
-		DispatchQueue.main.async {
-			switch status {
-			case .authorized:
-				self.status = .permitted
-			case .notDetermined:
-				MPMediaLibrary.requestAuthorization() { status in
+		switch status {
+		case .authorized:
+			self.status = .permitted
+		case .notDetermined:
+			MPMediaLibrary.requestAuthorization() { status in
+				DispatchQueue.main.async {
 					if status == .authorized {
 						self.status = .permitted
 					} else {
 						self.status = .notPermitted
 					}
 				}
-			default:
-				self.status = .notPermitted
 			}
+		default:
+			self.status = .notPermitted
 		}
-  }
+	}
   
   func loadMedia(forSection librarySection: LibrarySection) -> [Media] {
     let collections: [MPMediaItemCollection]?

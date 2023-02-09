@@ -32,7 +32,7 @@ struct TimeSliderView: View {
 						.frame(height: isDragging ? Metric.timeLineHeight * 2 : Metric.timeLineHeight)
 
 					Rectangle()
-						.fill(Color.lightGrayColor)
+						.foregroundColor( isDragging ? .white : Color.lightGrayColor)
 						.frame(width: (trackDuration != 0) ? (CGFloat(trackTimePosition) / CGFloat(trackDuration) * geometry.size.width) : CGFloat.zero,
 								 height: isDragging ? Metric.timeLineHeight * 2 : Metric.timeLineHeight)
 				}
@@ -55,7 +55,7 @@ struct TimeSliderView: View {
 				HStack {
 					Text(trackTimePosition.toTime)
 						.font(.caption2).bold()
-						.foregroundColor( isDragging ? .white.opacity(0.9) : Color.lightGrayColor2)
+						.foregroundColor( isDragging ? .white : Color.lightGrayColor2)
 						.frame(maxWidth: 80, alignment: .leading)
 
 					Spacer()
@@ -66,7 +66,7 @@ struct TimeSliderView: View {
 
 					Text("-" + timeRemain.toTime)
 						.font(.caption2).bold()
-						.foregroundColor( isDragging ? .white.opacity(0.9) : Color.lightGrayColor2)
+						.foregroundColor( isDragging ? .white : Color.lightGrayColor2)
 						.frame(maxWidth: 80, alignment: .trailing)
 				}
 				Spacer()
@@ -102,7 +102,7 @@ struct TimeSliderView: View {
 		.padding(.horizontal)
 		.frame(height: Metric.trackTimeSliderHeight)
 		.scaleEffect(x: isDragging ? 1.06 : 1, y: isDragging ? 1.16 : 1)
-		.animation(.linear(duration:scaleAnimationDuration), value: isDragging)
+		.animation(.linear(duration: scaleAnimationDuration), value: isDragging)
 	}
 }
 
