@@ -27,7 +27,6 @@ struct PlayerView: View {
 				}
 			}
 			.padding(.leading, model.expand ? 0 : nil)
-
 			.frame(height: model.expand ? Metric.screenHeight / 2 :  Metric.playerHeight)
 
 			if model.expand {
@@ -45,6 +44,7 @@ struct PlayerView: View {
 				.transition(.move(edge: .bottom))
 			}
 		}
+
 		.frame(maxHeight: model.expand ? .infinity : Metric.playerHeight)
 		.background(playerBackground)
 		.offset(y: model.expand ? 0 : Metric.tabBarHeight)
@@ -156,7 +156,7 @@ private extension PlayerView {
 	@ViewBuilder
 	var expandedMediaDetails: some View {
 		VStack(alignment: .leading, spacing: 0) {
-			InfiniteScrollText(text: model.nowPlayingItem.mediaResponse.trackName != nil ? model.nowPlayingItem.trackName : "Not Playing", explicitness: model.nowPlayingItem.trackExplicitness)
+			InfiniteScrollText(text: model.nowPlayingItem.mediaResponse.trackName != nil ? model.nowPlayingItem.trackName : "Not Playing", explicitness: model.nowPlayingItem.trackExplicitness, font: UIFont.systemFont(ofSize: 20, weight: .semibold))
 
 			Menu {
 				Button { } label: {
@@ -210,6 +210,8 @@ private extension PlayerView {
 			PlayerControls()
 			Spacer()
 			VolumeView(playerType: model.playerType)
+			Spacer()
+			BottomToolbar(playerType: model.playerType)
 		}
 	}
 

@@ -23,11 +23,12 @@ struct LosslessLogo: View {
 		}
 		.foregroundColor(color)
 		.padding(.horizontal, bordered ? 6.6 : 0)
+		.padding(.vertical, bordered ? 1 : 0)
 
-		.overlay {
+		.background {
 			if bordered {
-				Capsule(style: .continuous)
-					.stroke(color, lineWidth: 0.8)
+				RoundedRectangle(cornerRadius: 6, style: .continuous)
+					.foregroundColor(.lightGrayColor3)
 			}
 		}
 	}

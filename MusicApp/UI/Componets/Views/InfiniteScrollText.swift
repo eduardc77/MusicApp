@@ -13,7 +13,7 @@ struct InfiniteScrollText: View {
 	var textColor: Color = .white.opacity(0.9)
 	var animationSpeed: Double = 0.03
 	var delayTime: Double = 3.33
-	var font: UIFont = UIFont.boldSystemFont(ofSize: 20)
+	var font: UIFont = UIFont.systemFont(ofSize: 20)
 	var spacing: CGFloat = 30
 
 	var body: some View {

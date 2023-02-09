@@ -50,8 +50,9 @@ enum Metric {
 	static let highlightItemImageSize: CGFloat = Metric.screenHeight * 0.29
 	static let highlightCarouselItemHeight: CGFloat = Metric.screenHeight * 0.42
 
-	// MARK: - Time Slider View
+	// MARK: - Slider Views
 
 	static let trackTimeSliderHeight: CGFloat = 50
+	static let volumeSliderHeight: CGFloat = 40
 	static let timeLineHeight: CGFloat = 6.6
 }
