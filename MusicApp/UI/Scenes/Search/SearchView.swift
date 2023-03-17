@@ -18,8 +18,13 @@ struct SearchView: View {
 
 				.searchable(text: $searchTerm,
 								placement:.navigationBarDrawer(displayMode:.always),
-								prompt: searchObservableObject.searchPrompt.message,
+								prompt: searchObservableObject.searchScope.prompt,
 								suggestions: {})
+
+				.searchScopes($searchObservableObject.searchScope) {
+					Text(SearchScope.appleMusic.rawValue).tag(SearchScope.appleMusic)
+					Text(SearchScope.library.rawValue).tag(SearchScope.library)
+				}
 
 				.onSubmit(of: .search) {
 					searchObservableObject.searchSubmit = true
@@ -52,12 +57,21 @@ struct SearchOrCategoryView: View {
 	}
 }
 
+/// For search scope to be shown on search activation.
+extension UISearchController {
+	open override func viewWillLayoutSubviews() {
+		super.viewWillLayoutSubviews()
+
+		self.scopeBarActivation = .onSearchActivation
+	}
+}
+
 // MARK: - Search Results View
 
 extension SearchOrCategoryView {
 	var searchResults: some View {
 		ZStack {
-			SearchListView(searchObservableObject: searchObservableObject)
+			SearchListView(searchObservableObject: searchObservableObject).padding(.top, 1)
 
 			if searchObservableObject.searchLoadedWithNoResults {
 				VStack {
@@ -74,11 +88,13 @@ extension SearchOrCategoryView {
 	}
 }
 
-enum SearchPrompt: Int {
-	case appleMusic
-	case library
+// MARK: - Types
 
-	var message: String {
+enum SearchScope: String, CaseIterable {
+	case appleMusic = "Apple Music"
+	case library = "Your Library"
+
+	var prompt: String {
 		switch self {
 		case .appleMusic: return "Artists, Songs, Lyrics and More"
 		case .library: return "Your Library"
