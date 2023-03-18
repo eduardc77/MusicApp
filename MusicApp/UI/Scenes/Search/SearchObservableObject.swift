@@ -43,7 +43,7 @@ final class SearchObservableObject: ObservableObject {
 	@Published private(set) var nothingFound = false
 	@Published var searchTerm = ""
 	@Published var currentGenre = ""
-	@Published var searchScope = SearchScope.appleMusic
+	@Published var searchPrompt: SearchPrompt = .appleMusic
 	@Published var searchSubmit = false
 	@Published var sortType: SortingType = .noSorting
 	@Published var selectedMediaType: MediaType = .topResult
