@@ -22,8 +22,10 @@ struct SearchView: View {
 								suggestions: {})
 
 				.searchScopes($searchObservableObject.searchScope) {
-					Text(SearchScope.appleMusic.rawValue).tag(SearchScope.appleMusic)
-					Text(SearchScope.library.rawValue).tag(SearchScope.library)
+					if !searchObservableObject.searchSubmit {
+						Text(SearchScope.appleMusic.rawValue).tag(SearchScope.appleMusic)
+						Text(SearchScope.library.rawValue).tag(SearchScope.library)
+					}
 				}
 
 				.onSubmit(of: .search) {
@@ -71,18 +73,28 @@ extension UISearchController {
 extension SearchOrCategoryView {
 	var searchResults: some View {
 		ZStack {
-			SearchListView(searchObservableObject: searchObservableObject).padding(.top, 1)
-
-			if searchObservableObject.searchLoadedWithNoResults {
-				VStack {
-					Text("No Results")
-						.font(.title2).bold()
-						.foregroundColor(.primary)
-					Text("Try a new search.")
-						.foregroundColor(.secondary)
-						.font(.body)
+			VStack(spacing: .zero) {
+				if searchObservableObject.searchSubmit {
+					Group {
+						MediaKindSegmentedControl(searchObservableObject: searchObservableObject)
+					}
+					.padding(.vertical, 10)
+					.background(.ultraThinMaterial)
+					.zIndex(.infinity)
 				}
-				.padding(.bottom)
+				SearchListView(searchObservableObject: searchObservableObject).padding(.top, 1)
+
+				if searchObservableObject.searchLoadedWithNoResults {
+					VStack {
+						Text("No Results")
+							.font(.title2).bold()
+							.foregroundColor(.primary)
+						Text("Try a new search.")
+							.foregroundColor(.secondary)
+							.font(.body)
+					}
+					.padding(.bottom)
+				}
 			}
 		}
 	}

@@ -9,99 +9,60 @@ import SwiftUI
 import MediaPlayer
 
 struct SearchListView: View {
-  @Environment(\.isSearching) private var isSearching
-  @EnvironmentObject private var playerObservableObject: PlayerObservableObject
-  @ObservedObject var searchObservableObject: SearchObservableObject
-  @State var selectedPickerIndex = 0
-  
-  var columns = [GridItem(.flexible(), spacing: 12)]
-  
-  var body: some View {
-    ScrollView {
-      LazyVGrid(columns: columns) {
-			ForEach(Array(searchObservableObject.searchResults.enumerated()), id: \.element) { mediaIndex, media in
-				Button {
-					withAnimation {
-						playerObservableObject.play(media, videoAssetUrl: media.previewUrl)
-					}
-				} label: {
-					VStack(spacing: 0) {
-						if mediaIndex == 0 { Divider() }
-						Spacer()
+	@Environment(\.isSearching) private var isSearching
+	@EnvironmentObject private var playerObservableObject: PlayerObservableObject
+	@ObservedObject var searchObservableObject: SearchObservableObject
+	@State var selectedPickerIndex = 0
 
-						switch media.wrapperType {
-						case .collection:
-							SearchWrapperRow(media: media, destinationView: AlbumDetailView(media: media))
-						case .track:
-							SearchResultsRow(media: media)
-						case .artist:
-							SearchWrapperRow(media: media, destinationView: ArtistDetailView(media: media))
+	var columns = [GridItem(.flexible(), spacing: 12)]
+
+	var body: some View {
+		ScrollView {
+			LazyVGrid(columns: columns) {
+				ForEach(Array(searchObservableObject.searchResults.enumerated()), id: \.element) { mediaIndex, media in
+
+					Button {
+						withAnimation {
+							playerObservableObject.play(media, videoAssetUrl: media.previewUrl)
 						}
+					} label: {
+						VStack(spacing: 0) {
+							if mediaIndex == 0 { Divider() }
+							Spacer()
 
-						Spacer()
-						Divider()
+							switch media.wrapperType {
+							case .collection:
+								SearchWrapperRow(media: media, destinationView: AlbumDetailView(media: media))
+							case .track:
+								SearchResultsRow(media: media)
+							case .artist:
+								SearchWrapperRow(media: media, destinationView: ArtistDetailView(media: media))
+							}
+
+							Spacer()
+							Divider()
+						}
+						.padding(.horizontal)
+						.frame(maxWidth: .infinity)
+						.contentShape(Rectangle())
 					}
-					.padding(.horizontal)
-					.frame(maxWidth: .infinity)
-					.contentShape(Rectangle())
+					.buttonStyle(.rowButton)
 				}
-				.buttonStyle(.rowButton)
+
+				if playerObservableObject.showPlayerView, !playerObservableObject.expand {
+					Spacer(minLength: Metric.playerHeight)
+				}
 			}
-
-        if playerObservableObject.showPlayerView, !playerObservableObject.expand {
-          Spacer(minLength: Metric.playerHeight)
-        }
-      }
-    }
-    .dismissKeyboardOnScroll()
-
-  }
+		}
+		.dismissKeyboardOnScroll()
+	}
 }
-
-struct MediaKindSegmentedControl: View {
-  @ObservedObject var searchObservableObject: SearchObservableObject
-  @State var selectedMediaKind: MediaType = .topResult
-  @Namespace var animation
-  
-  var body: some View {
-    ScrollView(.horizontal, showsIndicators: false) {
-      HStack {
-        ForEach(MediaType.allCases, id: \.self) { mediaKind in
-          Button(action: {
-            withAnimation {
-              searchObservableObject.select(mediaKind)
-              selectedMediaKind = mediaKind
-            }
-          }) {
-            Text(mediaKind.title)
-              .font(.footnote.weight(.medium))
-              .padding(.vertical, 8)
-              .padding(.horizontal)
-              .background(
-                ZStack {
-                  if selectedMediaKind == mediaKind {
-                    Capsule()
-                      .fill(Color.appAccentColor)
-                      .matchedGeometryEffect(id: "TAB", in: animation)
-                  }
-                }
-              )
-              .foregroundColor(selectedMediaKind == mediaKind ? .white : .primary)
-          }
-          .buttonStyle(.plain)
-        }
-      }
-      .padding(.horizontal)
-    }
-  }
-}
-
 
 // MARK: - Previews
 
 struct SearchListView_Previews: PreviewProvider {
-    static var previews: some View {
-        SearchListView(searchObservableObject: SearchObservableObject())
-				.environmentObject(PlayerObservableObject())
-    }
+	static var previews: some View {
+		SearchListView(searchObservableObject: SearchObservableObject())
+			.environmentObject(PlayerObservableObject())
+	}
 }
