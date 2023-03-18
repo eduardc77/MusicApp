@@ -124,6 +124,7 @@ final class ArtistViewObservableObject: ObservableObject {
 
 	// MARK: - Public Methods
 
+	@MainActor
 	func fetchAllArtistMedia(for artistId: String) {
 		fetchSongs(for: artistId)
 		fetchAlbums(for: artistId)
@@ -153,7 +154,7 @@ final class ArtistViewObservableObject: ObservableObject {
 				.map { $0.map(Media.init) }
 			.assign(to: &$albumResults)
 	}
-
+	
 	func fetchMusicVideos(for artistId: String) {
 		guard musicVideoResults.isEmpty else { return }
 		cleanErrorState()

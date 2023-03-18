@@ -10,44 +10,45 @@ import MediaPlayer
 
 struct PlayerView: View {
 	@EnvironmentObject private var model: PlayerObservableObject
-	@State private var offset: CGFloat = 0
+	@State private var offset: CGFloat =  .zero
 	@State private var visibleSide: FlipViewSide = .front
 
 	var body: some View {
-		VStack(spacing: 0) {
+		VStack(spacing:  .zero) {
 			handleBar
 
-			HStack(spacing: 0) {
+			HStack(spacing: .zero) {
 				mediaView
 
 				if !model.expand {
 					smallPlayerViewDetails
 						.padding(.leading, 12)
-						.padding(.trailing, 6)
+						.padding(.trailing, 4)
 				}
 			}
-			.padding(.leading, model.expand ? 0 : nil)
+			.padding(.leading, model.expand ? .zero : nil)
 			.frame(height: model.expand ? Metric.screenHeight / 2 :  Metric.playerHeight)
 
 			if model.expand {
-				VStack {
-					HStack {
+				VStack(spacing: .zero) {
+					HStack(spacing: 4) {
 						expandedMediaDetails
 						Spacer()
 						ellipsisButton
 					}
-					Spacer()
+					.padding(.bottom)
+
 					expandedControlsBlock.padding(.horizontal)
 				}
-				.frame(height: model.expand ? Metric.screenHeight / 2.74 : 0)
-				.opacity(model.expand ? 1 : 0)
+				.frame(height: model.expand ? Metric.screenHeight / 2.74 : .zero)
+				.opacity(model.expand ? 1 : .zero)
 				.transition(.move(edge: .bottom))
 			}
 		}
 
 		.frame(maxHeight: model.expand ? .infinity : Metric.playerHeight)
 		.background(playerBackground)
-		.offset(y: model.expand ? 0 : Metric.tabBarHeight)
+		.offset(y: model.expand ? .zero : Metric.tabBarHeight)
 		.offset(y: offset)
 		.ignoresSafeArea()
 		.gesture(DragGesture().onEnded(onEnded).onChanged(onChanged))
@@ -69,7 +70,7 @@ private extension PlayerView {
 	// Drag Player
 	func onChanged(value: DragGesture.Value) {
 		withAnimation(.linear) {
-			if value.translation.height > 0 && model.expand {
+			if value.translation.height > .zero && model.expand {
 				offset = value.translation.height
 			}
 		}
@@ -81,7 +82,7 @@ private extension PlayerView {
 			if value.translation.height > Metric.screenHeight / 12 {
 				model.expand = false
 			}
-			offset = 0
+			offset = .zero
 		}
 	}
 
@@ -99,8 +100,8 @@ private extension PlayerView {
 	var handleBar: some View {
 		Capsule()
 			.fill(Color.lightGrayColor2)
-			.frame(width: Metric.capsuleWidth, height: model.expand ? Metric.capsuleHeight : 0)
-			.opacity(model.expand ? 1 : 0)
+			.frame(width: Metric.capsuleWidth, height: model.expand ? Metric.capsuleHeight : .zero)
+			.opacity(model.expand ? 1 : .zero)
 	}
 
 	@ViewBuilder
@@ -130,9 +131,9 @@ private extension PlayerView {
 			Text(model.nowPlayingItem.trackName)
 				.lineLimit(1)
 				.font(.title3)
-			Spacer()
+			Spacer(minLength: 4)
 
-			HStack(spacing: 0) {
+			HStack(spacing: .zero) {
 				Button {
 					model.playbackState == .playing ? PlayerObservableObject.audioPlayer.pause() : PlayerObservableObject.audioPlayer.play()
 				} label: {
@@ -155,31 +156,21 @@ private extension PlayerView {
 
 	@ViewBuilder
 	var expandedMediaDetails: some View {
-		VStack(alignment: .leading, spacing: 0) {
+		VStack(alignment: .leading, spacing: .zero) {
 			InfiniteScrollText(text: model.nowPlayingItem.mediaResponse.trackName != nil ? model.nowPlayingItem.trackName : "Not Playing", explicitness: model.nowPlayingItem.trackExplicitness, font: UIFont.systemFont(ofSize: 20, weight: .semibold))
 
 			Menu {
 				Button { } label: {
-					HStack {
-						VStack {
-							Text("Go to Album")
-
-							Text(model.nowPlayingItem.collectionName)
-						}
-						.font(.caption2)
-
-						Image(systemName: "square.stack")
+					VStack {
+						Label("Go to Album", systemImage: "square.stack")
+						Text(model.nowPlayingItem.collectionName)
 					}
 				}
 
 				Button { } label: {
-					HStack {
-						VStack {
-							Text("Go to Artist")
-							Text(model.nowPlayingItem.artistName)
-						}.font(.caption2)
-
-						Image(systemName: "music.mic")
+					VStack {
+						Label("Go to Artist", systemImage: "music.mic")
+						Text(model.nowPlayingItem.artistName)
 					}
 				}
 			} label: {
@@ -199,12 +190,11 @@ private extension PlayerView {
 			}
 		}
 		.padding(.trailing, 30)
-		.padding(.leading, 6)
 	}
 
 	@ViewBuilder
 	var expandedControlsBlock: some View {
-		VStack {
+		VStack(spacing: .zero) {
 			TimeSliderView()
 			Spacer()
 			PlayerControls()
@@ -228,14 +218,14 @@ private extension PlayerView {
 							startPoint: .topLeading,
 							endPoint: .bottomTrailing)
 					} else {
-						Color(.gray)
+						Color.gray
 					}
 				case .video:
 					// Video Player background
-					Color(.black)
+					Color.black
 				}
 			} else {
-				VStack(spacing: 0) {
+				VStack(spacing: .zero) {
 					BlurView()
 					Divider()
 				}
