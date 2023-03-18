@@ -66,6 +66,7 @@ final class MediaItemObservableObject: ObservableObject {
 			.assign(to: &$trackResults)
 	}
 
+	@MainActor
 	func playTrack(withId id: String) {
 		PlayerObservableObject.audioPlayer.stop()
 		PlayerObservableObject.audioPlayer.setQueue(with: [id])
@@ -73,7 +74,8 @@ final class MediaItemObservableObject: ObservableObject {
 		PlayerObservableObject.audioPlayer.play()
 		PlayerObservableObject.setShuffleMode(false)
 	}
-	
+
+	@MainActor
 	func playAllTracks(isShuffle: Bool) {
 		configureAlbumDetails()
 		PlayerObservableObject.audioPlayer.stop()

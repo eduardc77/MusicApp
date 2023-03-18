@@ -8,6 +8,7 @@
 import MediaPlayer
 import SwiftUI
 
+@MainActor
 final class LibraryMediaItemObservableObject: ObservableObject {
 	// MARK: - Publishers
 	

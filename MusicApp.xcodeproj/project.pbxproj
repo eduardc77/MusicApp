@@ -119,6 +119,7 @@
 		EAD25821296C719200479449 /* LabeledViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD25820296C719200479449 /* LabeledViewModifier.swift */; };
 		EAE825D028382313008F59F2 /* InfiniteScrollText.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE825CF28382313008F59F2 /* InfiniteScrollText.swift */; };
 		EAE825D228382962008F59F2 /* LargePictureModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE825D128382962008F59F2 /* LargePictureModel.swift */; };
+		EAEEAD8529C5F82A00143969 /* MediaKindSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAEEAD8429C5F82A00143969 /* MediaKindSegmentedControl.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -235,6 +236,7 @@
 		EAD25820296C719200479449 /* LabeledViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabeledViewModifier.swift; sourceTree = "<group>"; };
 		EAE825CF28382313008F59F2 /* InfiniteScrollText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfiniteScrollText.swift; sourceTree = "<group>"; };
 		EAE825D128382962008F59F2 /* LargePictureModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LargePictureModel.swift; sourceTree = "<group>"; };
+		EAEEAD8429C5F82A00143969 /* MediaKindSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaKindSegmentedControl.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -438,6 +440,7 @@
 			children = (
 				EAD15355280D5E09005FD971 /* SearchListView.swift */,
 				EAD1534E280D5DB6005FD971 /* CategoryDetailView.swift */,
+				EAEEAD8429C5F82A00143969 /* MediaKindSegmentedControl.swift */,
 			);
 			path = Subview;
 			sourceTree = "<group>";
@@ -844,6 +847,7 @@
 				EAC53D7728145C7B00785395 /* Enum+Extension.swift in Sources */,
 				EAE825D228382962008F59F2 /* LargePictureModel.swift in Sources */,
 				EAD15373280D640E005FD971 /* Date+DateFormatter.swift in Sources */,
+				EAEEAD8529C5F82A00143969 /* MediaKindSegmentedControl.swift in Sources */,
 				EAD01E9A28233CCB00B01F07 /* NavigationLinkList.swift in Sources */,
 				EA3FA34F2817251500F84B09 /* TrackMediaRow.swift in Sources */,
 				EAD1530D280D579D005FD971 /* TabBar.swift in Sources */,
