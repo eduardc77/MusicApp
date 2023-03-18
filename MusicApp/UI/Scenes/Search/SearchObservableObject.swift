@@ -65,8 +65,7 @@ final class SearchObservableObject: ObservableObject {
 
 	func select(_ mediaKind: MediaType) {
 		sortType = .filter(iD: mediaKind.title)
-		self.selectedMediaType = mediaKind
-
+		selectedMediaType = mediaKind
 		chainSearch
 	}
 
@@ -79,10 +78,10 @@ final class SearchObservableObject: ObservableObject {
 
 private extension SearchObservableObject {
 	var chainSearch: Void {
-		let debounceSeconds = selectedMediaType == .topResult ? 0.6 : 0.2
+		let debounceSeconds = selectedMediaType == .topResult ? 0.6 : 0.4
 
 		$searchTerm
-			.debounce(for: .seconds(debounceSeconds), scheduler: DispatchQueue.main)
+			.debounce(for: .seconds(debounceSeconds), scheduler: RunLoop.main)
 			.filter(validSearching)
 			.flatMap(search)
 			.map { $0.map(Media.init) }
@@ -105,7 +104,7 @@ private extension SearchObservableObject {
 	}
 
 	func validSearching(with query: String) -> Bool {
-		return query.count > 0
+		query.count > 0
 	}
 
 	func loaded(results: [MediaResponse]) -> [MediaResponse] {
