@@ -54,7 +54,35 @@ struct SearchListView: View {
       }
     }
     .dismissKeyboardOnScroll()
-
+    
+    .safeAreaInset(edge: .top) {
+      Group {
+        if searchObservableObject.searchSubmit {
+          MediaKindSegmentedControl(searchObservableObject: searchObservableObject)
+        } else {
+          Picker("Search In", selection: $selectedPickerIndex) {
+            Text("Apple Music").tag(0)
+            Text("Your Library").tag(1)
+          }
+          
+          .pickerStyle(.segmented)
+          .padding(.horizontal)
+          
+          .onChange(of: selectedPickerIndex) { tag in
+            if tag == 0 {
+              searchObservableObject.searchPrompt = .appleMusic
+            } else {
+              searchObservableObject.searchPrompt = .library
+            }
+          }
+          .onAppear {
+            selectedPickerIndex = searchObservableObject.searchPrompt.rawValue
+          }
+        }
+      }
+      .padding(.vertical, 10)
+      .background(.ultraThinMaterial)
+    }
   }
 }
 
