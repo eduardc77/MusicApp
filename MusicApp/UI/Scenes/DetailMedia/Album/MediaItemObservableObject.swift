@@ -53,7 +53,8 @@ final class MediaItemObservableObject: ObservableObject {
 	}
 	
 	// MARK: - Public Methods
-	
+
+	@MainActor
 	func fetchTracks(for collectionId: String) {
 		cleanErrorState()
 

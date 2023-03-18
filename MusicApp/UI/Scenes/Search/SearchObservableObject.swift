@@ -62,7 +62,7 @@ final class SearchObservableObject: ObservableObject {
 	}
 
 	// MARK: - Public Methods
-
+	@MainActor
 	func select(_ mediaKind: MediaType) {
 		sortType = .filter(iD: mediaKind.title)
 		selectedMediaType = mediaKind
@@ -77,6 +77,7 @@ final class SearchObservableObject: ObservableObject {
 // MARK: - Private Methods
 
 private extension SearchObservableObject {
+	
 	var chainSearch: Void {
 		let debounceSeconds = selectedMediaType == .topResult ? 0.6 : 0.4
 
