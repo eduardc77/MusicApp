@@ -31,8 +31,8 @@ struct MediaImageView: View {
 	var body: some View {
 		FlipView(visibleSide: visibleSide) {
 			Group {
-				if let artworkImage = artworkImage, let artwork = Image(uiImage: artworkImage) {
-					artwork.resizable()
+				if let artworkImage = artworkImage {
+					Image(uiImage: artworkImage).resizable()
 				} else {
 					AsyncImageView(urlString: imagePath ?? "", sizeType: sizeType)
 				}
