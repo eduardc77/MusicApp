@@ -77,7 +77,7 @@ struct TimeSliderView: View {
 				DragGesture(minimumDistance: 0)
 					.onChanged { value in
 						isDragging = true
-						timer.upstream.connect().cancel()
+						stopTimer()
 
 						if abs(value.translation.width) < 0.1 {
 							lastOffset = CGFloat(trackTimePosition) / CGFloat(trackDuration) * geometry.size.width
@@ -103,6 +103,14 @@ struct TimeSliderView: View {
 		.frame(height: Metric.trackTimeSliderHeight)
 		.scaleEffect(x: isDragging ? 1.06 : 1, y: isDragging ? 1.16 : 1)
 		.animation(.linear(duration: scaleAnimationDuration), value: isDragging)
+
+		.onDisappear {
+			stopTimer()
+		}
+	}
+
+	private func stopTimer() {
+		timer.upstream.connect().cancel()
 	}
 }
 

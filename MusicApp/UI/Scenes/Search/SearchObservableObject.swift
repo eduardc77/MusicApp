@@ -12,7 +12,7 @@ final class SearchObservableObject: ObservableObject {
 
 	// MARK: - Properties
 
-	private let networkService: NetworkServiceProtocol
+	private let networkService: NetworkServiceProtocol = NetworkService()
 	private var anyCancellable: Set<AnyCancellable> = []
 
 	var filteredContent: [Media] {
@@ -41,28 +41,21 @@ final class SearchObservableObject: ObservableObject {
 	@Published private(set) var searchResults: [Media] = []
 	@Published private(set) var searchLoading = false
 	@Published private(set) var nothingFound = false
-	@Published var searchTerm = ""
-	@Published var currentGenre = ""
+	@Published private(set) var currentGenre = ""
+	@Published private(set) var sortType: SortingType = .noSorting
+	@Published var selectedMediaType: MediaType = .topResult
 	@Published var searchPrompt: SearchPrompt = .appleMusic
 	@Published var searchSubmit = false
-	@Published var sortType: SortingType = .noSorting
-	@Published var selectedMediaType: MediaType = .topResult
+	@Published var searchTerm = ""
 
 	// MARK: - Initialization
 
-	init(networkService: NetworkServiceProtocol = NetworkService()) {
-		self.networkService = networkService
-
-		$sortType
-			.map { $0 == .search(searchTerm: "") }
-			.map { _ in return "" }
-			.assign(to: &$currentGenre)
-
-		chainSearch
+	init() {
+		select(.topResult)
 	}
 
 	// MARK: - Public Methods
-	@MainActor
+
 	func select(_ mediaKind: MediaType) {
 		sortType = .filter(iD: mediaKind.title)
 		selectedMediaType = mediaKind
@@ -86,14 +79,24 @@ private extension SearchObservableObject {
 			.filter(validSearching)
 			.flatMap(search)
 			.map { $0.map(Media.init) }
-			.replaceError(with: [])
-			.assign(to: &$searchResults)
+			.replaceError(with: .init())
+			.sink { [weak self] results in
+				self?.searchResults = results
+			}
+			.store(in: &anyCancellable)
+
 		$searchTerm
 			.map(validSearching)
-			.assign(to: &$searchLoading)
+			.sink { [weak self] results in
+				self?.searchLoading = results
+			}
+			.store(in: &anyCancellable)
 		$searchResults
 			.map(\.isEmpty)
-			.assign(to: &$nothingFound)
+			.sink { [weak self] results in
+				self?.nothingFound = results
+			}
+			.store(in: &anyCancellable)
 	}
 
 	func search(searchQuery: String) -> AnyPublisher<[MediaResponse], NetworkError> {

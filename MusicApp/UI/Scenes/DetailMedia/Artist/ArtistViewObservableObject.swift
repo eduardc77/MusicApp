@@ -96,7 +96,6 @@ final class ArtistViewObservableObject: ObservableObject {
 		return musicVideos
 	}
 
-
 	var loadingComplete: Bool {
 		if loadingTracks || loadingAlbums || loadingMusicVideos {
 			return false
@@ -110,16 +109,6 @@ final class ArtistViewObservableObject: ObservableObject {
 	init(networkService: NetworkService = .init(), media: Media) {
 		self.networkService = networkService
 		self.media = media
-
-		$trackResults
-			.map(\.isEmpty)
-			.assign(to: &$loadingTracks)
-		$albumResults
-			.map(\.isEmpty)
-			.assign(to: &$loadingAlbums)
-		$musicVideoResults
-			.map(\.isEmpty)
-			.assign(to: &$loadingMusicVideos)
 	}
 
 	// MARK: - Public Methods
@@ -140,7 +129,11 @@ final class ArtistViewObservableObject: ObservableObject {
 			.catch(handleError)
 				.map(\.results)
 				.map { $0.map(Media.init) }
-			.assign(to: &$trackResults)
+
+			.sink { [weak self] results in
+				self?.trackResults = results
+			}
+			.store(in: &anyCancellable)
 	}
 
 	func fetchAlbums(for artistId: String) {
@@ -152,7 +145,11 @@ final class ArtistViewObservableObject: ObservableObject {
 			.catch(handleError)
 				.map(\.results)
 				.map { $0.map(Media.init) }
-			.assign(to: &$albumResults)
+
+			.sink { [weak self] results in
+				self?.albumResults = results
+			}
+			.store(in: &anyCancellable)
 	}
 	
 	func fetchMusicVideos(for artistId: String) {
@@ -164,7 +161,11 @@ final class ArtistViewObservableObject: ObservableObject {
 			.catch(handleError)
 				.map(\.results)
 				.map { $0.map(Media.init) }
-			.assign(to: &$musicVideoResults)
+
+			.sink { [weak self] results in
+				self?.musicVideoResults = results
+			}
+			.store(in: &anyCancellable)
 	}
 }
 

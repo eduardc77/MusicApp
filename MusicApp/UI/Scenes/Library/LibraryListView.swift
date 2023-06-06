@@ -13,7 +13,6 @@ struct LibraryListView: View {
 	@State var selection = Set<LibrarySection>()
 	@State var currentSections = LibrarySection.allCases
 
-
 	var body: some View {
 		List(selection: $selection) {
 			ForEach(currentSections, id: \.self) { section in

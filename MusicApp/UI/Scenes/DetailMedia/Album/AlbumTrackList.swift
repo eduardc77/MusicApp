@@ -19,7 +19,7 @@ struct AlbumTrackList: View {
 				LoadingView()
 
 			} else {
-				LazyVStack(alignment: .leading, spacing: 0) {
+				LazyVStack(alignment: .leading, spacing: .zero) {
 					ForEach(Array(mediaItemObservableObject.tracks.enumerated()), id: \.element) { trackIndex, track in
 						Button {
 							mediaItemObservableObject.playTrack(withId: track.id)

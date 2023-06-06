@@ -9,7 +9,6 @@ import SwiftUI
 
 struct MediaKindSegmentedControl: View {
 	@ObservedObject var searchObservableObject: SearchObservableObject
-	@State var selectedMediaType: MediaType = .topResult
 	@Namespace var animation
 
 	var body: some View {

@@ -10,7 +10,7 @@ import AVKit
 import Combine
 
 struct VideoPlayerView: View {
-	@State var player: AVPlayer = AVPlayer()
+	let player: AVPlayer = AVPlayer()
 	@State var expand = false
 	private var sizeType: SizeType
 	private var cornerRadius: CGFloat
@@ -39,7 +39,7 @@ struct VideoPlayerView: View {
 	}
 
 	var body: some View {
-		AVPlayerControllerRepresentable(player: $player, videoAssetUrl: videoAssetUrl, expand: $expand)
+		AVPlayerControllerRepresentable(player: player, videoAssetUrl: videoAssetUrl, expand: $expand)
 			.onTapGesture {
 				expand.toggle()
 			}
@@ -55,10 +55,9 @@ struct VideoPlayerView: View {
 }
 
 struct AVPlayerControllerRepresentable: UIViewControllerRepresentable {
-	@Binding var player: AVPlayer
+	var player: AVPlayer
 	var videoAssetUrl: URL
 	@Binding var expand: Bool
-
 	@State private var beenExpanded: Bool = false
 
 	func makeUIViewController(context: UIViewControllerRepresentableContext<AVPlayerControllerRepresentable>) -> AVPlayerViewController {

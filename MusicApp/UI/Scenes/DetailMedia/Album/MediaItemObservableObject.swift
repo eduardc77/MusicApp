@@ -49,7 +49,10 @@ final class MediaItemObservableObject: ObservableObject {
 		self.networkService = networkService
 		$trackResults
 			.map(\.isEmpty)
-			.assign(to: &$loadingTracks)
+			.sink { [weak self] results in
+				self?.loadingTracks = results
+			}
+			.store(in: &anyCancellable)
 	}
 	
 	// MARK: - Public Methods
@@ -64,7 +67,10 @@ final class MediaItemObservableObject: ObservableObject {
 				.map(\.results)
 				.map { $0.map(Media.init) }
 
-			.assign(to: &$trackResults)
+			.sink { [weak self] results in
+				self?.trackResults = results
+			}
+			.store(in: &anyCancellable)
 	}
 
 	@MainActor
