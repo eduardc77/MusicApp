@@ -113,7 +113,6 @@ final class ArtistViewObservableObject: ObservableObject {
 
 	// MARK: - Public Methods
 
-	@MainActor
 	func fetchAllArtistMedia(for artistId: String) {
 		fetchSongs(for: artistId)
 		fetchAlbums(for: artistId)

@@ -8,7 +8,6 @@
 import MediaPlayer
 import SwiftUI
 
-@MainActor
 final class LibraryObservableObject: ObservableObject {
   @Published private(set) var status: AuthorizationStatus = .notYetDetermined
   @Published private(set) var refreshingLibrary: Bool = false

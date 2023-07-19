@@ -14,7 +14,7 @@ struct VolumeView: View {
 
 	var binding: Binding<Double> {
 		Binding(get: {
-			volumeObserver.volume
+            volumeObserver.volume ?? Double(VolumeObserver.session.outputVolume)
 		}, set: {
 			volumeObserver.volume = $0
 			MPVolumeView.setVolume(Float($0))

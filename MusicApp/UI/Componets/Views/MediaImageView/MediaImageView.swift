@@ -33,9 +33,11 @@ struct MediaImageView: View {
 			Group {
 				if let artworkImage = artworkImage {
 					Image(uiImage: artworkImage).resizable()
-				} else {
-					AsyncImageView(urlString: imagePath ?? "", sizeType: sizeType)
-				}
+				} else if let imagePath = imagePath, let url = URL(string: imagePath) {
+					AsyncImageView(url: url, sizeType: sizeType)
+                } else {
+                    DefaultImage(sizeType: sizeType)
+                }
 			}
 			.aspectRatio(contentMode: contentMode)
 			.frame(width: sizeType.size.width, height: sizeType.size.height)

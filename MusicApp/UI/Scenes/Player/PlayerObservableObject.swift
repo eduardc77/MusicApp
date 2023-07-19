@@ -9,7 +9,6 @@ import SwiftUI
 import MediaPlayer
 import Combine
 
-@MainActor
 final class PlayerObservableObject: ObservableObject {
 	static let audioPlayer = MPMusicPlayerController.applicationMusicPlayer
 	
