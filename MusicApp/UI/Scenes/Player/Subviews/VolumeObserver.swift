@@ -9,25 +9,25 @@ import Foundation
 import MediaPlayer
 
 final class VolumeObserver: ObservableObject {
-	@Published var volume: Double
+	@Published var volume: Double?
 
 	// Audio session object
-	private let session = AVAudioSession.sharedInstance()
+	static let session = AVAudioSession.sharedInstance()
 
 	// Observer
 	private var progressObserver: NSKeyValueObservation?
-
+    
 	func subscribe() {
 		do {
-			try session.setCategory(AVAudioSession.Category.ambient)
-			try session.setActive(true, options: .notifyOthersOnDeactivation)
+            try VolumeObserver.session.setCategory(AVAudioSession.Category.ambient)
+            try VolumeObserver.session.setActive(true, options: .notifyOthersOnDeactivation)
 
 			UIApplication.shared.beginReceivingRemoteControlEvents()
 		} catch {
 			print("Cannot activate AVAudioSession.")
 		}
 
-		progressObserver = session.observe(\.outputVolume) { [weak self] (session, value) in
+        progressObserver = VolumeObserver.session.observe(\.outputVolume) { [weak self] (session, value) in
 			DispatchQueue.main.async {
 				self?.volume = Double(session.outputVolume)
 			}
@@ -39,7 +39,7 @@ final class VolumeObserver: ObservableObject {
 	}
 
 	init() {
-		volume = Double(session.outputVolume)
+        volume = Double(VolumeObserver.session.outputVolume)
 		subscribe()
 	}
 

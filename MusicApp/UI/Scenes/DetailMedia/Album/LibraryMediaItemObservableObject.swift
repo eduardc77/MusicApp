@@ -8,7 +8,6 @@
 import MediaPlayer
 import SwiftUI
 
-@MainActor
 final class LibraryMediaItemObservableObject: ObservableObject {
 	// MARK: - Publishers
 	
@@ -39,6 +38,7 @@ final class LibraryMediaItemObservableObject: ObservableObject {
 	
 	// MARK: - Public Methods
 	
+    @MainActor
 	func playTrack(at index: Int) {
 		PlayerObservableObject.audioPlayer.stop()
 		PlayerObservableObject.audioPlayer.setQueue(with: trackIDsQueue)
@@ -48,6 +48,7 @@ final class LibraryMediaItemObservableObject: ObservableObject {
 		PlayerObservableObject.audioPlayer.nowPlayingItem = libraryTracks[index]
 	}
 	
+    @MainActor
 	func playAllTracks(isShuffle: Bool) {
 		PlayerObservableObject.audioPlayer.stop()
 		PlayerObservableObject.audioPlayer.setQueue(with: trackIDsQueue)

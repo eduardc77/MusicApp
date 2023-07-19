@@ -62,7 +62,7 @@ final class SearchObservableObject: ObservableObject {
 	}
 
 	// MARK: - Public Methods
-	@MainActor
+    
 	func select(_ mediaKind: MediaType) {
 		sortType = .filter(iD: mediaKind.title)
 		selectedMediaType = mediaKind
