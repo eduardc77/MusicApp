@@ -9,45 +9,45 @@ import SwiftUI
 import MediaPlayer
 
 struct VideoMediaItem: View {
-	@EnvironmentObject var playerObservableObject: PlayerObservableObject
-	
-	var media: Media
-	var imageData: Data?
-	
-	var body: some View {
-		VStack(alignment: .leading) {
-			if let uiImage = media.artwork {
-				MediaImageView(artworkImage: uiImage, sizeType: .videoCarouselItem, contentMode: .fill)
-			} else {
-				MediaImageView(imagePath: media.artworkPath.resizedPath(size: 1024), sizeType: .videoCarouselItem, contentMode: .fill)
-			}
-			
-			VStack {
-				MediaItemName(name: media.name, explicitness: media.trackExplicitness)
-				
-					.frame(maxWidth: Metric.largeCarouselItemWidth, alignment: .leading)
-				Text(media.artistName)
-					.foregroundColor(.secondary)
-					.frame(maxWidth: Metric.largeCarouselItemWidth, alignment: .leading)
-			}
-			.font(.caption)
-			.lineLimit(1)
-		}
-		
-		.onTapGesture {         
-
-				playerObservableObject.play(media, videoAssetUrl: media.previewUrl)
-			
-		}
-	}
+   @EnvironmentObject var playerObservableObject: PlayerObservableObject
+   
+   var media: Media
+   var imageData: Data?
+   
+   var body: some View {
+      VStack(alignment: .leading) {
+         if let uiImage = media.artwork {
+            MediaImageView(artworkImage: uiImage, sizeType: .videoCarouselItem, contentMode: .fill)
+         } else {
+            MediaImageView(imagePath: media.artworkPath.resizedPath(size: 1024), sizeType: .videoCarouselItem, contentMode: .fill)
+         }
+         
+         VStack {
+            MediaItemName(name: media.name, explicitness: media.trackExplicitness)
+            
+               .frame(maxWidth: Metric.largeCarouselItemWidth, alignment: .leading)
+            Text(media.artistName)
+               .foregroundColor(.secondary)
+               .frame(maxWidth: Metric.largeCarouselItemWidth, alignment: .leading)
+         }
+         .font(.caption)
+         .lineLimit(1)
+      }
+      
+      .onTapGesture {         
+         
+         playerObservableObject.play(media, videoAssetUrl: media.previewUrl)
+         
+      }
+   }
 }
 
 
 // MARK: - Previews
 
 struct VideoMediaItem_Previews: PreviewProvider {
-	static var previews: some View {
-		VideoMediaItem(media: musicPlaylists2.first ?? Media())
-			.environmentObject(PlayerObservableObject())
-	}
+   static var previews: some View {
+      VideoMediaItem(media: musicPlaylists2.first ?? Media())
+         .environmentObject(PlayerObservableObject())
+   }
 }

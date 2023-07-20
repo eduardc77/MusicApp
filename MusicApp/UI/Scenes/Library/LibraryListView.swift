@@ -8,81 +8,95 @@
 import SwiftUI
 
 struct LibraryListView: View {
-	@ObservedObject var libraryObservableObject: LibraryObservableObject
-	@Binding var editMode: EditMode
-	@State var selection = Set<LibrarySection>()
-	@State var currentSections = LibrarySection.allCases
-
-	var body: some View {
-		List(selection: $selection) {
-			ForEach(currentSections, id: \.self) { section in
-				NavigationLink {
-					LibraryListDetailView(libraryObservableObject: libraryObservableObject, section: section)
-				} label: {
-					HStack {
-						Image(systemName: section.systemImage)
-							.font(.title2)
-							.foregroundColor(.appAccentColor)
-							.frame(minWidth: 32)
-
-						Text(section.title)
-							.font(.title2)
-					}
-					.frame(minWidth: 36)
-				}
-			}
-			.onMove(perform: move)
-		}
-		.listStyle(.plain)
-		.frame(idealHeight: CGFloat(46 * currentSections.count), maxHeight: .infinity)
-		.scrollingDisabled(true)
-
-		.onChange(of: editMode) { editMode in
-			withAnimation {
-				if !editMode.isEditing {
-					currentSections = currentSections.filter { selection.contains($0) }
-					UserDefaults.standard.set(try? libraryObservableObject.propertyListEncoder.encode(currentSections), forKey: UserDefaultsKey.libraryListSelection)
-				} else {
-					if let data = UserDefaults.standard.value(forKey: UserDefaultsKey.orderedLibraryList) as? Data, let orderedLibraryList = try? libraryObservableObject.propertyListDecoder.decode(Array<LibrarySection>.self, from: data) {
-						currentSections = orderedLibraryList
-					} else {
-						currentSections = LibrarySection.allCases
-					}
-				}
-			}
-		}
-
-		.onAppear {
-			if let data = UserDefaults.standard.value(forKey: UserDefaultsKey.libraryListSelection) as? Data, let librarySelection = try? libraryObservableObject.propertyListDecoder.decode(Array<LibrarySection>.self, from: data) {
-				selection = Set(librarySelection)
-				currentSections = Array(librarySelection)
-			} else {
-				currentSections = LibrarySection.allCases
-				selection = Set(currentSections)
-			}
-		}
-	}
-
-	func move(from source: IndexSet, to destination: Int) {
-		currentSections.move(fromOffsets: source, toOffset: destination)
-		UserDefaults.standard.set(try? PropertyListEncoder().encode(currentSections), forKey: UserDefaultsKey.orderedLibraryList)
-	}
+   @ObservedObject var libraryObservableObject: LibraryObservableObject
+   @Binding var editMode: EditMode
+   @State var selection = Set<LibrarySection>()
+   @State var currentSections = LibrarySection.allCases
+   
+   @State private var currentSelection = Set<LibrarySection>()
+   
+   var body: some View {
+      List(selection: $selection) {
+         ForEach(currentSections, id: \.self) { section in
+            NavigationLink {
+               LibraryListDetailView(libraryObservableObject: libraryObservableObject, section: section)
+            } label: {
+               HStack {
+                  Image(systemName: section.systemImage)
+                     .font(.title2)
+                     .foregroundColor(.appAccentColor)
+                     .frame(minWidth: 32)
+                  
+                  Text(section.title)
+                     .font(.title2)
+               }
+               .frame(minWidth: 36)
+            }
+         }
+         .onMove(perform: move)
+      }
+      .listStyle(.plain)
+      .frame(idealHeight: CGFloat(46 * currentSections.count), maxHeight: .infinity)
+      .scrollingDisabled(true)
+      
+      .onChange(of: selection, perform: { newValue in
+         self.currentSelection = newValue
+      })
+      
+      .onChange(of: editMode) { editMode in
+         withAnimation {
+            if !editMode.isEditing {
+               currentSections = currentSections.filter { currentSelection.contains($0) }
+               UserDefaults.standard.set(try? libraryObservableObject.propertyListEncoder.encode(currentSelection), forKey: UserDefaultsKey.libraryListSelection)
+            } else {
+               if let selectionData = UserDefaults.standard.value(forKey: UserDefaultsKey.libraryListSelection) as? Data, let librarySelection = try? libraryObservableObject.propertyListDecoder.decode(Array<LibrarySection>.self, from: selectionData), !librarySelection.isEmpty {
+                  selection = Set(librarySelection)
+                  currentSections = LibrarySection.allCases
+               } else {
+                  selection = Set(LibrarySection.allCases)
+               }
+               
+               if let orderData = UserDefaults.standard.value(forKey: UserDefaultsKey.orderedLibraryList) as? Data, let orderedLibraryList = try? libraryObservableObject.propertyListDecoder.decode(Array<LibrarySection>.self, from: orderData) {
+                  currentSections = orderedLibraryList
+               }
+            }
+         }
+      }
+      
+      .onAppear {
+         if let data = UserDefaults.standard.value(forKey: UserDefaultsKey.libraryListSelection) as? Data, let librarySelection = try? libraryObservableObject.propertyListDecoder.decode(Array<LibrarySection>.self, from: data), !librarySelection.isEmpty {
+            currentSections = Array(librarySelection)
+            
+            if let orderData = UserDefaults.standard.value(forKey: UserDefaultsKey.orderedLibraryList) as? Data, let orderedLibraryList = try? libraryObservableObject.propertyListDecoder.decode(Array<LibrarySection>.self, from: orderData) {
+               currentSections = orderedLibraryList.filter { librarySelection.contains($0) }
+            }
+         } else {
+            currentSections = LibrarySection.allCases
+         }
+         
+      }
+   }
+   
+   func move(from source: IndexSet, to destination: Int) {
+      currentSections.move(fromOffsets: source, toOffset: destination)
+      UserDefaults.standard.set(try? libraryObservableObject.propertyListEncoder.encode(currentSections), forKey: UserDefaultsKey.orderedLibraryList)
+   }
 }
 
 
 // MARK: - Previews
 
 struct LibraryListView_Previews: PreviewProvider {
-	struct LibraryListViewExample: View {
-		@State var editMode: EditMode = .active
-
-		var body: some View {
-			LibraryListView(libraryObservableObject: LibraryObservableObject(), editMode: $editMode)
-				.padding()
-		}
-	}
-
-	static var previews: some View {
-		LibraryListViewExample()
-	}
+   struct LibraryListViewExample: View {
+      @State var editMode: EditMode = .active
+      
+      var body: some View {
+         LibraryListView(libraryObservableObject: LibraryObservableObject(), editMode: $editMode)
+            .padding()
+      }
+   }
+   
+   static var previews: some View {
+      LibraryListViewExample()
+   }
 }

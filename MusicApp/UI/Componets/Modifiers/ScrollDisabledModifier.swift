@@ -8,20 +8,20 @@
 import SwiftUI
 
 struct ScrollDisabledModifier: ViewModifier {
-  var value: Bool
-  
-  func body(content: Content) -> some View {
-    if #available(iOS 16, *) {
-      content
-        .scrollDisabled(value)
-    } else {
-      content
-    }
-  }
+   var value: Bool
+   
+   func body(content: Content) -> some View {
+      if #available(iOS 16, *) {
+         content
+            .scrollDisabled(value)
+      } else {
+         content
+      }
+   }
 }
 
 extension View {
-  func scrollingDisabled(_ value: Bool) -> some View {
-    self.modifier(ScrollDisabledModifier(value: value))
-  }
+   func scrollingDisabled(_ value: Bool) -> some View {
+      self.modifier(ScrollDisabledModifier(value: value))
+   }
 }

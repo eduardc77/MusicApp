@@ -8,19 +8,19 @@
 import SwiftUI
 
 struct ContentView: View {
-	@StateObject private var playerObservableObject = PlayerObservableObject()
-  
-  var body: some View {
-    TabBar()
-      .environmentObject(playerObservableObject)
-  }
+   @StateObject private var playerObservableObject = PlayerObservableObject()
+   
+   var body: some View {
+      TabBar()
+         .environmentObject(playerObservableObject)
+   }
 }
 
 
 // MARK: - Previews
 
 struct ContentView_Previews: PreviewProvider {
-  static var previews: some View {
-    ContentView()
-  }
+   static var previews: some View {
+      ContentView()
+   }
 }

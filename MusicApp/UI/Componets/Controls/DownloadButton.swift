@@ -8,17 +8,17 @@
 import SwiftUI
 
 struct DownloadButton: View {
-	var font: Font = .body
-	var foregroundColor: Color = .appAccentColor
-	var backgroundColor: Color = Color.secondary.opacity(0.16)
-
-	var action: () -> Void
-
-	var body: some View {
-		Button { action() } label: {
-			Image(systemName: "arrow.down.circle.fill")
-				.font(font)
-				.foregroundStyle(foregroundColor, backgroundColor)
-		}
-	}
+   var font: Font = .body
+   var foregroundColor: Color = .appAccentColor
+   var backgroundColor: Color = Color.secondary.opacity(0.16)
+   
+   var action: () -> Void
+   
+   var body: some View {
+      Button { action() } label: {
+         Image(systemName: "arrow.down.circle.fill")
+            .font(font)
+            .foregroundStyle(foregroundColor, backgroundColor)
+      }
+   }
 }

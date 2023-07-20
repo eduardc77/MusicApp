@@ -8,24 +8,24 @@
 import SwiftUI
 
 struct DefaultView: View {
-  @Environment(\.presentationMode) var presentationMode
-  let title: String
-  
-  var body: some View {
-    NavigationView {
-      EmptyView()
-        .navigationTitle(title)
-        .navigationBarTitleDisplayMode(.inline)
-        .navigationBarItems(trailing: DismissButton(title: "Done", presentationMode: _presentationMode))
-    }
-  }
+   @Environment(\.presentationMode) var presentationMode
+   let title: String
+   
+   var body: some View {
+      NavigationView {
+         EmptyView()
+            .navigationTitle(title)
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarItems(trailing: DismissButton(title: "Done", presentationMode: _presentationMode))
+      }
+   }
 }
 
 
 // MARK: - Previews
 
 struct DefaultView_Previews: PreviewProvider {
-  static var previews: some View {
-    DefaultView(title: "Default")
-  }
+   static var previews: some View {
+      DefaultView(title: "Default")
+   }
 }

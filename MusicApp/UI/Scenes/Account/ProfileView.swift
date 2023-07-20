@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct ProfileView: View {
-  var body: some View {
-    EmptyView()
-      .navigationTitle("Profile")
-      .navigationBarTitleDisplayMode(.inline)
-  }
+   var body: some View {
+      EmptyView()
+         .navigationTitle("Profile")
+         .navigationBarTitleDisplayMode(.inline)
+   }
 }

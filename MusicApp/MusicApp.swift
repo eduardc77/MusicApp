@@ -9,11 +9,12 @@ import SwiftUI
 
 @main
 struct MusicApp: App {
-  var body: some Scene {
-    WindowGroup {
-      ContentView()
-			 .accentColor(Color.accentColor)
-    }
-  }
+   
+   var body: some Scene {
+      WindowGroup {
+         ContentView()
+            .accentColor(Color.accentColor)
+      }
+   }
 }
 

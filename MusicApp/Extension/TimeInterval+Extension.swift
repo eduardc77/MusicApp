@@ -8,5 +8,5 @@
 import Foundation
 
 extension TimeInterval {
-  var toInt: Int { Int(self) }
+   var toInt: Int { Int(self) }
 }

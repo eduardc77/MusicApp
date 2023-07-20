@@ -6,9 +6,9 @@
 //
 
 enum WrapperType: String {
-  case track
-  case collection
-  case artist
+   case track
+   case collection
+   case artist
 }
 
 extension WrapperType: Codable {}

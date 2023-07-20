@@ -6,9 +6,9 @@
 //
 
 enum UserDefaultsKey {
-  static let repeatDefault = "repeatDefault"
-  static let queueDefault = "queueDefault"
-  static let shuffleDefault = "shuffleDefault"
-  static let libraryListSelection = "libraryListSelection"
-  static let orderedLibraryList = "orderedLibraryList"
+   static let repeatDefault = "repeatDefault"
+   static let queueDefault = "queueDefault"
+   static let shuffleDefault = "shuffleDefault"
+   static let libraryListSelection = "libraryListSelection"
+   static let orderedLibraryList = "orderedLibraryList"
 }

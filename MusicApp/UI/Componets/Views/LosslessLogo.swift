@@ -9,36 +9,36 @@ import SwiftUI
 
 struct LosslessLogo: View {
    var bordered: Bool = true
-	var color: Color = .lightGrayColor2
-
-	var body: some View {
-		HStack(spacing: 3) {
-			Image("lossless-logo")
-				.resizable()
-				.scaledToFit()
-				.frame(width: 18, height: 16)
-
-			Text("Lossless")
-				.font(.system(size: 11, weight: .medium))
-		}
-		.foregroundColor(color)
-		.padding(.horizontal, bordered ? 6.6 : 0)
-		.padding(.vertical, bordered ? 1 : 0)
-
-		.background {
-			if bordered {
-				RoundedRectangle(cornerRadius: 6, style: .continuous)
-					.foregroundColor(.lightGrayColor3)
-			}
-		}
-	}
+   var color: Color = .lightGrayColor2
+   
+   var body: some View {
+      HStack(spacing: 3) {
+         Image("lossless-logo")
+            .resizable()
+            .scaledToFit()
+            .frame(width: 18, height: 16)
+         
+         Text("Lossless")
+            .font(.system(size: 11, weight: .medium))
+      }
+      .foregroundColor(color)
+      .padding(.horizontal, bordered ? 6.6 : 0)
+      .padding(.vertical, bordered ? 1 : 0)
+      
+      .background {
+         if bordered {
+            RoundedRectangle(cornerRadius: 6, style: .continuous)
+               .foregroundColor(.lightGrayColor3)
+         }
+      }
+   }
 }
 
 
 // MARK: - Previews
 
 struct LosslessLogo_Previews: PreviewProvider {
-	static var previews: some View {
-		LosslessLogo()
-	}
+   static var previews: some View {
+      LosslessLogo()
+   }
 }

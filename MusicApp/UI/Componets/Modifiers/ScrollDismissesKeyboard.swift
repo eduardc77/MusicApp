@@ -8,18 +8,18 @@
 import SwiftUI
 
 struct ScrollDismissesKeyboard: ViewModifier {
-  func body(content: Content) -> some View {
-    if #available(iOS 16, *) {
-      content
-        .scrollDismissesKeyboard(.immediately)
-    } else {
-      content
-    }
-  }
+   func body(content: Content) -> some View {
+      if #available(iOS 16, *) {
+         content
+            .scrollDismissesKeyboard(.immediately)
+      } else {
+         content
+      }
+   }
 }
 
 extension View {
-  func dismissKeyboardOnScroll() -> some View {
-    self.modifier(ScrollDismissesKeyboard())
-  }
+   func dismissKeyboardOnScroll() -> some View {
+      self.modifier(ScrollDismissesKeyboard())
+   }
 }
