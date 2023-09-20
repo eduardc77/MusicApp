@@ -229,14 +229,14 @@ struct CustomSliderStyle: LabeledSliderStyle {
    func makeBody(configuration: Configuration) -> some View {
       HStack {
          configuration.minimumValueLabel
-            .foregroundStyle(isEnabled ? (isDragging ?  AnyShapeStyle(.white) : AnyShapeStyle(.bar)) : AnyShapeStyle(Color.lightGrayColor))
+            .foregroundStyle(isEnabled ? (isDragging ?  AnyShapeStyle(.white) : AnyShapeStyle(Color.lightGrayColor)) : AnyShapeStyle(.bar))
          
          GeometryReader { lineProxy in
             ZStack(alignment: .leading) {
                Rectangle()
                   .fill(Color.lightGrayColor2)
                Rectangle()
-                  .foregroundStyle(isEnabled ? (isDragging ? AnyShapeStyle(.white) : AnyShapeStyle(.bar)) : AnyShapeStyle(Color.lightGrayColor))
+                  .foregroundStyle(isEnabled ? (isDragging ? AnyShapeStyle(.white) : AnyShapeStyle(Color.lightGrayColor)) : AnyShapeStyle(.bar))
                   .frame(width: relativeValue(for: configuration.value, in: configuration.bounds) * lineProxy.size.width)
                   .animation(.linear, value: configuration.value)
                

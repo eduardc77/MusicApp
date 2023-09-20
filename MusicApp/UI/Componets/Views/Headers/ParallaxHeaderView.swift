@@ -28,7 +28,6 @@ struct ParallaxHeaderView<Content: View, CoordinateSpace: Hashable>: View {
          let heightModifier = heightModifier(for: proxy)
 
          content()
-            .ignoresSafeArea()
             .frame(width: proxy.size.width, height: proxy.size.height + heightModifier)
             .offset(y: offset)
       }

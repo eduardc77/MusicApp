@@ -32,7 +32,7 @@ struct TimeSliderView: View {
                   .frame(height: isDragging ? Metric.timeLineHeight * 2 : Metric.timeLineHeight)
                
                Rectangle()
-                  .foregroundStyle( isDragging ? .white : Color.lightGrayColor)
+                  .fill( isDragging ? .white : Color.lightGrayColor)
                   .frame(width: (trackDuration != 0) ? (CGFloat(trackTimePosition) / CGFloat(trackDuration) * geometry.size.width) : CGFloat.zero,
                          height: isDragging ? Metric.timeLineHeight * 2 : Metric.timeLineHeight)
             }

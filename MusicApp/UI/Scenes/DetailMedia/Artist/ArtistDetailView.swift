@@ -34,7 +34,7 @@ struct ArtistDetailView: View {
                   ZStack(alignment: Alignment(horizontal: .leading, vertical: .bottom)) {
                      ParallaxHeaderView(
                         coordinateSpace: CoordinateSpace.global,
-                        height: 300
+                        height: 400
                      ) {
                         MediaImageView(imagePath: recentAlbum.artworkPath.resizedPath(size: 400))
                      }
@@ -44,7 +44,6 @@ struct ArtistDetailView: View {
                         .foregroundStyle(.white)
                         .font(.largeTitle.bold())
                   }
-                  .ignoresSafeArea(edges: .top)
                   .toolbar(navigationHidden ? .hidden : .visible, for: .navigationBar)
                   .navigationTitle(media.artistName)
                   .navigationBarTitleDisplayMode(.inline)
@@ -107,7 +106,8 @@ struct ArtistDetailView: View {
                .background()
             }
             .coordinateSpace(name: CoordinateSpace.global)
-          
+            .ignoresSafeArea(edges: .top)
+            
             .onPreferenceChange(ScrollViewOffsetPreferenceKey.self) { value in
                guard value >= 0 else {
                   navigationHidden = true

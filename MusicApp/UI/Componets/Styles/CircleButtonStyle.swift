@@ -16,7 +16,7 @@ struct CircleButtonStyle: ButtonStyle {
          .dynamicTypeSize(.large)
          .padding(padding.value)
          .background(configuration.isPressed && fadeOnPress ? Color.secondary.opacity(0.8) : Color.clear, in: Circle())
-         .contentShape(Circle())
+         .contentShape(.circle)
          .opacity(configuration.isPressed && fadeOnPress ? 0.75 : 1)
          .scaleEffect(configuration.isPressed ? 0.86 : 1)
    }
