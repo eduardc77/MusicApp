@@ -82,7 +82,7 @@ struct SearchListView: View {
             }
          }
          .padding(.vertical, 10)
-         .background(.ultraThinMaterial)
+         .background(.bar)
       }
    }
 }

@@ -36,11 +36,11 @@ struct AlbumHeaderView: View {
       VStack(spacing: 3) {
          Text(libraryMediaObservableObject.media.collectionName)
             .font(.title3.bold())
-            .foregroundColor(.primary)
+            .foregroundStyle(Color.primary)
          
          Text(libraryMediaObservableObject.media.artistName)
             .font(.title3)
-            .foregroundColor(.appAccentColor)
+            .foregroundStyle(Color.accentColor)
          
          HStack(spacing: 1) {
             Text(libraryMediaObservableObject.media.genreAndReleaseYear)
@@ -48,7 +48,7 @@ struct AlbumHeaderView: View {
             LosslessLogo(bordered: false, color: .secondary)
          }
          .font(.caption.bold())
-         .foregroundColor(.secondary)
+         .foregroundStyle(Color.secondary)
       }
       .lineLimit(2)
       .multilineTextAlignment(.center)

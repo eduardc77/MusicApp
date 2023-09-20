@@ -11,7 +11,7 @@ struct MenuButton: View {
    @State var isPresented = false
    var circled: Bool = false
    var font: Font = .body
-   var foregroundColor: Color = .primary
+   var foregroundColor: Color = .accentColor
    var backgroundColor: Color = .lightGrayColor3
    
    var body: some View {

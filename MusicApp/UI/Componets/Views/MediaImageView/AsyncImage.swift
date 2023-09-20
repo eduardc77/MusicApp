@@ -27,7 +27,6 @@ struct AsyncImageView: View {
                Color.clear
             }
          }
-         .padding()
       }
    }
 }

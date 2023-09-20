@@ -32,22 +32,22 @@ struct TimeSliderView: View {
                   .frame(height: isDragging ? Metric.timeLineHeight * 2 : Metric.timeLineHeight)
                
                Rectangle()
-                  .foregroundColor( isDragging ? .white : Color.lightGrayColor)
+                  .foregroundStyle( isDragging ? .white : Color.lightGrayColor)
                   .frame(width: (trackDuration != 0) ? (CGFloat(trackTimePosition) / CGFloat(trackDuration) * geometry.size.width) : CGFloat.zero,
                          height: isDragging ? Metric.timeLineHeight * 2 : Metric.timeLineHeight)
             }
             .clipShape(Capsule(style: .continuous))
             
             .onReceive(timer) { _ in
-               switch model.playerType {
+               switch PlayerObservableObject.playerType {
                case .audio:
                   trackDuration = model.nowPlayingItem.trackTimeMillis.toInt
                   trackTimePosition = PlayerObservableObject.audioPlayer.currentPlaybackTime.toInt
                   timeRemain = trackDuration - trackTimePosition
                   
                case .video:
-                  trackDuration = model.videoPlayer.trackDuration
-                  trackTimePosition = model.videoPlayer.trackTimePosition
+                  trackDuration = PlayerObservableObject.videoPlayer.trackDuration
+                  trackTimePosition = PlayerObservableObject.videoPlayer.trackTimePosition
                   timeRemain = trackDuration - trackTimePosition
                }
             }
@@ -55,7 +55,7 @@ struct TimeSliderView: View {
             HStack {
                Text(trackTimePosition.toTime)
                   .font(.caption2).bold()
-                  .foregroundColor( isDragging ? .white : Color.lightGrayColor2)
+                  .foregroundStyle( isDragging ? .white : Color.lightGrayColor2)
                   .frame(maxWidth: 80, alignment: .leading)
                
                Spacer()
@@ -66,7 +66,7 @@ struct TimeSliderView: View {
                
                Text("-" + timeRemain.toTime)
                   .font(.caption2).bold()
-                  .foregroundColor( isDragging ? .white : Color.lightGrayColor2)
+                  .foregroundStyle( isDragging ? .white : Color.lightGrayColor2)
                   .frame(maxWidth: 80, alignment: .trailing)
             }
             Spacer()

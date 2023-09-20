@@ -23,8 +23,8 @@ struct SearchWrapperRow<Content: View>: View {
                }
                
                VStack(alignment: .leading) {
-                  MediaItemName(name: media.name, explicitness: media.collectionExplicitness, font: .callout)
-                  MediaItemName(name: "\(media.kind.title) · \(media.artistName)", font: .callout)
+                  MediaItemTitle(name: media.name, explicitness: media.collectionExplicitness, font: .callout)
+                  MediaItemTitle(name: "\(media.kind.title) · \(media.artistName)", font: .callout)
                }
                
             default:
@@ -38,15 +38,15 @@ struct SearchWrapperRow<Content: View>: View {
                }
                
                VStack(alignment: .leading) {
-                  MediaItemName(name: media.artistName, font: .callout)
-                  MediaItemName(name: "Artist", font: .callout)
+                  MediaItemTitle(name: media.artistName, font: .callout)
+                  MediaItemTitle(name: "Artist", font: .callout)
                }
             }
             Spacer()
             
             Image(systemName: "chevron.right")
                .font(.subheadline)
-               .foregroundColor(.secondary)
+               .foregroundStyle(Color.secondary)
          }
       }
    }

@@ -22,26 +22,21 @@ struct ArtistFeaturedAlbumRow: View {
             }
             
             VStack(alignment: .leading) {
-               HStack {
-                  VStack(alignment: .leading, spacing: 3) {
+                  VStack(alignment: .leading) {
                      Text(media.releaseDate ?? "")
-                        .foregroundColor(.secondary)
-                        .font(.caption2.bold())
+                        .foregroundStyle(Color.secondary)
+                        .font(.footnote.weight(.bold))
                      
-                     MediaItemName(name: media.name, explicitness: media.collectionExplicitness, font: .callout)
+                     MediaItemTitle(name: media.name, explicitness: media.collectionExplicitness, font: .title3)
                      
                      Text(!media.trackCount.isEmpty ? "\(media.trackCount) songs" : "")
-                        .foregroundColor(.secondary)
-                        .font(.footnote)
+                        .foregroundStyle(Color.secondary)
+                        .font(.callout)
                   }
                   .frame(maxWidth: .infinity, alignment: .leading)
                   .lineLimit(2)
-                  
-                  Image(systemName: "ellipsis")
-                     .padding(.horizontal)
-               }
                
-               MainButton(title: "Add", font: Font.footnote.bold(), image: Image(systemName: "plus"), spacing: 3, size: Size(height: 12), cornerRadius: 16) { action() }
+               MainButton(title: "Add", font: .headline.bold(), image: Image(systemName: "plus"), spacing: 3, size: Size(height: 12), cornerRadius: 16) { action() }
             }
          }
       }

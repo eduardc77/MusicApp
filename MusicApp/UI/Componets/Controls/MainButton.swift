@@ -12,7 +12,7 @@ struct MainButton: View {
    var font: Font = .headline
    var image: Image?
    var spacing: CGFloat = 10
-   var foregroundColor: Color = .appAccentColor
+   var foregroundColor: Color = .accentColor
    var tint: Color = .secondary.opacity(0.16)
    var size: Size = Size(width: .infinity, height: 26)
    var cornerRadius: CGFloat = SizeType.trackRowItem.cornerRadius
@@ -31,7 +31,7 @@ struct MainButton: View {
       }
       
       .tint(tint)
-      .foregroundColor(foregroundColor)
+      .foregroundStyle(foregroundColor)
       .buttonStyle(.borderedProminent)
       .cornerRadius(cornerRadius)
    }

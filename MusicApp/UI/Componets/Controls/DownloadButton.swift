@@ -9,7 +9,7 @@ import SwiftUI
 
 struct DownloadButton: View {
    var font: Font = .body
-   var foregroundColor: Color = .appAccentColor
+   var foregroundColor: Color = .accentColor
    var backgroundColor: Color = Color.secondary.opacity(0.16)
    
    var action: () -> Void

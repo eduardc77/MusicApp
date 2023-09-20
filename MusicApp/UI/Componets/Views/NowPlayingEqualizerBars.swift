@@ -10,7 +10,7 @@ import SwiftUI
 struct NowPlayingEqualizerBars: View {
    @EnvironmentObject private var playerObservableObject: PlayerObservableObject
    @State var animating: Bool = false
-   var color: Color = .appAccentColor
+   var color: Color = .accentColor
    var numberOfBars = 4
    var spacerWidthRatio: CGFloat = 0.6
    

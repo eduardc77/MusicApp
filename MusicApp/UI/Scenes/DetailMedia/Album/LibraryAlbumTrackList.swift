@@ -29,13 +29,13 @@ struct LibraryAlbumTrackList: View {
                         } else {
                            Text(String(libraryMediaObservableObject.trackNumber(at: trackIndex)))
                               .font(.body)
-                              .foregroundColor(.secondary)
+                              .foregroundStyle(Color.secondary)
                               .lineLimit(1)
                         }
                      }
                      .frame(width: 20, height: 8)
                      
-                     MediaItemName(name: libraryMediaObservableObject.trackTitle(at: trackIndex), explicitness: libraryMediaObservableObject.trackExplicitness(at: trackIndex) ? .explicit : .notExplicit)
+                     MediaItemTitle(name: libraryMediaObservableObject.trackTitle(at: trackIndex), explicitness: libraryMediaObservableObject.trackExplicitness(at: trackIndex) ? .explicit : .notExplicit)
                      
                      Spacer()
                      
@@ -64,7 +64,7 @@ struct LibraryAlbumTrackList: View {
          Text("\(libraryMediaObservableObject.trackCount) songs, \(libraryMediaObservableObject.albumDuration) minutes")
       }
       .font(.footnote)
-      .foregroundColor(.secondary)
+      .foregroundStyle(Color.secondary)
       .frame(maxWidth: .infinity, alignment: .leading)
       .padding(.vertical, 8)
       .padding(.horizontal)

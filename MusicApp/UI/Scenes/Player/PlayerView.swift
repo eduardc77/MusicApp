@@ -61,6 +61,10 @@ struct PlayerView: View {
          guard let mediaItem = PlayerObservableObject.audioPlayer.nowPlayingItem else { return }
          model.setNowPlaying(media: mediaItem)
       }
+      
+      .onDisappear {
+         NotificationCenter.default.removeObserver(self)
+      }
    }
 }
 
@@ -106,11 +110,7 @@ private extension PlayerView {
    
    @ViewBuilder
    var mediaView: some View {
-      if model.playerType == .video {
-         model.videoPlayer
-            .frame(width: model.expand ? SizeType.none.size.width : SizeType.smallPlayerVideo.size.width, height: model.expand ? SizeType.none.size.height : SizeType.smallPlayerVideo.size.height)
-            .cornerRadius(model.expand ?  SizeType.none.cornerRadius : SizeType.smallPlayerVideo.cornerRadius)
-      } else {
+      if PlayerObservableObject.playerType == .audio {
          MediaImageView(imagePath: model.nowPlayingItem.artworkPath.resizedPath(size: 600), artworkImage: model.nowPlayingItem.artwork, sizeType: model.expand ? .largePlayerArtwork : .smallPlayerAudio, shadowProminence: model.expand ? .full : .none, visibleSide: $visibleSide)
             .scaleEffect((model.playbackState == .playing && model.expand) ? 1.33 : 1)
             .animation(model.expand ? .scaleCard : .none, value: model.playbackState)
@@ -122,6 +122,12 @@ private extension PlayerView {
                }
                visibleSide.toggle()
             }
+
+      } else {
+         PlayerObservableObject.videoPlayer
+            .frame(width: model.expand ? SizeType.none.size.width : SizeType.smallPlayerVideo.size.width, height: model.expand ? SizeType.none.size.height : SizeType.smallPlayerVideo.size.height)
+            .cornerRadius(model.expand ?  SizeType.none.cornerRadius : SizeType.smallPlayerVideo.cornerRadius)
+  
       }
    }
    
@@ -150,7 +156,7 @@ private extension PlayerView {
             .font(.title).imageScale(.small)
             .buttonStyle(.circle)
          }
-         .foregroundColor(!model.nowPlayingItem.name.isEmpty ? .primary : .secondary)
+         .foregroundStyle(!model.nowPlayingItem.name.isEmpty ? .primary : Color.secondary)
       }
    }
    
@@ -174,7 +180,7 @@ private extension PlayerView {
                }
             }
          } label: {
-            InfiniteScrollText(text: model.nowPlayingItem.artistName, textColor: model.playerType == .audio ? .lightGrayColor : .appAccentColor)
+            InfiniteScrollText(text: model.nowPlayingItem.artistName, textColor: PlayerObservableObject.playerType == .audio ? .lightGrayColor : .accentColor)
          }
       }
    }
@@ -182,11 +188,11 @@ private extension PlayerView {
    @ViewBuilder
    var ellipsisButton: some View {
       Group {
-         switch model.playerType {
+         switch PlayerObservableObject.playerType {
          case .audio:
             MenuButton(circled: true, font: .title, foregroundColor: .white)
          case .video:
-            MenuButton(circled: true, font: .title, foregroundColor: .appAccentColor)
+            MenuButton(circled: true, font: .title)
          }
       }
       .padding(.trailing, 30)
@@ -199,9 +205,9 @@ private extension PlayerView {
          Spacer()
          PlayerControls()
          Spacer()
-         VolumeView(playerType: model.playerType)
+         VolumeView(playerType: PlayerObservableObject.playerType)
          Spacer()
-         BottomToolbar(playerType: model.playerType)
+         BottomToolbar(playerType: PlayerObservableObject.playerType)
       }
    }
    
@@ -209,7 +215,7 @@ private extension PlayerView {
    var playerBackground: some View {
       Group {
          if model.expand {
-            switch model.playerType {
+            switch PlayerObservableObject.playerType {
             case .audio:
                if let artworkUIImage = model.nowPlayingItem.artwork {
                   LinearGradient(

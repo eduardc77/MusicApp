@@ -17,22 +17,22 @@ struct HighlightMediaItem: View {
             VStack(alignment: .leading) {
                Text(media.mediaType.titleUppercased)
                   .font(.caption.weight(.semibold))
-                  .foregroundColor(.secondary)
+                  .foregroundStyle(Color.secondary)
                
                Text(media.name)
                   .font(.title2)
                
                Text(media.trackName)
-                  .foregroundColor(.secondary)
+                  .foregroundStyle(Color.secondary)
                   .font(.title2)
             }
             .lineLimit(1)
             .frame(maxWidth: .infinity, alignment: .leading)
             
             if let uiImage = media.artwork {
-               MediaImageView(artworkImage: uiImage, sizeType: .highlightCarouselItem, contentMode: .fill)
+               MediaImageView(artworkImage: uiImage, sizeType: .highlightCarouselItem)
             } else {
-               MediaImageView(imagePath: media.artworkPath.resizedPath(size: 800), sizeType: .highlightCarouselItem, contentMode: .fill)
+               MediaImageView(imagePath: media.artworkPath.resizedPath(size: 800), sizeType: .highlightCarouselItem)
             }
          }
       }

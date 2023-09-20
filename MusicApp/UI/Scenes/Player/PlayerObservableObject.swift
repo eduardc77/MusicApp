@@ -10,12 +10,14 @@ import MediaPlayer
 import Combine
 
 final class PlayerObservableObject: ObservableObject {
-   static let audioPlayer = MPMusicPlayerController.applicationMusicPlayer
+   static var audioPlayer: MPMusicPlayerController = {
+       MPMusicPlayerController.applicationQueuePlayer
+   }()
    
    @Published var expand: Bool = false
    @Published var hasRecentMedia: Bool = false
    @Published var showPlayerView = false
-   var playerType: PlayerType = .audio
+   static var playerType: PlayerType = .audio
    
    // MARK: - Audio Player Properties
    
@@ -27,7 +29,7 @@ final class PlayerObservableObject: ObservableObject {
    
    // MARK: - Video Player Properties
    
-   var videoPlayer: VideoPlayerView = VideoPlayerView(videoAssetUrl: URL(string: "https://www.apple.com/404")!)
+   static var videoPlayer: VideoPlayerView = VideoPlayerView(videoAssetUrl: URL(string: "https://www.apple.com/404")!)
    var videoMedia: Bool = false
    
    init() {
@@ -115,20 +117,25 @@ final class PlayerObservableObject: ObservableObject {
       
       nowPlayingItem = Media(mediaResponse: MediaResponse(id: media.playbackStoreID, artistId: 0, collectionId: 0, trackId: 0, wrapperType: "track", kind: mediaKind.value, name: media.title, artistName: media.artist, collectionName: media.albumTitle, trackName: media.title, collectionCensoredName: media.albumTitle, artistViewUrl: nil, collectionViewUrl: nil, trackViewUrl: videoAssetUrl?.absoluteString ?? media.assetURL?.absoluteString, previewUrl: nil, artworkUrl100: nil, collectionPrice: nil, collectionHdPrice: 0, trackPrice: 0, collectionExplicitness: nil, trackExplicitness: media.isExplicitItem ? "explicit" : "notExplicit", discCount: 0, discNumber: nil, trackCount: media.albumTrackCount, trackNumber: media.albumTrackNumber, trackTimeMillis: media.playbackDuration, country: nil, currency: nil, primaryGenreName: media.genre, description: nil, longDescription: nil, releaseDate: media.releaseDate?.ISO8601Format(), contentAdvisoryRating: nil, trackRentalPrice: 0, artwork: media.artwork?.image(at: CGSize(width: 1024, height: 1024)), composer: media.composer, isCompilation: media.isCompilation))
       
-      if !videoMedia {
-         playerType = .audio
+      if PlayerObservableObject.playerType == .video {
+         PlayerObservableObject.playerType = .audio
+         PlayerObservableObject.videoPlayer.toggleIsPlaying()
+         PlayerObservableObject.videoPlayer.player.replaceCurrentItem(with: nil)
       }
       hasRecentMedia = true
    }
    
    func configureVideoPlayer(with videoAssetUrl: URL) {
-      playerType = .video
+      PlayerObservableObject.playerType = .video
       PlayerObservableObject.audioPlayer.stop()
       PlayerObservableObject.audioPlayer.nowPlayingItem = nil
-      
-      videoPlayer = VideoPlayerView(videoAssetUrl: videoAssetUrl)
-      expand = true
+      withAnimation {
+         expand = true
+      }
       showPlayerView = true
+      PlayerObservableObject.videoPlayer.player.replaceCurrentItem(with: nil)
+      PlayerObservableObject.videoPlayer.player.replaceCurrentItem(with: AVPlayerItem(asset: AVAsset(url: videoAssetUrl)))
+     
    }
    
    func isNowPlaying(media: Media) -> Bool {
@@ -138,10 +145,9 @@ final class PlayerObservableObject: ObservableObject {
    }
    
    func play(_ media: Media, videoAssetUrl: URL? = nil) {
-      videoMedia = media.mediaType == .musicVideo
-      
-      if videoMedia == false {
-         self.playerType = .audio
+      if media.mediaType != .musicVideo {
+         PlayerObservableObject.videoPlayer.player.replaceCurrentItem(with: nil)
+         PlayerObservableObject.playerType = .audio
          PlayerObservableObject.audioPlayer.stop()
          PlayerObservableObject.audioPlayer.setQueue(with: [media.id])
          PlayerObservableObject.setShuffleMode(false)

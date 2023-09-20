@@ -29,30 +29,43 @@ struct ArtistDetailView: View {
             LoadingView()
          } else {
             ScrollView(.vertical, showsIndicators: false) {
+               
                if let recentAlbum = artistObservableObject.albums.first {
                   ZStack(alignment: Alignment(horizontal: .leading, vertical: .bottom)) {
-                     MediaPreviewHeader(imagePath: recentAlbum.artworkPath)
+                     ParallaxHeaderView(
+                        coordinateSpace: CoordinateSpace.global,
+                        height: 300
+                     ) {
+                        MediaImageView(imagePath: recentAlbum.artworkPath.resizedPath(size: 400))
+                     }
                      
                      Text(media.artistName)
                         .padding(12)
-                        .foregroundColor(.white)
+                        .foregroundStyle(.white)
                         .font(.largeTitle.bold())
                   }
-                  .navigationTitle(navigationHidden ? "" : media.artistName)
-                  .navigationBarHidden(navigationHidden).animation(.default, value: navigationHidden)
+                  .ignoresSafeArea(edges: .top)
+                  .toolbar(navigationHidden ? .hidden : .visible, for: .navigationBar)
+                  .navigationTitle(media.artistName)
+                  .navigationBarTitleDisplayMode(.inline)
+                  
+                  .toolbar {
+                     ToolbarItem(placement: .navigationBarTrailing) {
+                        Button { } label: {
+                           Image(systemName: "ellipsis")
+                              .font(.footnote)
+                        }
+                     }
+                  }
                   
                   .background(
                      GeometryReader { proxy in
                         Color.clear.preference(
                            key: ScrollViewOffsetPreferenceKey.self,
-                           value: -1 * proxy.frame(in: .named("scroll")).origin.y
+                           value: -proxy.frame(in: .named(CoordinateSpace.global)).origin.y
                         )
                      }
                   )
-                  .onPreferenceChange(ScrollViewOffsetPreferenceKey.self) { value in
-                     guard value > 0 else { return }
-                     navigationHidden = value > Metric.mediaPreviewHeaderHeight - 36 ? false : true
-                  }
                }
                
                VStack(spacing: 0) {
@@ -93,20 +106,20 @@ struct ArtistDetailView: View {
                }
                .background()
             }
-            .coordinateSpace(name: "scroll")
+            .coordinateSpace(name: CoordinateSpace.global)
+          
+            .onPreferenceChange(ScrollViewOffsetPreferenceKey.self) { value in
+               guard value >= 0 else {
+                  navigationHidden = true
+                  return
+               }
+               navigationHidden = value > Metric.mediaPreviewHeaderHeight ? false : true
+            }
             
             .overlay { if artistObservableObject.artistFeatureAlbum != nil { topNavigationControls } }
          }
       }
       
-      .toolbar {
-         ToolbarItem(placement: .navigationBarTrailing) {
-            Button { } label: {
-               Image(systemName: "ellipsis")
-                  .font(.footnote)
-            }
-         }
-      }
       .errorAlert(errorState: $artistObservableObject.errorState) {
          artistObservableObject.fetchAllArtistMedia(for: media.id)
       } cancel: { dismiss() }
@@ -133,7 +146,7 @@ struct ArtistDetailView: View {
                Image(systemName: "chevron.left.circle.fill")
                   .resizable()
                   .frame(width: 26, height: 26)
-                  .foregroundStyle(.white, .black.opacity(0.4))
+                  .foregroundStyle(.white, .black.opacity(0.2))
             }
             
             Spacer()
@@ -142,13 +155,13 @@ struct ArtistDetailView: View {
                Image(systemName: "ellipsis.circle.fill")
                   .resizable()
                   .frame(width: 26, height: 26)
-                  .foregroundStyle(.white, .black.opacity(0.4))
+                  .foregroundStyle(.white, .black.opacity(0.2))
             }
          }
       }
       .padding(.horizontal, 12)
       .opacity(navigationHidden ? 1 : 0)
-      .offset(y: -Metric.mediaPreviewHeaderHeight + 16)
+      .offset(y: -Metric.mediaPreviewHeaderHeight + 12)
    }
 }
 

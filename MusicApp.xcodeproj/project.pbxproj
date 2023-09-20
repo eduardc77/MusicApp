@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		886BC7192A75F57200CBA71F /* AirplayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886BC7182A75F57200CBA71F /* AirplayButton.swift */; };
 		DD2A899728B67B9E008D5D96 /* UINavigationController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2A899628B67B9E008D5D96 /* UINavigationController+Extension.swift */; };
 		EA0054B9297081A000400F51 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0054B8297081A000400F51 /* MenuButton.swift */; };
 		EA0054BB297095FC00400F51 /* DownloadButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0054BA297095FC00400F51 /* DownloadButton.swift */; };
@@ -27,14 +28,13 @@
 		EA321CA82966105B0023B445 /* CircleButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA321CA72966105B0023B445 /* CircleButtonStyle.swift */; };
 		EA3FA34F2817251500F84B09 /* TrackMediaRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3FA34E2817251500F84B09 /* TrackMediaRow.swift */; };
 		EA3FA3532817697200F84B09 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3FA3522817697200F84B09 /* Color.swift */; };
-		EA3FA3552817783B00F84B09 /* VolumeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3FA3542817783B00F84B09 /* VolumeSlider.swift */; };
 		EA42059328B5428700484B60 /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA42059228B5428700484B60 /* Size.swift */; };
 		EA430753282F0604006FFD15 /* VideoMediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA430752282F0604006FFD15 /* VideoMediaItem.swift */; };
 		EA430755282F20F9006FFD15 /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA430754282F20F9006FFD15 /* VideoPlayerView.swift */; };
 		EA59D31428135B4C00D58213 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA59D31328135B4C00D58213 /* BlurView.swift */; };
 		EA5DA8AD296E15B90012517E /* LosslessLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5DA8AC296E15B90012517E /* LosslessLogo.swift */; };
 		EA6744EC2821EA6300AC2010 /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6744EB2821EA6300AC2010 /* Animation.swift */; };
-		EA6CAC8E283998E400193089 /* MediaItemName.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6CAC8D283998E400193089 /* MediaItemName.swift */; };
+		EA6CAC8E283998E400193089 /* MediaItemTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6CAC8D283998E400193089 /* MediaItemTitle.swift */; };
 		EA6CB3C7298D938B0058FA97 /* LabeledSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6CB3C6298D938B0058FA97 /* LabeledSlider.swift */; };
 		EA6CB3C9298D96A10058FA97 /* VolumeObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6CB3C8298D96A10058FA97 /* VolumeObserver.swift */; };
 		EA734CC1280F1C7D00FCD2EE /* Metric.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA734CC0280F1C7D00FCD2EE /* Metric.swift */; };
@@ -49,7 +49,7 @@
 		EAA265FD2829A8CD0035D9E1 /* SortingType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA265FC2829A8CD0035D9E1 /* SortingType.swift */; };
 		EAA266022829AAC10035D9E1 /* ArtistDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA266012829AAC10035D9E1 /* ArtistDetailView.swift */; };
 		EAA266092829B0B10035D9E1 /* ArtistViewObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA266082829B0B10035D9E1 /* ArtistViewObservableObject.swift */; };
-		EAA2660B2829B3B90035D9E1 /* MediaPreviewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA2660A2829B3B90035D9E1 /* MediaPreviewHeader.swift */; };
+		EAA2660B2829B3B90035D9E1 /* ParallaxHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA2660A2829B3B90035D9E1 /* ParallaxHeaderView.swift */; };
 		EAACA3D4296A5777002C8C56 /* AsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAACA3D3296A5777002C8C56 /* AsyncImage.swift */; };
 		EAACA3D6296A5781002C8C56 /* DefaultImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAACA3D5296A5781002C8C56 /* DefaultImage.swift */; };
 		EAACA3D8296A7295002C8C56 /* RowButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAACA3D7296A7295002C8C56 /* RowButtonStyle.swift */; };
@@ -123,6 +123,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		886BC7182A75F57200CBA71F /* AirplayButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirplayButton.swift; sourceTree = "<group>"; };
 		DD2A899628B67B9E008D5D96 /* UINavigationController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extension.swift"; sourceTree = "<group>"; };
 		EA0054B8297081A000400F51 /* MenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButton.swift; sourceTree = "<group>"; };
 		EA0054BA297095FC00400F51 /* DownloadButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadButton.swift; sourceTree = "<group>"; };
@@ -143,14 +144,13 @@
 		EA321CA72966105B0023B445 /* CircleButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleButtonStyle.swift; sourceTree = "<group>"; };
 		EA3FA34E2817251500F84B09 /* TrackMediaRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackMediaRow.swift; sourceTree = "<group>"; };
 		EA3FA3522817697200F84B09 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
-		EA3FA3542817783B00F84B09 /* VolumeSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeSlider.swift; sourceTree = "<group>"; };
 		EA42059228B5428700484B60 /* Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Size.swift; sourceTree = "<group>"; };
 		EA430752282F0604006FFD15 /* VideoMediaItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoMediaItem.swift; sourceTree = "<group>"; };
 		EA430754282F20F9006FFD15 /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
 		EA59D31328135B4C00D58213 /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 		EA5DA8AC296E15B90012517E /* LosslessLogo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LosslessLogo.swift; sourceTree = "<group>"; };
 		EA6744EB2821EA6300AC2010 /* Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
-		EA6CAC8D283998E400193089 /* MediaItemName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaItemName.swift; sourceTree = "<group>"; };
+		EA6CAC8D283998E400193089 /* MediaItemTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaItemTitle.swift; sourceTree = "<group>"; };
 		EA6CB3C6298D938B0058FA97 /* LabeledSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabeledSlider.swift; sourceTree = "<group>"; };
 		EA6CB3C8298D96A10058FA97 /* VolumeObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeObserver.swift; sourceTree = "<group>"; };
 		EA734CC0280F1C7D00FCD2EE /* Metric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Metric.swift; sourceTree = "<group>"; };
@@ -165,7 +165,7 @@
 		EAA265FC2829A8CD0035D9E1 /* SortingType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortingType.swift; sourceTree = "<group>"; };
 		EAA266012829AAC10035D9E1 /* ArtistDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistDetailView.swift; sourceTree = "<group>"; };
 		EAA266082829B0B10035D9E1 /* ArtistViewObservableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistViewObservableObject.swift; sourceTree = "<group>"; };
-		EAA2660A2829B3B90035D9E1 /* MediaPreviewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPreviewHeader.swift; sourceTree = "<group>"; };
+		EAA2660A2829B3B90035D9E1 /* ParallaxHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParallaxHeaderView.swift; sourceTree = "<group>"; };
 		EAACA3D3296A5777002C8C56 /* AsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncImage.swift; sourceTree = "<group>"; };
 		EAACA3D5296A5781002C8C56 /* DefaultImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultImage.swift; sourceTree = "<group>"; };
 		EAACA3D7296A7295002C8C56 /* RowButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowButtonStyle.swift; sourceTree = "<group>"; };
@@ -322,8 +322,7 @@
 				EAA266032829AC1A0035D9E1 /* MediaImageView */,
 				EA59D31328135B4C00D58213 /* BlurView.swift */,
 				EAE825CF28382313008F59F2 /* InfiniteScrollText.swift */,
-				EA6CAC8D283998E400193089 /* MediaItemName.swift */,
-				EA3FA3542817783B00F84B09 /* VolumeSlider.swift */,
+				EA6CAC8D283998E400193089 /* MediaItemTitle.swift */,
 				EA099EC12821C0090021EA33 /* NowPlayingEqualizerBars.swift */,
 				EAD01E9028231AA900B01F07 /* DefaultView.swift */,
 				EAD01E972823372500B01F07 /* FlipView.swift */,
@@ -404,7 +403,7 @@
 		EAAF02E92964423D002414B8 /* Headers */ = {
 			isa = PBXGroup;
 			children = (
-				EAA2660A2829B3B90035D9E1 /* MediaPreviewHeader.swift */,
+				EAA2660A2829B3B90035D9E1 /* ParallaxHeaderView.swift */,
 			);
 			path = Headers;
 			sourceTree = "<group>";
@@ -460,6 +459,7 @@
 		EAD01E9628232BB200B01F07 /* Controls */ = {
 			isa = PBXGroup;
 			children = (
+				886BC7182A75F57200CBA71F /* AirplayButton.swift */,
 				EACA1C3F2819BCDA00CD7E4F /* MainButton.swift */,
 				EAD01E8A2823184C00B01F07 /* DismissButton.swift */,
 				EAD01E8C2823197200B01F07 /* RowButton.swift */,
@@ -768,7 +768,7 @@
 				EAD15337280D5BDB005FD971 /* BottomToolbar.swift in Sources */,
 				EA23ECF528158A750040BB58 /* AlbumMediaRowItem.swift in Sources */,
 				EA0054B9297081A000400F51 /* MenuButton.swift in Sources */,
-				EA6CAC8E283998E400193089 /* MediaItemName.swift in Sources */,
+				EA6CAC8E283998E400193089 /* MediaItemTitle.swift in Sources */,
 				EAB09DA1282802420011B78C /* LibraryMediaItemObservableObject.swift in Sources */,
 				EAD1534B280D5D9E005FD971 /* SearchView.swift in Sources */,
 				EAD15329280D5B22005FD971 /* VerticalMediaGridView.swift in Sources */,
@@ -801,13 +801,13 @@
 				EAD25821296C719200479449 /* LabeledViewModifier.swift in Sources */,
 				EAD15331280D5BA9005FD971 /* TimeSliderView.swift in Sources */,
 				EAD01E8B2823184C00B01F07 /* DismissButton.swift in Sources */,
+				886BC7192A75F57200CBA71F /* AirplayButton.swift in Sources */,
 				EA6CB3C7298D938B0058FA97 /* LabeledSlider.swift in Sources */,
 				EAD15368280D6386005FD971 /* Endpoint.swift in Sources */,
 				EAACA3D8296A7295002C8C56 /* RowButtonStyle.swift in Sources */,
 				EA734CC1280F1C7D00FCD2EE /* Metric.swift in Sources */,
 				EA0054BB297095FC00400F51 /* DownloadButton.swift in Sources */,
 				EA978846281B184A0032C3AD /* AccountView.swift in Sources */,
-				EA3FA3552817783B00F84B09 /* VolumeSlider.swift in Sources */,
 				EAD152F9280D56A8005FD971 /* MusicApp.swift in Sources */,
 				EAA265FD2829A8CD0035D9E1 /* SortingType.swift in Sources */,
 				EA7695E5280E21BB00726012 /* CategoryGridView.swift in Sources */,
@@ -860,7 +860,7 @@
 				EA23ECF328156F570040BB58 /* Int+Extension.swift in Sources */,
 				EAD2581F296C425700479449 /* ArtistDetailSection.swift in Sources */,
 				EAD15322280D5A84005FD971 /* SearchCategoryModel.swift in Sources */,
-				EAA2660B2829B3B90035D9E1 /* MediaPreviewHeader.swift in Sources */,
+				EAA2660B2829B3B90035D9E1 /* ParallaxHeaderView.swift in Sources */,
 				EAD15320280D5901005FD971 /* SmallPictureModel.swift in Sources */,
 				EAD15366280D6379005FD971 /* NetworkService.swift in Sources */,
 				EAA265FB2829A50D0035D9E1 /* ErrorPresenter.swift in Sources */,
@@ -1001,7 +1001,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MusicApp/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 3MF3PWAV8V;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "";
@@ -1038,7 +1038,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MusicApp/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 3MF3PWAV8V;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "";

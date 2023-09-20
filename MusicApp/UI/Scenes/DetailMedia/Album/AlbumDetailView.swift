@@ -42,7 +42,7 @@ struct AlbumDetailView: View {
          HStack {
             DownloadButton(font: .title2, action: {})
             
-            MenuButton(circled: true, font: .title2, foregroundColor: .appAccentColor, backgroundColor: .secondaryButtonBackgroundColor)
+            MenuButton(circled: true, font: .title2, backgroundColor: .secondaryButtonBackgroundColor)
          }
       }
    }

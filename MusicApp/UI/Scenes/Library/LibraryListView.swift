@@ -23,14 +23,11 @@ struct LibraryListView: View {
             } label: {
                HStack {
                   Image(systemName: section.systemImage)
-                     .font(.title2)
-                     .foregroundColor(.appAccentColor)
-                     .frame(minWidth: 32)
-                  
+                     .foregroundStyle(Color.accentColor)
                   Text(section.title)
-                     .font(.title2)
+                     
                }
-               .frame(minWidth: 36)
+               .font(.title3)
             }
          }
          .onMove(perform: move)

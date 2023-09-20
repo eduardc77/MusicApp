@@ -18,14 +18,14 @@ struct ProfileNavigationLink: View {
             image
                .font(.system(size: 42))
                .padding(.leading, 2)
-               .foregroundColor(.appAccentColor)
+               .foregroundStyle(Color.accentColor)
             
             VStack (alignment: .leading, spacing: 4) {
                Text(username)
                
                Text("View Profile")
                   .font(.callout)
-                  .foregroundColor(.secondary)
+                  .foregroundStyle(Color.secondary)
             }
          }
       }

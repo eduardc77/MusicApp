@@ -17,27 +17,25 @@ struct VideoMediaItem: View {
    var body: some View {
       VStack(alignment: .leading) {
          if let uiImage = media.artwork {
-            MediaImageView(artworkImage: uiImage, sizeType: .videoCarouselItem, contentMode: .fill)
+            MediaImageView(artworkImage: uiImage, sizeType: .videoCarouselItem)
          } else {
-            MediaImageView(imagePath: media.artworkPath.resizedPath(size: 1024), sizeType: .videoCarouselItem, contentMode: .fill)
+            MediaImageView(imagePath: media.artworkPath.resizedPath(size: 1024), sizeType: .videoCarouselItem)
          }
          
          VStack {
-            MediaItemName(name: media.name, explicitness: media.trackExplicitness)
+            MediaItemTitle(name: media.name, explicitness: media.trackExplicitness)
             
                .frame(maxWidth: Metric.largeCarouselItemWidth, alignment: .leading)
             Text(media.artistName)
-               .foregroundColor(.secondary)
+               .foregroundStyle(.secondary)
                .frame(maxWidth: Metric.largeCarouselItemWidth, alignment: .leading)
          }
          .font(.caption)
          .lineLimit(1)
       }
       
-      .onTapGesture {         
-         
+      .onTapGesture {
          playerObservableObject.play(media, videoAssetUrl: media.previewUrl)
-         
       }
    }
 }

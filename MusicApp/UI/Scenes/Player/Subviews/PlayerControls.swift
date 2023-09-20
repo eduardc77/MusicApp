@@ -16,9 +16,9 @@ struct PlayerControls: View {
          Spacer()
          
          Button {
-            switch playerObservableObject.playerType {
+            switch PlayerObservableObject.playerType {
             case .video:
-               playerObservableObject.videoPlayer.player.seek(to: CMTime(seconds: Double(playerObservableObject.videoPlayer.trackTimePosition - 1), preferredTimescale: 1))
+               PlayerObservableObject.videoPlayer.player.seek(to: CMTime(seconds: Double(PlayerObservableObject.videoPlayer.trackTimePosition - 1), preferredTimescale: 1))
             case .audio:
                PlayerObservableObject.audioPlayer.skipToPreviousItem()
             }
@@ -26,38 +26,38 @@ struct PlayerControls: View {
             Image(systemName: "backward.fill")
                .resizable()
                .frame(width: 42, height: 24)
-               .foregroundColor(!playerObservableObject.nowPlayingItem.name.isEmpty ? .white : .lightGrayColor2)
+               .foregroundStyle(!playerObservableObject.nowPlayingItem.name.isEmpty ? .white : .lightGrayColor2)
          }
          Spacer()
          
          Button {
-            switch playerObservableObject.playerType {
+            switch PlayerObservableObject.playerType {
             case .video:
-               playerObservableObject.videoPlayer.toggleIsPlaying()
+               PlayerObservableObject.videoPlayer.toggleIsPlaying()
             case .audio:
                playerObservableObject.playbackState == .playing ? PlayerObservableObject.audioPlayer.pause() : PlayerObservableObject.audioPlayer.play()
             }
             
          } label: {
-            switch playerObservableObject.playerType {
+            switch PlayerObservableObject.playerType {
             case .video:
-               (playerObservableObject.videoPlayer.player.timeControlStatus == .playing ? Image(systemName: "pause.fill") : Image(systemName: "play.fill"))
+               (PlayerObservableObject.videoPlayer.player.timeControlStatus == .playing ? Image(systemName: "pause.fill") : Image(systemName: "play.fill"))
                   .resizable()
                   .frame(width: 32, height: 36)
-                  .foregroundColor(.white)
+                  .foregroundStyle(.white)
             case .audio:
                (playerObservableObject.playbackState == .playing ? Image(systemName: "pause.fill") : Image(systemName: "play.fill"))
                   .resizable()
                   .frame(width: 32, height: 36)
-                  .foregroundColor(.white)
+                  .foregroundStyle(.white)
             }
          }
          Spacer()
          
          Button {
-            switch playerObservableObject.playerType {
+            switch PlayerObservableObject.playerType {
             case .video:
-               playerObservableObject.videoPlayer.player.seek(to: CMTime(seconds: Double(playerObservableObject.videoPlayer.trackTimePosition + 5), preferredTimescale: 1))
+               PlayerObservableObject.videoPlayer.player.seek(to: CMTime(seconds: Double(PlayerObservableObject.videoPlayer.trackTimePosition + 5), preferredTimescale: 1))
             case .audio:
                PlayerObservableObject.audioPlayer.skipToNextItem()
                
@@ -66,7 +66,7 @@ struct PlayerControls: View {
             Image(systemName: "forward.fill")
                .resizable()
                .frame(width: 42, height: 24)
-               .foregroundColor(!playerObservableObject.nowPlayingItem.name.isEmpty ? .white : .lightGrayColor2)
+               .foregroundStyle(!playerObservableObject.nowPlayingItem.name.isEmpty ? .white : .lightGrayColor2)
          }
          Spacer()
       }

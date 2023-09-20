@@ -36,13 +36,13 @@ struct AlbumTrackList: View {
                               } else {
                                  Text(track.trackNumber)
                                     .font(.body)
-                                    .foregroundColor(.secondary)
+                                    .foregroundStyle(Color.secondary)
                                     .lineLimit(1)
                               }
                            }
                            .frame(width: 20, height: 8)
                            
-                           MediaItemName(name: track.trackName, explicitness: track.trackExplicitness)
+                           MediaItemTitle(name: track.trackName, explicitness: track.trackExplicitness)
                            
                            Spacer()
                            
@@ -70,7 +70,7 @@ struct AlbumTrackList: View {
                Text("\(media.trackCount) songs, \(mediaItemObservableObject.albumDuration) minutes")
             }
             .font(.footnote)
-            .foregroundColor(.secondary)
+            .foregroundStyle(Color.secondary)
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.vertical, 8)
             .padding(.horizontal)

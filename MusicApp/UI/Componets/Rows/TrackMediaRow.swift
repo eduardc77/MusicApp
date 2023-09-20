@@ -34,11 +34,11 @@ struct TrackMediaRow: View {
                
                HStack {
                   VStack(alignment: .leading, spacing: 3) {
-                     MediaItemName(name: media.name, explicitness: media.trackExplicitness, font: .body)
+                     MediaItemTitle(name: media.name, explicitness: media.trackExplicitness, font: .body)
                      
                      Text(media.albumAndReleaseYear)
                         .font(.footnote)
-                        .foregroundColor(.secondary)
+                        .foregroundStyle(Color.secondary)
                   }
                   .frame(maxWidth: .infinity, alignment: .leading)
                   .lineLimit(1)

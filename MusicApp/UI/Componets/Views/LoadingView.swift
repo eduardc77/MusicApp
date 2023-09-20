@@ -16,7 +16,7 @@ struct LoadingView: View {
          
          Text(title)
             .font(.footnote)
-            .foregroundColor(.secondary)
+            .foregroundStyle(Color.secondary)
       }
    }
 }

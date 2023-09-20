@@ -21,16 +21,10 @@ struct LosslessLogo: View {
          Text("Lossless")
             .font(.system(size: 11, weight: .medium))
       }
-      .foregroundColor(color)
+      .foregroundStyle(color)
       .padding(.horizontal, bordered ? 6.6 : 0)
       .padding(.vertical, bordered ? 1 : 0)
-      
-      .background {
-         if bordered {
-            RoundedRectangle(cornerRadius: 6, style: .continuous)
-               .foregroundColor(.lightGrayColor3)
-         }
-      }
+      .background(bordered ? RoundedRectangle(cornerRadius: 6, style: .continuous).foregroundStyle(Color.lightGrayColor3) : nil)
    }
 }
 

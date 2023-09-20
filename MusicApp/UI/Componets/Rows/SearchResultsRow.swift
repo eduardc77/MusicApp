@@ -26,10 +26,10 @@ struct SearchResultsRow: View {
          
          HStack {
             VStack(alignment: .leading) {
-               MediaItemName(name: media.name, explicitness: media.trackExplicitness, font: .callout)
+               MediaItemTitle(name: media.name, explicitness: media.trackExplicitness, font: .callout)
                
                Text("\(media.kind.title) · \(media.artistName)")
-                  .foregroundColor(.secondary)
+                  .foregroundStyle(Color.secondary)
                   .font(.callout)
                   .lineLimit(1)
             }

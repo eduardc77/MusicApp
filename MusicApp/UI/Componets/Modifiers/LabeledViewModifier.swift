@@ -38,11 +38,11 @@ struct LabeledViewModifier: ViewModifier {
                         HStack(spacing: 6) {
                            Text(title)
                               .font(headerFont)
-                              .foregroundColor(headerColor)
+                              .foregroundStyle(headerColor)
                            
                            Image(systemName: "chevron.forward")
                               .font(.title3.bold())
-                              .foregroundColor(.secondary)
+                              .foregroundStyle(Color.secondary)
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
                      }
@@ -50,7 +50,7 @@ struct LabeledViewModifier: ViewModifier {
                   } else {
                      Text(title)
                         .font(headerFont)
-                        .foregroundColor(headerColor)
+                        .foregroundStyle(headerColor)
                   }
                }
                .lineLimit(1)
@@ -61,7 +61,7 @@ struct LabeledViewModifier: ViewModifier {
             if let footer = footer {
                Text(footer)
                   .font(footerFont)
-                  .foregroundColor(footerColor)
+                  .foregroundStyle(footerColor)
                   .padding(.horizontal)
             }
          }

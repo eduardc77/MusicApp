@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct MediaItemName: View {
+struct MediaItemTitle: View {
    var name: String
    var explicitness: Explicitness = .notExplicit
    var font: Font = .body
@@ -21,18 +21,18 @@ struct MediaItemName: View {
       case .notExplicit, .cleaned:
          Text(name)
             .font(font)
-            .foregroundColor(foregroundColor)
+            .foregroundStyle(foregroundColor)
             .lineLimit(lineLimit)
       default:
          HStack(spacing: spacing) {
             Text(name)
                .font(font)
-               .foregroundColor(foregroundColor)
+               .foregroundStyle(foregroundColor)
                .lineLimit(lineLimit)
             
             Image(systemName: "e.square.fill")
                .font(imageFont)
-               .foregroundColor(.secondary)
+               .foregroundStyle(Color.secondary)
          }
       }
    }

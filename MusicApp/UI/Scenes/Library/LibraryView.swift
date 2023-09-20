@@ -59,12 +59,12 @@ struct LibraryView: View {
             Text("No Access to Your Library")
                .font(.title2).bold()
                .multilineTextAlignment(.center)
-               .foregroundColor(.primary)
+               .foregroundStyle(Color.primary)
             
             Text("Allow access to your media library to add your favorite songs and playlists.")
                .font(.body)
                .multilineTextAlignment(.center)
-               .foregroundColor(.secondary)
+               .foregroundStyle(Color.secondary)
                .padding(.horizontal)
             
             Button {
@@ -99,12 +99,12 @@ struct LibraryView: View {
             Text("Add Music to Your Library")
                .font(.title2).bold()
                .multilineTextAlignment(.center)
-               .foregroundColor(.primary)
+               .foregroundStyle(Color.primary)
             
             Text("Browse millions of songs and collect your favorites here.")
                .font(.body)
                .multilineTextAlignment(.center)
-               .foregroundColor(.secondary)
+               .foregroundStyle(Color.secondary)
                .padding(.horizontal)
             
             Button { tabSelection = .browse } label: {

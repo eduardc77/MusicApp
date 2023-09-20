@@ -36,7 +36,7 @@ enum Metric {
    static let trackCarouselImageSize: CGFloat = Metric.screenHeight * 0.068
    static let searchResultImageSize: CGFloat = Metric.screenHeight * 0.07
    static let stationRowHeight: CGFloat = Metric.screenHeight * 0.15
-   static let artistFeaturedAlbumRowHeight: CGFloat = Metric.screenHeight * 0.13
+   static let artistFeaturedAlbumRowHeight: CGFloat = Metric.screenHeight * 0.112
    static let albumCarouselImageSize: CGFloat = Metric.screenHeight * 0.196
    static let albumCarouselItemHeight: CGFloat = Metric.screenHeight * 0.26
    static let trackRowItemHeight: CGFloat = Metric.screenHeight * 0.07

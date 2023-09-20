@@ -34,7 +34,7 @@ struct InfiniteScrollText: View {
                   }
                }
          } else {
-            MediaItemName(name: text, explicitness: explicitness, font: Font(font), imageFont: Font(UIFont.boldSystemFont(ofSize: 16)), foregroundColor: textColor, spacing: 4)
+            MediaItemTitle(name: text, explicitness: explicitness, font: Font(font), imageFont: Font(UIFont.boldSystemFont(ofSize: 16)), foregroundColor: textColor, spacing: 4)
                .padding(.leading, spacing)
          }
       }
@@ -47,7 +47,7 @@ struct InfiniteScrollText: View {
                        contentSize: text.size(withFont: font),
                        spacing: spacing,
                        explicitText: explicitness) {
-         MediaItemName(name: text,
+         MediaItemTitle(name: text,
                        explicitness: explicitness,
                        font: Font(font),
                        imageFont: Font(UIFont.boldSystemFont(ofSize: 16)),

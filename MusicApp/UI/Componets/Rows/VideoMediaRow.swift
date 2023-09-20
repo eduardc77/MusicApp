@@ -15,17 +15,17 @@ struct VideoMediaRow: View {
    var body: some View {
       VStack(alignment: .leading) {
          if let uiImage = media.artwork {
-            MediaImageView(artworkImage: uiImage, sizeType: .videoCollectionRow, contentMode: .fill)
+            MediaImageView(artworkImage: uiImage, sizeType: .videoCollectionRow)
          } else {
-            MediaImageView(imagePath: media.artworkPath.resizedPath(size: 360), sizeType: .videoCollectionRow, contentMode: .fill)
+            MediaImageView(imagePath: media.artworkPath.resizedPath(size: 360), sizeType: .videoCollectionRow)
          }
          
          VStack {
-            MediaItemName(name: media.name, explicitness: media.trackExplicitness, font: .callout)
+            MediaItemTitle(name: media.name, explicitness: media.trackExplicitness, font: .callout)
                .frame(maxWidth: Metric.albumCarouselImageSize, alignment: .leading)
             
             Text(media.artistName)
-               .foregroundColor(.secondary)
+               .foregroundStyle(Color.secondary)
                .frame(maxWidth: Metric.albumCarouselImageSize, alignment: .leading)
          }
          .font(.caption)

@@ -18,12 +18,12 @@ struct CategoryGridView: View {
             NavigationLink(destination: CategoryDetailView(category: category)) {
                ZStack(alignment: Alignment(horizontal: .leading, vertical: .bottom)) {
                   MediaImageView(artworkImage: UIImage(named: category.image),
-                                 sizeType: .categoryCollectionRow,
-                                 contentMode: .fill)
+                                 sizeType: .categoryCollectionRow)
+                  .aspectRatio(contentMode: .fill)
                   
                   Text(category.title)
                      .padding(10)
-                     .foregroundColor(.white)
+                     .foregroundStyle(.white)
                      .font(.callout.bold())
                }
             }

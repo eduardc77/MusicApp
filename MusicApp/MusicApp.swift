@@ -13,7 +13,6 @@ struct MusicApp: App {
    var body: some Scene {
       WindowGroup {
          ContentView()
-            .accentColor(Color.accentColor)
       }
    }
 }

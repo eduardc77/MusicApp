@@ -21,7 +21,7 @@ struct AlbumMediaRowItem: View {
             }
             
             VStack {
-               MediaItemName(name: media.collectionName, explicitness: media.collectionExplicitness, font: .callout)
+               MediaItemTitle(name: media.collectionName, explicitness: media.collectionExplicitness, font: .callout)
                   .frame(maxWidth: Metric.albumCarouselImageSize, alignment: .leading)
                
                Text(media.artistName)

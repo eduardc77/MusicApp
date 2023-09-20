@@ -63,9 +63,9 @@ extension SearchOrCategoryView {
             VStack {
                Text("No Results")
                   .font(.title2).bold()
-                  .foregroundColor(.primary)
+                  .foregroundStyle(Color.primary)
                Text("Try a new search.")
-                  .foregroundColor(.secondary)
+                  .foregroundStyle(Color.secondary)
                   .font(.body)
             }
             .padding(.bottom)

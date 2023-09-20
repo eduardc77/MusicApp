@@ -17,7 +17,7 @@ struct BottomToolbar: View {
          Button(action: {}) {
             Image(systemName: "quote.bubble")
                .font(.title2)
-               .foregroundColor(playerType == . audio ? .lightGrayColor : .appAccentColor)
+               .foregroundStyle(playerType == . audio ? .lightGrayColor : Color.accentColor)
          }
          Spacer()
          
@@ -29,7 +29,7 @@ struct BottomToolbar: View {
          Button(action: {}) {
             Image(systemName: "list.bullet")
                .font(.title2)
-               .foregroundColor(playerType == . audio ? .lightGrayColor : .appAccentColor)
+               .foregroundStyle(playerType == . audio ? .lightGrayColor : Color.accentColor)
          }
       }
       .padding(.horizontal, 48)

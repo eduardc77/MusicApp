@@ -8,15 +8,16 @@
 import SwiftUI
 
 struct AccountNavigationItem: View {
-   @State private var showingProfile = false
+   @State private var showAccount = false
    
    var body: some View {
-      Button { showingProfile.toggle() } label: {
+      Button { showAccount.toggle() } label: {
          Image(systemName: "person.crop.circle")
+            .resizable()
             .font(.title2)
       }
       
-      .sheet(isPresented: $showingProfile) {
+      .sheet(isPresented: $showAccount) {
          AccountView()
       }
    }

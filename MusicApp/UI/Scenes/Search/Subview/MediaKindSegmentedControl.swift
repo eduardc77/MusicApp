@@ -30,11 +30,11 @@ struct MediaKindSegmentedControl: View {
                         .background {
                            if searchObservableObject.selectedMediaType == mediaType {
                               Capsule()
-                                 .fill(Color.appAccentColor)
+                                 .fill(Color.accentColor)
                                  .matchedGeometryEffect(id: "TAB", in: animation)
                            }
                         }
-                        .foregroundColor(searchObservableObject.selectedMediaType == mediaType ? .white : .primary)
+                        .foregroundStyle(searchObservableObject.selectedMediaType == mediaType ? .white : Color.primary)
                   }
                   .id(index)
                   

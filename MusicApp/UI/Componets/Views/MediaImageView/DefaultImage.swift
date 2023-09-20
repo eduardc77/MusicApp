@@ -25,8 +25,8 @@ struct DefaultImage: View {
                   .frame(width: (sizeType.size.height ?? Metric.albumCarouselImageSize) / 1.6, height: (sizeType.size.height ?? Metric.albumCarouselImageSize) / 1.6)
             }
          }
-         .aspectRatio(contentMode: .fit)
-         .foregroundColor(Color.secondary.opacity(0.8))
+         .scaledToFit()
+         .foregroundStyle(Color.secondary.opacity(0.8))
       }
    }
 }
