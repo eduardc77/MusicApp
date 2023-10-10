@@ -8,7 +8,7 @@
 import SwiftUI
 
 enum Metric {
-   // MARK: - Default
+   // MARK: - Screen Size
    
    static let screenWidth: CGFloat = UIScreen.main.bounds.size.width
    static let screenHeight: CGFloat = UIScreen.main.bounds.size.height
@@ -37,8 +37,8 @@ enum Metric {
    static let searchResultImageSize: CGFloat = Metric.screenHeight * 0.07
    static let stationRowHeight: CGFloat = Metric.screenHeight * 0.15
    static let artistFeaturedAlbumRowHeight: CGFloat = Metric.screenHeight * 0.112
-   static let albumCarouselImageSize: CGFloat = Metric.screenHeight * 0.196
-   static let albumCarouselItemHeight: CGFloat = Metric.screenHeight * 0.26
+   static let albumCarouselImageSize: CGFloat = Metric.screenHeight * 0.20
+   static let albumCarouselItemHeight: CGFloat = Metric.screenHeight * 0.24
    static let trackRowItemHeight: CGFloat = Metric.screenHeight * 0.07
    static let smallPlayerVideoHeight: CGFloat = Metric.screenHeight * 0.04
    static let videoRowHeight: CGFloat = Metric.screenHeight * 0.11
@@ -47,8 +47,7 @@ enum Metric {
    static let categoryRowItemWidth: CGFloat = Metric.screenWidth / 2.29
    static let categoryRowItemHeight: CGFloat = Metric.screenHeight * 0.136
    static let largeRowItemHeight: CGFloat = Metric.screenHeight * 0.28
-   static let highlightItemImageSize: CGFloat = Metric.screenHeight * 0.29
-   static let highlightCarouselItemHeight: CGFloat = Metric.screenHeight * 0.42
+   static let highlightCarouselItemHeight: CGFloat = Metric.screenHeight * 0.29
    
    // MARK: - Slider Views
    

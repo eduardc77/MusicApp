@@ -59,7 +59,6 @@ struct LibraryListView: View {
             }
          }
       }
-      
       .onAppear {
          if let data = UserDefaults.standard.value(forKey: UserDefaultsKey.libraryListSelection) as? Data, let librarySelection = try? libraryObservableObject.propertyListDecoder.decode(Array<LibrarySection>.self, from: data), !librarySelection.isEmpty {
             currentSections = Array(librarySelection)

@@ -25,7 +25,7 @@ struct SearchView: View {
                searchObservableObject.searchSubmit = true
             }
          
-            .onChange(of: searchTerm) { term in
+            .onChange(of: searchTerm) { _, term in
                searchObservableObject.searchTerm = term
             }
          

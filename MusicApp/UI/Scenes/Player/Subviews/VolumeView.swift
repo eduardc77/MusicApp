@@ -23,7 +23,7 @@ struct VolumeView: View {
    
    var body: some View {
       LabeledSlider(value: binding, in: 0...1) {
-         Text("Volume")
+       
       } minimumValueLabel: {
          Image(systemName: "speaker.fill")
       } maximumValueLabel: {

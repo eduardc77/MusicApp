@@ -40,7 +40,7 @@ struct ArtistFeaturedAlbumRow: View {
             }
          }
       }
-      .padding()
+      .padding(.horizontal)
    }
 }
 

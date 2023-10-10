@@ -22,12 +22,12 @@ struct RadioView: View {
    var body: some View {
       NavigationStack {
          ScrollView {
-            VStack {
-               HighlightsView(items: selectedStations, imageSize: .highlightCarouselItem)
+            VStack(spacing: 30) {
+               HorizontalMediaGridView(mediaItems: highlightContent(), imageSize: .highlightCarouselItem, scrollBehavior: .paging)
                
                HorizontalMediaGridView(mediaItems: musicPlaylists, title: "Recently Played", imageSize: .albumCarouselItem)
                
-               HorizontalMediaGridView(mediaItems: musicPlaylists2, title: "New Episodes", imageSize: .stationRow, rowCount: 3)
+               HorizontalMediaGridView(mediaItems: musicPlaylists2, title: "New Episodes", imageSize: .stationRow, rowCount: 3, scrollBehavior: .paging)
                
                HorizontalMediaGridView(mediaItems: musicPlaylists, title: "Our Radio Hosts", imageSize: .albumCarouselItem)
                
@@ -37,13 +37,13 @@ struct RadioView: View {
                
                HorizontalMediaGridView(mediaItems: musicPlaylists, title: "Apple Music 1", imageSize: .albumCarouselItem)
                
-               HorizontalMediaGridView(mediaItems: musicPlaylists2, title: "Local Broadcasters", imageSize: .stationRow, rowCount: 3)
+               HorizontalMediaGridView(mediaItems: musicPlaylists2, title: "Local Broadcasters", imageSize: .stationRow, rowCount: 3, scrollBehavior: .paging)
                
-               HorizontalMediaGridView(mediaItems: musicPlaylists, title: "International Broadcasters", imageSize: .stationRow, rowCount: 3)
+               HorizontalMediaGridView(mediaItems: musicPlaylists, title: "International Broadcasters", imageSize: .stationRow, rowCount: 3, scrollBehavior: .paging)
                
                NavigationLinkList(rowItems: BrowseMoreToExplore.self, content: detailViews, title: "More to Explore")
             }
-            
+     
             if playerObservableObject.showPlayerView, !playerObservableObject.expand { Spacer(minLength: Metric.playerHeight) }
          }
          .navigationTitle("Radio")
