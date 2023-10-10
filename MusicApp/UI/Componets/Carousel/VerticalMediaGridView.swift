@@ -66,9 +66,7 @@ struct VerticalMediaGridView: View {
          if playerObservableObject.showPlayerView, !playerObservableObject.expand { Spacer(minLength: Metric.playerHeight) }
       }
       .scrollingDisabled(scrollDisabled)
-      
       .labeledViewModifier(header: !title.isEmpty ? title : nil)
-      
    }
    
    private func setupGridSpacing(_ spacing: CGFloat?, defaultSpace: CGFloat) {

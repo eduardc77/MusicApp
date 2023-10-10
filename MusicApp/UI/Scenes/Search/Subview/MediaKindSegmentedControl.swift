@@ -38,7 +38,7 @@ struct MediaKindSegmentedControl: View {
                   }
                   .id(index)
                   
-                  .onChange(of: searchObservableObject.selectedMediaType) { newValue in
+                  .onChange(of: searchObservableObject.selectedMediaType) { _, newValue in
                      if newValue == mediaType {
                         withAnimation {
                            proxy.scrollTo(index, anchor: .center)

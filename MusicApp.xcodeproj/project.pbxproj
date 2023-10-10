@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		880FB06C2AD4F84F007F3CAA /* VIew+IfCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880FB06B2AD4F84F007F3CAA /* VIew+IfCondition.swift */; };
 		886BC7192A75F57200CBA71F /* AirplayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886BC7182A75F57200CBA71F /* AirplayButton.swift */; };
 		DD2A899728B67B9E008D5D96 /* UINavigationController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2A899628B67B9E008D5D96 /* UINavigationController+Extension.swift */; };
 		EA0054B9297081A000400F51 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0054B8297081A000400F51 /* MenuButton.swift */; };
@@ -87,7 +88,6 @@
 		EAD15315280D5835005FD971 /* MediaType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD15314280D5835005FD971 /* MediaType.swift */; };
 		EAD15320280D5901005FD971 /* SmallPictureModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD1531F280D5901005FD971 /* SmallPictureModel.swift */; };
 		EAD15322280D5A84005FD971 /* SearchCategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD15321280D5A84005FD971 /* SearchCategoryModel.swift */; };
-		EAD15325280D5AFD005FD971 /* HighlightsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD15324280D5AFD005FD971 /* HighlightsView.swift */; };
 		EAD15327280D5B16005FD971 /* HorizontalMediaGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD15326280D5B16005FD971 /* HorizontalMediaGridView.swift */; };
 		EAD15329280D5B22005FD971 /* VerticalMediaGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD15328280D5B22005FD971 /* VerticalMediaGridView.swift */; };
 		EAD1532D280D5B39005FD971 /* MediaImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD1532C280D5B39005FD971 /* MediaImageView.swift */; };
@@ -123,6 +123,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		880FB06B2AD4F84F007F3CAA /* VIew+IfCondition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VIew+IfCondition.swift"; sourceTree = "<group>"; };
 		886BC7182A75F57200CBA71F /* AirplayButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirplayButton.swift; sourceTree = "<group>"; };
 		DD2A899628B67B9E008D5D96 /* UINavigationController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extension.swift"; sourceTree = "<group>"; };
 		EA0054B8297081A000400F51 /* MenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButton.swift; sourceTree = "<group>"; };
@@ -204,7 +205,6 @@
 		EAD15314280D5835005FD971 /* MediaType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaType.swift; sourceTree = "<group>"; };
 		EAD1531F280D5901005FD971 /* SmallPictureModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallPictureModel.swift; sourceTree = "<group>"; };
 		EAD15321280D5A84005FD971 /* SearchCategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCategoryModel.swift; sourceTree = "<group>"; };
-		EAD15324280D5AFD005FD971 /* HighlightsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightsView.swift; sourceTree = "<group>"; };
 		EAD15326280D5B16005FD971 /* HorizontalMediaGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalMediaGridView.swift; sourceTree = "<group>"; };
 		EAD15328280D5B22005FD971 /* VerticalMediaGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalMediaGridView.swift; sourceTree = "<group>"; };
 		EAD1532C280D5B39005FD971 /* MediaImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaImageView.swift; sourceTree = "<group>"; };
@@ -250,6 +250,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8820BB302AD4AF6A0002CDF1 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				886BC7182A75F57200CBA71F /* AirplayButton.swift */,
+				EACA1C3F2819BCDA00CD7E4F /* MainButton.swift */,
+				EAD01E8A2823184C00B01F07 /* DismissButton.swift */,
+				EAD01E8C2823197200B01F07 /* RowButton.swift */,
+				EA0054B8297081A000400F51 /* MenuButton.swift */,
+				EA0054BA297095FC00400F51 /* DownloadButton.swift */,
+			);
+			path = Buttons;
+			sourceTree = "<group>";
+		};
+		8820BB312AD4AF740002CDF1 /* Sliders */ = {
+			isa = PBXGroup;
+			children = (
+				EA6CB3C6298D938B0058FA97 /* LabeledSlider.swift */,
+			);
+			path = Sliders;
+			sourceTree = "<group>";
+		};
 		EA17316628B4962800A09AAC /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -412,7 +433,6 @@
 			isa = PBXGroup;
 			children = (
 				EAA0CD3128319A25007F4728 /* Items */,
-				EAD15324280D5AFD005FD971 /* HighlightsView.swift */,
 				EAD15326280D5B16005FD971 /* HorizontalMediaGridView.swift */,
 				EAD15328280D5B22005FD971 /* VerticalMediaGridView.swift */,
 				EAAF02EA29644F05002414B8 /* InfiniteCarousel.swift */,
@@ -459,13 +479,8 @@
 		EAD01E9628232BB200B01F07 /* Controls */ = {
 			isa = PBXGroup;
 			children = (
-				886BC7182A75F57200CBA71F /* AirplayButton.swift */,
-				EACA1C3F2819BCDA00CD7E4F /* MainButton.swift */,
-				EAD01E8A2823184C00B01F07 /* DismissButton.swift */,
-				EAD01E8C2823197200B01F07 /* RowButton.swift */,
-				EA0054B8297081A000400F51 /* MenuButton.swift */,
-				EA0054BA297095FC00400F51 /* DownloadButton.swift */,
-				EA6CB3C6298D938B0058FA97 /* LabeledSlider.swift */,
+				8820BB302AD4AF6A0002CDF1 /* Buttons */,
+				8820BB312AD4AF740002CDF1 /* Sliders */,
 			);
 			path = Controls;
 			sourceTree = "<group>";
@@ -679,6 +694,7 @@
 				EAD15370280D6403005FD971 /* Collection+Grouped.swift */,
 				EA3FA3522817697200F84B09 /* Color.swift */,
 				EACA1C3B2819B29800CD7E4F /* View+HideKeyboard.swift */,
+				880FB06B2AD4F84F007F3CAA /* VIew+IfCondition.swift */,
 				EAD15372280D640E005FD971 /* Date+DateFormatter.swift */,
 				EAD15374280D6416005FD971 /* String+Extension.swift */,
 				EAC53D7628145C7B00785395 /* Enum+Extension.swift */,
@@ -718,7 +734,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1330;
-				LastUpgradeCheck = 1330;
+				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					EAD152F4280D56A8005FD971 = {
 						CreatedOnToolsVersion = 13.3.1;
@@ -818,6 +834,7 @@
 				EA09A28028309ECB00990F55 /* SearchWrapperRow.swift in Sources */,
 				EA321CA82966105B0023B445 /* CircleButtonStyle.swift in Sources */,
 				EAC53D7528145B2600785395 /* PlayerObservableObject.swift in Sources */,
+				880FB06C2AD4F84F007F3CAA /* VIew+IfCondition.swift in Sources */,
 				EACA1C3C2819B29800CD7E4F /* View+HideKeyboard.swift in Sources */,
 				EAD15356280D5E09005FD971 /* SearchListView.swift in Sources */,
 				EAACA3D6296A5781002C8C56 /* DefaultImage.swift in Sources */,
@@ -829,7 +846,6 @@
 				EA6744EC2821EA6300AC2010 /* Animation.swift in Sources */,
 				EAD01E872823122500B01F07 /* AlbumHeaderView.swift in Sources */,
 				EAD15315280D5835005FD971 /* MediaType.swift in Sources */,
-				EAD15325280D5AFD005FD971 /* HighlightsView.swift in Sources */,
 				EA0409DF28B6AE43001C8F72 /* ScrollDisabledModifier.swift in Sources */,
 				EA1BE0CA281DC1DF00A3A7A4 /* LibrarySection.swift in Sources */,
 				EAA266092829B0B10035D9E1 /* ArtistViewObservableObject.swift in Sources */,
@@ -913,6 +929,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -927,7 +944,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -973,6 +990,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -981,7 +999,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -1001,7 +1019,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MusicApp/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = ZU8DL4JP3R;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "";
@@ -1013,13 +1031,13 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.team-MusicApp";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.teameduard-MusicApp";
 				PRODUCT_NAME = Music;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1038,7 +1056,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MusicApp/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = ZU8DL4JP3R;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "";
@@ -1050,13 +1068,13 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.team-MusicApp";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.teameduard-MusicApp";
 				PRODUCT_NAME = Music;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;

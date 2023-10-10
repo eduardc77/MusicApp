@@ -10,26 +10,30 @@ import MediaPlayer
 
 struct PlayerView: View {
    @EnvironmentObject private var model: PlayerObservableObject
-   @State private var offset: CGFloat =  .zero
+   @State private var offset: CGFloat = .zero
    @State private var visibleSide: FlipViewSide = .front
    
+   var expand: Bool {
+      model.expand
+   }
+   
    var body: some View {
-      VStack(spacing:  .zero) {
+      VStack(spacing: .zero) {
          handleBar
          
          HStack(spacing: .zero) {
             mediaView
             
-            if !model.expand {
+            if !expand {
                smallPlayerViewDetails
                   .padding(.leading, 12)
                   .padding(.trailing, 4)
             }
          }
-         .padding(.leading, model.expand ? .zero : nil)
-         .frame(height: model.expand ? Metric.screenHeight / 2 :  Metric.playerHeight)
+         .padding(.leading, expand ? .zero : nil)
+         .frame(height: expand ? Metric.screenHeight / 2 :  Metric.playerHeight)
          
-         if model.expand {
+         if expand {
             VStack(spacing: .zero) {
                HStack(spacing: 4) {
                   expandedMediaDetails
@@ -40,15 +44,15 @@ struct PlayerView: View {
                
                expandedControlsBlock.padding(.horizontal)
             }
-            .frame(height: model.expand ? Metric.screenHeight / 2.74 : .zero)
-            .opacity(model.expand ? 1 : .zero)
+            .frame(height: expand ? Metric.screenHeight / 2.74 : .zero)
+            .opacity(expand ? 1 : .zero)
             .transition(.move(edge: .bottom))
          }
       }
       
-      .frame(maxHeight: model.expand ? .infinity : Metric.playerHeight)
-      .background(playerBackground)
-      .offset(y: model.expand ? .zero : Metric.tabBarHeight)
+      .frame(maxHeight: expand ? .infinity : Metric.playerHeight)
+      .background(playerBackground.clipShape(.rect(cornerRadius: expand ? 42 : 0)))
+      .offset(y: expand ? .zero : Metric.tabBarHeight)
       .offset(y: offset)
       .ignoresSafeArea()
       .gesture(DragGesture().onEnded(onEnded).onChanged(onChanged))
@@ -56,12 +60,10 @@ struct PlayerView: View {
       .onReceive(NotificationCenter.default.publisher(for: .MPMusicPlayerControllerPlaybackStateDidChange)) { _ in
          model.playbackState = PlayerObservableObject.audioPlayer.playbackState
       }
-      
       .onReceive(NotificationCenter.default.publisher(for: .MPMusicPlayerControllerNowPlayingItemDidChange)) { _ in
          guard let mediaItem = PlayerObservableObject.audioPlayer.nowPlayingItem else { return }
          model.setNowPlaying(media: mediaItem)
       }
-      
       .onDisappear {
          NotificationCenter.default.removeObserver(self)
       }
@@ -74,7 +76,7 @@ private extension PlayerView {
    // Drag Player
    func onChanged(value: DragGesture.Value) {
       withAnimation(.linear) {
-         if value.translation.height > .zero && model.expand {
+         if value.translation.height > .zero && expand {
             offset = value.translation.height
          }
       }
@@ -104,30 +106,30 @@ private extension PlayerView {
    var handleBar: some View {
       Capsule()
          .fill(Color.lightGrayColor2)
-         .frame(width: Metric.capsuleWidth, height: model.expand ? Metric.capsuleHeight : .zero)
-         .opacity(model.expand ? 1 : .zero)
+         .frame(width: Metric.capsuleWidth, height: expand ? Metric.capsuleHeight : .zero)
+         .opacity(expand ? 1 : .zero)
    }
    
    @ViewBuilder
    var mediaView: some View {
       if PlayerObservableObject.playerType == .audio {
-         MediaImageView(imagePath: model.nowPlayingItem.artworkPath.resizedPath(size: 600), artworkImage: model.nowPlayingItem.artwork, sizeType: model.expand ? .largePlayerArtwork : .smallPlayerAudio, shadowProminence: model.expand ? .full : .none, visibleSide: $visibleSide)
-            .scaleEffect((model.playbackState == .playing && model.expand) ? 1.33 : 1)
-            .animation(model.expand ? .scaleCard : .none, value: model.playbackState)
+         MediaImageView(imagePath: model.nowPlayingItem.artworkPath.resizedPath(size: 600), artworkImage: model.nowPlayingItem.artwork, sizeType: expand ? .largePlayerArtwork : .smallPlayerAudio, shadowProminence: expand ? .full : .none, visibleSide: $visibleSide)
+            .scaleEffect((model.playbackState == .playing && expand) ? 1.33 : 1)
+            .animation(expand ? .scaleCard : .none, value: model.playbackState)
          
             .onTapGesture {
-               guard model.expand else {
+               guard expand else {
                   expandPlayer()
                   return
                }
                visibleSide.toggle()
             }
-
+         
       } else {
          PlayerObservableObject.videoPlayer
-            .frame(width: model.expand ? SizeType.none.size.width : SizeType.smallPlayerVideo.size.width, height: model.expand ? SizeType.none.size.height : SizeType.smallPlayerVideo.size.height)
-            .cornerRadius(model.expand ?  SizeType.none.cornerRadius : SizeType.smallPlayerVideo.cornerRadius)
-  
+            .frame(width: expand ? SizeType.none.size.width : SizeType.smallPlayerVideo.size.width, height: expand ? SizeType.none.size.height : SizeType.smallPlayerVideo.size.height)
+            .cornerRadius(expand ?  SizeType.none.cornerRadius : SizeType.smallPlayerVideo.cornerRadius)
+         
       }
    }
    
@@ -189,10 +191,10 @@ private extension PlayerView {
    var ellipsisButton: some View {
       Group {
          switch PlayerObservableObject.playerType {
-         case .audio:
-            MenuButton(circled: true, font: .title, foregroundColor: .white)
-         case .video:
-            MenuButton(circled: true, font: .title)
+            case .audio:
+               MenuButton(circled: true, font: .title, foregroundColor: .white)
+            case .video:
+               MenuButton(circled: true, font: .title)
          }
       }
       .padding(.trailing, 30)
@@ -214,21 +216,21 @@ private extension PlayerView {
    @ViewBuilder
    var playerBackground: some View {
       Group {
-         if model.expand {
+         if expand {
             switch PlayerObservableObject.playerType {
-            case .audio:
-               if let artworkUIImage = model.nowPlayingItem.artwork {
-                  LinearGradient(
-                     gradient: Gradient(colors: [Color(artworkUIImage.firstAverageColor ?? .gray),
-                                                 Color(artworkUIImage.secondAverageColor ?? .gray)]),
-                     startPoint: .topLeading,
-                     endPoint: .bottomTrailing)
-               } else {
-                  Color.gray
-               }
-            case .video:
-               // Video Player background
-               Color.black
+               case .audio:
+                  if let artworkUIImage = model.nowPlayingItem.artwork {
+                     LinearGradient(
+                        gradient: Gradient(colors: [Color(artworkUIImage.firstAverageColor ?? .gray),
+                                                    Color(artworkUIImage.secondAverageColor ?? .gray)]),
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing)
+                  } else {
+                     Color.gray
+                  }
+               case .video:
+                  // Video Player Background
+                  Color.black
             }
          } else {
             VStack(spacing: .zero) {
@@ -239,7 +241,7 @@ private extension PlayerView {
       }
       .scaleEffect(y: 1, anchor: .bottom)
       .onTapGesture {
-         guard !model.expand else { return }
+         guard !expand else { return }
          expandPlayer()
       }
    }

@@ -70,7 +70,7 @@ struct LabeledViewModifier: ViewModifier {
 }
 
 extension View {
-   func labeledViewModifier(mediaItems: [Media] = [], imageSize: SizeType = .trackRowItem, maxHighlightShowing: Int = 0, header: String? = nil, headerFont: Font = .title2.bold(), headerColor: Color = .primary, footer: String? = nil, footerFont: Font = .caption, footerColor: Color = .secondary, alignment: HorizontalAlignment = .leading, spacing: CGFloat = 8) -> some View {
+   func labeledViewModifier(mediaItems: [Media] = [], imageSize: SizeType = .trackRowItem, maxHighlightShowing: Int = 0, header: String? = nil, headerFont: Font = .title2.bold(), headerColor: Color = .primary, footer: String? = nil, footerFont: Font = .caption, footerColor: Color = .secondary, alignment: HorizontalAlignment = .leading, spacing: CGFloat = 10) -> some View {
       self.modifier(LabeledViewModifier(mediaItems: mediaItems, imageSize: imageSize, maxHighlightShowing: maxHighlightShowing, header: header, headerFont: headerFont, headerColor: headerColor, footer: footer, footerFont: footerFont, footerColor: footerColor, alignment: alignment, spacing: spacing))
    }
 }

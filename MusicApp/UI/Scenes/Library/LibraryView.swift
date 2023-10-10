@@ -12,7 +12,6 @@ struct LibraryView: View {
    @Binding var tabSelection: Tab
    @State var editMode: EditMode = .inactive
    @StateObject private var libraryObservableObject = LibraryObservableObject()
-   @State var refreshComplete: Bool = false
    
    var body: some View {
       NavigationStack {
@@ -21,7 +20,7 @@ struct LibraryView: View {
             
          } else {
             if libraryObservableObject.status == .permitted {
-               if refreshComplete {
+               if !libraryObservableObject.refreshingLibrary, !libraryObservableObject.emptyLibrary {
                   ScrollView {
                      LibraryListView(libraryObservableObject: libraryObservableObject, editMode: $editMode)
                      
@@ -39,12 +38,6 @@ struct LibraryView: View {
             } else if libraryObservableObject.status == .notPermitted {
                RequestAuthorizationView()
             }
-         }
-      }
-      
-      .onReceive(libraryObservableObject.$refreshComplete) { value in
-         if value {
-            refreshComplete = value && !libraryObservableObject.refreshingLibrary
          }
       }
    }

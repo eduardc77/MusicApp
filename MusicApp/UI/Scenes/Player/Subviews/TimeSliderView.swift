@@ -29,13 +29,12 @@ struct TimeSliderView: View {
             ZStack(alignment: .leading) {
                Rectangle()
                   .fill(Color.lightGrayColor2)
-                  .frame(height: isDragging ? Metric.timeLineHeight * 2 : Metric.timeLineHeight)
-               
+
                Rectangle()
                   .fill( isDragging ? .white : Color.lightGrayColor)
-                  .frame(width: (trackDuration != 0) ? (CGFloat(trackTimePosition) / CGFloat(trackDuration) * geometry.size.width) : CGFloat.zero,
-                         height: isDragging ? Metric.timeLineHeight * 2 : Metric.timeLineHeight)
+                  .frame(width: (trackDuration != 0) ? (CGFloat(trackTimePosition) / CGFloat(trackDuration) * geometry.size.width) : CGFloat.zero)
             }
+            .frame(height: isDragging ? Metric.timeLineHeight * 2 : Metric.timeLineHeight)
             .clipShape(Capsule(style: .continuous))
             
             .onReceive(timer) { _ in
@@ -102,7 +101,7 @@ struct TimeSliderView: View {
       .padding(.horizontal)
       .frame(height: Metric.trackTimeSliderHeight)
       .scaleEffect(x: isDragging ? 1.06 : 1, y: isDragging ? 1.16 : 1)
-      .animation(.linear(duration: scaleAnimationDuration), value: isDragging)
+      .animation(.smooth, value: isDragging)
       
       .onDisappear {
          stopTimer()

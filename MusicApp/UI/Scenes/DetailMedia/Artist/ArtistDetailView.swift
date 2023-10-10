@@ -56,7 +56,6 @@ struct ArtistDetailView: View {
                         }
                      }
                   }
-                  
                   .background(
                      GeometryReader { proxy in
                         Color.clear.preference(
@@ -67,37 +66,39 @@ struct ArtistDetailView: View {
                   )
                }
                
-               VStack(spacing: 0) {
+               VStack(spacing: 30) {
                   ForEach(artistDetailSections, id: \.self) { section in
                      switch section {
-                     case .featuredAlbum:
-                        if let featureAlbum = artistObservableObject.artistFeatureAlbum {
-                           NavigationLink(destination:
-                                             AlbumDetailView(media: featureAlbum)) {
-                              ArtistFeaturedAlbumRow(media: featureAlbum, action: {})
+                        case .featuredAlbum:
+                           if let featureAlbum = artistObservableObject.artistFeatureAlbum {
+                              NavigationLink(destination:
+                                                AlbumDetailView(media: featureAlbum)) {
+                                 ArtistFeaturedAlbumRow(media: featureAlbum, action: {
+                                    
+                                 })
+                              }
+                              .padding(.top, 26)
                            }
-                                             .padding(.bottom)
-                        }
-                     case .topSongs:
-                        if !artistObservableObject.tracks.isEmpty {
-                           HorizontalMediaGridView(mediaItems: artistObservableObject.tracks, title: section.title, imageSize: .trackRowItem, rowCount: 4)
-                        }
-                     case .albums:
-                        if !artistObservableObject.albums.isEmpty {
-                           HorizontalMediaGridView(mediaItems: artistObservableObject.albums, title: section.title, imageSize: .albumCarouselItem)
-                        }
-                     case .musicVideos:
-                        if !artistObservableObject.musicVideos.isEmpty {
-                           HorizontalMediaGridView(mediaItems: artistObservableObject.musicVideos, title: section.title, imageSize: .videoCarouselItem)
-                        }
-                     case .singlesAndEps:
-                        if !artistObservableObject.singlesAndEps.isEmpty {
-                           HorizontalMediaGridView(mediaItems: artistObservableObject.singlesAndEps, title: section.title, imageSize: .albumCarouselItem)
-                        }
-                     case .appearsOn:
-                        if !artistObservableObject.appearsOn.isEmpty {
-                           HorizontalMediaGridView(mediaItems: artistObservableObject.appearsOn, title: section.title, imageSize: .albumCarouselItem)
-                        }
+                        case .topSongs:
+                           if !artistObservableObject.tracks.isEmpty {
+                              HorizontalMediaGridView(mediaItems: artistObservableObject.tracks, title: section.title, imageSize: .trackRowItem, rowCount: 4, scrollBehavior: .paging)
+                           }
+                        case .albums:
+                           if !artistObservableObject.albums.isEmpty {
+                              HorizontalMediaGridView(mediaItems: artistObservableObject.albums, title: section.title, imageSize: .albumCarouselItem)
+                           }
+                        case .musicVideos:
+                           if !artistObservableObject.musicVideos.isEmpty {
+                              HorizontalMediaGridView(mediaItems: artistObservableObject.musicVideos, title: section.title, imageSize: .videoCarouselItem)
+                           }
+                        case .singlesAndEps:
+                           if !artistObservableObject.singlesAndEps.isEmpty {
+                              HorizontalMediaGridView(mediaItems: artistObservableObject.singlesAndEps, title: section.title, imageSize: .albumCarouselItem)
+                           }
+                        case .appearsOn:
+                           if !artistObservableObject.appearsOn.isEmpty {
+                              HorizontalMediaGridView(mediaItems: artistObservableObject.appearsOn, title: section.title, imageSize: .albumCarouselItem)
+                           }
                      }
                   }
                   

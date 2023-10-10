@@ -201,7 +201,6 @@ struct CustomSliderStyle: LabeledSliderStyle {
    @GestureState var value: Double?
    @State private var isDragging = false
    @State private var lineProxyWidth: CGFloat = 0
-   private var scaleAnimationDuration = 0.15
    
    func drag(updating value: Binding<Double>, in bounds: ClosedRange<Double>) -> some Gesture {
       DragGesture(minimumDistance: 0)
@@ -217,9 +216,8 @@ struct CustomSliderStyle: LabeledSliderStyle {
             }
          }
          .onEnded { dragValue in
-            DispatchQueue.main.asyncAfter(deadline: .now() + scaleAnimationDuration) {
-               isDragging = false
-            }
+            isDragging = false
+
             if let newValue = valueForTranslation(dragValue.translation.width, in: bounds, width: lineProxyWidth) {
                value.wrappedValue = newValue
             }
@@ -239,12 +237,10 @@ struct CustomSliderStyle: LabeledSliderStyle {
                   .foregroundStyle(isEnabled ? (isDragging ? AnyShapeStyle(.white) : AnyShapeStyle(Color.lightGrayColor)) : AnyShapeStyle(.bar))
                   .frame(width: relativeValue(for: configuration.value, in: configuration.bounds) * lineProxy.size.width)
                   .animation(.linear, value: configuration.value)
-               
             }
             .clipShape(Capsule(style: .continuous))
-            
             .onAppear {
-               self.lineProxyWidth = lineProxy.size.width
+               lineProxyWidth = lineProxy.size.width
             }
          }
          .frame(height: isDragging ? Metric.timeLineHeight * 2 : Metric.timeLineHeight)
@@ -254,12 +250,12 @@ struct CustomSliderStyle: LabeledSliderStyle {
       }
       .frame(height: Metric.volumeSliderHeight)
       .contentShape(Rectangle())
-      .gesture(drag(updating: configuration.$value, in: configuration.bounds))
       .scaleEffect(x: isDragging ? 1.06 : 1, y: isDragging ? 1.16 : 1)
-      .animation(.linear(duration: scaleAnimationDuration), value: isDragging)
+      .gesture(drag(updating: configuration.$value, in: configuration.bounds))
+      .animation(.smooth(duration: 0.5), value: isDragging)
       
-      .onChange(of: value ?? 0) { value in
-         configuration.onValueChanged(value)
+      .onChange(of: value ?? 0) { _, newValue in
+         configuration.onValueChanged(newValue)
       }
    }
    

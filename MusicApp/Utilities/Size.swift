@@ -44,7 +44,7 @@ enum SizeType {
       case .videoListRow: return Size(width: Metric.searchResultImageSize, height: Metric.searchResultImageSize)
       case .videoCollectionRow: return Size(width: Metric.albumCarouselImageSize, height: Metric.videoRowHeight)
       case .videoCarouselItem: return Size(width: Metric.largeCarouselItemWidth , height: Metric.videoCarouselItemHeight)
-      case .highlightCarouselItem: return Size(width: Metric.largeCarouselItemWidth, height: Metric.highlightItemImageSize)
+      case .highlightCarouselItem: return Size(width: Metric.largeCarouselItemWidth, height: Metric.largeRowItemHeight)
       case .largePlayerArtwork: return Size(width: Metric.largeMediaArtworkSize, height: Metric.largeMediaArtworkSize)
       case .none: return Size()
       }

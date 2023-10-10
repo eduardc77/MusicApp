@@ -69,7 +69,7 @@ struct SearchListView: View {
                .pickerStyle(.segmented)
                .padding(.horizontal)
                
-               .onChange(of: selectedPickerIndex) { tag in
+               .onChange(of: selectedPickerIndex) { _, tag in
                   if tag == 0 {
                      searchObservableObject.searchPrompt = .appleMusic
                   } else {

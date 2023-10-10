@@ -15,14 +15,14 @@ struct HighlightMediaItem: View {
       NavigationLink(destination: AlbumDetailView(media: media)) {
          VStack {
             VStack(alignment: .leading) {
-               Text(media.mediaType.titleUppercased)
+               Text(media.name)
                   .font(.caption.weight(.semibold))
                   .foregroundStyle(Color.secondary)
                
                Text(media.name)
                   .font(.title2)
                
-               Text(media.trackName)
+               Text(media.name)
                   .foregroundStyle(Color.secondary)
                   .font(.title2)
             }

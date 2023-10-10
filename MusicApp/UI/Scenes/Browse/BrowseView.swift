@@ -23,21 +23,23 @@ struct BrowseView: View {
    var body: some View {
       NavigationStack {
          ScrollView {
-            HighlightsView(items: selectedStations, imageSize: .highlightCarouselItem)
-            
-            HorizontalMediaGridView(mediaItems: musicPlaylists2, title: "You Gotta Hear", imageSize: .albumCarouselItem)
-            
-            HorizontalMediaGridView(mediaItems: musicPlaylists, title: "Now in Spatial Audio", imageSize: .trackRowItem, rowCount: 4)
-            
-            HorizontalMediaGridView(mediaItems: musicPlaylists2, title: "New Music", imageSize: .albumCarouselItem, rowCount: 2)
-            
-            HorizontalMediaGridView(mediaItems: musicPlaylists, title: "Essentials", imageSize: .albumCarouselItem)
-            
-            HorizontalMediaGridView(mediaItems: musicPlaylists2, title: "Best New Songs", imageSize: .trackRowItem, rowCount: 4)
-            
-            HorizontalMediaGridView(mediaItems: musicPlaylists, title: "Coming Soon", imageSize: .albumCarouselItem)
-            
-            NavigationLinkList(rowItems: BrowseMoreToExplore.self, content: detailViews, title: "More to Explore")
+            VStack(spacing: 30) {
+               HorizontalMediaGridView(mediaItems: highlightContent(), imageSize: .highlightCarouselItem, scrollBehavior: .paging)
+               
+               HorizontalMediaGridView(mediaItems: musicPlaylists2, title: "You Gotta Hear", imageSize: .albumCarouselItem)
+               
+               HorizontalMediaGridView(mediaItems: musicPlaylists, title: "Now in Spatial Audio", imageSize: .trackRowItem, rowCount: 4, scrollBehavior: .paging)
+               
+               HorizontalMediaGridView(mediaItems: musicPlaylists2, title: "New Music", imageSize: .albumCarouselItem, rowCount: 2, scrollBehavior: .paging)
+               
+               HorizontalMediaGridView(mediaItems: musicPlaylists, title: "Essentials", imageSize: .albumCarouselItem)
+               
+               HorizontalMediaGridView(mediaItems: musicPlaylists2, title: "Best New Songs", imageSize: .trackRowItem, rowCount: 4, scrollBehavior: .paging)
+               
+               HorizontalMediaGridView(mediaItems: musicPlaylists, title: "Coming Soon", imageSize: .albumCarouselItem)
+               
+               NavigationLinkList(rowItems: BrowseMoreToExplore.self, content: detailViews, title: "More to Explore")
+            }
             
             if playerObservableObject.showPlayerView, !playerObservableObject.expand { Spacer(minLength: Metric.playerHeight) }
          }
