@@ -47,7 +47,7 @@ struct ArtistDetailView: View {
                   .toolbar(navigationHidden ? .hidden : .visible, for: .navigationBar)
                   .navigationTitle(media.artistName)
                   .navigationBarTitleDisplayMode(.inline)
-                  
+
                   .toolbar {
                      ToolbarItem(placement: .navigationBarTrailing) {
                         Button { } label: {
@@ -107,7 +107,7 @@ struct ArtistDetailView: View {
                .background()
             }
             .coordinateSpace(name: CoordinateSpace.global)
-            .ignoresSafeArea(edges: .top)
+            .ignoresSafeArea(edges: artistObservableObject.albums.first != nil ? .top : .init())
             
             .onPreferenceChange(ScrollViewOffsetPreferenceKey.self) { value in
                guard value >= 0 else {
