@@ -54,7 +54,7 @@ struct SearchListView: View {
             }
          }
       }
-      .dismissKeyboardOnScroll()
+      .scrollDismissesKeyboard(.immediately)
       
       .safeAreaInset(edge: .top) {
          Group {

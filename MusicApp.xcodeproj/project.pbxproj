@@ -12,9 +12,6 @@
 		DD2A899728B67B9E008D5D96 /* UINavigationController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2A899628B67B9E008D5D96 /* UINavigationController+Extension.swift */; };
 		EA0054B9297081A000400F51 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0054B8297081A000400F51 /* MenuButton.swift */; };
 		EA0054BB297095FC00400F51 /* DownloadButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0054BA297095FC00400F51 /* DownloadButton.swift */; };
-		EA0409DF28B6AE43001C8F72 /* ScrollDisabledModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0409DE28B6AE43001C8F72 /* ScrollDisabledModifier.swift */; };
-		EA0409E128B6B140001C8F72 /* TabBarHiddenModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0409E028B6B140001C8F72 /* TabBarHiddenModifier.swift */; };
-		EA0409E528B6B5C4001C8F72 /* ScrollDismissesKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0409E428B6B5C4001C8F72 /* ScrollDismissesKeyboard.swift */; };
 		EA091E91282C925C00C329FD /* UserDefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA091E90282C925C00C329FD /* UserDefaultsKeys.swift */; };
 		EA099EC22821C0090021EA33 /* NowPlayingEqualizerBars.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA099EC12821C0090021EA33 /* NowPlayingEqualizerBars.swift */; };
 		EA09A28028309ECB00990F55 /* SearchWrapperRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA09A27F28309ECB00990F55 /* SearchWrapperRow.swift */; };
@@ -128,9 +125,6 @@
 		DD2A899628B67B9E008D5D96 /* UINavigationController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extension.swift"; sourceTree = "<group>"; };
 		EA0054B8297081A000400F51 /* MenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButton.swift; sourceTree = "<group>"; };
 		EA0054BA297095FC00400F51 /* DownloadButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadButton.swift; sourceTree = "<group>"; };
-		EA0409DE28B6AE43001C8F72 /* ScrollDisabledModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollDisabledModifier.swift; sourceTree = "<group>"; };
-		EA0409E028B6B140001C8F72 /* TabBarHiddenModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarHiddenModifier.swift; sourceTree = "<group>"; };
-		EA0409E428B6B5C4001C8F72 /* ScrollDismissesKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollDismissesKeyboard.swift; sourceTree = "<group>"; };
 		EA091E90282C925C00C329FD /* UserDefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKeys.swift; sourceTree = "<group>"; };
 		EA099EC12821C0090021EA33 /* NowPlayingEqualizerBars.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingEqualizerBars.swift; sourceTree = "<group>"; };
 		EA09A27F28309ECB00990F55 /* SearchWrapperRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchWrapperRow.swift; sourceTree = "<group>"; };
@@ -395,9 +389,6 @@
 		EAAF02E6296441CA002414B8 /* Modifiers */ = {
 			isa = PBXGroup;
 			children = (
-				EA0409DE28B6AE43001C8F72 /* ScrollDisabledModifier.swift */,
-				EA0409E428B6B5C4001C8F72 /* ScrollDismissesKeyboard.swift */,
-				EA0409E028B6B140001C8F72 /* TabBarHiddenModifier.swift */,
 				EAD25820296C719200479449 /* LabeledViewModifier.swift */,
 			);
 			path = Modifiers;
@@ -841,12 +832,10 @@
 				EA3FA3532817697200F84B09 /* Color.swift in Sources */,
 				EA978849281B18900032C3AD /* Account.swift in Sources */,
 				EAD1532D280D5B39005FD971 /* MediaImageView.swift in Sources */,
-				EA0409E128B6B140001C8F72 /* TabBarHiddenModifier.swift in Sources */,
 				EAAF02EB29644F05002414B8 /* InfiniteCarousel.swift in Sources */,
 				EA6744EC2821EA6300AC2010 /* Animation.swift in Sources */,
 				EAD01E872823122500B01F07 /* AlbumHeaderView.swift in Sources */,
 				EAD15315280D5835005FD971 /* MediaType.swift in Sources */,
-				EA0409DF28B6AE43001C8F72 /* ScrollDisabledModifier.swift in Sources */,
 				EA1BE0CA281DC1DF00A3A7A4 /* LibrarySection.swift in Sources */,
 				EAA266092829B0B10035D9E1 /* ArtistViewObservableObject.swift in Sources */,
 				EABCBD0B2831463100A04D2E /* LoadingView.swift in Sources */,
@@ -869,7 +858,6 @@
 				EAD1530D280D579D005FD971 /* TabBar.swift in Sources */,
 				EAD01E9128231AA900B01F07 /* DefaultView.swift in Sources */,
 				EA430753282F0604006FFD15 /* VideoMediaItem.swift in Sources */,
-				EA0409E528B6B5C4001C8F72 /* ScrollDismissesKeyboard.swift in Sources */,
 				EAD15371280D6403005FD971 /* Collection+Grouped.swift in Sources */,
 				EAA266022829AAC10035D9E1 /* ArtistDetailView.swift in Sources */,
 				EAD15327280D5B16005FD971 /* HorizontalMediaGridView.swift in Sources */,
@@ -1019,7 +1007,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MusicApp/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = CF8Q7B6T96;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "";
@@ -1037,7 +1025,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.team-MusicApp";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.teamelio-MusicApp";
 				PRODUCT_NAME = Music;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1056,7 +1044,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MusicApp/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = CF8Q7B6T96;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "";
@@ -1074,7 +1062,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.team-MusicApp";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.teamelio-MusicApp";
 				PRODUCT_NAME = Music;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;

@@ -31,7 +31,7 @@ struct NavigationLinkList<Content: View, Enum: RawRepresentable & CaseIterable &
             }
          }
          .listStyle(.plain)
-         .scrollingDisabled(true)
+         .scrollDisabled(true)
       }
       
       .frame(idealHeight: CGFloat(50 * rowItems.allCases.count), maxHeight: .infinity)

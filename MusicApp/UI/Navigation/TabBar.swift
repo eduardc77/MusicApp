@@ -26,7 +26,7 @@ struct TabBar: View {
             ListenNowView()
                .tabItem { Label("Listen Now", systemImage: "play.circle.fill") }
                .tag(Tab.listenNow)
-               .tabBarHidden(playerObservableObject.expand ? .hidden : .automatic)
+               .toolbar(playerObservableObject.expand ? .hidden : .automatic, for: .tabBar)
             BrowseView()
                .tabItem { Label("Browse", systemImage: "square.grid.2x2.fill").font(.largeTitle) }
                .tag(Tab.browse)
