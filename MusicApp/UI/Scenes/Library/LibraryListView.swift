@@ -34,13 +34,13 @@ struct LibraryListView: View {
       }
       .listStyle(.plain)
       .frame(idealHeight: CGFloat(46 * currentSections.count), maxHeight: .infinity)
-      .scrollingDisabled(true)
+      .scrollDisabled(true)
       
-      .onChange(of: selection, perform: { newValue in
+      .onChange(of: selection) { _, newValue in
          self.currentSelection = newValue
-      })
+      }
       
-      .onChange(of: editMode) { editMode in
+      .onChange(of: editMode) { _, editMode in
          withAnimation {
             if !editMode.isEditing {
                currentSections = currentSections.filter { currentSelection.contains($0) }

@@ -65,7 +65,7 @@ struct VerticalMediaGridView: View {
          
          if playerObservableObject.showPlayerView, !playerObservableObject.expand { Spacer(minLength: Metric.playerHeight) }
       }
-      .scrollingDisabled(scrollDisabled)
+      .scrollDisabled(true)
       .labeledViewModifier(header: !title.isEmpty ? title : nil)
    }
    
