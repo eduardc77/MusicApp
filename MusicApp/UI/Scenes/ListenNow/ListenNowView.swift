@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ListenNowView: View {
-   @EnvironmentObject private var playerObservableObject: PlayerObservableObject
+   @EnvironmentObject private var playerModel: PlayerModel
    
    var body: some View {
       NavigationStack {
@@ -29,7 +29,7 @@ struct ListenNowView: View {
                HorizontalMediaGridView(mediaItems: musicPlaylists2, title: "New Releases", imageSize: .albumCarouselItem, rowCount: 2, scrollBehavior: .paging)
             }
             
-            if playerObservableObject.showPlayerView, !playerObservableObject.expand { Spacer(minLength: Metric.playerHeight) }
+            if playerModel.showPlayerView, !playerModel.expand { Spacer(minLength: Metric.playerHeight) }
          }
          .toolbar { AccountNavigationItem() }
          .navigationTitle("Listen Now")
@@ -43,6 +43,6 @@ struct ListenNowView: View {
 struct ListenNowView_Previews: PreviewProvider {
    static var previews: some View {
       ListenNowView()
-         .environmentObject(PlayerObservableObject())
+         .environmentObject(PlayerModel())
    }
 }

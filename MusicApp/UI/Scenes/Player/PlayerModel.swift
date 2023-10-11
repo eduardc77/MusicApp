@@ -1,5 +1,5 @@
 //
-//  PlayerObservableObject.swift
+//  PlayerModel.swift
 //  MusicApp
 //
 //  Created by Eduard Caziuc on 23.04.2022.
@@ -9,7 +9,7 @@ import SwiftUI
 import MediaPlayer
 import Combine
 
-final class PlayerObservableObject: ObservableObject {
+final class PlayerModel: ObservableObject {
    static var audioPlayer: MPMusicPlayerController = {
        MPMusicPlayerController.applicationQueuePlayer
    }()
@@ -44,7 +44,7 @@ final class PlayerObservableObject: ObservableObject {
    }
    
    deinit {
-      print("deinit PlayerObservableObject")
+      print("deinit PlayerModel")
    }
    
    
@@ -53,27 +53,27 @@ final class PlayerObservableObject: ObservableObject {
    func initPlayerFromUserDefaults() {
       switch (UserDefaults.standard.integer(forKey: UserDefaultsKey.repeatDefault)) {
       case 0:
-         PlayerObservableObject.audioPlayer.repeatMode = .none
+         PlayerModel.audioPlayer.repeatMode = .none
          playerOption.repeatMode = .noRepeat
       case 1:
-         PlayerObservableObject.audioPlayer.repeatMode = .all
+         PlayerModel.audioPlayer.repeatMode = .all
          playerOption.repeatMode = .albumRepeat
       case 2:
-         PlayerObservableObject.audioPlayer.repeatMode = .one
+         PlayerModel.audioPlayer.repeatMode = .one
          playerOption.repeatMode = .oneSongRepeat
       default:
-         PlayerObservableObject.audioPlayer.repeatMode = .none
+         PlayerModel.audioPlayer.repeatMode = .none
          playerOption.repeatMode = .noRepeat
       }
       
       if let recentMedia = UserDefaults.standard.array(forKey: UserDefaultsKey.queueDefault) as? [String] {
-         PlayerObservableObject.audioPlayer.setQueue(with: recentMedia)
-         PlayerObservableObject.audioPlayer.prepareToPlay()
+         PlayerModel.audioPlayer.setQueue(with: recentMedia)
+         PlayerModel.audioPlayer.prepareToPlay()
          hasRecentMedia = true
       }
       
       if UserDefaults.standard.bool(forKey: UserDefaultsKey.shuffleDefault) {
-         PlayerObservableObject.audioPlayer.shuffleMode = MPMusicShuffleMode.songs
+         PlayerModel.audioPlayer.shuffleMode = MPMusicShuffleMode.songs
       }
    }
    
@@ -117,24 +117,24 @@ final class PlayerObservableObject: ObservableObject {
       
       nowPlayingItem = Media(mediaResponse: MediaResponse(id: media.playbackStoreID, artistId: 0, collectionId: 0, trackId: 0, wrapperType: "track", kind: mediaKind.value, name: media.title, artistName: media.artist, collectionName: media.albumTitle, trackName: media.title, collectionCensoredName: media.albumTitle, artistViewUrl: nil, collectionViewUrl: nil, trackViewUrl: videoAssetUrl?.absoluteString ?? media.assetURL?.absoluteString, previewUrl: nil, artworkUrl100: nil, collectionPrice: nil, collectionHdPrice: 0, trackPrice: 0, collectionExplicitness: nil, trackExplicitness: media.isExplicitItem ? "explicit" : "notExplicit", discCount: 0, discNumber: nil, trackCount: media.albumTrackCount, trackNumber: media.albumTrackNumber, trackTimeMillis: media.playbackDuration, country: nil, currency: nil, primaryGenreName: media.genre, description: nil, longDescription: nil, releaseDate: media.releaseDate?.ISO8601Format(), contentAdvisoryRating: nil, trackRentalPrice: 0, artwork: media.artwork?.image(at: CGSize(width: 1024, height: 1024)), composer: media.composer, isCompilation: media.isCompilation))
       
-      if PlayerObservableObject.playerType == .video {
-         PlayerObservableObject.playerType = .audio
-         PlayerObservableObject.videoPlayer.toggleIsPlaying()
-         PlayerObservableObject.videoPlayer.player.replaceCurrentItem(with: nil)
+      if PlayerModel.playerType == .video {
+         PlayerModel.playerType = .audio
+         PlayerModel.videoPlayer.toggleIsPlaying()
+         PlayerModel.videoPlayer.player.replaceCurrentItem(with: nil)
       }
       hasRecentMedia = true
    }
    
    func configureVideoPlayer(with videoAssetUrl: URL) {
-      PlayerObservableObject.playerType = .video
-      PlayerObservableObject.audioPlayer.stop()
-      PlayerObservableObject.audioPlayer.nowPlayingItem = nil
+      PlayerModel.playerType = .video
+      PlayerModel.audioPlayer.stop()
+      PlayerModel.audioPlayer.nowPlayingItem = nil
       withAnimation {
          expand = true
       }
       showPlayerView = true
-      PlayerObservableObject.videoPlayer.player.replaceCurrentItem(with: nil)
-      PlayerObservableObject.videoPlayer.player.replaceCurrentItem(with: AVPlayerItem(asset: AVAsset(url: videoAssetUrl)))
+      PlayerModel.videoPlayer.player.replaceCurrentItem(with: nil)
+      PlayerModel.videoPlayer.player.replaceCurrentItem(with: AVPlayerItem(asset: AVAsset(url: videoAssetUrl)))
      
    }
    
@@ -146,12 +146,12 @@ final class PlayerObservableObject: ObservableObject {
    
    func play(_ media: Media, videoAssetUrl: URL? = nil) {
       if media.mediaType != .musicVideo {
-         PlayerObservableObject.videoPlayer.player.replaceCurrentItem(with: nil)
-         PlayerObservableObject.playerType = .audio
-         PlayerObservableObject.audioPlayer.stop()
-         PlayerObservableObject.audioPlayer.setQueue(with: [media.id])
-         PlayerObservableObject.setShuffleMode(false)
-         PlayerObservableObject.audioPlayer.play()
+         PlayerModel.videoPlayer.player.replaceCurrentItem(with: nil)
+         PlayerModel.playerType = .audio
+         PlayerModel.audioPlayer.stop()
+         PlayerModel.audioPlayer.setQueue(with: [media.id])
+         PlayerModel.setShuffleMode(false)
+         PlayerModel.audioPlayer.play()
       } else {
          configureVideoPlayer(with: videoAssetUrl ?? URL(string: "https://www.apple.com/404")!)
       }
@@ -159,13 +159,13 @@ final class PlayerObservableObject: ObservableObject {
    
    static func setShuffleMode(_ value: Bool) {
       UserDefaults.standard.set(value, forKey: UserDefaultsKey.shuffleDefault)
-      PlayerObservableObject.audioPlayer.shuffleMode = value ? MPMusicShuffleMode.songs : MPMusicShuffleMode.off
+      PlayerModel.audioPlayer.shuffleMode = value ? MPMusicShuffleMode.songs : MPMusicShuffleMode.off
    }
 }
 
 // MARK: - Types
 
-extension PlayerObservableObject {
+extension PlayerModel {
    enum RepeatMode: CaseIterable {
       case noRepeat
       case albumRepeat

@@ -9,7 +9,7 @@ import SwiftUI
 import MediaPlayer
 
 struct VerticalMediaGridView: View {
-   @EnvironmentObject private var playerObservableObject: PlayerObservableObject
+   @EnvironmentObject private var playerModel: PlayerModel
    @State var mediaItems = [Media]()
    
    var title: String
@@ -63,7 +63,7 @@ struct VerticalMediaGridView: View {
          .padding(.top, topPadding)
          .padding(.horizontal)
          
-         if playerObservableObject.showPlayerView, !playerObservableObject.expand { Spacer(minLength: Metric.playerHeight) }
+         if playerModel.showPlayerView, !playerModel.expand { Spacer(minLength: Metric.playerHeight) }
       }
       .scrollDisabled(true)
       .labeledViewModifier(header: !title.isEmpty ? title : nil)
@@ -85,7 +85,7 @@ struct VerticalMediaGridView_Previews: PreviewProvider {
    static var previews: some View {
       VStack {
          VerticalMediaGridView(mediaItems: musicPlaylists2, title: "You Gotta Hear This", imageSize: .trackRowItem)
-            .environmentObject(PlayerObservableObject())
+            .environmentObject(PlayerModel())
       }
    }
 }

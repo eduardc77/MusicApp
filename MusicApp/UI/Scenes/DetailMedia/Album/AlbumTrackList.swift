@@ -9,20 +9,20 @@ import SwiftUI
 import MediaPlayer
 
 struct AlbumTrackList: View {
-   @EnvironmentObject private var playerObservableObject: PlayerObservableObject
-   @ObservedObject var mediaItemObservableObject: MediaItemObservableObject
+   @EnvironmentObject private var playerModel: PlayerModel
+   @ObservedObject var mediaItemModel: MediaItemModel
    var media: Media
    
    var body: some View {
       Group {
-         if mediaItemObservableObject.loadingTracks {
+         if mediaItemModel.loadingTracks {
             LoadingView()
             
          } else {
             LazyVStack(alignment: .leading, spacing: .zero) {
-               ForEach(Array(mediaItemObservableObject.tracks.enumerated()), id: \.element) { trackIndex, track in
+               ForEach(Array(mediaItemModel.tracks.enumerated()), id: \.element) { trackIndex, track in
                   Button {
-                     mediaItemObservableObject.playTrack(withId: track.id)
+                     mediaItemModel.playTrack(withId: track.id)
                   } label: {
                      VStack {
                         if trackIndex == 0 { Divider() }
@@ -30,7 +30,7 @@ struct AlbumTrackList: View {
                         
                         HStack {
                            Group {
-                              if playerObservableObject.nowPlayingItem.trackName == track.trackName {
+                              if playerModel.nowPlayingItem.trackName == track.trackName {
                                  NowPlayingEqualizerBars()
                                     .frame(width: 16, height: 8)
                               } else {
@@ -52,7 +52,7 @@ struct AlbumTrackList: View {
                         
                         Spacer()
                         
-                        Divider().padding(.leading, trackIndex == mediaItemObservableObject.trackCount - 1 ? 0 : 20)
+                        Divider().padding(.leading, trackIndex == mediaItemModel.trackCount - 1 ? 0 : 20)
                      }
                      .padding(.leading, 20)
                      .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -67,7 +67,7 @@ struct AlbumTrackList: View {
                   Text("\(releaseDate)")
                }
                
-               Text("\(media.trackCount) songs, \(mediaItemObservableObject.albumDuration) minutes")
+               Text("\(media.trackCount) songs, \(mediaItemModel.albumDuration) minutes")
             }
             .font(.footnote)
             .foregroundStyle(Color.secondary)
@@ -77,7 +77,7 @@ struct AlbumTrackList: View {
          }
       }
       .task {
-         mediaItemObservableObject.fetchTracks(for: media.id)
+         mediaItemModel.fetchTracks(for: media.id)
       }
    }
 }
@@ -87,6 +87,6 @@ struct AlbumTrackList: View {
 
 struct AlbumTrackList_Previews: PreviewProvider {
    static var previews: some View {
-      AlbumTrackList(mediaItemObservableObject: MediaItemObservableObject(), media: musicPlaylists2.first ?? Media())
+      AlbumTrackList(mediaItemModel: MediaItemModel(), media: musicPlaylists2.first ?? Media())
    }
 }

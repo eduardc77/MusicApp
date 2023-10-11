@@ -1,5 +1,5 @@
 //
-//  ArtistViewObservableObject.swift
+//  ArtistViewModel.swift
 //  MusicApp
 //
 //  Created by Eduard Caziuc on 09.05.2022.
@@ -7,7 +7,7 @@
 
 import Combine
 
-final class ArtistViewObservableObject: ObservableObject {
+final class ArtistViewModel: ObservableObject {
    // MARK: - Properties
    
    private let networkService: NetworkServiceProtocol
@@ -114,7 +114,7 @@ final class ArtistViewObservableObject: ObservableObject {
    }
    
    deinit {
-      print("deinit ArtistViewObservableObject")
+      print("deinit ArtistViewModel")
    }
    
    // MARK: - Public Methods
@@ -179,7 +179,7 @@ final class ArtistViewObservableObject: ObservableObject {
 
 // MARK: - Types
 
-extension ArtistViewObservableObject {
+extension ArtistViewModel {
    enum AlbumType {
       case album
       case singlesAndEp
@@ -189,7 +189,7 @@ extension ArtistViewObservableObject {
 
 // MARK: - Private methods
 
-private extension ArtistViewObservableObject {
+private extension ArtistViewModel {
    func handleError(_ error: NetworkError) -> Empty<ITunesAPIResponse, Never> {
       errorState = .init(
          isError: true,

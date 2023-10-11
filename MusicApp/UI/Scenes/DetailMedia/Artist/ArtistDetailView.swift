@@ -10,8 +10,8 @@ import AVKit
 
 struct ArtistDetailView: View {
    @Environment(\.dismiss) private var dismiss
-   @EnvironmentObject private var playerObservableObject: PlayerObservableObject
-   @StateObject private var artistObservableObject: ArtistViewObservableObject
+   @EnvironmentObject private var playerModel: PlayerModel
+   @StateObject private var artistViewModel: ArtistViewModel
    @State private var navigationHidden: Bool = true
    
    private var artistDetailSections: [ArtistDetailSection] = ArtistDetailSection.allCases
@@ -20,17 +20,17 @@ struct ArtistDetailView: View {
    
    init(media: Media) {
       self.media = media
-      _artistObservableObject = StateObject(wrappedValue: ArtistViewObservableObject(media: media))
+      _artistViewModel = StateObject(wrappedValue: ArtistViewModel(media: media))
    }
    
    var body: some View {
       ZStack {
-         if !artistObservableObject.loadingComplete {
+         if !artistViewModel.loadingComplete {
             LoadingView()
          } else {
             ScrollView(.vertical, showsIndicators: false) {
                
-               if let recentAlbum = artistObservableObject.albums.first {
+               if let recentAlbum = artistViewModel.albums.first {
                   ZStack(alignment: Alignment(horizontal: .leading, vertical: .bottom)) {
                      ParallaxHeaderView(
                         coordinateSpace: CoordinateSpace.global,
@@ -40,7 +40,7 @@ struct ArtistDetailView: View {
                      }
                      
                      Text(media.artistName)
-                        .padding(12)
+                        .padding()
                         .foregroundStyle(.white)
                         .font(.largeTitle.bold())
                   }
@@ -70,7 +70,7 @@ struct ArtistDetailView: View {
                   ForEach(artistDetailSections, id: \.self) { section in
                      switch section {
                         case .featuredAlbum:
-                           if let featureAlbum = artistObservableObject.artistFeatureAlbum {
+                           if let featureAlbum = artistViewModel.artistFeatureAlbum {
                               NavigationLink(destination:
                                                 AlbumDetailView(media: featureAlbum)) {
                                  ArtistFeaturedAlbumRow(media: featureAlbum, action: {
@@ -80,34 +80,34 @@ struct ArtistDetailView: View {
                               .padding(.top, 26)
                            }
                         case .topSongs:
-                           if !artistObservableObject.tracks.isEmpty {
-                              HorizontalMediaGridView(mediaItems: artistObservableObject.tracks, title: section.title, imageSize: .trackRowItem, rowCount: 4, scrollBehavior: .paging)
+                           if !artistViewModel.tracks.isEmpty {
+                              HorizontalMediaGridView(mediaItems: artistViewModel.tracks, title: section.title, imageSize: .trackRowItem, rowCount: 4, scrollBehavior: .paging)
                            }
                         case .albums:
-                           if !artistObservableObject.albums.isEmpty {
-                              HorizontalMediaGridView(mediaItems: artistObservableObject.albums, title: section.title, imageSize: .albumCarouselItem)
+                           if !artistViewModel.albums.isEmpty {
+                              HorizontalMediaGridView(mediaItems: artistViewModel.albums, title: section.title, imageSize: .albumCarouselItem)
                            }
                         case .musicVideos:
-                           if !artistObservableObject.musicVideos.isEmpty {
-                              HorizontalMediaGridView(mediaItems: artistObservableObject.musicVideos, title: section.title, imageSize: .videoCarouselItem)
+                           if !artistViewModel.musicVideos.isEmpty {
+                              HorizontalMediaGridView(mediaItems: artistViewModel.musicVideos, title: section.title, imageSize: .videoCarouselItem)
                            }
                         case .singlesAndEps:
-                           if !artistObservableObject.singlesAndEps.isEmpty {
-                              HorizontalMediaGridView(mediaItems: artistObservableObject.singlesAndEps, title: section.title, imageSize: .albumCarouselItem)
+                           if !artistViewModel.singlesAndEps.isEmpty {
+                              HorizontalMediaGridView(mediaItems: artistViewModel.singlesAndEps, title: section.title, imageSize: .albumCarouselItem)
                            }
                         case .appearsOn:
-                           if !artistObservableObject.appearsOn.isEmpty {
-                              HorizontalMediaGridView(mediaItems: artistObservableObject.appearsOn, title: section.title, imageSize: .albumCarouselItem)
+                           if !artistViewModel.appearsOn.isEmpty {
+                              HorizontalMediaGridView(mediaItems: artistViewModel.appearsOn, title: section.title, imageSize: .albumCarouselItem)
                            }
                      }
                   }
                   
-                  if playerObservableObject.showPlayerView, !playerObservableObject.expand { Spacer(minLength: Metric.playerHeight) }
+                  if playerModel.showPlayerView, !playerModel.expand { Spacer(minLength: Metric.playerHeight) }
                }
                .background()
             }
             .coordinateSpace(name: CoordinateSpace.global)
-            .ignoresSafeArea(edges: artistObservableObject.albums.first != nil ? .top : .init())
+            .ignoresSafeArea(edges: artistViewModel.artistFeatureAlbum != nil ? .top : .init())
             
             .onPreferenceChange(ScrollViewOffsetPreferenceKey.self) { value in
                guard value >= 0 else {
@@ -116,18 +116,17 @@ struct ArtistDetailView: View {
                }
                navigationHidden = value > Metric.mediaPreviewHeaderHeight ? false : true
             }
-            
-            .overlay { if artistObservableObject.artistFeatureAlbum != nil { topNavigationControls } }
+            .overlay { if artistViewModel.artistFeatureAlbum != nil { topNavigationControls } }
          }
       }
       
-      .errorAlert(errorState: $artistObservableObject.errorState) {
-         artistObservableObject.fetchAllArtistMedia(for: media.id)
+      .errorAlert(errorState: $artistViewModel.errorState) {
+         artistViewModel.fetchAllArtistMedia(for: media.id)
       } cancel: { dismiss() }
    }
    
    private var artistVideoPreviewUrls: [URL]? {
-      let artistMusicVideos = artistObservableObject.musicVideos.filter { $0.artistName == media.artistName }
+      let artistMusicVideos = artistViewModel.musicVideos.filter { $0.artistName == media.artistName }
       var artistVideoPreviewUrls = [URL]()
       
       artistMusicVideos.prefix(3).forEach { musicVideo in
@@ -181,6 +180,6 @@ struct ScrollViewOffsetPreferenceKey: PreferenceKey {
 struct ArtistDetailView_Previews: PreviewProvider {
    static var previews: some View {
       ArtistDetailView(media: musicPlaylists2.first ?? Media())
-         .environmentObject(PlayerObservableObject())
+         .environmentObject(PlayerModel())
    }
 }

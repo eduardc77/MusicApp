@@ -17,7 +17,7 @@ enum Tab {
 }
 
 struct TabBar: View {
-   @EnvironmentObject private var playerObservableObject: PlayerObservableObject
+   @EnvironmentObject private var playerModel: PlayerModel
    @State var selection: Tab = .listenNow
    
    var body: some View {
@@ -26,7 +26,7 @@ struct TabBar: View {
             ListenNowView()
                .tabItem { Label("Listen Now", systemImage: "play.circle.fill") }
                .tag(Tab.listenNow)
-               .toolbar(playerObservableObject.expand ? .hidden : .automatic, for: .tabBar)
+               .toolbar(playerModel.expand ? .hidden : .automatic, for: .tabBar)
             BrowseView()
                .tabItem { Label("Browse", systemImage: "square.grid.2x2.fill").font(.largeTitle) }
                .tag(Tab.browse)
@@ -42,8 +42,8 @@ struct TabBar: View {
          }
          
          PlayerView()
-            .opacity(playerObservableObject.showPlayerView ? 1 : 0)
-            .animation(.default, value: playerObservableObject.hasRecentMedia)
+            .opacity(playerModel.showPlayerView ? 1 : 0)
+            .animation(.default, value: playerModel.hasRecentMedia)
       }
       .ignoresSafeArea(.keyboard)
    }
@@ -55,7 +55,7 @@ struct TabBar: View {
 struct TabBar_Previews: PreviewProvider {
    static var previews: some View {
       TabBar()
-         .environmentObject(PlayerObservableObject())
+         .environmentObject(PlayerModel())
    }
 }
 

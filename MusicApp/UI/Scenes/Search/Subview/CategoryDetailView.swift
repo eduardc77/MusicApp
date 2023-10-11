@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CategoryDetailView: View {
-   @EnvironmentObject private var playerObservableObject: PlayerObservableObject
+   @EnvironmentObject private var playerModel: PlayerModel
    var category: SearchCategoryModel
    
    var body: some View {
@@ -43,7 +43,7 @@ struct CategoryDetailView: View {
          }
          .navigationBarTitleDisplayMode(.inline)
          
-         if playerObservableObject.showPlayerView, !playerObservableObject.expand {
+         if playerModel.showPlayerView, !playerModel.expand {
             Spacer(minLength: Metric.playerHeight)
          }
       }
@@ -57,7 +57,7 @@ struct CategoryDetailView: View {
 struct SearchDetailView_Previews: PreviewProvider {
    static var previews: some View {
       CategoryDetailView(category: searchCategories[0])
-         .environmentObject(PlayerObservableObject())
+         .environmentObject(PlayerModel())
    }
 }
 

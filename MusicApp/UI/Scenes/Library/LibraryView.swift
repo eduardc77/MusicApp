@@ -11,21 +11,21 @@ import MediaPlayer
 struct LibraryView: View {
    @Binding var tabSelection: Tab
    @State var editMode: EditMode = .inactive
-   @StateObject private var libraryObservableObject = LibraryObservableObject()
+   @StateObject private var libraryModel = LibraryModel()
    
    var body: some View {
       NavigationStack {
-         if libraryObservableObject.refreshingLibrary {
+         if libraryModel.refreshingLibrary {
             LoadingView()
             
          } else {
-            if libraryObservableObject.status == .permitted {
-               if !libraryObservableObject.refreshingLibrary, !libraryObservableObject.emptyLibrary {
+            if libraryModel.status == .permitted {
+               if !libraryModel.refreshingLibrary, !libraryModel.emptyLibrary {
                   ScrollView {
-                     LibraryListView(libraryObservableObject: libraryObservableObject, editMode: $editMode)
+                     LibraryListView(libraryModel: libraryModel, editMode: $editMode)
                      
                      if !editMode.isEditing {
-                        VerticalMediaGridView(mediaItems: libraryObservableObject.recentlyAdded, title: "Recently Added", imageSize: .albumCarouselItem, scrollDisabled: true, topPadding: 0)
+                        VerticalMediaGridView(mediaItems: libraryModel.recentlyAdded, title: "Recently Added", imageSize: .albumCarouselItem, scrollDisabled: true, topPadding: 0)
                      }
                   }
                   .navigationTitle("Library")
@@ -35,7 +35,7 @@ struct LibraryView: View {
                } else {
                   EmptyLibraryView(tabSelection: $tabSelection)
                }
-            } else if libraryObservableObject.status == .notPermitted {
+            } else if libraryModel.status == .notPermitted {
                RequestAuthorizationView()
             }
          }

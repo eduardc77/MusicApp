@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct LibraryListDetailView: View {
-   @EnvironmentObject private var playerObservableObject: PlayerObservableObject
-   @ObservedObject var libraryObservableObject: LibraryObservableObject
+   @EnvironmentObject private var playerModel: PlayerModel
+   @ObservedObject var libraryModel: LibraryModel
    @State var sort: SortOrder = .forward
    @State private var searchTerm = ""
    
@@ -18,21 +18,21 @@ struct LibraryListDetailView: View {
    var body: some View {
       ScrollView {
          switch section {
-            case .playlists: VerticalMediaGridView(mediaItems: libraryObservableObject.playlists, imageSize: .albumCarouselItem)
-            case .artists: VerticalMediaGridView(mediaItems: libraryObservableObject.artists, imageSize: .trackRowItem)
-            case .albums: VerticalMediaGridView(mediaItems: libraryObservableObject.albums, imageSize: .albumCarouselItem)
-            case .songs: VerticalMediaGridView(mediaItems: libraryObservableObject.songs, imageSize: .trackRowItem)
-            case .madeForYou: VerticalMediaGridView(mediaItems: libraryObservableObject.madeForYou, imageSize: .albumCarouselItem)
-            case .tvAndMovies: VerticalMediaGridView(mediaItems: libraryObservableObject.tvAndMovies, imageSize: .albumCarouselItem)
-            case .musicVideos: VerticalMediaGridView(mediaItems: libraryObservableObject.musicVideos, imageSize: .albumCarouselItem)
-            case .genres: VerticalMediaGridView(mediaItems: libraryObservableObject.genres, imageSize: .trackRowItem)
-            case .compilations: VerticalMediaGridView(mediaItems: libraryObservableObject.compilations, imageSize: .albumCarouselItem)
-            case .composers: VerticalMediaGridView(mediaItems: libraryObservableObject.composers, imageSize: .trackRowItem)
-            case .downloaded: VerticalMediaGridView(mediaItems: libraryObservableObject.downloaded, imageSize: .albumCarouselItem)
-            case .homeSharing: VerticalMediaGridView(mediaItems: libraryObservableObject.homeSharing, imageSize: .albumCarouselItem)
+            case .playlists: VerticalMediaGridView(mediaItems: libraryModel.playlists, imageSize: .albumCarouselItem)
+            case .artists: VerticalMediaGridView(mediaItems: libraryModel.artists, imageSize: .trackRowItem)
+            case .albums: VerticalMediaGridView(mediaItems: libraryModel.albums, imageSize: .albumCarouselItem)
+            case .songs: VerticalMediaGridView(mediaItems: libraryModel.songs, imageSize: .trackRowItem)
+            case .madeForYou: VerticalMediaGridView(mediaItems: libraryModel.madeForYou, imageSize: .albumCarouselItem)
+            case .tvAndMovies: VerticalMediaGridView(mediaItems: libraryModel.tvAndMovies, imageSize: .albumCarouselItem)
+            case .musicVideos: VerticalMediaGridView(mediaItems: libraryModel.musicVideos, imageSize: .albumCarouselItem)
+            case .genres: VerticalMediaGridView(mediaItems: libraryModel.genres, imageSize: .trackRowItem)
+            case .compilations: VerticalMediaGridView(mediaItems: libraryModel.compilations, imageSize: .albumCarouselItem)
+            case .composers: VerticalMediaGridView(mediaItems: libraryModel.composers, imageSize: .trackRowItem)
+            case .downloaded: VerticalMediaGridView(mediaItems: libraryModel.downloaded, imageSize: .albumCarouselItem)
+            case .homeSharing: VerticalMediaGridView(mediaItems: libraryModel.homeSharing, imageSize: .albumCarouselItem)
          }
          
-         if playerObservableObject.showPlayerView, !playerObservableObject.expand {
+         if playerModel.showPlayerView, !playerModel.expand {
             Spacer(minLength: Metric.playerHeight)
          }
       }
@@ -51,7 +51,7 @@ struct LibraryListDetailView: View {
 
 struct LibraryListDetailView_Previews: PreviewProvider {
    static var previews: some View {
-      LibraryListDetailView(libraryObservableObject: LibraryObservableObject(), section: .albums)
-         .environmentObject(PlayerObservableObject())
+      LibraryListDetailView(libraryModel: LibraryModel(), section: .albums)
+         .environmentObject(PlayerModel())
    }
 }

@@ -10,8 +10,8 @@ import MediaPlayer
 
 struct SearchListView: View {
    @Environment(\.isSearching) private var isSearching
-   @EnvironmentObject private var playerObservableObject: PlayerObservableObject
-   @ObservedObject var searchObservableObject: SearchObservableObject
+   @EnvironmentObject private var playerModel: PlayerModel
+   @ObservedObject var searchModel: SearchViewModel
    @State var selectedPickerIndex = 0
    
    var columns = [GridItem(.flexible(), spacing: 12)]
@@ -19,10 +19,10 @@ struct SearchListView: View {
    var body: some View {
       ScrollView {
          LazyVGrid(columns: columns) {
-            ForEach(Array(searchObservableObject.searchResults.enumerated()), id: \.element) { mediaIndex, media in
+            ForEach(Array(searchModel.searchResults.enumerated()), id: \.element) { mediaIndex, media in
                Button {
                   withAnimation {
-                     playerObservableObject.play(media, videoAssetUrl: media.previewUrl)
+                     playerModel.play(media, videoAssetUrl: media.previewUrl)
                   }
                } label: {
                   VStack(spacing: 0) {
@@ -49,7 +49,7 @@ struct SearchListView: View {
                .buttonStyle(.rowButton)
             }
             
-            if playerObservableObject.showPlayerView, !playerObservableObject.expand {
+            if playerModel.showPlayerView, !playerModel.expand {
                Spacer(minLength: Metric.playerHeight)
             }
          }
@@ -58,8 +58,8 @@ struct SearchListView: View {
       
       .safeAreaInset(edge: .top) {
          Group {
-            if searchObservableObject.searchSubmit {
-               MediaKindSegmentedControl(searchObservableObject: searchObservableObject)
+            if searchModel.searchSubmit {
+               MediaKindSegmentedControl(searchModel: searchModel)
             } else {
                Picker("Search In", selection: $selectedPickerIndex) {
                   Text("Apple Music").tag(0)
@@ -71,13 +71,13 @@ struct SearchListView: View {
                
                .onChange(of: selectedPickerIndex) { _, tag in
                   if tag == 0 {
-                     searchObservableObject.searchPrompt = .appleMusic
+                     searchModel.searchPrompt = .appleMusic
                   } else {
-                     searchObservableObject.searchPrompt = .library
+                     searchModel.searchPrompt = .library
                   }
                }
                .onAppear {
-                  selectedPickerIndex = searchObservableObject.searchPrompt.rawValue
+                  selectedPickerIndex = searchModel.searchPrompt.rawValue
                }
             }
          }
@@ -92,7 +92,7 @@ struct SearchListView: View {
 
 struct SearchListView_Previews: PreviewProvider {
    static var previews: some View {
-      SearchListView(searchObservableObject: SearchObservableObject())
-         .environmentObject(PlayerObservableObject())
+      SearchListView(searchModel: SearchViewModel())
+         .environmentObject(PlayerModel())
    }
 }

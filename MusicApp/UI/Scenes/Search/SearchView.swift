@@ -8,30 +8,30 @@
 import SwiftUI
 
 struct SearchView: View {
-   @StateObject private var searchObservableObject = SearchObservableObject()
+   @StateObject private var searchModel = SearchViewModel()
    @State private var searchTerm = ""
    
    var body: some View {
       NavigationStack {
-         SearchOrCategoryView(searchObservableObject: searchObservableObject)
+         SearchOrCategoryView(searchModel: searchModel)
             .navigationTitle("Search")
          
             .searchable(text: $searchTerm,
                         placement:.navigationBarDrawer(displayMode:.always),
-                        prompt: searchObservableObject.searchPrompt.message,
+                        prompt: searchModel.searchPrompt.message,
                         suggestions: {})
          
             .onSubmit(of: .search) {
-               searchObservableObject.searchSubmit = true
+               searchModel.searchSubmit = true
             }
          
             .onChange(of: searchTerm) { _, term in
-               searchObservableObject.searchTerm = term
+               searchModel.searchTerm = term
             }
          
             .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { _ in
-               searchObservableObject.searchSubmit = false
-               searchObservableObject.selectedMediaType = .topResult
+               searchModel.searchSubmit = false
+               searchModel.selectedMediaType = .topResult
             }
       }
    }
@@ -39,7 +39,7 @@ struct SearchView: View {
 
 struct SearchOrCategoryView: View {
    @Environment(\.isSearching) private var isSearching
-   @ObservedObject var searchObservableObject: SearchObservableObject
+   @ObservedObject var searchModel: SearchViewModel
    
    var body: some View {
       if !isSearching {
@@ -57,9 +57,9 @@ struct SearchOrCategoryView: View {
 extension SearchOrCategoryView {
    var searchResults: some View {
       ZStack {
-         SearchListView(searchObservableObject: searchObservableObject)
+         SearchListView(searchModel: searchModel)
          
-         if searchObservableObject.searchLoadedWithNoResults {
+         if searchModel.searchLoadedWithNoResults {
             VStack {
                Text("No Results")
                   .font(.title2).bold()
@@ -92,6 +92,6 @@ enum SearchPrompt: Int {
 struct SearchView_Previews: PreviewProvider {
    static var previews: some View {
       SearchView()
-         .environmentObject(PlayerObservableObject())
+         .environmentObject(PlayerModel())
    }
 }

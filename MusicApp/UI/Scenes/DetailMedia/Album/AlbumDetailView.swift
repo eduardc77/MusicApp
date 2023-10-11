@@ -9,29 +9,29 @@ import SwiftUI
 import MediaPlayer
 
 struct AlbumDetailView: View {
-   @EnvironmentObject private var playerObservableObject: PlayerObservableObject
-   @StateObject private var libraryItemObservableObject: LibraryMediaItemObservableObject
-   @StateObject private var mediaItemObservableObject: MediaItemObservableObject = MediaItemObservableObject()
+   @EnvironmentObject private var playerModel: PlayerModel
+   @StateObject private var libraryMediaItemModel: LibraryMediaItemModel
+   @StateObject private var mediaItemModel: MediaItemModel = MediaItemModel()
    
    var media: Media
    
    init(media: Media) {
       self.media = media
-      _libraryItemObservableObject = StateObject(wrappedValue: LibraryMediaItemObservableObject(media: media))
+      _libraryMediaItemModel = StateObject(wrappedValue: LibraryMediaItemModel(media: media))
    }
    
    var body: some View {
       ScrollView {
          VStack {
-            AlbumHeaderView(libraryMediaObservableObject: libraryItemObservableObject, mediaItemObservableObject: mediaItemObservableObject)
+            AlbumHeaderView(libraryMediaItemModel: libraryMediaItemModel, mediaItemModel: mediaItemModel)
             
-            if libraryItemObservableObject.media.collectionId == 0 {
-               LibraryAlbumTrackList(libraryMediaObservableObject: libraryItemObservableObject)
+            if libraryMediaItemModel.media.collectionId == 0 {
+               LibraryAlbumTrackList(libraryMediaItemModel: libraryMediaItemModel)
             } else {
-               AlbumTrackList(mediaItemObservableObject: mediaItemObservableObject, media: media)
+               AlbumTrackList(mediaItemModel: mediaItemModel, media: media)
             }
             
-            if playerObservableObject.showPlayerView, !playerObservableObject.expand {
+            if playerModel.showPlayerView, !playerModel.expand {
                Spacer(minLength: Metric.playerHeight)
             }
          }
@@ -54,6 +54,6 @@ struct AlbumDetailView: View {
 struct AlbumDetailView_Previews: PreviewProvider {
    static var previews: some View {
       AlbumDetailView(media: musicPlaylists2.first ?? Media())
-         .environmentObject(PlayerObservableObject())
+         .environmentObject(PlayerModel())
    }
 }

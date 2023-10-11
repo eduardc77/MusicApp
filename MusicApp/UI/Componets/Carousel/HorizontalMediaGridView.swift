@@ -14,7 +14,7 @@ struct HorizontalMediaGridView: View {
       case viewAligned
    }
    
-   @EnvironmentObject private var playerObservableObject: PlayerObservableObject
+   @EnvironmentObject private var playerModel: PlayerModel
    @State var mediaItems: [Media]
    var title: String
    var imageSize: SizeType
@@ -84,7 +84,7 @@ struct HorizontalMediaGridView_Previews: PreviewProvider {
    static var previews: some View {
       VStack {
          HorizontalMediaGridView(mediaItems: musicPlaylists, title: "You Gotta Hear This", imageSize: .albumCarouselItem, rowCount: 2, scrollBehavior: .paging)
-            .environmentObject(PlayerObservableObject())
+            .environmentObject(PlayerModel())
       }
    }
 }

@@ -9,7 +9,7 @@ import SwiftUI
 import MediaPlayer
 
 struct SearchResultsRow: View {
-   @EnvironmentObject private var playerObservableObject: PlayerObservableObject
+   @EnvironmentObject private var playerModel: PlayerModel
    var media: Media
    
    init(media: Media) {
@@ -19,9 +19,9 @@ struct SearchResultsRow: View {
    var body: some View {
       HStack {
          if let uiImage = media.artwork {
-            MediaImageView(artworkImage: uiImage, sizeType: .searchRow, selected: playerObservableObject.isNowPlaying(media: media))
+            MediaImageView(artworkImage: uiImage, sizeType: .searchRow, selected: playerModel.isNowPlaying(media: media))
          } else {
-            MediaImageView(imagePath: media.artworkPath.resizedPath(size: 100), sizeType: .searchRow, selected: playerObservableObject.isNowPlaying(media: media))
+            MediaImageView(imagePath: media.artworkPath.resizedPath(size: 100), sizeType: .searchRow, selected: playerModel.isNowPlaying(media: media))
          }
          
          HStack {
@@ -49,7 +49,7 @@ struct SearchResultsRow_Previews: PreviewProvider {
       
       var body: some View {
          SearchResultsRow(media: musicPlaylists2.first ?? Media())
-            .environmentObject(PlayerObservableObject())
+            .environmentObject(PlayerModel())
             .padding()
       }
    }
