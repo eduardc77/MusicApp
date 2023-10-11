@@ -1,5 +1,5 @@
 //
-//  MediaItemObservableObject.swift
+//  MediaItemModel.swift
 //  MusicApp
 //
 //  Created by Eduard Caziuc on 20.05.2022.
@@ -8,7 +8,7 @@
 import Combine
 import MediaPlayer
 
-final class MediaItemObservableObject: ObservableObject {
+final class MediaItemModel: ObservableObject {
    // MARK: - Properties
    
    private let networkService: NetworkServiceProtocol
@@ -56,7 +56,7 @@ final class MediaItemObservableObject: ObservableObject {
    }
    
    deinit {
-      print("deinit MediaItemObservableObject")
+      print("deinit MediaItemModel")
    }
    
    
@@ -79,24 +79,24 @@ final class MediaItemObservableObject: ObservableObject {
    
    @MainActor
    func playTrack(withId id: String) {
-      PlayerObservableObject.playerType = .audio
-      PlayerObservableObject.audioPlayer.stop()
-      PlayerObservableObject.audioPlayer.setQueue(with: [id])
+      PlayerModel.playerType = .audio
+      PlayerModel.audioPlayer.stop()
+      PlayerModel.audioPlayer.setQueue(with: [id])
       UserDefaults.standard.set([id], forKey: UserDefaultsKey.queueDefault)
-      PlayerObservableObject.audioPlayer.play()
-      PlayerObservableObject.setShuffleMode(false)
+      PlayerModel.audioPlayer.play()
+      PlayerModel.setShuffleMode(false)
    }
    
    @MainActor
    func playAllTracks(isShuffle: Bool) {
-      PlayerObservableObject.playerType = .audio
+      PlayerModel.playerType = .audio
       configureAlbumDetails()
-      PlayerObservableObject.audioPlayer.stop()
-      PlayerObservableObject.audioPlayer.setQueue(with: trackIDsQueue)
+      PlayerModel.audioPlayer.stop()
+      PlayerModel.audioPlayer.setQueue(with: trackIDsQueue)
       
       UserDefaults.standard.set(trackIDsQueue, forKey: UserDefaultsKey.queueDefault)
-      PlayerObservableObject.setShuffleMode(isShuffle)
-      PlayerObservableObject.audioPlayer.play()
+      PlayerModel.setShuffleMode(isShuffle)
+      PlayerModel.audioPlayer.play()
    }
    
    func configureAlbumDetails() {
@@ -115,7 +115,7 @@ final class MediaItemObservableObject: ObservableObject {
 
 // MARK: - Private methods
 
-private extension MediaItemObservableObject {
+private extension MediaItemModel {
    func handleError(_ error: NetworkError) -> Empty<ITunesAPIResponse, Never> {
       errorState = .init(
          isError: true,

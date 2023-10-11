@@ -9,21 +9,21 @@ import SwiftUI
 import MediaPlayer
 
 struct TrackMediaRow: View {
-   @EnvironmentObject private var playerObservableObject: PlayerObservableObject
+   @EnvironmentObject private var playerModel: PlayerModel
    @State var media: Media
    var sizeType: SizeType = .trackRowItem
    
    var body: some View {
       Button {
-         playerObservableObject.play(media)
+         playerModel.play(media)
       } label: {
          
          HStack(spacing: 10) {
             Group {
                if let uiImage = media.artwork {
-                  MediaImageView(artworkImage: uiImage, sizeType: sizeType, selected: playerObservableObject.isNowPlaying(media: media))
+                  MediaImageView(artworkImage: uiImage, sizeType: sizeType, selected: playerModel.isNowPlaying(media: media))
                } else {
-                  MediaImageView(imagePath: media.artworkPath.resizedPath(size: 160), sizeType: sizeType, selected: playerObservableObject.isNowPlaying(media: media))
+                  MediaImageView(imagePath: media.artworkPath.resizedPath(size: 160), sizeType: sizeType, selected: playerModel.isNowPlaying(media: media))
                }
             }
             .scaleEffect(0.88).offset(x: -4)
@@ -61,6 +61,6 @@ struct TrackMediaRow: View {
 struct TrackMediaRow_Previews: PreviewProvider {
    static var previews: some View {
       TrackMediaRow(media: musicPlaylists2.first ?? Media())
-         .environmentObject(PlayerObservableObject())
+         .environmentObject(PlayerModel())
    }
 }

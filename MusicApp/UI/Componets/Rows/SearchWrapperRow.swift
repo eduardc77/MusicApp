@@ -61,7 +61,7 @@ struct SearchWrapperRow_Previews: PreviewProvider {
       
       var body: some View {
          SearchWrapperRow(media: media, destinationView: ArtistDetailView(media: media))
-            .environmentObject(PlayerObservableObject())
+            .environmentObject(PlayerModel())
             .padding()
       }
    }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct NowPlayingEqualizerBars: View {
-   @EnvironmentObject private var playerObservableObject: PlayerObservableObject
+   @EnvironmentObject private var playerModel: PlayerModel
    @State var animating: Bool = false
    var color: Color = .accentColor
    var numberOfBars = 4
@@ -41,7 +41,7 @@ struct NowPlayingEqualizerBars: View {
    }
    
    private func setupAnimation() {
-      animating = playerObservableObject.playbackState == .playing
+      animating = playerModel.playbackState == .playing
    }
 }
 

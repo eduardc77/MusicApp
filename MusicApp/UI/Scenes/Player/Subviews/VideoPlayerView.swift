@@ -171,7 +171,7 @@ struct VideoPlayerView_Previews: PreviewProvider {
    
    static var previews: some View {
       VideoPlayerViewExample()
-         .environmentObject(PlayerObservableObject())
+         .environmentObject(PlayerModel())
    }
 }
 

@@ -9,7 +9,7 @@ import SwiftUI
 import MediaPlayer
 
 struct VideoMediaItem: View {
-   @EnvironmentObject var playerObservableObject: PlayerObservableObject
+   @EnvironmentObject var playerModel: PlayerModel
    
    var media: Media
    var imageData: Data?
@@ -35,7 +35,7 @@ struct VideoMediaItem: View {
       }
       
       .onTapGesture {
-         playerObservableObject.play(media, videoAssetUrl: media.previewUrl)
+         playerModel.play(media, videoAssetUrl: media.previewUrl)
       }
    }
 }
@@ -46,6 +46,6 @@ struct VideoMediaItem: View {
 struct VideoMediaItem_Previews: PreviewProvider {
    static var previews: some View {
       VideoMediaItem(media: musicPlaylists2.first ?? Media())
-         .environmentObject(PlayerObservableObject())
+         .environmentObject(PlayerModel())
    }
 }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RadioView: View {
-   @EnvironmentObject private var playerObservableObject: PlayerObservableObject
+   @EnvironmentObject private var playerModel: PlayerModel
    
    var detailViews: [CategoryDetailView] {
       var detailsViews = [CategoryDetailView]()
@@ -44,7 +44,7 @@ struct RadioView: View {
                NavigationLinkList(rowItems: BrowseMoreToExplore.self, content: detailViews, title: "More to Explore")
             }
      
-            if playerObservableObject.showPlayerView, !playerObservableObject.expand { Spacer(minLength: Metric.playerHeight) }
+            if playerModel.showPlayerView, !playerModel.expand { Spacer(minLength: Metric.playerHeight) }
          }
          .navigationTitle("Radio")
       }
@@ -57,6 +57,6 @@ struct RadioView: View {
 struct RadioView_Previews: PreviewProvider {
    static var previews: some View {
       RadioView()
-         .environmentObject(PlayerObservableObject())
+         .environmentObject(PlayerModel())
    }
 }

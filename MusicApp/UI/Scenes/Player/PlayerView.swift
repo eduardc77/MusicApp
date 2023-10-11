@@ -9,7 +9,7 @@ import SwiftUI
 import MediaPlayer
 
 struct PlayerView: View {
-   @EnvironmentObject private var model: PlayerObservableObject
+   @EnvironmentObject private var model: PlayerModel
    @State private var offset: CGFloat = .zero
    @State private var visibleSide: FlipViewSide = .front
    
@@ -58,10 +58,10 @@ struct PlayerView: View {
       .gesture(DragGesture().onEnded(onEnded).onChanged(onChanged))
       
       .onReceive(NotificationCenter.default.publisher(for: .MPMusicPlayerControllerPlaybackStateDidChange)) { _ in
-         model.playbackState = PlayerObservableObject.audioPlayer.playbackState
+         model.playbackState = PlayerModel.audioPlayer.playbackState
       }
       .onReceive(NotificationCenter.default.publisher(for: .MPMusicPlayerControllerNowPlayingItemDidChange)) { _ in
-         guard let mediaItem = PlayerObservableObject.audioPlayer.nowPlayingItem else { return }
+         guard let mediaItem = PlayerModel.audioPlayer.nowPlayingItem else { return }
          model.setNowPlaying(media: mediaItem)
       }
       .onDisappear {
@@ -112,7 +112,7 @@ private extension PlayerView {
    
    @ViewBuilder
    var mediaView: some View {
-      if PlayerObservableObject.playerType == .audio {
+      if PlayerModel.playerType == .audio {
          MediaImageView(imagePath: model.nowPlayingItem.artworkPath.resizedPath(size: 600), artworkImage: model.nowPlayingItem.artwork, sizeType: expand ? .largePlayerArtwork : .smallPlayerAudio, shadowProminence: expand ? .full : .none, visibleSide: $visibleSide)
             .scaleEffect((model.playbackState == .playing && expand) ? 1.33 : 1)
             .animation(expand ? .scaleCard : .none, value: model.playbackState)
@@ -126,7 +126,7 @@ private extension PlayerView {
             }
          
       } else {
-         PlayerObservableObject.videoPlayer
+         PlayerModel.videoPlayer
             .frame(width: expand ? SizeType.none.size.width : SizeType.smallPlayerVideo.size.width, height: expand ? SizeType.none.size.height : SizeType.smallPlayerVideo.size.height)
             .cornerRadius(expand ?  SizeType.none.cornerRadius : SizeType.smallPlayerVideo.cornerRadius)
          
@@ -143,7 +143,7 @@ private extension PlayerView {
          
          HStack(spacing: .zero) {
             Button {
-               model.playbackState == .playing ? PlayerObservableObject.audioPlayer.pause() : PlayerObservableObject.audioPlayer.play()
+               model.playbackState == .playing ? PlayerModel.audioPlayer.pause() : PlayerModel.audioPlayer.play()
             } label: {
                model.playbackState == .playing ? Image(systemName: "pause.fill") : Image(systemName: "play.fill")
             }
@@ -151,7 +151,7 @@ private extension PlayerView {
             .buttonStyle(.circle)
             
             Button {
-               PlayerObservableObject.audioPlayer.skipToNextItem()
+               PlayerModel.audioPlayer.skipToNextItem()
             } label: {
                Image(systemName: "forward.fill")
             }
@@ -182,7 +182,7 @@ private extension PlayerView {
                }
             }
          } label: {
-            InfiniteScrollText(text: model.nowPlayingItem.artistName, textColor: PlayerObservableObject.playerType == .audio ? .lightGrayColor : .accentColor)
+            InfiniteScrollText(text: model.nowPlayingItem.artistName, textColor: PlayerModel.playerType == .audio ? .lightGrayColor : .accentColor)
          }
       }
    }
@@ -190,7 +190,7 @@ private extension PlayerView {
    @ViewBuilder
    var ellipsisButton: some View {
       Group {
-         switch PlayerObservableObject.playerType {
+         switch PlayerModel.playerType {
             case .audio:
                MenuButton(circled: true, font: .title, foregroundColor: .white)
             case .video:
@@ -207,9 +207,9 @@ private extension PlayerView {
          Spacer()
          PlayerControls()
          Spacer()
-         VolumeView(playerType: PlayerObservableObject.playerType)
+         VolumeView(playerType: PlayerModel.playerType)
          Spacer()
-         BottomToolbar(playerType: PlayerObservableObject.playerType)
+         BottomToolbar(playerType: PlayerModel.playerType)
       }
    }
    
@@ -217,7 +217,7 @@ private extension PlayerView {
    var playerBackground: some View {
       Group {
          if expand {
-            switch PlayerObservableObject.playerType {
+            switch PlayerModel.playerType {
                case .audio:
                   if let artworkUIImage = model.nowPlayingItem.artwork {
                      LinearGradient(
@@ -256,8 +256,8 @@ struct PlayerView_Previews: PreviewProvider {
          Spacer()
          
          PlayerView()
-            .environmentObject(PlayerObservableObject())
       }
       .ignoresSafeArea()
+      .environmentObject(PlayerModel())
    }
 }

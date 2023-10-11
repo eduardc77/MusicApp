@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct ContentView: View {
-   @StateObject private var playerObservableObject = PlayerObservableObject()
+   @StateObject private var playerModel = PlayerModel()
    
    var body: some View {
       TabBar()
-         .environmentObject(playerObservableObject)
+         .environmentObject(playerModel)
    }
 }
 

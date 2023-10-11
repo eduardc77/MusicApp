@@ -1,5 +1,5 @@
 //
-//  LibraryObservableObject.swift
+//  LibraryViewModel.swift
 //  MusicApp
 //
 //  Created by Eduard Caziuc on 24.04.2022.
@@ -8,7 +8,7 @@
 import MediaPlayer
 import SwiftUI
 
-final class LibraryObservableObject: ObservableObject {
+final class LibraryModel: ObservableObject {
    
    // MARK: - Types
    
@@ -64,13 +64,13 @@ final class LibraryObservableObject: ObservableObject {
    }
    
    deinit {
-      print("deinit LibraryObservableObject")
+      print("deinit LibraryViewModel")
    }
 }
 
 // MARK: - Private Methods
 
-private extension LibraryObservableObject {
+private extension LibraryModel {
    
    func checkForLibraryAuthorization() {
       switch MPMediaLibrary.authorizationStatus() {

@@ -1,5 +1,5 @@
 //
-//  LibraryMediaItemObservableObject.swift
+//  LibraryMediaItemModel.swift
 //  MusicApp
 //
 //  Created by Eduard Caziuc on 08.05.2022.
@@ -8,7 +8,7 @@
 import MediaPlayer
 import SwiftUI
 
-final class LibraryMediaItemObservableObject: ObservableObject {
+final class LibraryMediaItemModel: ObservableObject {
    // MARK: - Publishers
    
    @Published private var trackIDsQueue: [String] = []
@@ -37,30 +37,30 @@ final class LibraryMediaItemObservableObject: ObservableObject {
    }
    
    deinit {
-      print("deinit LibraryMediaItemObservableObject")
+      print("deinit LibraryMediaItemModel")
    }
    
    // MARK: - Public Methods
    
    @MainActor
    func playTrack(at index: Int) {
-      PlayerObservableObject.playerType = .audio
-      PlayerObservableObject.audioPlayer.stop()
-      PlayerObservableObject.audioPlayer.setQueue(with: trackIDsQueue)
+      PlayerModel.playerType = .audio
+      PlayerModel.audioPlayer.stop()
+      PlayerModel.audioPlayer.setQueue(with: trackIDsQueue)
       UserDefaults.standard.set(trackIDsQueue, forKey: UserDefaultsKey.queueDefault)
-      PlayerObservableObject.audioPlayer.play()
-      PlayerObservableObject.setShuffleMode(false)
-      PlayerObservableObject.audioPlayer.nowPlayingItem = libraryTracks[index]
+      PlayerModel.audioPlayer.play()
+      PlayerModel.setShuffleMode(false)
+      PlayerModel.audioPlayer.nowPlayingItem = libraryTracks[index]
    }
    
    @MainActor
    func playAllTracks(isShuffle: Bool) {
-      PlayerObservableObject.playerType = .audio
-      PlayerObservableObject.audioPlayer.stop()
-      PlayerObservableObject.audioPlayer.setQueue(with: trackIDsQueue)
+      PlayerModel.playerType = .audio
+      PlayerModel.audioPlayer.stop()
+      PlayerModel.audioPlayer.setQueue(with: trackIDsQueue)
       UserDefaults.standard.set(trackIDsQueue, forKey: UserDefaultsKey.queueDefault)
-      PlayerObservableObject.setShuffleMode(isShuffle)
-      PlayerObservableObject.audioPlayer.play()
+      PlayerModel.setShuffleMode(isShuffle)
+      PlayerModel.audioPlayer.play()
    }
    
    func currentMediaItem() -> MPMediaItem? {
@@ -101,13 +101,13 @@ final class LibraryMediaItemObservableObject: ObservableObject {
 
 // MARK: - Private Methods
 
-private extension LibraryMediaItemObservableObject {
+private extension LibraryMediaItemModel {
    func setAlbumContents() {
       if let libraryTracks = getTracks(for: media.collectionName), !libraryTracks.isEmpty {
          self.libraryTracks = libraryTracks
       } else {
          //                 searchTracksForCurrentMedia()
-         //                self.albumContents = AlbumContents(tracks: self.searchObservableObject.collectionContentResults)
+         //                self.albumContents = AlbumContents(tracks: self.searchModel.collectionContentResults)
       }
    }
    
@@ -134,6 +134,6 @@ private extension LibraryMediaItemObservableObject {
    }
    
    func searchTracksForCurrentMedia() {
-      //     searchObservableObject.lookUpAlbum(for: media)
+      //     searchModel.lookUpAlbum(for: media)
    }
 }

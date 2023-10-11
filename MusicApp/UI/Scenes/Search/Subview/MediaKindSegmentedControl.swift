@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MediaKindSegmentedControl: View {
-   @ObservedObject var searchObservableObject: SearchObservableObject
+   @ObservedObject var searchModel: SearchViewModel
    @Namespace var animation
    
    var body: some View {
@@ -19,7 +19,7 @@ struct MediaKindSegmentedControl: View {
                   
                   Button(action: {
                      withAnimation {
-                        searchObservableObject.select(mediaType)
+                        searchModel.select(mediaType)
                      }
                   }) {
                      Text(mediaType.title)
@@ -28,17 +28,17 @@ struct MediaKindSegmentedControl: View {
                         .padding(.horizontal)
                      
                         .background {
-                           if searchObservableObject.selectedMediaType == mediaType {
+                           if searchModel.selectedMediaType == mediaType {
                               Capsule()
                                  .fill(Color.accentColor)
                                  .matchedGeometryEffect(id: "TAB", in: animation)
                            }
                         }
-                        .foregroundStyle(searchObservableObject.selectedMediaType == mediaType ? .white : Color.primary)
+                        .foregroundStyle(searchModel.selectedMediaType == mediaType ? .white : Color.primary)
                   }
                   .id(index)
                   
-                  .onChange(of: searchObservableObject.selectedMediaType) { _, newValue in
+                  .onChange(of: searchModel.selectedMediaType) { _, newValue in
                      if newValue == mediaType {
                         withAnimation {
                            proxy.scrollTo(index, anchor: .center)
@@ -57,7 +57,7 @@ struct MediaKindSegmentedControl: View {
 
 struct MediaKindSegmentedControl_Previews: PreviewProvider {
    static var previews: some View {
-      MediaKindSegmentedControl(searchObservableObject: SearchObservableObject())
-         .environmentObject(PlayerObservableObject())
+      MediaKindSegmentedControl(searchModel: SearchViewModel())
+         .environmentObject(PlayerModel())
    }
 }

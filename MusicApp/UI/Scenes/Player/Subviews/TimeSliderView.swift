@@ -9,7 +9,7 @@ import SwiftUI
 import MediaPlayer
 
 struct TimeSliderView: View {
-   @EnvironmentObject private var model: PlayerObservableObject
+   @EnvironmentObject private var playerModel: PlayerModel
    
    // MARK: - Private Properties
    
@@ -29,7 +29,7 @@ struct TimeSliderView: View {
             ZStack(alignment: .leading) {
                Rectangle()
                   .fill(Color.lightGrayColor2)
-
+               
                Rectangle()
                   .fill( isDragging ? .white : Color.lightGrayColor)
                   .frame(width: (trackDuration != 0) ? (CGFloat(trackTimePosition) / CGFloat(trackDuration) * geometry.size.width) : CGFloat.zero)
@@ -38,16 +38,16 @@ struct TimeSliderView: View {
             .clipShape(Capsule(style: .continuous))
             
             .onReceive(timer) { _ in
-               switch PlayerObservableObject.playerType {
-               case .audio:
-                  trackDuration = model.nowPlayingItem.trackTimeMillis.toInt
-                  trackTimePosition = PlayerObservableObject.audioPlayer.currentPlaybackTime.toInt
-                  timeRemain = trackDuration - trackTimePosition
-                  
-               case .video:
-                  trackDuration = PlayerObservableObject.videoPlayer.trackDuration
-                  trackTimePosition = PlayerObservableObject.videoPlayer.trackTimePosition
-                  timeRemain = trackDuration - trackTimePosition
+               switch PlayerModel.playerType {
+                  case .audio:
+                     trackDuration = playerModel.nowPlayingItem.trackTimeMillis.toInt
+                     trackTimePosition = PlayerModel.audioPlayer.currentPlaybackTime.toInt
+                     timeRemain = trackDuration - trackTimePosition
+                     
+                  case .video:
+                     trackDuration = PlayerModel.videoPlayer.trackDuration
+                     trackTimePosition = PlayerModel.videoPlayer.trackTimePosition
+                     timeRemain = trackDuration - trackTimePosition
                }
             }
             
@@ -90,7 +90,7 @@ struct TimeSliderView: View {
                   timeRemain = trackDuration - trackTimePosition
                }
                .onEnded { _ in
-                  PlayerObservableObject.audioPlayer.currentPlaybackTime = TimeInterval(trackTimePosition)
+                  PlayerModel.audioPlayer.currentPlaybackTime = TimeInterval(trackTimePosition)
                   DispatchQueue.main.asyncAfter(deadline: .now() + scaleAnimationDuration) {
                      isDragging = false
                      timer = Timer.publish(every: 0, on: .main, in: .default).autoconnect()
@@ -118,15 +118,11 @@ struct TimeSliderView: View {
 
 struct TimeView_Previews: PreviewProvider {
    struct TimeView: View {
-      @StateObject var playerObservableObject = PlayerObservableObject()
-      
-      var trackTimePosition: Int = 0
-      
       var body: some View {
-         VStack {
-            TimeSliderView()
-         }
-         .background(.secondary)
+         TimeSliderView()
+            .padding()
+            .background(.bar)
+            .environmentObject(PlayerModel())
       }
    }
    

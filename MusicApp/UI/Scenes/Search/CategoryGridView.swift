@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CategoryGridView: View {
-   @EnvironmentObject private var playerObservableObject: PlayerObservableObject
+   @EnvironmentObject private var playerModel: PlayerModel
    @State var categories = searchCategories
    var columns: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
    
@@ -32,7 +32,7 @@ struct CategoryGridView: View {
       .padding(.horizontal)
       .labeledViewModifier(header: "Browse Categories", spacing: 6)
       
-      if playerObservableObject.showPlayerView, !playerObservableObject.expand {
+      if playerModel.showPlayerView, !playerModel.expand {
          Spacer(minLength: Metric.playerHeight)
       }
    }
@@ -44,6 +44,6 @@ struct CategoryGridView: View {
 struct CategoryGridView_Previews: PreviewProvider {
    static var previews: some View {
       CategoryGridView()
-         .environmentObject(PlayerObservableObject())
+         .environmentObject(PlayerModel())
    }
 }

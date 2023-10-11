@@ -1,5 +1,5 @@
 //
-//  SearchObservableObject.swift
+//  SearchViewModel.swift
 //  MusicApp
 //
 //  Created by Eduard Caziuc on 18.04.2022.
@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-final class SearchObservableObject: ObservableObject {
+final class SearchViewModel: ObservableObject {
    
    // MARK: - Properties
    
@@ -55,7 +55,7 @@ final class SearchObservableObject: ObservableObject {
    }
    
    deinit {
-      print("deinit SearchObservableObject")
+      print("deinit SearchViewModel")
    }
    
    // MARK: - Public Methods
@@ -73,7 +73,7 @@ final class SearchObservableObject: ObservableObject {
 
 // MARK: - Private Methods
 
-private extension SearchObservableObject {
+private extension SearchViewModel {
    
    var chainSearch: Void {
       $searchTerm

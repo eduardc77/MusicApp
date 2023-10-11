@@ -8,16 +8,16 @@
 import SwiftUI
 
 struct AlbumHeaderView: View {
-   @ObservedObject var libraryMediaObservableObject: LibraryMediaItemObservableObject
-   @ObservedObject var mediaItemObservableObject: MediaItemObservableObject
+   @ObservedObject var libraryMediaItemModel: LibraryMediaItemModel
+   @ObservedObject var mediaItemModel: MediaItemModel
    
    var body: some View {
       VStack {
          VStack {
-            if let uiImage = libraryMediaObservableObject.media.artwork {
+            if let uiImage = libraryMediaItemModel.media.artwork {
                MediaImageView(artworkImage: uiImage, sizeType: .albumDetail, shadowProminence: .full)
             } else {
-               MediaImageView(imagePath: libraryMediaObservableObject.media.artworkPath.resizedPath(size: 800), sizeType: .albumDetail, shadowProminence: .full)
+               MediaImageView(imagePath: libraryMediaItemModel.media.artworkPath.resizedPath(size: 800), sizeType: .albumDetail, shadowProminence: .full)
             }
             
             albumDetails.padding(.top, 6)
@@ -34,16 +34,16 @@ struct AlbumHeaderView: View {
    
    var albumDetails: some View {
       VStack(spacing: 3) {
-         Text(libraryMediaObservableObject.media.collectionName)
+         Text(libraryMediaItemModel.media.collectionName)
             .font(.title3.bold())
             .foregroundStyle(Color.primary)
          
-         Text(libraryMediaObservableObject.media.artistName)
+         Text(libraryMediaItemModel.media.artistName)
             .font(.title3)
             .foregroundStyle(Color.accentColor)
          
          HStack(spacing: 1) {
-            Text(libraryMediaObservableObject.media.genreAndReleaseYear)
+            Text(libraryMediaItemModel.media.genreAndReleaseYear)
             Text("·")
             LosslessLogo(bordered: false, color: .secondary)
          }
@@ -57,20 +57,20 @@ struct AlbumHeaderView: View {
    var albumControls: some View {
       HStack {
          MainButton(title: "Play", image: Image(systemName: "play.fill")) {
-            if libraryMediaObservableObject.media.dateAdded != nil {
-               libraryMediaObservableObject.playAllTracks(isShuffle: false)
+            if libraryMediaItemModel.media.dateAdded != nil {
+               libraryMediaItemModel.playAllTracks(isShuffle: false)
             } else {
-               mediaItemObservableObject.playAllTracks(isShuffle: false)
+               mediaItemModel.playAllTracks(isShuffle: false)
             }
          }
          
          Spacer(minLength: 20)
          
          MainButton(title: "Shuffle", image: Image(systemName: "shuffle")) {
-            if libraryMediaObservableObject.media.dateAdded != nil {
-               libraryMediaObservableObject.playAllTracks(isShuffle: true)
+            if libraryMediaItemModel.media.dateAdded != nil {
+               libraryMediaItemModel.playAllTracks(isShuffle: true)
             } else {
-               mediaItemObservableObject.playAllTracks(isShuffle: true)
+               mediaItemModel.playAllTracks(isShuffle: true)
             }
          }
       }
@@ -84,6 +84,6 @@ struct AlbumHeaderView: View {
 
 struct AlbumHeaderView_Previews: PreviewProvider {
    static var previews: some View {
-      AlbumHeaderView(libraryMediaObservableObject: LibraryMediaItemObservableObject(media: musicPlaylists2.first ?? Media()), mediaItemObservableObject: MediaItemObservableObject())
+      AlbumHeaderView(libraryMediaItemModel: LibraryMediaItemModel(media: musicPlaylists2.first ?? Media()), mediaItemModel: MediaItemModel())
    }
 }
