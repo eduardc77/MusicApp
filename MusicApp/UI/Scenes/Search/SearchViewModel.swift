@@ -17,13 +17,13 @@ final class SearchViewModel: ObservableObject {
    
    var filteredContent: [Media] {
       switch sortType {
-      case .noSorting:
-         return searchResults
-      case let .search(searchTerm):
-         guard !searchTerm.isEmpty else { return searchResults }
-         return searchResults.filter { $0.name.lowercased().contains(searchTerm.lowercased()) }
-      case let .filter(iD):
-         return searchResults.filter { $0.genreName == iD }
+         case .noSorting:
+            return searchResults
+         case let .search(searchTerm):
+            guard !searchTerm.isEmpty else { return searchResults }
+            return searchResults.filter { $0.name.lowercased().contains(searchTerm.lowercased()) }
+         case let .filter(iD):
+            return searchResults.filter { $0.genreName == iD }
       }
    }
    
@@ -35,6 +35,19 @@ final class SearchViewModel: ObservableObject {
       guard nothingFound, !searchLoading, searchTerm.count > 0 else { return false }
       return true
    }
+   
+   var artists: [Media] = []
+   var albums: [Media] = []
+   var songs: [Media] = []
+   var musicVideos: [Media] = []
+   var music: [Media] = []
+   var podcasts: [Media] = []
+   var podcastAuthors: [Media] = []
+   var movies: [Media] = []
+   var tvShows: [Media] = []
+   var shortFilms: [Media] = []
+   var audiobooks: [Media] = []
+   var ebooks: [Media] = []
    
    // MARK: - Publishers
    
@@ -63,11 +76,58 @@ final class SearchViewModel: ObservableObject {
    func select(_ mediaKind: MediaType) {
       sortType = .filter(iD: mediaKind.title)
       selectedMediaType = mediaKind
+      
+      switch mediaKind {
+         case .topResult: break
+         case .artist:
+            if !artists.isEmpty { return searchResults = artists }
+         case .album:
+            if !albums.isEmpty { return searchResults = albums }
+         case .song:
+            if !songs.isEmpty { return searchResults = songs }
+         case .musicVideo:
+            if !musicVideos.isEmpty { return searchResults = musicVideos }
+         case .music:
+            if !music.isEmpty { return searchResults = music }
+         case .podcast:
+            if !podcasts.isEmpty { return searchResults = podcasts }
+         case .podcastAuthor:
+            if !podcastAuthors.isEmpty { return searchResults = podcastAuthors }
+         case .movie:
+            if !movies.isEmpty { return searchResults = movies }
+         case .tvShow:
+            if !tvShows.isEmpty { return searchResults = tvShows }
+         case .shortFilm:
+            if !shortFilms.isEmpty { return searchResults = shortFilms }
+         case .audiobook:
+            if !audiobooks.isEmpty { return searchResults = audiobooks }
+         case .ebook:
+            if !ebooks.isEmpty { return searchResults = ebooks }
+      }
       chainSearch
    }
    
    var chainTopResultsSearch: Void {
       guard selectedMediaType == .topResult else { return }
+   }
+   
+   func resetChachedContent() {
+      artists = []
+      albums = []
+      songs = []
+      musicVideos = []
+      music = []
+      podcasts = []
+      podcastAuthors = []
+      movies = []
+      tvShows = []
+      shortFilms = []
+      audiobooks = []
+      ebooks = []
+   }
+   
+   func removeSearchResults() {
+      searchResults.removeAll()
    }
 }
 
@@ -83,7 +143,37 @@ private extension SearchViewModel {
          .map { $0.map(Media.init) }
          .replaceError(with: .init())
          .sink { [weak self] results in
-            self?.searchResults = results
+            guard let self = self else { return }
+            self.searchResults = results
+            
+            switch self.selectedMediaType {
+               case .topResult:
+                  break
+               case .artist:
+                  self.artists = searchResults
+               case .album:
+                  self.albums = searchResults
+               case .song:
+                  self.songs = searchResults
+               case .musicVideo:
+                  self.musicVideos = searchResults
+               case .music:
+                  self.music = searchResults
+               case .podcast:
+                  self.podcasts = searchResults
+               case .podcastAuthor:
+                  self.podcastAuthors = searchResults
+               case .movie:
+                  self.movies = searchResults
+               case .tvShow:
+                  self.tvShows = searchResults
+               case .shortFilm:
+                  self.shortFilms = searchResults
+               case .audiobook:
+                  self.audiobooks = searchResults
+               case .ebook:
+                  self.ebooks = searchResults
+            }
          }
          .store(in: &anyCancellable)
       
@@ -110,7 +200,8 @@ private extension SearchViewModel {
    }
    
    func validSearching(with query: String) -> Bool {
-      query.count > 0
+      if query.count == 0 { searchResults.removeAll() }
+      return query.count > 0
    }
    
    func loaded(results: [MediaResponse]) -> [MediaResponse] {

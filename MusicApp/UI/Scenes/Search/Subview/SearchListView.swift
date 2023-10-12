@@ -13,12 +13,11 @@ struct SearchListView: View {
    @EnvironmentObject private var playerModel: PlayerModel
    @ObservedObject var searchModel: SearchViewModel
    @State var selectedPickerIndex = 0
-   
-   var columns = [GridItem(.flexible(), spacing: 12)]
+   @State var isPresented = false
    
    var body: some View {
       ScrollView {
-         LazyVGrid(columns: columns) {
+         VStack {
             ForEach(Array(searchModel.searchResults.enumerated()), id: \.element) { mediaIndex, media in
                Button {
                   withAnimation {
@@ -30,13 +29,12 @@ struct SearchListView: View {
                      Spacer()
                      
                      switch media.wrapperType {
-                     case .collection:
-                        SearchWrapperRow(media: media, destinationView:
-                                          AlbumDetailView(media: media))
-                     case .track:
-                        SearchResultsRow(media: media)
-                     case .artist:
-                        SearchWrapperRow(media: media, destinationView: ArtistDetailView(media: media))
+                        case .collection:
+                           SearchWrapperRow(media: media, destinationView: AlbumDetailView(media: media))
+                        case .track:
+                           SearchResultsRow(media: media)
+                        case .artist:
+                           SearchWrapperRow(media: media, destinationView: ArtistDetailView(media: media))
                      }
                      
                      Spacer()
@@ -47,6 +45,42 @@ struct SearchListView: View {
                   .contentShape(Rectangle())
                }
                .buttonStyle(.rowButton)
+               .transition(.opacity)
+               
+               .contextMenu {
+                  ForEach(MenuItem.allCases.reversed(), id: \.self) { menuItem in
+                     Group {
+                        switch menuItem {
+                           case .viewCredits:
+                              Divider()
+                              MenuItemButton(isPresented: $isPresented, title: menuItem.title, icon: menuItem.icon)
+                           case .deleteFromLibrary:
+                              MenuItemButton(isPresented: $isPresented, title: menuItem.title, icon: menuItem.icon, buttonRole: .destructive)
+                           case .addToAPlaylist:
+                              Divider()
+                              MenuItemButton(isPresented: $isPresented, title: menuItem.title, icon: menuItem.icon)
+                           case .createStation:
+                              Divider()
+                              MenuItemButton(isPresented: $isPresented, title: menuItem.title, icon: menuItem.icon)
+                           case .suggestLess:
+                              Divider()
+                              MenuItemButton(isPresented: $isPresented, title: menuItem.title, icon: menuItem.icon)
+                           default:
+                              MenuItemButton(isPresented: $isPresented, title: menuItem.title, icon: menuItem.icon)
+                        }
+                     }
+                     .tag(menuItem)
+                  }
+                  
+               } preview: {
+                  NavigationLink(destination:
+                                    AlbumDetailView(media: media)) {
+                     ContextMenuTrackRow(media: media)
+                  }
+                                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                    .padding(.horizontal)
+               }
+               
             }
             
             if playerModel.showPlayerView, !playerModel.expand {
@@ -83,6 +117,10 @@ struct SearchListView: View {
          }
          .padding(.vertical, 10)
          .background(.bar)
+      }
+      
+      .sheet(isPresented: self.$isPresented) {
+         DefaultView(title: "Detail View")
       }
    }
 }

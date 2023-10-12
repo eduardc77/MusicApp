@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		880FB06C2AD4F84F007F3CAA /* VIew+IfCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880FB06B2AD4F84F007F3CAA /* VIew+IfCondition.swift */; };
+		8822DDAC2AD7723C00F7C5D4 /* ContextMenuTrackRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8822DDAB2AD7723C00F7C5D4 /* ContextMenuTrackRow.swift */; };
 		886BC7192A75F57200CBA71F /* AirplayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886BC7182A75F57200CBA71F /* AirplayButton.swift */; };
 		DD2A899728B67B9E008D5D96 /* UINavigationController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2A899628B67B9E008D5D96 /* UINavigationController+Extension.swift */; };
 		EA0054B9297081A000400F51 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0054B8297081A000400F51 /* MenuButton.swift */; };
@@ -121,6 +122,7 @@
 
 /* Begin PBXFileReference section */
 		880FB06B2AD4F84F007F3CAA /* VIew+IfCondition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VIew+IfCondition.swift"; sourceTree = "<group>"; };
+		8822DDAB2AD7723C00F7C5D4 /* ContextMenuTrackRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextMenuTrackRow.swift; sourceTree = "<group>"; };
 		886BC7182A75F57200CBA71F /* AirplayButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirplayButton.swift; sourceTree = "<group>"; };
 		DD2A899628B67B9E008D5D96 /* UINavigationController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extension.swift"; sourceTree = "<group>"; };
 		EA0054B8297081A000400F51 /* MenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButton.swift; sourceTree = "<group>"; };
@@ -434,12 +436,13 @@
 		EABCBD0F283198D200A04D2E /* Rows */ = {
 			isa = PBXGroup;
 			children = (
+				EABCBD0C2831892600A04D2E /* ArtistFeaturedAlbumRow.swift */,
+				8822DDAB2AD7723C00F7C5D4 /* ContextMenuTrackRow.swift */,
+				EAD01E9428231C1D00B01F07 /* NavigationLinkRow.swift */,
 				EAD15353280D5DFD005FD971 /* SearchResultsRow.swift */,
 				EA09A27F28309ECB00990F55 /* SearchWrapperRow.swift */,
 				EA3FA34E2817251500F84B09 /* TrackMediaRow.swift */,
-				EABCBD0C2831892600A04D2E /* ArtistFeaturedAlbumRow.swift */,
 				EA2216F128359163000A165D /* VideoMediaRow.swift */,
-				EAD01E9428231C1D00B01F07 /* NavigationLinkRow.swift */,
 			);
 			path = Rows;
 			sourceTree = "<group>";
@@ -795,6 +798,7 @@
 				EA091E91282C925C00C329FD /* UserDefaultsKeys.swift in Sources */,
 				EAD15335280D5BC3005FD971 /* VolumeView.swift in Sources */,
 				EAD01E9328231B2400B01F07 /* ProfileNavigationLink.swift in Sources */,
+				8822DDAC2AD7723C00F7C5D4 /* ContextMenuTrackRow.swift in Sources */,
 				EAD15313280D581B005FD971 /* Media.swift in Sources */,
 				EA5DA8AD296E15B90012517E /* LosslessLogo.swift in Sources */,
 				EAD1533E280D5CB8005FD971 /* ListenNowView.swift in Sources */,
