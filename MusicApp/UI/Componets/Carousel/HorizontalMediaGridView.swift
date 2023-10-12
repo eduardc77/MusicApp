@@ -13,7 +13,8 @@ struct HorizontalMediaGridView: View {
       case paging
       case viewAligned
    }
-   
+  
+
    @EnvironmentObject private var playerModel: PlayerModel
    @State var mediaItems: [Media]
    var title: String
@@ -48,28 +49,29 @@ struct HorizontalMediaGridView: View {
    var body: some View {
       ScrollView(.horizontal, showsIndicators: false) {
          LazyHGrid(rows: gridRows, spacing: 12) {
-            ForEach(mediaItems.prefix(maxHighlightShowing), id: \.id) { media in
-               
-               switch imageSize {
-                  case .trackRowItem:
-                     TrackMediaRow(media: media)
-                  case .stationRow:
-                     TrackMediaRow(media: media, sizeType: .stationRow)
-                  case .albumCarouselItem:
-                     AlbumMediaRowItem(media: media)
-                  case .videoCarouselItem:
-                     VideoMediaItem(media: media)
-                  case .highlightCarouselItem:
-                     HighlightMediaItem(media: media)
-                  default: AlbumMediaRowItem(media: media)
+            ForEach(mediaItems.prefix(maxHighlightShowing)) { media in
+               Group {
+                  switch imageSize {
+                     case .trackRowItem:
+                        TrackMediaRow(media: media)
+                     case .stationRow:
+                        TrackMediaRow(media: media, sizeType: .stationRow)
+                     case .albumCarouselItem:
+                        AlbumMediaRowItem(media: media)
+                     case .videoCarouselItem:
+                        VideoMediaItem(media: media)
+                     case .highlightCarouselItem:
+                        HighlightMediaItem(media: media)
+                     default: 
+                        AlbumMediaRowItem(media: media)
+                  }
                }
             }
          }
          .scrollTargetLayout()
-         .padding(.horizontal)
       }
+      .contentMargins(.horizontal, 20)
       .scrollTargetBehavior(scrollBehavior == .viewAligned ? .viewAligned(limitBehavior: .never) : .viewAligned(limitBehavior: .always))
-      .scrollClipDisabled()
       
       .if(!title.isEmpty) { view in
          view.labeledViewModifier(mediaItems: mediaItems, imageSize: imageSize, maxHighlightShowing: maxHighlightShowing, header: title)

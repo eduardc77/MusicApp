@@ -33,7 +33,6 @@ struct NavigationLinkList<Content: View, Enum: RawRepresentable & CaseIterable &
          .listStyle(.plain)
          .scrollDisabled(true)
       }
-      
       .frame(idealHeight: CGFloat(50 * rowItems.allCases.count), maxHeight: .infinity)
       .labeledViewModifier(header: !title.isEmpty ? title : nil)
       .padding(.top)

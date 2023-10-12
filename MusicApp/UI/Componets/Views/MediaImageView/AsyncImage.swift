@@ -18,7 +18,6 @@ struct AsyncImageView: View {
             case .success(let image):
                image
                   .resizable()
-                  .frame(width: sizeType.size.width, height: sizeType.size.height)
             case .empty:
                DefaultImage(sizeType: sizeType)
             case .failure(_):

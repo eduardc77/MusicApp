@@ -60,11 +60,27 @@ final class LibraryModel: ObservableObject {
    
    init() {
       checkForLibraryAuthorization()
-      refreshAllLibrary()
    }
    
    deinit {
       print("deinit LibraryViewModel")
+   }
+   
+   // MARK: - Public Methods
+   
+   func refreshAllLibrary() {
+      refreshingLibrary = true
+      guard status == .permitted else {
+         refreshingLibrary = false
+         return
+      }
+      
+      DispatchQueue.main.async {
+         LibrarySection.allCases.forEach { section in
+            self.refreshLibrary(for: section)
+         }
+         self.refreshingLibrary = false
+      }
    }
 }
 
@@ -76,6 +92,7 @@ private extension LibraryModel {
       switch MPMediaLibrary.authorizationStatus() {
          case .authorized:
             self.status = .permitted
+            self.refreshAllLibrary()
          case .notDetermined:
             MPMediaLibrary.requestAuthorization() { status in
                DispatchQueue.main.async {
@@ -91,19 +108,6 @@ private extension LibraryModel {
             self.status = .notPermitted
       }
    }
-   
-   func refreshAllLibrary() {
-      guard status == .permitted else { return }
-      refreshingLibrary = true
-
-      LibrarySection.allCases.forEach { section in
-         DispatchQueue.main.async {
-            self.refreshLibrary(for: section)
-         }
-      }
-      refreshingLibrary = false
-   }
-
    
    func refreshLibrary(for librarySection: LibrarySection) {
       switch librarySection {
