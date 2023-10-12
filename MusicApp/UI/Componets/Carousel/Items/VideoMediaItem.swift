@@ -19,7 +19,7 @@ struct VideoMediaItem: View {
          if let uiImage = media.artwork {
             MediaImageView(artworkImage: uiImage, sizeType: .videoCarouselItem)
          } else {
-            MediaImageView(imagePath: media.artworkPath.resizedPath(size: 1024), sizeType: .videoCarouselItem)
+            MediaImageView(imagePath: media.artworkPath.resizedPath(size: 800), sizeType: .videoCarouselItem)
          }
          
          VStack {

@@ -21,23 +21,25 @@ struct LibraryListView: View {
             NavigationLink {
                LibraryListDetailView(libraryModel: libraryModel, section: section)
             } label: {
-               HStack {
+               Label {
+                  Text(section.title)
+               } icon: {
                   Image(systemName: section.systemImage)
                      .foregroundStyle(Color.accentColor)
-                  Text(section.title)
-                     
                }
                .font(.title3)
             }
+            .frame(height: 20)
          }
          .onMove(perform: move)
       }
+      .environment(\.defaultMinListRowHeight, 20)
       .listStyle(.plain)
-      .frame(idealHeight: CGFloat(46 * currentSections.count), maxHeight: .infinity)
+      .frame(height: CGFloat(44 * currentSections.count))
       .scrollDisabled(true)
       
       .onChange(of: selection) { _, newValue in
-         self.currentSelection = newValue
+         currentSelection = newValue
       }
       
       .onChange(of: editMode) { _, editMode in
@@ -48,10 +50,10 @@ struct LibraryListView: View {
             } else {
                if let selectionData = UserDefaults.standard.value(forKey: UserDefaultsKey.libraryListSelection) as? Data, let librarySelection = try? libraryModel.propertyListDecoder.decode(Array<LibrarySection>.self, from: selectionData), !librarySelection.isEmpty {
                   selection = Set(librarySelection)
-                  currentSections = LibrarySection.allCases
                } else {
                   selection = Set(LibrarySection.allCases)
                }
+               currentSections = LibrarySection.allCases
                
                if let orderData = UserDefaults.standard.value(forKey: UserDefaultsKey.orderedLibraryList) as? Data, let orderedLibraryList = try? libraryModel.propertyListDecoder.decode(Array<LibrarySection>.self, from: orderData) {
                   currentSections = orderedLibraryList

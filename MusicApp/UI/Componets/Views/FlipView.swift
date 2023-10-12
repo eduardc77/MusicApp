@@ -47,10 +47,10 @@ struct FlipModifier: AnimatableModifier {
    
    var visible: Bool {
       switch side {
-      case .front:
-         return flipProgress <= 0.5
-      case .back:
-         return flipProgress > 0.5
+         case .front:
+            return flipProgress <= 0.5
+         case .back:
+            return flipProgress > 0.5
       }
    }
    
@@ -66,10 +66,10 @@ struct FlipModifier: AnimatableModifier {
    
    var scale: CGFloat {
       switch side {
-      case .front:
-         return 1.0
-      case .back:
-         return -1.0
+         case .front:
+            return 1.0
+         case .back:
+            return -1.0
       }
    }
 }
@@ -86,18 +86,20 @@ struct FlipView_Previews: PreviewProvider {
             FlipView(visibleSide: side) {
                Text(verbatim: "Front Side")
                   .frame(width: 200, height: 200)
-                  .background(.pink.opacity(0.8))
-               
+                  .background(Color.accentColor.opacity(0.8))
             } back: {
                Text(verbatim: "Back Side")
                   .frame(width: 200, height: 200)
                   .background(.purple.opacity(0.8))
             }
             .animation(.flipCard, value: side)
+            .onTapGesture { side.toggle() }
             
             Button { side.toggle() } label: {
                Label("Flip Card", systemImage: "square.stack.3d.forward.dottedline")
             }
+            .buttonStyle(.borderedProminent)
+            .padding()
          }
       }
    }

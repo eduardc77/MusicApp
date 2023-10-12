@@ -9,29 +9,27 @@ import SwiftUI
 import MediaPlayer
 
 struct LibraryView: View {
+   @StateObject private var libraryModel = LibraryModel()
    @Binding var tabSelection: Tab
    @State var editMode: EditMode = .inactive
-   @StateObject private var libraryModel = LibraryModel()
    
    var body: some View {
       NavigationStack {
          if libraryModel.refreshingLibrary {
             LoadingView()
-            
          } else {
             if libraryModel.status == .permitted {
-               if !libraryModel.refreshingLibrary, !libraryModel.emptyLibrary {
+               if !libraryModel.emptyLibrary, !libraryModel.refreshingLibrary {
                   ScrollView {
                      LibraryListView(libraryModel: libraryModel, editMode: $editMode)
                      
                      if !editMode.isEditing {
-                        VerticalMediaGridView(mediaItems: libraryModel.recentlyAdded, title: "Recently Added", imageSize: .albumCarouselItem, scrollDisabled: true, topPadding: 0)
+                        VerticalMediaGridView(mediaItems: libraryModel.recentlyAdded, title: "Recently Added", imageSize: .albumCarouselItem, scrollDisabled: false)
                      }
                   }
                   .navigationTitle("Library")
                   .toolbar { EditButton() }
                   .environment(\.editMode, $editMode)
-                  
                } else {
                   EmptyLibraryView(tabSelection: $tabSelection)
                }
@@ -71,7 +69,7 @@ struct LibraryView: View {
                   .frame(maxWidth:.infinity)
                   .padding(.vertical, 8)
             }
-            .tint(.red)
+            .tint(.accentColor)
             .padding(.horizontal, 50)
             .frame(maxWidth: .infinity)
             .buttonStyle(.borderedProminent)
@@ -107,7 +105,7 @@ struct LibraryView: View {
                   .padding(.vertical, 8)
                
             }
-            .tint(.red)
+            .tint(.accentColor)
             .padding(.horizontal, 50)
             .frame(maxWidth: .infinity)
             .buttonStyle(.borderedProminent)
