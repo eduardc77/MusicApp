@@ -36,6 +36,7 @@ struct SearchResultsRow: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             
             MenuButton().padding(.trailing, 6)
+               .controlSize(.extraLarge)
          }
       }
    }

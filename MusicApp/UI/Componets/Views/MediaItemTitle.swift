@@ -15,6 +15,7 @@ struct MediaItemTitle: View {
    var foregroundColor: Color = .primary
    var lineLimit: Int = 1
    var spacing: CGFloat = 3
+   var multilineTextAlignment: TextAlignment = .leading
    
    var body: some View {
       switch explicitness {
@@ -23,12 +24,14 @@ struct MediaItemTitle: View {
             .font(font)
             .foregroundStyle(foregroundColor)
             .lineLimit(lineLimit)
+            .multilineTextAlignment(multilineTextAlignment)
       default:
          HStack(spacing: spacing) {
             Text(name)
                .font(font)
                .foregroundStyle(foregroundColor)
                .lineLimit(lineLimit)
+               .multilineTextAlignment(multilineTextAlignment)
             
             Image(systemName: "e.square.fill")
                .font(imageFont)

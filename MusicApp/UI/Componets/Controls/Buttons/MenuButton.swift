@@ -71,7 +71,7 @@ struct MenuItemButton: View {
       } label: {
          Label(title, systemImage: icon)
       }
-      
+      .controlSize(.extraLarge)
    }
 }
 

@@ -10,6 +10,7 @@ import SwiftUI
 struct SearchView: View {
    @StateObject private var searchModel = SearchViewModel()
    @State private var searchTerm = ""
+   @State private var keyboardDidHide: Bool = false
    
    var body: some View {
       NavigationStack {
@@ -26,10 +27,9 @@ struct SearchView: View {
             }
          
             .onChange(of: searchTerm) { _, term in
+               searchModel.resetChachedContent()
+               keyboardDidHide = false
                searchModel.searchTerm = term
-            }
-         
-            .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { _ in
                searchModel.searchSubmit = false
                searchModel.selectedMediaType = .topResult
             }

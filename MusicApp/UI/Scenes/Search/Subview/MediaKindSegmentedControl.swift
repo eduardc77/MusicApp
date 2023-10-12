@@ -17,38 +17,41 @@ struct MediaKindSegmentedControl: View {
             HStack {
                ForEach(Array(zip(MediaType.allCases.indices, MediaType.allCases)), id: \.0) { index, mediaType in
                   
-                  Button(action: {
-                     withAnimation {
-                        searchModel.select(mediaType)
-                     }
-                  }) {
-                     Text(mediaType.title)
-                        .font(.footnote.weight(.medium))
-                        .padding(.vertical, 8)
-                        .padding(.horizontal)
-                     
-                        .background {
-                           if searchModel.selectedMediaType == mediaType {
-                              Capsule()
-                                 .fill(Color.accentColor)
-                                 .matchedGeometryEffect(id: "TAB", in: animation)
-                           }
-                        }
-                        .foregroundStyle(searchModel.selectedMediaType == mediaType ? .white : Color.primary)
-                  }
-                  .id(index)
-                  
-                  .onChange(of: searchModel.selectedMediaType) { _, newValue in
-                     if newValue == mediaType {
-                        withAnimation {
-                           proxy.scrollTo(index, anchor: .center)
-                        }
-                     }
-                  }
+                  mediaKindItem(for: mediaType)
+                     .id(index)
                }
             }
             .padding(.horizontal)
          }
+         .onChange(of: searchModel.selectedMediaType) { _, newValue in
+            withAnimation {
+               proxy.scrollTo(newValue, anchor: .center)
+            }
+         }
+      }
+      .animation(.interactiveSpring(response: 0.3, dampingFraction: 0.8, blendDuration: 0.8), value: searchModel.selectedMediaType)
+   }
+   
+   @ViewBuilder
+   func mediaKindItem(for mediaType: MediaType) -> some View {
+      Button(action: {
+         withAnimation {
+            searchModel.select(mediaType)
+         }
+      }) {
+         Text(mediaType.title)
+            .font(.footnote.weight(.medium))
+            .padding(.vertical, 8)
+            .padding(.horizontal)
+         
+            .background {
+               if searchModel.selectedMediaType == mediaType {
+                  Capsule()
+                     .fill(Color.accentColor)
+                     .matchedGeometryEffect(id: "TAB", in: animation)
+               }
+            }
+            .foregroundStyle(searchModel.selectedMediaType == mediaType ? .white : Color.primary)
       }
    }
 }
