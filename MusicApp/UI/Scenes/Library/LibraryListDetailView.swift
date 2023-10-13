@@ -41,6 +41,7 @@ struct LibraryListDetailView: View {
       
       .toolbar {
          Button("Sort") {
+            
          }
       }
    }
