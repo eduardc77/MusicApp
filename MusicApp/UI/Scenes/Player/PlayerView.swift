@@ -58,11 +58,15 @@ struct PlayerView: View {
       .gesture(DragGesture().onEnded(onEnded).onChanged(onChanged))
       
       .onReceive(NotificationCenter.default.publisher(for: .MPMusicPlayerControllerPlaybackStateDidChange)) { _ in
-         model.playbackState = PlayerModel.audioPlayer.playbackState
+         DispatchQueue.main.async {
+            model.playbackState = PlayerModel.audioPlayer.playbackState
+         }
       }
       .onReceive(NotificationCenter.default.publisher(for: .MPMusicPlayerControllerNowPlayingItemDidChange)) { _ in
          guard let mediaItem = PlayerModel.audioPlayer.nowPlayingItem else { return }
-         model.setNowPlaying(media: mediaItem)
+         DispatchQueue.main.async {
+            model.setNowPlaying(media: mediaItem)
+         }
       }
       .onDisappear {
          NotificationCenter.default.removeObserver(self)
