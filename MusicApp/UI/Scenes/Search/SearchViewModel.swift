@@ -139,40 +139,43 @@ private extension SearchViewModel {
       $searchTerm
          .debounce(for: .seconds(0.3), scheduler: RunLoop.main)
          .filter(validSearching)
+         .removeDuplicates()
          .flatMap(search)
          .map { $0.map(Media.init) }
          .replaceError(with: .init())
          .sink { [weak self] results in
             guard let self = self else { return }
-            self.searchResults = results
-            
-            switch self.selectedMediaType {
-               case .topResult:
-                  break
-               case .artist:
-                  self.artists = searchResults
-               case .album:
-                  self.albums = searchResults
-               case .song:
-                  self.songs = searchResults
-               case .musicVideo:
-                  self.musicVideos = searchResults
-               case .music:
-                  self.music = searchResults
-               case .podcast:
-                  self.podcasts = searchResults
-               case .podcastAuthor:
-                  self.podcastAuthors = searchResults
-               case .movie:
-                  self.movies = searchResults
-               case .tvShow:
-                  self.tvShows = searchResults
-               case .shortFilm:
-                  self.shortFilms = searchResults
-               case .audiobook:
-                  self.audiobooks = searchResults
-               case .ebook:
-                  self.ebooks = searchResults
+            DispatchQueue.main.async {
+               self.searchResults = results
+               
+               switch self.selectedMediaType {
+                  case .topResult:
+                     break
+                  case .artist:
+                     self.artists = self.searchResults
+                  case .album:
+                     self.albums = self.searchResults
+                  case .song:
+                     self.songs = self.searchResults
+                  case .musicVideo:
+                     self.musicVideos = self.searchResults
+                  case .music:
+                     self.music = self.searchResults
+                  case .podcast:
+                     self.podcasts = self.searchResults
+                  case .podcastAuthor:
+                     self.podcastAuthors = self.searchResults
+                  case .movie:
+                     self.movies = self.searchResults
+                  case .tvShow:
+                     self.tvShows = self.searchResults
+                  case .shortFilm:
+                     self.shortFilms = self.searchResults
+                  case .audiobook:
+                     self.audiobooks = self.searchResults
+                  case .ebook:
+                     self.ebooks = self.searchResults
+               }
             }
          }
          .store(in: &anyCancellable)
@@ -186,7 +189,10 @@ private extension SearchViewModel {
       $searchResults
          .map(\.isEmpty)
          .sink { [weak self] results in
-            self?.nothingFound = results
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+               self.nothingFound = results
+            }
          }
          .store(in: &anyCancellable)
    }
@@ -205,7 +211,10 @@ private extension SearchViewModel {
    }
    
    func loaded(results: [MediaResponse]) -> [MediaResponse] {
-      searchLoading = false
+      DispatchQueue.main.async {
+         self.searchLoading = false
+      }
+      
       return results
    }
    

@@ -49,8 +49,9 @@ struct MenuButton: View {
          }
          .font(font)
          .foregroundStyle(foregroundColor, backgroundColor)
-         .frame(width: 24, height: 24)
-         .contentShape(Rectangle())
+         .buttonStyle(.plain)
+         .buttonBorderShape(.circle)
+         .accessibilityLabel("Menu")
       }
       .sheet(isPresented: self.$isPresented) {
          DefaultView(title: "Detail View")

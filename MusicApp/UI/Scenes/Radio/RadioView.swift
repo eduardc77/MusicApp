@@ -47,6 +47,7 @@ struct RadioView: View {
             if playerModel.showPlayerView, !playerModel.expand { Spacer(minLength: Metric.playerHeight) }
          }
          .navigationTitle("Radio")
+         .toolbar { AccountNavigationItem() }
       }
    }
 }

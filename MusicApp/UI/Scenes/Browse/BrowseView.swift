@@ -44,6 +44,7 @@ struct BrowseView: View {
             if playerModel.showPlayerView, !playerModel.expand { Spacer(minLength: Metric.playerHeight) }
          }
          .navigationTitle(title)
+         .toolbar { AccountNavigationItem() }
       }
    }
 }

@@ -49,9 +49,8 @@ struct PlayerView: View {
             .transition(.move(edge: .bottom))
          }
       }
-      
       .frame(maxHeight: expand ? .infinity : Metric.playerHeight)
-      .background(playerBackground.clipShape(.rect(cornerRadius: expand ? 42 : 0)))
+      .background(playerBackground.clipShape(.rect(cornerRadius: expand ? UIScreen.main.displayCornerRadius : 0)))
       .offset(y: expand ? .zero : Metric.tabBarHeight)
       .offset(y: offset)
       .ignoresSafeArea()
