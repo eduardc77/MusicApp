@@ -39,8 +39,8 @@ struct AlbumDetailView: View {
       }
       
       .toolbar {
-         HStack {
-            DownloadButton(font: .title2, action: {})
+         HStack(spacing: 5) {
+            ToolbarButton(title: "Download", iconName: "arrow.down", font: .title2) {}
             
             MenuButton(circled: true, font: .title2, backgroundColor: .secondaryButtonBackgroundColor)
          }

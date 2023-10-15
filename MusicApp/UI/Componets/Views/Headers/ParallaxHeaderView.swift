@@ -7,19 +7,19 @@
 
 import SwiftUI
 
-struct ParallaxHeaderView<Content: View, CoordinateSpace: Hashable>: View {
-   private let coordinateSpace: CoordinateSpace
+struct ParallaxHeaderView<Content: View>: View {
+   private let coordinateSpace: Namespace.ID
    private let height: CGFloat
    private let content: () -> Content
    
    init(
-      coordinateSpace: CoordinateSpace,
+      coordinateSpace: Namespace.ID,
       height: CGFloat,
       @ViewBuilder _ content: @escaping () -> Content
    ) {
-      self.content = content
       self.coordinateSpace = coordinateSpace
       self.height = height
+      self.content = content
    }
    
    var body: some View {
@@ -28,7 +28,10 @@ struct ParallaxHeaderView<Content: View, CoordinateSpace: Hashable>: View {
          let heightModifier = heightModifier(for: proxy)
 
          content()
-            .frame(width: proxy.size.width, height: proxy.size.height + heightModifier)
+            .frame(
+               width: proxy.size.width,
+               height: proxy.size.height + heightModifier
+            )
             .offset(y: offset)
       }
       .frame(height: height)
@@ -36,40 +39,42 @@ struct ParallaxHeaderView<Content: View, CoordinateSpace: Hashable>: View {
    
    private func offset(for proxy: GeometryProxy) -> CGFloat {
       let frame = proxy.frame(in: .named(coordinateSpace))
-      if frame.minY < 0 {
-         return -frame.minY * 0.85
+      if frame.origin.y < 0 {
+         return -frame.origin.y * 0.8
       }
-      return -frame.minY
+      return -frame.origin.y
    }
    
    private func heightModifier(for proxy: GeometryProxy) -> CGFloat {
       let frame = proxy.frame(in: .named(coordinateSpace))
-      return max(0, frame.minY)
+      return max(0, frame.origin.y)
    }
 }
+
 
 
 // MARK: - Previews
 
 struct MediaPreviewHeader_Previews: PreviewProvider {
    struct MediaPreviewHeaderExample: View {
-      let coordinateSpace: CoordinateSpace = CoordinateSpace.local
+      @Namespace var scrollSpace
       @State var playing: Bool = false
       
       var body: some View {
          ScrollView {
             ParallaxHeaderView(
-               coordinateSpace: coordinateSpace,
-               height: 400
+               coordinateSpace: scrollSpace,
+               height: Metric.mediaPreviewHeaderHeight
             ) {
-               MediaImageView(imagePath: musicPlaylists2.first?.artworkPath ?? "".resizedPath(size: 400))
+               MediaImageView(imagePath: musicPlaylists2.first?.artworkPath ?? "".resizedPath(size: Int(Metric.mediaPreviewHeaderHeight)))
             }
             
             Rectangle()
                .fill(.indigo)
                .frame(height: 1000)
          }
-         .coordinateSpace(name: coordinateSpace)
+         .coordinateSpace(name: scrollSpace)
+         .ignoresSafeArea()
       }
    }
    

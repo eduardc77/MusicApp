@@ -14,7 +14,7 @@ struct AccountNavigationItem: View {
       Button { showAccount.toggle() } label: {
          Image(systemName: "person.crop.circle")
             .resizable()
-            .font(.title2)
+            .frame(width: 30, height: 30)
       }
       
       .sheet(isPresented: $showAccount) {

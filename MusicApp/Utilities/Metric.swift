@@ -8,6 +8,7 @@
 import SwiftUI
 
 enum Metric {
+   
    // MARK: - Screen Size
    
    static let screenWidth: CGFloat = UIScreen.main.bounds.size.width
@@ -25,7 +26,7 @@ enum Metric {
    
    // MARK: - Artist Detail
    
-   static let mediaPreviewHeaderHeight: CGFloat = screenHeight / 2.45
+   static let mediaPreviewHeaderHeight: CGFloat = screenHeight / 2.15
    
    // MARK: - Album Detail
    

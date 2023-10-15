@@ -16,7 +16,7 @@ struct LibraryListDetailView: View {
    var section: LibrarySection
    
    var body: some View {
-      ScrollView {
+      Group {
          switch section {
             case .playlists: VerticalMediaGridView(mediaItems: libraryModel.playlists, imageSize: .albumCarouselItem)
             case .artists: VerticalMediaGridView(mediaItems: libraryModel.artists, imageSize: .trackRowItem)
@@ -37,12 +37,12 @@ struct LibraryListDetailView: View {
          }
       }
       .navigationTitle(section.title)
-      .searchable(text: $searchTerm, prompt: "Find in \(section.title)")
+      .searchable(text: $searchTerm,
+                  placement:.navigationBarDrawer(displayMode:.always),
+                  prompt: "Find in \(section.title)")
       
       .toolbar {
-         Button("Sort") {
-            
-         }
+         ToolbarButton(title: "Sort", iconName: "arrow.up.arrow.down", font: .title2, action: {})
       }
    }
 }
