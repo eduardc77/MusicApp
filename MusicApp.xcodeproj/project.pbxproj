@@ -12,6 +12,9 @@
 		88154D412ADACF2F00843088 /* EmptyLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88154D402ADACF2F00843088 /* EmptyLibraryView.swift */; };
 		88154D772ADB4F6000843088 /* FavoriteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88154D762ADB4F6000843088 /* FavoriteButton.swift */; };
 		8822DDAC2AD7723C00F7C5D4 /* ContextMenuTrackRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8822DDAB2AD7723C00F7C5D4 /* ContextMenuTrackRow.swift */; };
+		883A24632ADCA0FB007F6AB5 /* OnVisibleModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883A24622ADCA0FB007F6AB5 /* OnVisibleModifier.swift */; };
+		883A24652ADCA132007F6AB5 /* SnappingScrollViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883A24642ADCA132007F6AB5 /* SnappingScrollViewDelegate.swift */; };
+		883A24672ADCA14B007F6AB5 /* SnappingScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883A24662ADCA14B007F6AB5 /* SnappingScrollView.swift */; };
 		885CBADE2ADC810F007078A2 /* UIScreen+displayCornerRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885CBADD2ADC810F007078A2 /* UIScreen+displayCornerRadius.swift */; };
 		885CBAE12ADC8183007078A2 /* ObservableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885CBAE02ADC8183007078A2 /* ObservableScrollView.swift */; };
 		886BC7192A75F57200CBA71F /* AirplayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886BC7182A75F57200CBA71F /* AirplayButton.swift */; };
@@ -115,7 +118,6 @@
 		EAD15364280D636F005FD971 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD15363280D636F005FD971 /* NetworkError.swift */; };
 		EAD15366280D6379005FD971 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD15365280D6379005FD971 /* NetworkService.swift */; };
 		EAD15368280D6386005FD971 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD15367280D6386005FD971 /* Endpoint.swift */; };
-		EAD15371280D6403005FD971 /* Collection+Grouped.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD15370280D6403005FD971 /* Collection+Grouped.swift */; };
 		EAD15373280D640E005FD971 /* Date+DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD15372280D640E005FD971 /* Date+DateFormatter.swift */; };
 		EAD15375280D6416005FD971 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD15374280D6416005FD971 /* String+Extension.swift */; };
 		EAD2581F296C425700479449 /* ArtistDetailSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD2581E296C425700479449 /* ArtistDetailSection.swift */; };
@@ -131,6 +133,9 @@
 		88154D402ADACF2F00843088 /* EmptyLibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyLibraryView.swift; sourceTree = "<group>"; };
 		88154D762ADB4F6000843088 /* FavoriteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteButton.swift; sourceTree = "<group>"; };
 		8822DDAB2AD7723C00F7C5D4 /* ContextMenuTrackRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextMenuTrackRow.swift; sourceTree = "<group>"; };
+		883A24622ADCA0FB007F6AB5 /* OnVisibleModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnVisibleModifier.swift; sourceTree = "<group>"; };
+		883A24642ADCA132007F6AB5 /* SnappingScrollViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnappingScrollViewDelegate.swift; sourceTree = "<group>"; };
+		883A24662ADCA14B007F6AB5 /* SnappingScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnappingScrollView.swift; sourceTree = "<group>"; };
 		885CBADD2ADC810F007078A2 /* UIScreen+displayCornerRadius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+displayCornerRadius.swift"; sourceTree = "<group>"; };
 		885CBAE02ADC8183007078A2 /* ObservableScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableScrollView.swift; sourceTree = "<group>"; };
 		886BC7182A75F57200CBA71F /* AirplayButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirplayButton.swift; sourceTree = "<group>"; };
@@ -235,7 +240,6 @@
 		EAD15363280D636F005FD971 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		EAD15365280D6379005FD971 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		EAD15367280D6386005FD971 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
-		EAD15370280D6403005FD971 /* Collection+Grouped.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Grouped.swift"; sourceTree = "<group>"; };
 		EAD15372280D640E005FD971 /* Date+DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+DateFormatter.swift"; sourceTree = "<group>"; };
 		EAD15374280D6416005FD971 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		EAD2581E296C425700479449 /* ArtistDetailSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistDetailSection.swift; sourceTree = "<group>"; };
@@ -287,9 +291,20 @@
 			path = Sliders;
 			sourceTree = "<group>";
 		};
+		883A245B2ADCA0B7007F6AB5 /* SnappingScrollView */ = {
+			isa = PBXGroup;
+			children = (
+				883A24622ADCA0FB007F6AB5 /* OnVisibleModifier.swift */,
+				883A24642ADCA132007F6AB5 /* SnappingScrollViewDelegate.swift */,
+				883A24662ADCA14B007F6AB5 /* SnappingScrollView.swift */,
+			);
+			path = SnappingScrollView;
+			sourceTree = "<group>";
+		};
 		885CBADF2ADC814C007078A2 /* ScrollViews */ = {
 			isa = PBXGroup;
 			children = (
+				883A245B2ADCA0B7007F6AB5 /* SnappingScrollView */,
 				EAE825CF28382313008F59F2 /* InfiniteScrollText.swift */,
 				885CBAE02ADC8183007078A2 /* ObservableScrollView.swift */,
 			);
@@ -715,7 +730,6 @@
 		EAD1536F280D63EB005FD971 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				EAD15370280D6403005FD971 /* Collection+Grouped.swift */,
 				EA3FA3522817697200F84B09 /* Color.swift */,
 				EACA1C3B2819B29800CD7E4F /* View+HideKeyboard.swift */,
 				880FB06B2AD4F84F007F3CAA /* VIew+IfCondition.swift */,
@@ -809,6 +823,7 @@
 				EAD15337280D5BDB005FD971 /* BottomToolbar.swift in Sources */,
 				EA23ECF528158A750040BB58 /* AlbumMediaRowItem.swift in Sources */,
 				EA0054B9297081A000400F51 /* MenuButton.swift in Sources */,
+				883A24632ADCA0FB007F6AB5 /* OnVisibleModifier.swift in Sources */,
 				EA6CAC8E283998E400193089 /* MediaItemTitle.swift in Sources */,
 				EAB09DA1282802420011B78C /* LibraryMediaItemModel.swift in Sources */,
 				EAD1534B280D5D9E005FD971 /* SearchView.swift in Sources */,
@@ -833,6 +848,7 @@
 				EAD01E9328231B2400B01F07 /* ProfileNavigationLink.swift in Sources */,
 				8822DDAC2AD7723C00F7C5D4 /* ContextMenuTrackRow.swift in Sources */,
 				EAD15313280D581B005FD971 /* Media.swift in Sources */,
+				883A24672ADCA14B007F6AB5 /* SnappingScrollView.swift in Sources */,
 				EA5DA8AD296E15B90012517E /* LosslessLogo.swift in Sources */,
 				EAD1533E280D5CB8005FD971 /* ListenNowView.swift in Sources */,
 				EA2216F228359163000A165D /* VideoMediaRow.swift in Sources */,
@@ -897,7 +913,6 @@
 				EAD1530D280D579D005FD971 /* TabBar.swift in Sources */,
 				EAD01E9128231AA900B01F07 /* DefaultView.swift in Sources */,
 				EA430753282F0604006FFD15 /* VideoMediaItem.swift in Sources */,
-				EAD15371280D6403005FD971 /* Collection+Grouped.swift in Sources */,
 				EAA266022829AAC10035D9E1 /* ArtistDetailView.swift in Sources */,
 				EAD15327280D5B16005FD971 /* HorizontalMediaGridView.swift in Sources */,
 				EA23ECF328156F570040BB58 /* Int+Extension.swift in Sources */,
@@ -912,6 +927,7 @@
 				EAD01E8D2823197200B01F07 /* RowButton.swift in Sources */,
 				EA23ECF128156AD40040BB58 /* UIImage+Extension.swift in Sources */,
 				EABCBD0D2831892600A04D2E /* ArtistFeaturedAlbumRow.swift in Sources */,
+				883A24652ADCA132007F6AB5 /* SnappingScrollViewDelegate.swift in Sources */,
 				EAD15311280D57FF005FD971 /* ItunesAPIResponse.swift in Sources */,
 				EAC53D7A2814888400785395 /* TimeInterval+Extension.swift in Sources */,
 				EA430755282F20F9006FFD15 /* VideoPlayerView.swift in Sources */,

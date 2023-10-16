@@ -10,7 +10,7 @@ import SwiftUI
 struct MenuButton: View {
    @State var isPresented = false
    var circled: Bool = false
-   var font: Font = .body
+   var font: Font = .title2
    var foregroundColor: Color = .accentColor
    var backgroundColor: Color = .lightGrayColor3
    

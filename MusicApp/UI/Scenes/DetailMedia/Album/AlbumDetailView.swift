@@ -40,9 +40,9 @@ struct AlbumDetailView: View {
       
       .toolbar {
          HStack(spacing: 5) {
-            ToolbarButton(title: "Download", iconName: "arrow.down", font: .title2) {}
+            ToolbarButton(title: "Download", iconName: "arrow.down") {}
             
-            MenuButton(circled: true, font: .title2, backgroundColor: .secondaryButtonBackgroundColor)
+            MenuButton(circled: true, backgroundColor: .secondaryButtonBackgroundColor)
          }
       }
    }

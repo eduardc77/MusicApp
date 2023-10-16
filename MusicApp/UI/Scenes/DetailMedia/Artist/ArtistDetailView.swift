@@ -17,10 +17,9 @@ struct ArtistDetailView: View {
    @State var scrollSafeAreaInset = CGFloat.zero
    @Namespace var scrollSpace
    let media: Media
-   private var topPadding: CGFloat = 20
    
    private var navigationHidden: Bool {
-      scrollOffset + (scrollSafeAreaInset / 2) + topPadding < Metric.mediaPreviewHeaderHeight
+      scrollOffset + (scrollSafeAreaInset / 2) + 20 < Metric.mediaPreviewHeaderHeight
    }
    
    init(media: Media) {
@@ -36,29 +35,20 @@ struct ArtistDetailView: View {
             GeometryReader { geometry in
                ObservableScrollView(scrollSpace: scrollSpace, scrollOffset: $scrollOffset) {
                   VStack(spacing: 0) {
-                     artistPreviewHeader(scrollSafeAreaInset: scrollSafeAreaInset)
+                     artistPreviewHeader.scrollSnappingAnchor(.bounds)
                      artistGalleryList
                   }
                }
-               .navigationTitle(media.artistName)
+               .ignoresSafeArea(edges: artistViewModel.artistFeatureAlbum != nil ? .top : [])
+               .navigationTitle(navigationHidden ? "" : media.artistName)
                .navigationBarTitleDisplayMode(.inline)
+               .toolbarBackground(navigationHidden ? .hidden : .visible, for: .navigationBar)
                .toolbar {
                   ToolbarItemGroup(placement: .topBarTrailing) {
-                     HStack(spacing: 14) {
-                        FavoriteButton(backgroundColor: isFavorite ? Color(uiColor: .tertiarySystemGroupedBackground) : .secondaryButtonBackgroundColor,
-                                       isFavorite: $isFavorite) {}
-                        ToolbarButton(title: "Menu",
-                                      iconName: "ellipsis",
-                                      font: .title2) {}
-                     }
+                     toolbarItems
                   }
                }
-               .toolbar(navigationHidden ? (artistViewModel.artistFeatureAlbum != nil ? .hidden : .automatic) : .automatic, for: .navigationBar)
                .animation(.default, value: navigationHidden)
-               .ignoresSafeArea(edges: artistViewModel.artistFeatureAlbum != nil ? .top : .init())
-               .overlay { if artistViewModel.artistFeatureAlbum != nil { topNavigationControls } }
-
-               
                .onAppear {
                   scrollSafeAreaInset = geometry.safeAreaInsets.top
                }
@@ -85,38 +75,30 @@ struct ArtistDetailView: View {
 // MARK: - Subviews
 
 private extension ArtistDetailView {
-   var topNavigationControls: some View {
-      ZStack(alignment: .top) {
-         HStack {
-            ToolbarButton(title: "Back",
-                          iconName: "chevron.left",
-                          font: .title,
+   
+   var toolbarItems: some View {
+      HStack(spacing: 14) {
+         if !navigationHidden {
+            FavoriteButton(backgroundColor: isFavorite ? Color(uiColor: .tertiarySystemGroupedBackground) : .secondaryButtonBackgroundColor,
+                           isFavorite: $isFavorite) {}
+            ToolbarButton(title: "Menu",
+                          iconName: "ellipsis") {}
+         } else {
+            FavoriteButton(foregroundColor: .white,
+                           backgroundColor: .secondary,
+                           isFavorite: $isFavorite) {}
+            ToolbarButton(title: "Menu",
+                          iconName: "ellipsis",
                           foregroundColor: .white,
-                          backgroundColor: .secondary) { dismiss() }
-            Spacer()
-            HStack(spacing: 12) {
-               FavoriteButton(foregroundColor: .white,
-                              backgroundColor: .secondary,
-                              isFavorite: $isFavorite) {}
-               
-               ToolbarButton(title: "Menu",
-                             iconName: "ellipsis",
-                             font: .title,
-                             foregroundColor: .white,
-                             backgroundColor: .secondary) {}
-            }
+                          backgroundColor: .secondary) {}
          }
       }
-      .padding(.leading, 6)
-      .padding(.trailing, 16)
-      .opacity(navigationHidden ? 1 : 0)
-      .offset(y: -Metric.mediaPreviewHeaderHeight + (topPadding * 2))
    }
    
-   func artistPreviewHeader(scrollSafeAreaInset: CGFloat) -> some View {
+   var artistPreviewHeader: some View {
       let size = Metric.mediaPreviewHeaderHeight
-      let minY = -scrollOffset + scrollSafeAreaInset - topPadding
-      let progress = minY / (size * 0.9)
+      let minY = -scrollOffset + Metric.mediaPreviewHeaderHeight - scrollSafeAreaInset
+      let progress = minY / (size * 0.4)
       
       return ZStack(alignment: Alignment(horizontal: .leading, vertical: .bottom)) {
          if let recentAlbum = artistViewModel.albums.first {
@@ -134,7 +116,7 @@ private extension ArtistDetailView {
             Text(media.artistName)
                .foregroundStyle(artistViewModel.albums.first != nil ? .white : .primary)
                .font(.largeTitle.bold())
-              
+            
             Spacer()
             ToolbarButton(title: "Play",
                           iconName: "play",
@@ -181,9 +163,8 @@ private extension ArtistDetailView {
          }
          if playerModel.showPlayerView, !playerModel.expand { Spacer(minLength: Metric.playerHeight) }
       }
-      .padding(.top, topPadding)
+      .padding(.top, 20)
       .background()
-      
    }
 }
 

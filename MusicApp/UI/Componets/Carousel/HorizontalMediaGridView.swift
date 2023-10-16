@@ -72,7 +72,7 @@ struct HorizontalMediaGridView: View {
       }
       .contentMargins(.horizontal, 20)
       .scrollTargetBehavior(scrollBehavior == .viewAligned ? .viewAligned(limitBehavior: .never) : .viewAligned(limitBehavior: .always))
-      
+      .scrollClipDisabled()
       .if(!title.isEmpty) { view in
          view.labeledViewModifier(mediaItems: mediaItems, imageSize: imageSize, maxHighlightShowing: maxHighlightShowing, header: title)
       }
