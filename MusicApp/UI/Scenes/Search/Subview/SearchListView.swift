@@ -16,109 +16,110 @@ struct SearchListView: View {
    @State var isPresented = false
    
    var body: some View {
-      ScrollView {
-         VStack {
-            ForEach(Array(searchModel.searchResults.enumerated()), id: \.element) { mediaIndex, media in
-               Button {
-                  withAnimation {
-                     playerModel.play(media, videoAssetUrl: media.previewUrl)
-                  }
-               } label: {
-                  VStack(spacing: 0) {
-                     if mediaIndex == 0 { Divider() }
-                     Spacer()
-                     
-                     switch media.wrapperType {
-                        case .collection:
-                           SearchWrapperRow(media: media, destinationView: AlbumDetailView(media: media))
-                        case .track:
-                           SearchResultsRow(media: media)
-                        case .artist:
-                           SearchWrapperRow(media: media, destinationView: ArtistDetailView(media: media))
+      ScrollViewReader { proxy in
+         ScrollView {
+            VStack {
+               ForEach(Array(searchModel.searchResults.enumerated()), id: \.element) { mediaIndex, media in
+                  Button {
+                     withAnimation {
+                        playerModel.play(media, videoAssetUrl: media.previewUrl)
                      }
-                     
-                     Spacer()
-                     Divider()
-                  }
-                  .padding(.horizontal)
-                  .frame(maxWidth: .infinity)
-                  .contentShape(Rectangle())
-               }
-               .buttonStyle(.rowButton)
-               .transition(.opacity)
-               
-               .contextMenu {
-                  ForEach(MenuItem.allCases.reversed(), id: \.self) { menuItem in
-                     Group {
-                        switch menuItem {
-                           case .viewCredits:
-                              Divider()
-                              MenuItemButton(isPresented: $isPresented, title: menuItem.title, icon: menuItem.icon)
-                           case .deleteFromLibrary:
-                              MenuItemButton(isPresented: $isPresented, title: menuItem.title, icon: menuItem.icon, buttonRole: .destructive)
-                           case .addToAPlaylist:
-                              Divider()
-                              MenuItemButton(isPresented: $isPresented, title: menuItem.title, icon: menuItem.icon)
-                           case .createStation:
-                              Divider()
-                              MenuItemButton(isPresented: $isPresented, title: menuItem.title, icon: menuItem.icon)
-                           case .suggestLess:
-                              Divider()
-                              MenuItemButton(isPresented: $isPresented, title: menuItem.title, icon: menuItem.icon)
-                           default:
-                              MenuItemButton(isPresented: $isPresented, title: menuItem.title, icon: menuItem.icon)
+                  } label: {
+                     VStack(spacing: 0) {
+                        if mediaIndex == 0 { Divider() }
+                        Spacer()
+                        
+                        switch media.wrapperType {
+                           case .collection:
+                              SearchWrapperRow(media: media, destinationView: AlbumDetailView(media: media))
+                           case .track:
+                              SearchResultsRow(media: media)
+                           case .artist:
+                              SearchWrapperRow(media: media, destinationView: ArtistDetailView(media: media))
                         }
+                        Spacer()
+                        Divider()
                      }
-                     .tag(menuItem)
+                     .padding(.horizontal)
+                     .frame(maxWidth: .infinity)
+                     .contentShape(Rectangle())
                   }
+                  .id(mediaIndex)
+                  .buttonStyle(.rowButton)
+                  .transition(.opacity)
                   
-               } preview: {
-                  NavigationLink(destination:
-                                    AlbumDetailView(media: media)) {
-                     ContextMenuTrackRow(media: media)
-                  }
-                                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                                    .padding(.horizontal)
-               }
-               
-            }
-            
-            if playerModel.showPlayerView, !playerModel.expand {
-               Spacer(minLength: Metric.playerHeight)
-            }
-         }
-      }
-      .scrollDismissesKeyboard(.immediately)
-      
-      .safeAreaInset(edge: .top) {
-         Group {
-            if searchModel.searchSubmit {
-               MediaKindSegmentedControl(searchModel: searchModel)
-            } else {
-               Picker("Search In", selection: $selectedPickerIndex) {
-                  Text("Apple Music").tag(0)
-                  Text("Your Library").tag(1)
-               }
-               
-               .pickerStyle(.segmented)
-               .padding(.horizontal)
-               
-               .onChange(of: selectedPickerIndex) { _, tag in
-                  if tag == 0 {
-                     searchModel.searchPrompt = .appleMusic
-                  } else {
-                     searchModel.searchPrompt = .library
+                  .contextMenu {
+                     ForEach(MenuItem.allCases.reversed(), id: \.self) { menuItem in
+                        Group {
+                           switch menuItem {
+                              case .viewCredits:
+                                 Divider()
+                                 MenuItemButton(isPresented: $isPresented, title: menuItem.title, icon: menuItem.icon)
+                              case .deleteFromLibrary:
+                                 MenuItemButton(isPresented: $isPresented, title: menuItem.title, icon: menuItem.icon, buttonRole: .destructive)
+                              case .addToAPlaylist:
+                                 Divider()
+                                 MenuItemButton(isPresented: $isPresented, title: menuItem.title, icon: menuItem.icon)
+                              case .createStation:
+                                 Divider()
+                                 MenuItemButton(isPresented: $isPresented, title: menuItem.title, icon: menuItem.icon)
+                              case .suggestLess:
+                                 Divider()
+                                 MenuItemButton(isPresented: $isPresented, title: menuItem.title, icon: menuItem.icon)
+                              default:
+                                 MenuItemButton(isPresented: $isPresented, title: menuItem.title, icon: menuItem.icon)
+                           }
+                        }.tag(menuItem)
+                     }
+                  } preview: {
+                     NavigationLink(destination:
+                                       AlbumDetailView(media: media)) {
+                        ContextMenuTrackRow(media: media)
+                     }
+                                       .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                       .padding(.horizontal)
                   }
                }
-               .onAppear {
-                  selectedPickerIndex = searchModel.searchPrompt.rawValue
+               if playerModel.showPlayerView, !playerModel.expand {
+                  Spacer(minLength: Metric.playerHeight)
                }
             }
          }
-         .padding(.vertical, 10)
-         .background(.bar)
+         .scrollDismissesKeyboard(.immediately)
+         
+         .onChange(of: searchModel.selectedMediaType, { oldValue, newValue in
+            guard oldValue != newValue else { return }
+            proxy.scrollTo(0)
+         })
+         
+         .safeAreaInset(edge: .top) {
+            Group {
+               if searchModel.searchSubmit {
+                  MediaKindSegmentedControl(searchModel: searchModel)
+               } else {
+                  Picker("Search In", selection: $selectedPickerIndex) {
+                     Text("Apple Music").tag(0)
+                     Text("Your Library").tag(1)
+                  }
+                  .pickerStyle(.segmented)
+                  .padding(.horizontal)
+                  
+                  .onChange(of: selectedPickerIndex) { _, tag in
+                     if tag == 0 {
+                        searchModel.searchPrompt = .appleMusic
+                     } else {
+                        searchModel.searchPrompt = .library
+                     }
+                  }
+                  .onAppear {
+                     selectedPickerIndex = searchModel.searchPrompt.rawValue
+                  }
+               }
+            }
+            .padding(.vertical, 10)
+            .background(.bar)
+         }
       }
-      
       .sheet(isPresented: self.$isPresented) {
          DefaultView(title: "Detail View")
       }

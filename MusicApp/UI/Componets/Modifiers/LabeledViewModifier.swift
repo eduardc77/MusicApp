@@ -46,7 +46,7 @@ struct LabeledViewModifier: ViewModifier {
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
                      }
-                     
+                     .controlSize(.large)
                   } else {
                      Text(title)
                         .font(headerFont)

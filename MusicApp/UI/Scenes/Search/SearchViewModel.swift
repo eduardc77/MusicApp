@@ -137,7 +137,7 @@ private extension SearchViewModel {
    
    var chainSearch: Void {
       $searchTerm
-         .debounce(for: .seconds(0.3), scheduler: RunLoop.main)
+         .debounce(for: selectedMediaType == .topResult ? .seconds(0.4) : .seconds(0.6), scheduler: RunLoop.main)
          .filter(validSearching)
          .removeDuplicates()
          .flatMap(search)
@@ -183,7 +183,9 @@ private extension SearchViewModel {
       $searchTerm
          .map(validSearching)
          .sink { [weak self] results in
-            self?.searchLoading = results
+            DispatchQueue.main.async {
+               self?.searchLoading = results
+            }
          }
          .store(in: &anyCancellable)
       $searchResults
@@ -217,13 +219,4 @@ private extension SearchViewModel {
       
       return results
    }
-   
-   func handleResult(results: [Media]) -> [Media] {
-      let media = results.reduce([Media]()) { result, media in
-         result.contains(media) ? result : result + [media]
-      }
-      return media
-   }
-   
-   func handleError(_ networkError: NetworkError) -> Empty<ITunesAPIResponse, Never> { .init() }
 }

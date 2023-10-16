@@ -23,7 +23,9 @@ struct SearchView: View {
                         suggestions: {})
          
             .onSubmit(of: .search) {
-               searchModel.searchSubmit = true
+               DispatchQueue.main.async {
+                  searchModel.searchSubmit = true
+               }
             }
          
             .onChange(of: searchTerm) { _, term in

@@ -42,7 +42,7 @@ struct LibraryListDetailView: View {
                   prompt: "Find in \(section.title)")
       
       .toolbar {
-         ToolbarButton(title: "Sort", iconName: "arrow.up.arrow.down", font: .title2, action: {})
+         ToolbarButton(title: "Sort", iconName: "arrow.up.arrow.down", action: {})
       }
    }
 }

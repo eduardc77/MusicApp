@@ -30,6 +30,7 @@ struct FavoriteButton: View {
             .background(in: .circle)
       }
       .buttonStyle(.plain)
+      .controlSize(.large)
       .buttonBorderShape(.circle)
       .foregroundStyle(isFavorite ? backgroundColor : foregroundColor)
       .backgroundStyle(isFavorite ? foregroundColor : backgroundColor)
