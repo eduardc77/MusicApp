@@ -116,7 +116,7 @@ private extension PlayerView {
    @ViewBuilder
    var mediaView: some View {
       if PlayerModel.playerType == .audio {
-         MediaImageView(imagePath: model.nowPlayingItem.artworkPath.resizedPath(size: 600), artworkImage: model.nowPlayingItem.artwork, sizeType: expand ? .largePlayerArtwork : .smallPlayerAudio, shadowProminence: expand ? .full : .none, visibleSide: $visibleSide)
+         MediaImageViewContainer(imagePath: model.nowPlayingItem.artworkPath.resizedPath(size: 600), artworkImage: model.nowPlayingItem.artwork, sizeType: expand ? .largePlayerArtwork : .smallPlayerAudio, shadowProminence: expand ? .full : .none, visibleSide: $visibleSide)
             .scaleEffect((model.playbackState == .playing && expand) ? 1.33 : 1)
             .animation(expand ? .scaleCard : .none, value: model.playbackState)
          

@@ -17,7 +17,7 @@ struct CategoryGridView: View {
          ForEach(categories, id: \.self) { category in
             NavigationLink(destination: CategoryDetailView(category: category)) {
                ZStack(alignment: Alignment(horizontal: .leading, vertical: .bottom)) {
-                  MediaImageView(artworkImage: UIImage(named: category.image),
+                  MediaImageViewContainer(artworkImage: UIImage(named: category.image),
                                  sizeType: .categoryCollectionRow)
                   .aspectRatio(contentMode: .fill)
                   

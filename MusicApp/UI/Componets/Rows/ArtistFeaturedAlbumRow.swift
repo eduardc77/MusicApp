@@ -16,9 +16,9 @@ struct ArtistFeaturedAlbumRow: View {
       VStack {
          HStack(spacing: 16) {
             if let uiImage = media.artwork {
-               MediaImageView(artworkImage: uiImage, sizeType: .artistFeatureAlbumItem)
+               MediaImageViewContainer(artworkImage: uiImage, sizeType: .artistFeatureAlbumItem)
             } else {
-               MediaImageView(imagePath: media.artworkPath.resizedPath(size: 260), sizeType: .artistFeatureAlbumItem)
+               MediaImageViewContainer(imagePath: media.artworkPath.resizedPath(size: 260), sizeType: .artistFeatureAlbumItem)
             }
             
             VStack(alignment: .leading) {

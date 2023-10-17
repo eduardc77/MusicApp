@@ -17,9 +17,9 @@ struct SearchWrapperRow<Content: View>: View {
             switch media.wrapperType {
             case .collection:
                if let uiImage = media.artwork {
-                  MediaImageView(artworkImage: uiImage, sizeType: .searchRow)
+                  MediaImageViewContainer(artworkImage: uiImage, sizeType: .searchRow)
                } else {
-                  MediaImageView(imagePath: media.artworkPath.resizedPath(size: 100), sizeType: .searchRow)
+                  MediaImageViewContainer(imagePath: media.artworkPath.resizedPath(size: 100), sizeType: .searchRow)
                }
                
                VStack(alignment: .leading) {
@@ -29,11 +29,11 @@ struct SearchWrapperRow<Content: View>: View {
                
             default:
                if let uiImage = media.artwork {
-                  MediaImageView(artworkImage: uiImage, sizeType: .artistRow)
+                  MediaImageViewContainer(artworkImage: uiImage, sizeType: .artistRow)
                      .clipShape(Circle())
                   
                } else {
-                  MediaImageView(imagePath: media.artworkPath.resizedPath(size: 100), sizeType: .artistRow)
+                  MediaImageViewContainer(imagePath: media.artworkPath.resizedPath(size: 100), sizeType: .artistRow)
                      .clipShape(Circle())
                }
                

@@ -19,9 +19,9 @@ struct SearchResultsRow: View {
    var body: some View {
       HStack {
          if let uiImage = media.artwork {
-            MediaImageView(artworkImage: uiImage, sizeType: .searchRow, selected: playerModel.isNowPlaying(media: media))
+            MediaImageViewContainer(artworkImage: uiImage, sizeType: .searchRow, selected: playerModel.isNowPlaying(media: media))
          } else {
-            MediaImageView(imagePath: media.artworkPath.resizedPath(size: 100), sizeType: .searchRow, selected: playerModel.isNowPlaying(media: media))
+            MediaImageViewContainer(imagePath: media.artworkPath.resizedPath(size: 100), sizeType: .searchRow, selected: playerModel.isNowPlaying(media: media))
          }
          
          HStack {

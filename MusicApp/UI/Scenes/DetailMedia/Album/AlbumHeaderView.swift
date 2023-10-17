@@ -15,9 +15,9 @@ struct AlbumHeaderView: View {
       VStack {
          VStack {
             if let uiImage = libraryMediaItemModel.media.artwork {
-               MediaImageView(artworkImage: uiImage, sizeType: .albumDetail, shadowProminence: .full)
+               MediaImageViewContainer(artworkImage: uiImage, sizeType: .albumDetail, shadowProminence: .full)
             } else {
-               MediaImageView(imagePath: libraryMediaItemModel.media.artworkPath.resizedPath(size: 800), sizeType: .albumDetail, shadowProminence: .full)
+               MediaImageViewContainer(imagePath: libraryMediaItemModel.media.artworkPath.resizedPath(size: 800), sizeType: .albumDetail, shadowProminence: .full)
             }
             
             albumDetails.padding(.top, 6)

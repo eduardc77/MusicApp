@@ -106,7 +106,7 @@ private extension ArtistDetailView {
                coordinateSpace: scrollSpace,
                height: Metric.mediaPreviewHeaderHeight
             ) {
-               MediaImageView(imagePath: recentAlbum.artworkPath.resizedPath(size: Int(Metric.mediaPreviewHeaderHeight)))
+               MediaImageViewContainer(imagePath: recentAlbum.artworkPath.resizedPath(size: Int(Metric.mediaPreviewHeaderHeight)))
             }
             Rectangle()
                .fill(.linearGradient(colors: (0...5).map { Color.black.opacity(Double($0) * 0.1 - (progress / 2)) }, startPoint: .top, endPoint: .bottom))
