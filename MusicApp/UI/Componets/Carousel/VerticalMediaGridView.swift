@@ -9,9 +9,7 @@ import SwiftUI
 import MediaPlayer
 
 struct VerticalMediaGridView: View {
-   @EnvironmentObject private var playerModel: PlayerModel
    @State var mediaItems = [Media]()
-   
    var title: String
    var imageSize: SizeType
    var topPadding: CGFloat = 8
@@ -62,8 +60,6 @@ struct VerticalMediaGridView: View {
          }
          .padding(.top, topPadding)
          .padding(.horizontal)
-         
-         if playerModel.showPlayerView, !playerModel.expand { Spacer(minLength: Metric.playerHeight) }
       }
       .scrollDisabled(scrollDisabled)
    }

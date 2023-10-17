@@ -13,7 +13,6 @@ struct HorizontalMediaGridView: View {
       case paging
       case viewAligned
    }
-  
 
    @EnvironmentObject private var playerModel: PlayerModel
    @State var mediaItems: [Media]
