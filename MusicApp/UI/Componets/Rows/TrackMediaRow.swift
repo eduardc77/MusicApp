@@ -21,9 +21,9 @@ struct TrackMediaRow: View {
          HStack(spacing: 10) {
             Group {
                if let uiImage = media.artwork {
-                  MediaImageViewContainer(artworkImage: uiImage, sizeType: sizeType, selected: playerModel.isNowPlaying(media: media))
+                  MediaImageView(artworkImage: uiImage, sizeType: sizeType, selected: playerModel.isNowPlaying(media: media))
                } else {
-                  MediaImageViewContainer(imagePath: media.artworkPath.resizedPath(size: 160), sizeType: sizeType, selected: playerModel.isNowPlaying(media: media))
+                  MediaImageView(imagePath: media.artworkPath.resizedPath(size: 160), sizeType: sizeType, selected: playerModel.isNowPlaying(media: media))
                }
             }
             .scaleEffect(0.88).offset(x: -4)

@@ -37,12 +37,10 @@ struct AlbumDetailView: View {
          }
          .navigationBarTitleDisplayMode(.inline)
       }
-      
       .toolbar {
-         HStack(spacing: 5) {
+         ToolbarItemGroup(placement: .topBarTrailing) {
             ToolbarButton(title: "Download", iconName: "arrow.down") {}
-            
-            MenuButton(circled: true, backgroundColor: .secondaryButtonBackgroundColor)
+            MenuButton(circled: true, font: .title2, backgroundColor: .secondaryButtonBackgroundColor)
          }
       }
    }

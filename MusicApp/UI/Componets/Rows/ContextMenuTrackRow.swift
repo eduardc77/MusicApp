@@ -14,9 +14,9 @@ struct ContextMenuTrackRow: View {
    var body: some View {
       HStack(spacing: 16) {
          if let uiImage = media.artwork {
-            MediaImageViewContainer(artworkImage: uiImage, sizeType: .artistFeatureAlbumItem)
+            MediaImageView(artworkImage: uiImage, sizeType: .artistFeatureAlbumItem)
          } else {
-            MediaImageViewContainer(imagePath: media.artworkPath.resizedPath(size: 260), sizeType: .artistFeatureAlbumItem)
+            MediaImageView(imagePath: media.artworkPath.resizedPath(size: 260), sizeType: .artistFeatureAlbumItem)
          }
          
          VStack(alignment: .leading) {

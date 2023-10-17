@@ -9,6 +9,7 @@ import SwiftUI
 import MediaPlayer
 
 struct LibraryView: View {
+   @EnvironmentObject private var playerModel: PlayerModel
    @StateObject private var libraryModel = LibraryModel()
    @Binding var tabSelection: Tab
    @State var editMode: EditMode = .inactive
@@ -26,6 +27,8 @@ struct LibraryView: View {
                      if !editMode.isEditing {
                         VerticalMediaGridView(mediaItems: libraryModel.recentlyAdded, title: "Recently Added", imageSize: .albumCarouselItem, scrollDisabled: false)
                      }
+                     
+                     if playerModel.showPlayerView, !playerModel.expand { Spacer(minLength: Metric.playerHeight) }
                   }
                   .navigationTitle("Library")
                   .toolbar { EditButton() }

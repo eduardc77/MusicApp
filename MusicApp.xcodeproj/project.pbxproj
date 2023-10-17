@@ -18,7 +18,6 @@
 		885CBADE2ADC810F007078A2 /* UIScreen+displayCornerRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885CBADD2ADC810F007078A2 /* UIScreen+displayCornerRadius.swift */; };
 		885CBAE12ADC8183007078A2 /* ObservableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885CBAE02ADC8183007078A2 /* ObservableScrollView.swift */; };
 		886BC7192A75F57200CBA71F /* AirplayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886BC7182A75F57200CBA71F /* AirplayButton.swift */; };
-		88C08AD52ADE0DB800C9D442 /* MediaImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C08AD42ADE0DB800C9D442 /* MediaImageView.swift */; };
 		DD2A899728B67B9E008D5D96 /* UINavigationController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2A899628B67B9E008D5D96 /* UINavigationController+Extension.swift */; };
 		EA0054B9297081A000400F51 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0054B8297081A000400F51 /* MenuButton.swift */; };
 		EA0054BB297095FC00400F51 /* ToolbarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0054BA297095FC00400F51 /* ToolbarButton.swift */; };
@@ -88,7 +87,6 @@
 		EAD152FB280D56A8005FD971 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD152FA280D56A8005FD971 /* ContentView.swift */; };
 		EAD152FD280D56A8005FD971 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EAD152FC280D56A8005FD971 /* Assets.xcassets */; };
 		EAD15300280D56A9005FD971 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EAD152FF280D56A9005FD971 /* Preview Assets.xcassets */; };
-		EAD15305280D56A9005FD971 /* MusicApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EAD15303280D56A9005FD971 /* MusicApp.xcdatamodeld */; };
 		EAD1530D280D579D005FD971 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD1530C280D579D005FD971 /* TabBar.swift */; };
 		EAD15311280D57FF005FD971 /* ItunesAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD15310280D57FF005FD971 /* ItunesAPIResponse.swift */; };
 		EAD15313280D581B005FD971 /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD15312280D581B005FD971 /* Media.swift */; };
@@ -97,7 +95,7 @@
 		EAD15322280D5A84005FD971 /* SearchCategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD15321280D5A84005FD971 /* SearchCategoryModel.swift */; };
 		EAD15327280D5B16005FD971 /* HorizontalMediaGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD15326280D5B16005FD971 /* HorizontalMediaGridView.swift */; };
 		EAD15329280D5B22005FD971 /* VerticalMediaGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD15328280D5B22005FD971 /* VerticalMediaGridView.swift */; };
-		EAD1532D280D5B39005FD971 /* MediaImageViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD1532C280D5B39005FD971 /* MediaImageViewContainer.swift */; };
+		EAD1532D280D5B39005FD971 /* MediaImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD1532C280D5B39005FD971 /* MediaImageView.swift */; };
 		EAD15331280D5BA9005FD971 /* TimeSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD15330280D5BA9005FD971 /* TimeSliderView.swift */; };
 		EAD15333280D5BBA005FD971 /* PlayerControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD15332280D5BBA005FD971 /* PlayerControls.swift */; };
 		EAD15335280D5BC3005FD971 /* VolumeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD15334280D5BC3005FD971 /* VolumeView.swift */; };
@@ -113,9 +111,6 @@
 		EAD15356280D5E09005FD971 /* SearchListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD15355280D5E09005FD971 /* SearchListView.swift */; };
 		EAD15358280D5E19005FD971 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD15357280D5E19005FD971 /* SearchViewModel.swift */; };
 		EAD1535A280D5E8B005FD971 /* LibraryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD15359280D5E8B005FD971 /* LibraryListView.swift */; };
-		EAD1535D280D6252005FD971 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD1535C280D6252005FD971 /* CoreDataManager.swift */; };
-		EAD1535F280D626E005FD971 /* FavoriteMedia+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD1535E280D626E005FD971 /* FavoriteMedia+CoreDataClass.swift */; };
-		EAD15361280D6280005FD971 /* FavoriteMedia+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD15360280D6280005FD971 /* FavoriteMedia+CoreDataProperties.swift */; };
 		EAD15364280D636F005FD971 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD15363280D636F005FD971 /* NetworkError.swift */; };
 		EAD15366280D6379005FD971 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD15365280D6379005FD971 /* NetworkService.swift */; };
 		EAD15368280D6386005FD971 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD15367280D6386005FD971 /* Endpoint.swift */; };
@@ -140,7 +135,6 @@
 		885CBADD2ADC810F007078A2 /* UIScreen+displayCornerRadius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+displayCornerRadius.swift"; sourceTree = "<group>"; };
 		885CBAE02ADC8183007078A2 /* ObservableScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableScrollView.swift; sourceTree = "<group>"; };
 		886BC7182A75F57200CBA71F /* AirplayButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirplayButton.swift; sourceTree = "<group>"; };
-		88C08AD42ADE0DB800C9D442 /* MediaImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaImageView.swift; sourceTree = "<group>"; };
 		DD2A899628B67B9E008D5D96 /* UINavigationController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extension.swift"; sourceTree = "<group>"; };
 		EA0054B8297081A000400F51 /* MenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButton.swift; sourceTree = "<group>"; };
 		EA0054BA297095FC00400F51 /* ToolbarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarButton.swift; sourceTree = "<group>"; };
@@ -211,7 +205,6 @@
 		EAD152FA280D56A8005FD971 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		EAD152FC280D56A8005FD971 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EAD152FF280D56A9005FD971 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		EAD15304280D56A9005FD971 /* MusicApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MusicApp.xcdatamodel; sourceTree = "<group>"; };
 		EAD1530C280D579D005FD971 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		EAD15310280D57FF005FD971 /* ItunesAPIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItunesAPIResponse.swift; sourceTree = "<group>"; };
 		EAD15312280D581B005FD971 /* Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
@@ -220,7 +213,7 @@
 		EAD15321280D5A84005FD971 /* SearchCategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCategoryModel.swift; sourceTree = "<group>"; };
 		EAD15326280D5B16005FD971 /* HorizontalMediaGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalMediaGridView.swift; sourceTree = "<group>"; };
 		EAD15328280D5B22005FD971 /* VerticalMediaGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalMediaGridView.swift; sourceTree = "<group>"; };
-		EAD1532C280D5B39005FD971 /* MediaImageViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaImageViewContainer.swift; sourceTree = "<group>"; };
+		EAD1532C280D5B39005FD971 /* MediaImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaImageView.swift; sourceTree = "<group>"; };
 		EAD15330280D5BA9005FD971 /* TimeSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSliderView.swift; sourceTree = "<group>"; };
 		EAD15332280D5BBA005FD971 /* PlayerControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerControls.swift; sourceTree = "<group>"; };
 		EAD15334280D5BC3005FD971 /* VolumeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeView.swift; sourceTree = "<group>"; };
@@ -236,9 +229,6 @@
 		EAD15355280D5E09005FD971 /* SearchListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchListView.swift; sourceTree = "<group>"; };
 		EAD15357280D5E19005FD971 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		EAD15359280D5E8B005FD971 /* LibraryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryListView.swift; sourceTree = "<group>"; };
-		EAD1535C280D6252005FD971 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
-		EAD1535E280D626E005FD971 /* FavoriteMedia+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavoriteMedia+CoreDataClass.swift"; sourceTree = "<group>"; };
-		EAD15360280D6280005FD971 /* FavoriteMedia+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavoriteMedia+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		EAD15363280D636F005FD971 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		EAD15365280D6379005FD971 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		EAD15367280D6386005FD971 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
@@ -419,8 +409,7 @@
 			children = (
 				EAACA3D3296A5777002C8C56 /* AsyncImage.swift */,
 				EAACA3D5296A5781002C8C56 /* DefaultImage.swift */,
-				EAD1532C280D5B39005FD971 /* MediaImageViewContainer.swift */,
-				88C08AD42ADE0DB800C9D442 /* MediaImageView.swift */,
+				EAD1532C280D5B39005FD971 /* MediaImageView.swift */,
 			);
 			path = MediaImageView;
 			sourceTree = "<group>";
@@ -552,7 +541,6 @@
 				EAD1536F280D63EB005FD971 /* Extension */,
 				EA734CBF280F1C5B00FCD2EE /* Utilities */,
 				EAD1531A280D589D005FD971 /* Mocks */,
-				EAD1535B280D6144005FD971 /* CoreData */,
 				EA17316628B4962800A09AAC /* Resources */,
 				EAD152FE280D56A9005FD971 /* Preview Content */,
 			);
@@ -708,17 +696,6 @@
 			path = Search;
 			sourceTree = "<group>";
 		};
-		EAD1535B280D6144005FD971 /* CoreData */ = {
-			isa = PBXGroup;
-			children = (
-				EAD15303280D56A9005FD971 /* MusicApp.xcdatamodeld */,
-				EAD1535C280D6252005FD971 /* CoreDataManager.swift */,
-				EAD1535E280D626E005FD971 /* FavoriteMedia+CoreDataClass.swift */,
-				EAD15360280D6280005FD971 /* FavoriteMedia+CoreDataProperties.swift */,
-			);
-			path = CoreData;
-			sourceTree = "<group>";
-		};
 		EAD15362280D635F005FD971 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
@@ -818,11 +795,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EAD1535F280D626E005FD971 /* FavoriteMedia+CoreDataClass.swift in Sources */,
 				EAD15348280D5D71005FD971 /* LibraryView.swift in Sources */,
 				EA97884B281B1FDD0032C3AD /* AccountNavigationItem.swift in Sources */,
 				EAD15358280D5E19005FD971 /* SearchViewModel.swift in Sources */,
-				EAD15361280D6280005FD971 /* FavoriteMedia+CoreDataProperties.swift in Sources */,
 				EAD15337280D5BDB005FD971 /* BottomToolbar.swift in Sources */,
 				EA23ECF528158A750040BB58 /* AlbumMediaRowItem.swift in Sources */,
 				EA0054B9297081A000400F51 /* MenuButton.swift in Sources */,
@@ -884,12 +859,11 @@
 				880FB06C2AD4F84F007F3CAA /* VIew+IfCondition.swift in Sources */,
 				EACA1C3C2819B29800CD7E4F /* View+HideKeyboard.swift in Sources */,
 				EAD15356280D5E09005FD971 /* SearchListView.swift in Sources */,
-				88C08AD52ADE0DB800C9D442 /* MediaImageView.swift in Sources */,
 				885CBADE2ADC810F007078A2 /* UIScreen+displayCornerRadius.swift in Sources */,
 				EAACA3D6296A5781002C8C56 /* DefaultImage.swift in Sources */,
 				EA3FA3532817697200F84B09 /* Color.swift in Sources */,
 				EA978849281B18900032C3AD /* Account.swift in Sources */,
-				EAD1532D280D5B39005FD971 /* MediaImageViewContainer.swift in Sources */,
+				EAD1532D280D5B39005FD971 /* MediaImageView.swift in Sources */,
 				EAAF02EB29644F05002414B8 /* InfiniteCarousel.swift in Sources */,
 				EA6744EC2821EA6300AC2010 /* Animation.swift in Sources */,
 				EAD01E872823122500B01F07 /* AlbumHeaderView.swift in Sources */,
@@ -901,9 +875,7 @@
 				EAC53D7E2814BA1B00785395 /* LibraryModel.swift in Sources */,
 				EAB8BE262836F9A20097EDFB /* AlbumTrackList.swift in Sources */,
 				EAD15333280D5BBA005FD971 /* PlayerControls.swift in Sources */,
-				EAD1535D280D6252005FD971 /* CoreDataManager.swift in Sources */,
 				DD2A899728B67B9E008D5D96 /* UINavigationController+Extension.swift in Sources */,
-				EAD15305280D56A9005FD971 /* MusicApp.xcdatamodeld in Sources */,
 				EAD15341280D5CDB005FD971 /* BrowseView.swift in Sources */,
 				EAE825D028382313008F59F2 /* InfiniteScrollText.swift in Sources */,
 				88154D3F2ADACF1900843088 /* RequestAuthorizationView.swift in Sources */,
@@ -1153,19 +1125,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		EAD15303280D56A9005FD971 /* MusicApp.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				EAD15304280D56A9005FD971 /* MusicApp.xcdatamodel */,
-			);
-			currentVersion = EAD15304280D56A9005FD971 /* MusicApp.xcdatamodel */;
-			path = MusicApp.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = EAD152ED280D56A7005FD971 /* Project object */;
 }

@@ -57,18 +57,13 @@ struct PlayerView: View {
       .gesture(DragGesture().onEnded(onEnded).onChanged(onChanged))
       
       .onReceive(NotificationCenter.default.publisher(for: .MPMusicPlayerControllerPlaybackStateDidChange)) { _ in
-         DispatchQueue.main.async {
-            model.playbackState = PlayerModel.audioPlayer.playbackState
-         }
+         model.playbackState = PlayerModel.audioPlayer.playbackState
       }
       .onReceive(NotificationCenter.default.publisher(for: .MPMusicPlayerControllerNowPlayingItemDidChange)) { _ in
          guard let mediaItem = PlayerModel.audioPlayer.nowPlayingItem else { return }
          DispatchQueue.main.async {
             model.setNowPlaying(media: mediaItem)
          }
-      }
-      .onDisappear {
-         NotificationCenter.default.removeObserver(self)
       }
    }
 }
@@ -116,7 +111,7 @@ private extension PlayerView {
    @ViewBuilder
    var mediaView: some View {
       if PlayerModel.playerType == .audio {
-         MediaImageViewContainer(imagePath: model.nowPlayingItem.artworkPath.resizedPath(size: 600), artworkImage: model.nowPlayingItem.artwork, sizeType: expand ? .largePlayerArtwork : .smallPlayerAudio, shadowProminence: expand ? .full : .none, visibleSide: $visibleSide)
+         MediaImageView(imagePath: model.nowPlayingItem.artworkPath.resizedPath(size: 600), artworkImage: model.nowPlayingItem.artwork, sizeType: expand ? .largePlayerArtwork : .smallPlayerAudio, shadowProminence: expand ? .full : .none, visibleSide: $visibleSide)
             .scaleEffect((model.playbackState == .playing && expand) ? 1.33 : 1)
             .animation(expand ? .scaleCard : .none, value: model.playbackState)
          

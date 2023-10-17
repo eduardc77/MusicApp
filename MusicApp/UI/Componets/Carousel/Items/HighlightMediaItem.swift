@@ -30,9 +30,9 @@ struct HighlightMediaItem: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             
             if let uiImage = media.artwork {
-               MediaImageViewContainer(artworkImage: uiImage, sizeType: .highlightCarouselItem)
+               MediaImageView(artworkImage: uiImage, sizeType: .highlightCarouselItem)
             } else {
-               MediaImageViewContainer(imagePath: media.artworkPath.resizedPath(size: 800), sizeType: .highlightCarouselItem)
+               MediaImageView(imagePath: media.artworkPath.resizedPath(size: 800), sizeType: .highlightCarouselItem)
             }
          }
       }
