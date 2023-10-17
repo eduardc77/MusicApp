@@ -137,9 +137,8 @@ private extension SearchViewModel {
    
    var chainSearch: Void {
       $searchTerm
-         .debounce(for: selectedMediaType == .topResult ? .seconds(0.4) : .seconds(0.6), scheduler: RunLoop.main)
+         .debounce(for: .seconds(0.4), scheduler: RunLoop.main)
          .filter(validSearching)
-         .removeDuplicates()
          .flatMap(search)
          .map { $0.map(Media.init) }
          .replaceError(with: .init())

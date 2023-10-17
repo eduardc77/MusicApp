@@ -66,7 +66,7 @@ struct MediaPreviewHeader_Previews: PreviewProvider {
                coordinateSpace: scrollSpace,
                height: Metric.mediaPreviewHeaderHeight
             ) {
-               MediaImageView(imagePath: musicPlaylists2.first?.artworkPath ?? "".resizedPath(size: Int(Metric.mediaPreviewHeaderHeight)))
+               MediaImageViewContainer(imagePath: musicPlaylists2.first?.artworkPath ?? "".resizedPath(size: Int(Metric.mediaPreviewHeaderHeight)))
             }
             
             Rectangle()

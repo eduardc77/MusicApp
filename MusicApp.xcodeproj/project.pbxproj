@@ -18,6 +18,7 @@
 		885CBADE2ADC810F007078A2 /* UIScreen+displayCornerRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885CBADD2ADC810F007078A2 /* UIScreen+displayCornerRadius.swift */; };
 		885CBAE12ADC8183007078A2 /* ObservableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885CBAE02ADC8183007078A2 /* ObservableScrollView.swift */; };
 		886BC7192A75F57200CBA71F /* AirplayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886BC7182A75F57200CBA71F /* AirplayButton.swift */; };
+		88C08AD52ADE0DB800C9D442 /* MediaImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C08AD42ADE0DB800C9D442 /* MediaImageView.swift */; };
 		DD2A899728B67B9E008D5D96 /* UINavigationController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2A899628B67B9E008D5D96 /* UINavigationController+Extension.swift */; };
 		EA0054B9297081A000400F51 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0054B8297081A000400F51 /* MenuButton.swift */; };
 		EA0054BB297095FC00400F51 /* ToolbarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0054BA297095FC00400F51 /* ToolbarButton.swift */; };
@@ -96,7 +97,7 @@
 		EAD15322280D5A84005FD971 /* SearchCategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD15321280D5A84005FD971 /* SearchCategoryModel.swift */; };
 		EAD15327280D5B16005FD971 /* HorizontalMediaGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD15326280D5B16005FD971 /* HorizontalMediaGridView.swift */; };
 		EAD15329280D5B22005FD971 /* VerticalMediaGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD15328280D5B22005FD971 /* VerticalMediaGridView.swift */; };
-		EAD1532D280D5B39005FD971 /* MediaImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD1532C280D5B39005FD971 /* MediaImageView.swift */; };
+		EAD1532D280D5B39005FD971 /* MediaImageViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD1532C280D5B39005FD971 /* MediaImageViewContainer.swift */; };
 		EAD15331280D5BA9005FD971 /* TimeSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD15330280D5BA9005FD971 /* TimeSliderView.swift */; };
 		EAD15333280D5BBA005FD971 /* PlayerControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD15332280D5BBA005FD971 /* PlayerControls.swift */; };
 		EAD15335280D5BC3005FD971 /* VolumeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD15334280D5BC3005FD971 /* VolumeView.swift */; };
@@ -139,6 +140,7 @@
 		885CBADD2ADC810F007078A2 /* UIScreen+displayCornerRadius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+displayCornerRadius.swift"; sourceTree = "<group>"; };
 		885CBAE02ADC8183007078A2 /* ObservableScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableScrollView.swift; sourceTree = "<group>"; };
 		886BC7182A75F57200CBA71F /* AirplayButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirplayButton.swift; sourceTree = "<group>"; };
+		88C08AD42ADE0DB800C9D442 /* MediaImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaImageView.swift; sourceTree = "<group>"; };
 		DD2A899628B67B9E008D5D96 /* UINavigationController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extension.swift"; sourceTree = "<group>"; };
 		EA0054B8297081A000400F51 /* MenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButton.swift; sourceTree = "<group>"; };
 		EA0054BA297095FC00400F51 /* ToolbarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarButton.swift; sourceTree = "<group>"; };
@@ -218,7 +220,7 @@
 		EAD15321280D5A84005FD971 /* SearchCategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCategoryModel.swift; sourceTree = "<group>"; };
 		EAD15326280D5B16005FD971 /* HorizontalMediaGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalMediaGridView.swift; sourceTree = "<group>"; };
 		EAD15328280D5B22005FD971 /* VerticalMediaGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalMediaGridView.swift; sourceTree = "<group>"; };
-		EAD1532C280D5B39005FD971 /* MediaImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaImageView.swift; sourceTree = "<group>"; };
+		EAD1532C280D5B39005FD971 /* MediaImageViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaImageViewContainer.swift; sourceTree = "<group>"; };
 		EAD15330280D5BA9005FD971 /* TimeSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSliderView.swift; sourceTree = "<group>"; };
 		EAD15332280D5BBA005FD971 /* PlayerControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerControls.swift; sourceTree = "<group>"; };
 		EAD15334280D5BC3005FD971 /* VolumeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeView.swift; sourceTree = "<group>"; };
@@ -415,9 +417,10 @@
 		EAA266032829AC1A0035D9E1 /* MediaImageView */ = {
 			isa = PBXGroup;
 			children = (
-				EAD1532C280D5B39005FD971 /* MediaImageView.swift */,
 				EAACA3D3296A5777002C8C56 /* AsyncImage.swift */,
 				EAACA3D5296A5781002C8C56 /* DefaultImage.swift */,
+				EAD1532C280D5B39005FD971 /* MediaImageViewContainer.swift */,
+				88C08AD42ADE0DB800C9D442 /* MediaImageView.swift */,
 			);
 			path = MediaImageView;
 			sourceTree = "<group>";
@@ -881,11 +884,12 @@
 				880FB06C2AD4F84F007F3CAA /* VIew+IfCondition.swift in Sources */,
 				EACA1C3C2819B29800CD7E4F /* View+HideKeyboard.swift in Sources */,
 				EAD15356280D5E09005FD971 /* SearchListView.swift in Sources */,
+				88C08AD52ADE0DB800C9D442 /* MediaImageView.swift in Sources */,
 				885CBADE2ADC810F007078A2 /* UIScreen+displayCornerRadius.swift in Sources */,
 				EAACA3D6296A5781002C8C56 /* DefaultImage.swift in Sources */,
 				EA3FA3532817697200F84B09 /* Color.swift in Sources */,
 				EA978849281B18900032C3AD /* Account.swift in Sources */,
-				EAD1532D280D5B39005FD971 /* MediaImageView.swift in Sources */,
+				EAD1532D280D5B39005FD971 /* MediaImageViewContainer.swift in Sources */,
 				EAAF02EB29644F05002414B8 /* InfiniteCarousel.swift in Sources */,
 				EA6744EC2821EA6300AC2010 /* Animation.swift in Sources */,
 				EAD01E872823122500B01F07 /* AlbumHeaderView.swift in Sources */,

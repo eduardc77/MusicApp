@@ -118,7 +118,6 @@ final class PlayerModel: ObservableObject {
       if PlayerModel.playerType == .video {
          PlayerModel.playerType = .audio
          PlayerModel.videoPlayer.toggleIsPlaying()
-         PlayerModel.videoPlayer.player.replaceCurrentItem(with: nil)
       }
       hasRecentMedia = true
    }
@@ -131,7 +130,6 @@ final class PlayerModel: ObservableObject {
          expand = true
       }
       showPlayerView = true
-      PlayerModel.videoPlayer.player.replaceCurrentItem(with: nil)
       PlayerModel.videoPlayer.player.replaceCurrentItem(with: AVPlayerItem(asset: AVAsset(url: videoAssetUrl)))
       
    }
@@ -144,7 +142,6 @@ final class PlayerModel: ObservableObject {
    
    func play(_ media: Media, videoAssetUrl: URL? = nil) {
       if media.mediaType != .musicVideo {
-         PlayerModel.videoPlayer.player.replaceCurrentItem(with: nil)
          PlayerModel.playerType = .audio
          PlayerModel.audioPlayer.stop()
          PlayerModel.audioPlayer.setQueue(with: [media.id])
