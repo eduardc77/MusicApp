@@ -13,8 +13,8 @@ struct ArtistDetailView: View {
    @StateObject private var artistViewModel: ArtistViewModel
    private var artistDetailSections: [ArtistDetailSection] = ArtistDetailSection.allCases
    @State var isFavorite: Bool = false
-   @State var scrollOffset = CGFloat.zero
-   @State var scrollSafeAreaInset = CGFloat.zero
+   @State var scrollOffset: CGFloat = .zero
+   @State var scrollSafeAreaInset: CGFloat = .zero
    @Namespace var scrollSpace
    let media: Media
    

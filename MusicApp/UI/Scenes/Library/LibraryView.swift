@@ -16,19 +16,17 @@ struct LibraryView: View {
    
    var body: some View {
       NavigationStack {
-         if libraryModel.refreshingLibrary {
+         if libraryModel.loadingLibrary {
             LoadingView()
          } else {
             if libraryModel.status == .permitted {
-               if !libraryModel.emptyLibrary, !libraryModel.refreshingLibrary {
+               if !libraryModel.emptyLibrary, !libraryModel.loadingLibrary {
                   ScrollView {
-                     LibraryListView(libraryModel: libraryModel, editMode: $editMode)
+                     LibraryListView(libraryModel: libraryModel, editMode: $editMode, tabSelection: $tabSelection)
                      
                      if !editMode.isEditing {
                         VerticalMediaGridView(mediaItems: libraryModel.recentlyAdded, title: "Recently Added", imageSize: .albumCarouselItem, scrollDisabled: false)
                      }
-                     
-                     if playerModel.showPlayerView, !playerModel.expand { Spacer(minLength: Metric.playerHeight) }
                   }
                   .navigationTitle("Library")
                   .toolbar { EditButton() }
@@ -50,7 +48,7 @@ struct LibraryView: View {
 struct LibraryView_Previews: PreviewProvider {
    struct LibraryViewExample: View {
       @State var editMode: EditMode = .inactive
-      @State var tabSelection: Tab = .library
+      @State var tabSelection: Tab = .browse
       
       var body: some View {
          VStack {

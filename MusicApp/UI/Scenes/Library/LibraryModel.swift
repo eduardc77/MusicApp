@@ -21,39 +21,16 @@ final class LibraryModel: ObservableObject {
    // MARK: - Properties
    
    @Published private(set) var status: AuthorizationStatus = .notYetDetermined
-   @Published private(set) var refreshingLibrary: Bool = false
-   @Published private(set) var propertyListEncoder = PropertyListEncoder()
-   @Published private(set) var propertyListDecoder = PropertyListDecoder()
+   @Published private(set) var loadingLibrary: Bool = false
+   private(set) var propertyListEncoder = PropertyListEncoder()
+   private(set) var propertyListDecoder = PropertyListDecoder()
    
    // Library Contents
-   @Published private(set) var playlists = [Media]()
-   @Published private(set) var artists = [Media]()
-   @Published private(set) var albums = [Media]()
-   @Published private(set) var songs = [Media]()
-   @Published private(set) var madeForYou = [Media]()
-   @Published private(set) var tvAndMovies = [Media]()
-   @Published private(set) var musicVideos = [Media]()
-   @Published private(set) var genres = [Media]()
-   @Published private(set) var compilations = [Media]()
-   @Published private(set) var composers = [Media]()
-   @Published private(set) var downloaded = [Media]()
-   @Published private(set) var homeSharing = [Media]()
-   @Published private(set) var recentlyAdded = [Media]()
+   var libraryContent = [LibrarySection: [Media]]()
+   var recentlyAdded = [Media]()
    
    var emptyLibrary: Bool {
-      playlists.isEmpty &&
-      artists.isEmpty &&
-      albums.isEmpty &&
-      songs.isEmpty &&
-      madeForYou.isEmpty &&
-      tvAndMovies.isEmpty &&
-      musicVideos.isEmpty &&
-      genres.isEmpty &&
-      compilations.isEmpty &&
-      composers.isEmpty &&
-      downloaded.isEmpty &&
-      homeSharing.isEmpty &&
-      recentlyAdded.isEmpty
+      libraryContent.isEmpty
    }
    
    // MARK: - Initialization
@@ -62,24 +39,27 @@ final class LibraryModel: ObservableObject {
       checkForLibraryAuthorization()
    }
    
-   deinit {
-      print("deinit LibraryViewModel")
-   }
-   
    // MARK: - Public Methods
    
-   func refreshAllLibrary() {
-      refreshingLibrary = true
-      guard status == .permitted else {
-         refreshingLibrary = false
-         return
-      }
+   func loadLibraryContent() {
+      guard status == .permitted else { return }
       
+      loadingLibrary = true
       DispatchQueue.main.async {
          LibrarySection.allCases.forEach { section in
-            self.refreshLibrary(for: section)
+            self.loadLibrary(for: .albums)
          }
-         self.refreshingLibrary = false
+         self.loadingLibrary = false
+      }
+   }
+   
+   func loadLibrary(for librarySection: LibrarySection, recentlyAddedOnly: Bool = false) {
+      guard status == .permitted else { return }
+      
+      loadingLibrary = true
+      DispatchQueue.main.async {
+         self.libraryContent[librarySection] = self.loadMedia(forSection: librarySection, recentlyAddedOnly: recentlyAddedOnly)
+         self.loadingLibrary = false
       }
    }
 }
@@ -91,54 +71,25 @@ private extension LibraryModel {
    func checkForLibraryAuthorization() {
       switch MPMediaLibrary.authorizationStatus() {
          case .authorized:
-            self.status = .permitted
-            self.refreshAllLibrary()
+            status = .permitted
+            loadLibrary(for: .albums, recentlyAddedOnly: true)
          case .notDetermined:
             MPMediaLibrary.requestAuthorization() { status in
                DispatchQueue.main.async {
                   if status == .authorized {
                      self.status = .permitted
-                     self.refreshAllLibrary()
+                     self.loadLibrary(for: .albums, recentlyAddedOnly: true)
                   } else {
                      self.status = .notPermitted
                   }
                }
             }
          default:
-            self.status = .notPermitted
+            status = .notPermitted
       }
    }
    
-   func refreshLibrary(for librarySection: LibrarySection) {
-      switch librarySection {
-         case .albums:
-            albums = loadMedia(forSection: .albums)
-         case .playlists:
-            playlists = loadMedia(forSection: .playlists)
-         case .artists:
-            artists = loadMedia(forSection: .artists)
-         case .songs:
-            songs = loadMedia(forSection: .songs)
-         case .madeForYou:
-            madeForYou = loadMedia(forSection: .madeForYou)
-         case .tvAndMovies:
-            tvAndMovies = loadMedia(forSection: .tvAndMovies)
-         case .musicVideos:
-            musicVideos = loadMedia(forSection: .musicVideos)
-         case .genres:
-            genres = loadMedia(forSection: .genres)
-         case .compilations:
-            compilations = loadMedia(forSection: .compilations)
-         case .composers:
-            composers = loadMedia(forSection: .composers)
-         case .downloaded:
-            downloaded = loadMedia(forSection: .downloaded)
-         case .homeSharing:
-            homeSharing = loadMedia(forSection: .homeSharing)
-      }
-   }
-   
-   func loadMedia(forSection librarySection: LibrarySection) -> [Media] {
+   func loadMedia(forSection librarySection: LibrarySection, recentlyAddedOnly: Bool = false) -> [Media] {
       let collections: [MPMediaItemCollection]?
       
       switch librarySection {
@@ -187,11 +138,15 @@ private extension LibraryModel {
             
             let newLibraryMedia = Media(mediaResponse: MediaResponse(id: libraryMedia.playbackStoreID, artistId: 0, collectionId: 0, trackId: 0, wrapperType: wrapperType.rawValue, kind: mediaKind.value, name: libraryMedia.title, artistName: libraryMedia.albumArtist, collectionName: libraryMedia.albumTitle, trackName: libraryMedia.title, collectionCensoredName: libraryMedia.albumTitle, artistViewUrl: nil, collectionViewUrl: nil, trackViewUrl: nil, previewUrl: nil, artworkUrl100: nil, collectionPrice: nil, collectionHdPrice: 0, trackPrice: 0, collectionExplicitness: nil, trackExplicitness: libraryMedia.isExplicitItem ? "explicit" : "notExplicit", discCount: 0, discNumber: nil, trackCount: libraryMedia.albumTrackCount, trackNumber: libraryMedia.albumTrackNumber, trackTimeMillis: libraryMedia.playbackDuration, country: nil, currency: nil, primaryGenreName: libraryMedia.genre, description: nil, longDescription: nil, releaseDate: libraryMedia.releaseDate?.ISO8601Format().description, contentAdvisoryRating: nil, trackRentalPrice: 0, artwork: libraryMedia.artwork?.image(at: CGSize(width: 1024, height: 1024)), composer: libraryMedia.composer, isCompilation: libraryMedia.isCompilation, dateAdded: libraryMedia.dateAdded))
             
-            // Set Recently added albums
-            if librarySection == .albums, let oneYearBefore = Calendar.current.date(byAdding: .year, value: -2, to: Date()), libraryMedia.dateAdded >= oneYearBefore {
-               self.recentlyAdded.append(newLibraryMedia)
+            // Set Recently Added Albums
+            if recentlyAddedOnly {
+               if librarySection == .albums, let oneYearBefore = Calendar.current.date(byAdding: .year, value: -2, to: Date()), libraryMedia.dateAdded >= oneYearBefore {
+                  recentlyAdded.append(newLibraryMedia)
+               }
+            } else {
+               // Add New Library Media
+               mediaList.append(newLibraryMedia)
             }
-            mediaList.append(newLibraryMedia)
          }
       }
       return mediaList

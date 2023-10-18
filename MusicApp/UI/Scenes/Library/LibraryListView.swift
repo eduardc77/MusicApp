@@ -10,6 +10,7 @@ import SwiftUI
 struct LibraryListView: View {
    @ObservedObject var libraryModel: LibraryModel
    @Binding var editMode: EditMode
+   @Binding var tabSelection: Tab
    @State var selection = Set<LibrarySection>()
    @State var currentSections = LibrarySection.allCases
    
@@ -19,7 +20,10 @@ struct LibraryListView: View {
       List(selection: $selection) {
          ForEach(currentSections, id: \.self) { section in
             NavigationLink {
-               LibraryListDetailView(libraryModel: libraryModel, section: section)
+               LibraryListDetailView(libraryModel: libraryModel, tabSelection: $tabSelection, section: section)
+                  .onAppear {
+                     libraryModel.loadLibrary(for: section)
+                  }
             } label: {
                Label {
                   Text(section.title)
@@ -86,10 +90,11 @@ struct LibraryListView: View {
 
 struct LibraryListView_Previews: PreviewProvider {
    struct LibraryListViewExample: View {
+      @State var tabSelection: Tab = .browse
       @State var editMode: EditMode = .active
       
       var body: some View {
-         LibraryListView(libraryModel: LibraryModel(), editMode: $editMode)
+         LibraryListView(libraryModel: LibraryModel(), editMode: $editMode, tabSelection: $tabSelection)
             .padding()
       }
    }

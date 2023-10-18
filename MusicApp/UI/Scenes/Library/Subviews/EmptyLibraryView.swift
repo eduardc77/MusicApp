@@ -8,13 +8,14 @@
 import SwiftUI
 
 struct EmptyLibraryView: View {
+   var title: String = "Music"
    @Binding var tabSelection: Tab
    
    var body: some View {
       VStack {
          Spacer()
          
-         Text("Add Music to Your Library")
+         Text("Add \(title) to Your Library")
             .font(.title2).bold()
             .multilineTextAlignment(.center)
             .foregroundStyle(Color.primary)

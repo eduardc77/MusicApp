@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MediaImageView: View {
+   @EnvironmentObject private var playerModel: PlayerModel
    @Binding private var visibleSide: FlipViewSide
    private var selected: Bool = false
    private let imagePath: String?
@@ -16,7 +17,7 @@ struct MediaImageView: View {
    private var cornerRadius: CGFloat
    private var shadowProminence: ShadowProminence
    private var contentMode: ContentMode
-   
+
    init(
       imagePath: String? = nil,
       artworkImage: UIImage? = nil,
@@ -53,9 +54,7 @@ struct MediaImageView: View {
                if selected {
                   ZStack {
                      Color.gray.opacity(0.6)
-                     
-                     NowPlayingEqualizerBars(color: .white)
-                        .frame(width: 16, height: 8)
+                     AudioVisualizerBars(color: .white)
                   }
                }
             }

@@ -12,9 +12,11 @@ struct AlbumTrackList: View {
    @EnvironmentObject private var playerModel: PlayerModel
    @ObservedObject var mediaItemModel: MediaItemModel
    var media: Media
+
+   @State private var animatePlaying: Bool = false
    
    var body: some View {
-      Group {
+      VStack {
          if mediaItemModel.loadingTracks {
             LoadingView()
             
@@ -31,8 +33,7 @@ struct AlbumTrackList: View {
                         HStack {
                            Group {
                               if playerModel.nowPlayingItem.trackName == track.trackName {
-                                 NowPlayingEqualizerBars()
-                                    .frame(width: 16, height: 8)
+                                 AudioVisualizerBars()
                               } else {
                                  Text(track.trackNumber)
                                     .font(.body)
@@ -76,6 +77,10 @@ struct AlbumTrackList: View {
             .padding(.horizontal)
          }
       }
+      .onChange(of: playerModel.playbackState) { oldValue, newValue in
+        
+         animatePlaying = newValue == .playing
+      }
       .task {
          mediaItemModel.fetchTracks(for: media.id)
       }
@@ -88,5 +93,6 @@ struct AlbumTrackList: View {
 struct AlbumTrackList_Previews: PreviewProvider {
    static var previews: some View {
       AlbumTrackList(mediaItemModel: MediaItemModel(), media: musicPlaylists2.first ?? Media())
+         .environmentObject(PlayerModel())
    }
 }
