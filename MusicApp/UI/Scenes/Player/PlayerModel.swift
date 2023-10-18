@@ -18,11 +18,15 @@ final class PlayerModel: ObservableObject {
    
    // MARK: - Audio Player Properties
    
-   @Published var nowPlayingItem: Media = Media()
+   var nowPlayingItem: Media = Media()
    @Published var playbackState: MPMusicPlaybackState = audioPlayer.playbackState
-   @Published var playerOption: PlayerOption = PlayerOption()
-   @Published var progressRate: Int = 0
+   var playerOption: PlayerOption = PlayerOption()
+   var progressRate: Int = 0
    private var musicPlayerPlayingCancellable: AnyCancellable?
+   
+   var isPlaying: Bool {
+      playbackState == .playing
+   }
    
    // MARK: - Video Player Properties
    
@@ -30,10 +34,11 @@ final class PlayerModel: ObservableObject {
    var videoMedia: Bool = false
    
    init() {
-      self.musicPlayerPlayingCancellable = self.$hasRecentMedia.sink { [weak self] in
-         if $0 || self?.playbackState == .playing && self?.showPlayerView == false {
+      self.musicPlayerPlayingCancellable = $hasRecentMedia.sink { [weak self] in
+         guard let self = self else { return }
+         if $0 || self.isPlaying && self.showPlayerView == false {
             DispatchQueue.main.async {
-               self?.showPlayerView = true
+               self.showPlayerView = true
             }
          }
       }

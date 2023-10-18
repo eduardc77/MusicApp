@@ -22,7 +22,7 @@
 		EA0054B9297081A000400F51 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0054B8297081A000400F51 /* MenuButton.swift */; };
 		EA0054BB297095FC00400F51 /* ToolbarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0054BA297095FC00400F51 /* ToolbarButton.swift */; };
 		EA091E91282C925C00C329FD /* UserDefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA091E90282C925C00C329FD /* UserDefaultsKeys.swift */; };
-		EA099EC22821C0090021EA33 /* NowPlayingEqualizerBars.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA099EC12821C0090021EA33 /* NowPlayingEqualizerBars.swift */; };
+		EA099EC22821C0090021EA33 /* AudioVisualizerBars.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA099EC12821C0090021EA33 /* AudioVisualizerBars.swift */; };
 		EA09A28028309ECB00990F55 /* SearchWrapperRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA09A27F28309ECB00990F55 /* SearchWrapperRow.swift */; };
 		EA1BE0CA281DC1DF00A3A7A4 /* LibrarySection.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1BE0C9281DC1DF00A3A7A4 /* LibrarySection.swift */; };
 		EA1BE0CC281DC80900A3A7A4 /* LibraryListDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1BE0CB281DC80900A3A7A4 /* LibraryListDetailView.swift */; };
@@ -120,7 +120,7 @@
 		EAD25821296C719200479449 /* LabeledViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD25820296C719200479449 /* LabeledViewModifier.swift */; };
 		EAE825D028382313008F59F2 /* InfiniteScrollText.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE825CF28382313008F59F2 /* InfiniteScrollText.swift */; };
 		EAE825D228382962008F59F2 /* LargePictureModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE825D128382962008F59F2 /* LargePictureModel.swift */; };
-		EAEEAD8529C5F82A00143969 /* MediaKindSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAEEAD8429C5F82A00143969 /* MediaKindSegmentedControl.swift */; };
+		EAEEAD8529C5F82A00143969 /* MediaTypeSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAEEAD8429C5F82A00143969 /* MediaTypeSegmentedControl.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -139,7 +139,7 @@
 		EA0054B8297081A000400F51 /* MenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButton.swift; sourceTree = "<group>"; };
 		EA0054BA297095FC00400F51 /* ToolbarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarButton.swift; sourceTree = "<group>"; };
 		EA091E90282C925C00C329FD /* UserDefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKeys.swift; sourceTree = "<group>"; };
-		EA099EC12821C0090021EA33 /* NowPlayingEqualizerBars.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingEqualizerBars.swift; sourceTree = "<group>"; };
+		EA099EC12821C0090021EA33 /* AudioVisualizerBars.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioVisualizerBars.swift; sourceTree = "<group>"; };
 		EA09A27F28309ECB00990F55 /* SearchWrapperRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchWrapperRow.swift; sourceTree = "<group>"; };
 		EA1BE0C9281DC1DF00A3A7A4 /* LibrarySection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibrarySection.swift; sourceTree = "<group>"; };
 		EA1BE0CB281DC80900A3A7A4 /* LibraryListDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryListDetailView.swift; sourceTree = "<group>"; };
@@ -238,7 +238,7 @@
 		EAD25820296C719200479449 /* LabeledViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabeledViewModifier.swift; sourceTree = "<group>"; };
 		EAE825CF28382313008F59F2 /* InfiniteScrollText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfiniteScrollText.swift; sourceTree = "<group>"; };
 		EAE825D128382962008F59F2 /* LargePictureModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LargePictureModel.swift; sourceTree = "<group>"; };
-		EAEEAD8429C5F82A00143969 /* MediaKindSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaKindSegmentedControl.swift; sourceTree = "<group>"; };
+		EAEEAD8429C5F82A00143969 /* MediaTypeSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaTypeSegmentedControl.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -376,7 +376,7 @@
 				885CBADF2ADC814C007078A2 /* ScrollViews */,
 				EA59D31328135B4C00D58213 /* BlurView.swift */,
 				EA6CAC8D283998E400193089 /* MediaItemTitle.swift */,
-				EA099EC12821C0090021EA33 /* NowPlayingEqualizerBars.swift */,
+				EA099EC12821C0090021EA33 /* AudioVisualizerBars.swift */,
 				EAD01E9028231AA900B01F07 /* DefaultView.swift */,
 				EAD01E972823372500B01F07 /* FlipView.swift */,
 				EABCBD0A2831463100A04D2E /* LoadingView.swift */,
@@ -488,7 +488,7 @@
 			children = (
 				EAD15355280D5E09005FD971 /* SearchListView.swift */,
 				EAD1534E280D5DB6005FD971 /* CategoryDetailView.swift */,
-				EAEEAD8429C5F82A00143969 /* MediaKindSegmentedControl.swift */,
+				EAEEAD8429C5F82A00143969 /* MediaTypeSegmentedControl.swift */,
 			);
 			path = Subview;
 			sourceTree = "<group>";
@@ -832,7 +832,7 @@
 				EA2216F228359163000A165D /* VideoMediaRow.swift in Sources */,
 				EA59D31428135B4C00D58213 /* BlurView.swift in Sources */,
 				EACA1C402819BCDA00CD7E4F /* MainButton.swift in Sources */,
-				EA099EC22821C0090021EA33 /* NowPlayingEqualizerBars.swift in Sources */,
+				EA099EC22821C0090021EA33 /* AudioVisualizerBars.swift in Sources */,
 				EA23ECF728159A700040BB58 /* HighlightMediaItem.swift in Sources */,
 				EAD01E892823129A00B01F07 /* LibraryAlbumTrackList.swift in Sources */,
 				EA6CB3C9298D96A10058FA97 /* VolumeObserver.swift in Sources */,
@@ -883,7 +883,7 @@
 				EAC53D7728145C7B00785395 /* Enum+Extension.swift in Sources */,
 				EAE825D228382962008F59F2 /* LargePictureModel.swift in Sources */,
 				EAD15373280D640E005FD971 /* Date+DateFormatter.swift in Sources */,
-				EAEEAD8529C5F82A00143969 /* MediaKindSegmentedControl.swift in Sources */,
+				EAEEAD8529C5F82A00143969 /* MediaTypeSegmentedControl.swift in Sources */,
 				EAD01E9A28233CCB00B01F07 /* NavigationLinkList.swift in Sources */,
 				EA3FA34F2817251500F84B09 /* TrackMediaRow.swift in Sources */,
 				EAD1530D280D579D005FD971 /* TabBar.swift in Sources */,

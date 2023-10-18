@@ -1,5 +1,5 @@
 //
-//  MediaKindSegmentedControl.swift
+//  MediaTypeSegmentedControl.swift
 //  MusicApp
 //
 //  Created by Eduard Caziuc on 18.03.2023.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct MediaKindSegmentedControl: View {
+struct MediaTypeSegmentedControl: View {
    @ObservedObject var searchModel: SearchViewModel
    @Namespace var animation
    
@@ -62,7 +62,7 @@ struct MediaKindSegmentedControl: View {
 
 struct MediaKindSegmentedControl_Previews: PreviewProvider {
    static var previews: some View {
-      MediaKindSegmentedControl(searchModel: SearchViewModel())
+      MediaTypeSegmentedControl(searchModel: SearchViewModel())
          .environmentObject(PlayerModel())
    }
 }

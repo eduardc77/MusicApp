@@ -95,7 +95,7 @@ struct SearchListView: View {
          .safeAreaInset(edge: .top) {
             Group {
                if searchModel.searchSubmit {
-                  MediaKindSegmentedControl(searchModel: searchModel)
+                  MediaTypeSegmentedControl(searchModel: searchModel)
                } else {
                   Picker("Search In", selection: $selectedPickerIndex) {
                      Text("Apple Music").tag(0)

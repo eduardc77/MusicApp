@@ -35,7 +35,7 @@ struct PlayerControls: View {
             case .video:
                PlayerModel.videoPlayer.toggleIsPlaying()
             case .audio:
-                  playerModel.playbackState == .playing ? PlayerModel.audioPlayer.pause() : PlayerModel.audioPlayer.play()
+                  playerModel.isPlaying ? PlayerModel.audioPlayer.pause() : PlayerModel.audioPlayer.play()
             }
             
          } label: {
@@ -46,7 +46,7 @@ struct PlayerControls: View {
                   .frame(width: 32, height: 36)
                   .foregroundStyle(.white)
             case .audio:
-               (playerModel.playbackState == .playing ? Image(systemName: "pause.fill") : Image(systemName: "play.fill"))
+               (playerModel.isPlaying ? Image(systemName: "pause.fill") : Image(systemName: "play.fill"))
                   .resizable()
                   .frame(width: 32, height: 36)
                   .foregroundStyle(.white)
