@@ -9,16 +9,16 @@ import SwiftUI
 
 struct LibraryAlbumTrackList: View {
    @EnvironmentObject private var playerModel: PlayerModel
-   @ObservedObject var libraryMediaItemModel: LibraryMediaItemModel
+   @ObservedObject var model: LibraryMediaItemModel
    
    @State private var animatePlaying: Bool = false
    
    var body: some View {
       VStack {
-         LazyVStack(alignment: .leading, spacing: 0) {
-            ForEach(libraryMediaItemModel.libraryTracks.indices, id: \.self) { trackIndex in
+          LazyVStack(alignment: .leading, spacing: .zero) {
+            ForEach(Array(model.libraryTracks.enumerated()), id: \.element) { trackIndex, track in
                Button {
-                  libraryMediaItemModel.playTrack(at: trackIndex)
+                   playerModel.play(track, with: model.trackIDsQueue)
                } label: {
                   VStack {
                      if trackIndex == 0 { Divider() }
@@ -26,10 +26,10 @@ struct LibraryAlbumTrackList: View {
                      
                      HStack {
                         Group {
-                           if playerModel.nowPlayingItem.trackName == libraryMediaItemModel.trackTitle(at: trackIndex) {
+                           if playerModel.nowPlayingItem?.trackName == model.trackTitle(at: trackIndex) {
                               AudioVisualizerBars()
                            } else {
-                              Text(String(libraryMediaItemModel.trackNumber(at: trackIndex)))
+                              Text(String(model.trackNumber(at: trackIndex)))
                                  .font(.body)
                                  .foregroundStyle(Color.secondary)
                                  .lineLimit(1)
@@ -37,7 +37,7 @@ struct LibraryAlbumTrackList: View {
                         }
                         .frame(width: 20, height: 8)
                         
-                        MediaItemTitle(name: libraryMediaItemModel.trackTitle(at: trackIndex), explicitness: libraryMediaItemModel.trackExplicitness(at: trackIndex) ? .explicit : .notExplicit)
+                        MediaItemTitle(name: model.trackTitle(at: trackIndex), explicitness: model.trackExplicitness(at: trackIndex) ? .explicit : .notExplicit)
                         
                         Spacer()
                         
@@ -47,23 +47,22 @@ struct LibraryAlbumTrackList: View {
                      
                      Spacer()
                      
-                     Divider().padding(.leading, trackIndex == libraryMediaItemModel.trackCount - 1 ? 0 : 20)
+                     Divider().padding(.leading, trackIndex == model.trackCount - 1 ? 0 : 20)
                   }
                   .padding(.leading, 20)
                   .frame(maxWidth: .infinity, maxHeight: .infinity)
                   .contentShape(Rectangle())
                }
                .buttonStyle(.rowButton)
-            }
-            
+            }          
          }
          
          VStack(alignment: .leading, spacing: 4) {
-            if let releaseDate = libraryMediaItemModel.media.releaseDate {
+            if let releaseDate = model.media.releaseDate {
                Text("\(releaseDate)")
             }
             
-            Text("\(libraryMediaItemModel.trackCount) songs, \(libraryMediaItemModel.albumDuration) minutes")
+            Text("\(model.trackCount) songs, \(model.albumDuration) minutes")
          }
          .font(.footnote)
          .foregroundStyle(Color.secondary)
@@ -72,8 +71,9 @@ struct LibraryAlbumTrackList: View {
          .padding(.horizontal)
       }
       .onChange(of: playerModel.playbackState) { oldValue, newValue in
-     
-         animatePlaying = newValue == .playing
+          DispatchQueue.main.async {
+              animatePlaying = newValue == .playing
+          }
       }
    }
 }
@@ -83,7 +83,7 @@ struct LibraryAlbumTrackList: View {
 
 struct LibraryAlbumTrackList_Previews: PreviewProvider {
    static var previews: some View {
-      LibraryAlbumTrackList(libraryMediaItemModel: LibraryMediaItemModel(media: musicPlaylists2.first ?? Media()))
+      LibraryAlbumTrackList(model: LibraryMediaItemModel(media: musicPlaylists2.first ?? Media()))
          .environmentObject(PlayerModel())
    }
 }

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct AlbumHeaderView: View {
+    @EnvironmentObject private var playerModel: PlayerModel
    @ObservedObject var libraryMediaItemModel: LibraryMediaItemModel
    @ObservedObject var mediaItemModel: MediaItemModel
    
@@ -58,9 +59,9 @@ struct AlbumHeaderView: View {
       HStack {
          MainButton(title: "Play", image: Image(systemName: "play.fill")) {
             if libraryMediaItemModel.media.dateAdded != nil {
-               libraryMediaItemModel.playAllTracks(isShuffle: false)
+                playerModel.playAllTracks(libraryMediaItemModel.trackIDsQueue)
             } else {
-               mediaItemModel.playAllTracks(isShuffle: false)
+                playerModel.playAllTracks(mediaItemModel.trackIDsQueue)
             }
          }
          
@@ -68,9 +69,9 @@ struct AlbumHeaderView: View {
          
          MainButton(title: "Shuffle", image: Image(systemName: "shuffle")) {
             if libraryMediaItemModel.media.dateAdded != nil {
-               libraryMediaItemModel.playAllTracks(isShuffle: true)
+                playerModel.playAllTracks(libraryMediaItemModel.trackIDsQueue, isShuffle: true)
             } else {
-               mediaItemModel.playAllTracks(isShuffle: true)
+                playerModel.playAllTracks(mediaItemModel.trackIDsQueue, isShuffle: true)
             }
          }
       }

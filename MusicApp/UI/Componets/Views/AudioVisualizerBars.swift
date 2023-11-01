@@ -25,7 +25,9 @@ struct AudioVisualizerBars: View {
       .frame(width: size.width, height: size.height)
       
       .onChange(of: playerModel.playbackState) { oldValue, newValue in
-         animating.toggle()
+          DispatchQueue.main.async {
+              animating = newValue == .playing
+          }
       }
    }
    

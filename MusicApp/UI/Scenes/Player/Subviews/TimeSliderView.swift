@@ -40,8 +40,8 @@ struct TimeSliderView: View {
             .onReceive(timer) { _ in
                switch PlayerModel.playerType {
                   case .audio:
-                     trackDuration = playerModel.nowPlayingItem.trackTimeMillis.toInt
-                     trackTimePosition = PlayerModel.audioPlayer.currentPlaybackTime.toInt
+                       trackDuration = playerModel.nowPlayingItem?.trackTimeMillis.toInt ?? 0
+                       trackTimePosition = PlayerModel.audioPlayer?.currentPlaybackTime.toInt ?? 0
                      timeRemain = trackDuration - trackTimePosition
                      
                   case .video:
@@ -90,7 +90,7 @@ struct TimeSliderView: View {
                   timeRemain = trackDuration - trackTimePosition
                }
                .onEnded { _ in
-                  PlayerModel.audioPlayer.currentPlaybackTime = TimeInterval(trackTimePosition)
+                  PlayerModel.audioPlayer?.currentPlaybackTime = TimeInterval(trackTimePosition)
                   DispatchQueue.main.asyncAfter(deadline: .now() + scaleAnimationDuration) {
                      isDragging = false
                      timer = Timer.publish(every: 0, on: .main, in: .default).autoconnect()
