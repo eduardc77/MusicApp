@@ -11,7 +11,7 @@ import SwiftUI
 final class LibraryMediaItemModel: ObservableObject {
    // MARK: - Publishers
    
-   @Published private var trackIDsQueue: [String] = []
+   @Published var trackIDsQueue: [String] = []
    @Published private(set) var libraryTracks: [MPMediaItem] = []
    
    // MARK: - Properties
@@ -41,28 +41,7 @@ final class LibraryMediaItemModel: ObservableObject {
    }
    
    // MARK: - Public Methods
-   
-   @MainActor
-   func playTrack(at index: Int) {
-      PlayerModel.playerType = .audio
-      PlayerModel.audioPlayer.stop()
-      PlayerModel.audioPlayer.setQueue(with: trackIDsQueue)
-      UserDefaults.standard.set(trackIDsQueue, forKey: UserDefaultsKey.queueDefault)
-      PlayerModel.audioPlayer.play()
-      PlayerModel.setShuffleMode(false)
-      PlayerModel.audioPlayer.nowPlayingItem = libraryTracks[index]
-   }
-   
-   @MainActor
-   func playAllTracks(isShuffle: Bool) {
-      PlayerModel.playerType = .audio
-      PlayerModel.audioPlayer.stop()
-      PlayerModel.audioPlayer.setQueue(with: trackIDsQueue)
-      UserDefaults.standard.set(trackIDsQueue, forKey: UserDefaultsKey.queueDefault)
-      PlayerModel.setShuffleMode(isShuffle)
-      PlayerModel.audioPlayer.play()
-   }
-   
+
    func currentMediaItem() -> MPMediaItem? {
       let mediaItemQuery = MPMediaQuery.songs()
       mediaItemQuery.addFilterPredicate(MPMediaPropertyPredicate(value: media.id,

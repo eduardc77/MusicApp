@@ -21,9 +21,9 @@ struct SearchListView: View {
             VStack {
                ForEach(Array(searchModel.searchResults.enumerated()), id: \.element) { mediaIndex, media in
                   Button {
-                     withAnimation {
+                    
                         playerModel.play(media, videoAssetUrl: media.previewUrl)
-                     }
+                     
                   } label: {
                      VStack(spacing: 0) {
                         if mediaIndex == 0 { Divider() }

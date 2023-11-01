@@ -33,9 +33,9 @@ struct VideoMediaRow: View {
       }
       .contentShape(Rectangle())
       .onTapGesture {
-         withAnimation {
+         
             playerModel.play(media, videoAssetUrl: media.previewUrl)
-         }
+         
       }
    }
 }

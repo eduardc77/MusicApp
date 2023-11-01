@@ -26,7 +26,7 @@ struct AlbumDetailView: View {
             AlbumHeaderView(libraryMediaItemModel: libraryMediaItemModel, mediaItemModel: mediaItemModel)
             
             if libraryMediaItemModel.media.collectionId == 0 {
-               LibraryAlbumTrackList(libraryMediaItemModel: libraryMediaItemModel)
+               LibraryAlbumTrackList(model: libraryMediaItemModel)
             } else {
                AlbumTrackList(mediaItemModel: mediaItemModel, media: media)
             }

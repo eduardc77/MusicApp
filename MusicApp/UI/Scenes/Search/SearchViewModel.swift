@@ -181,19 +181,18 @@ private extension SearchViewModel {
       
       $searchTerm
          .map(validSearching)
+         .receive(on: RunLoop.main)
          .sink { [weak self] results in
-            DispatchQueue.main.async {
-               self?.searchLoading = results
-            }
+            self?.searchLoading = results
          }
          .store(in: &anyCancellable)
+      
       $searchResults
          .map(\.isEmpty)
+         .receive(on: RunLoop.main)
          .sink { [weak self] results in
             guard let self = self else { return }
-            DispatchQueue.main.async {
-               self.nothingFound = results
-            }
+            self.nothingFound = results
          }
          .store(in: &anyCancellable)
    }
