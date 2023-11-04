@@ -36,10 +36,6 @@ final class LibraryMediaItemModel: ObservableObject {
       }
    }
    
-   deinit {
-      print("deinit LibraryMediaItemModel")
-   }
-   
    // MARK: - Public Methods
 
    func currentMediaItem() -> MPMediaItem? {

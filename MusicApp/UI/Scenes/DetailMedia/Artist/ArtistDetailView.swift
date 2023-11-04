@@ -35,7 +35,7 @@ struct ArtistDetailView: View {
             GeometryReader { geometry in
                ObservableScrollView(scrollSpace: scrollSpace, scrollOffset: $scrollOffset) {
                   VStack(spacing: 0) {
-                     artistPreviewHeader.scrollSnappingAnchor(.bounds)
+                     artistPreviewHeader
                      artistGalleryList
                   }
                }
