@@ -20,8 +20,8 @@ struct SearchListView: View {
          ScrollView {
             VStack {
                ForEach(Array(searchModel.searchResults.enumerated()), id: \.element) { mediaIndex, media in
+                   
                   Button {
-                    
                         playerModel.play(media, videoAssetUrl: media.previewUrl)
                      
                   } label: {
