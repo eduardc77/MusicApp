@@ -80,9 +80,6 @@ private extension LibraryMediaItemModel {
    func setAlbumContents() {
       if let libraryTracks = getTracks(for: media.collectionName), !libraryTracks.isEmpty {
          self.libraryTracks = libraryTracks
-      } else {
-         //                 searchTracksForCurrentMedia()
-         //                self.albumContents = AlbumContents(tracks: self.searchModel.collectionContentResults)
       }
    }
    
