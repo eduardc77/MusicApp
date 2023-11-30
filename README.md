@@ -3,7 +3,7 @@
 <h1> Music </h1>
 
 [![Swift](https://img.shields.io/badge/Swift-5.0-orange.svg?longCache=true&style=flat&logo=swift)][Swift]
-[![SwiftUI](https://img.shields.io/badge/SwiftUI-3.0-blue.svg?longCache=true&style=flat&logo=swift&logoColor=blue)][SwiftUI]
+[![SwiftUI](https://img.shields.io/badge/SwiftUI-5.0-blue.svg?longCache=true&style=flat&logo=swift&logoColor=blue)][SwiftUI]
 [![iOS](https://img.shields.io/badge/iOS-16.0+-lightgrey.svg?longCache=true&?style=flat&logo=apple)][iOS]
 
 
