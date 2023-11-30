@@ -17,8 +17,10 @@ struct LibraryAlbumTrackList: View {
       VStack {
           LazyVStack(alignment: .leading, spacing: .zero) {
             ForEach(Array(model.libraryTracks.enumerated()), id: \.element) { trackIndex, track in
+                
                Button {
                    playerModel.play(track, with: model.trackIDsQueue)
+                   
                } label: {
                   VStack {
                      if trackIndex == 0 { Divider() }
