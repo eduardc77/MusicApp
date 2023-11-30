@@ -72,11 +72,12 @@ final class PlayerModel: ObservableObject {
         showPlayerView = true
         PlayerModel.playerType = .video
         
-        DispatchQueue.global(qos: .background).async {
+        DispatchQueue.global().async {
             PlayerModel.audioPlayer?.stop()
             PlayerModel.audioPlayer?.nowPlayingItem = nil
             PlayerModel.audioPlayer = nil
             PlayerModel.videoPlayer.player.replaceCurrentItem(with: AVPlayerItem(asset: AVAsset(url: videoAssetUrl)))
+            
             DispatchQueue.main.async {
                 withAnimation {
                     self.expand = true
@@ -89,10 +90,12 @@ final class PlayerModel: ObservableObject {
     func play(_ media: Media, videoAssetUrl: URL? = nil) {
         if media.mediaType != .musicVideo {
             setupAudioPlayer()
-            DispatchQueue.global(qos: .background).async {
-                PlayerModel.setShuffleMode(false)
-                UserDefaults.standard.set([media.id], forKey: UserDefaultsKey.queueDefault)
+            PlayerModel.setShuffleMode(false)
+            UserDefaults.standard.set([media.id], forKey: UserDefaultsKey.queueDefault)
+            
+            DispatchQueue.global().async {
                 PlayerModel.audioPlayer?.setQueue(with: [media.id])
+                PlayerModel.audioPlayer?.prepareToPlay()
                 PlayerModel.audioPlayer?.play()
                 
                 DispatchQueue.main.async {
@@ -106,10 +109,12 @@ final class PlayerModel: ObservableObject {
     
     func play(_ media: MPMediaItem, with query: [String]) {
         setupAudioPlayer()
-        DispatchQueue.global(qos: .background).async {
-            PlayerModel.setShuffleMode(false)
-            UserDefaults.standard.set(query, forKey: UserDefaultsKey.queueDefault)
+        PlayerModel.setShuffleMode(false)
+        UserDefaults.standard.set(query, forKey: UserDefaultsKey.queueDefault)
+        
+        DispatchQueue.global().async {
             PlayerModel.audioPlayer?.setQueue(with: query)
+            PlayerModel.audioPlayer?.prepareToPlay()
             PlayerModel.audioPlayer?.play()
             PlayerModel.audioPlayer?.nowPlayingItem = media
             
@@ -121,21 +126,12 @@ final class PlayerModel: ObservableObject {
     
     func playAllTracks(_ queue: [String], isShuffle: Bool = false) {
         setupAudioPlayer()
-        DispatchQueue.global(qos: .background).async {
-            UserDefaults.standard.set(queue, forKey: UserDefaultsKey.queueDefault)
-            PlayerModel.setShuffleMode(isShuffle)
+        UserDefaults.standard.set(queue, forKey: UserDefaultsKey.queueDefault)
+        PlayerModel.setShuffleMode(isShuffle)
+        
+        DispatchQueue.global().async {
             PlayerModel.audioPlayer?.setQueue(with: queue)
             PlayerModel.audioPlayer?.play()
-
-            DispatchQueue.main.async {
-                self.setNowPlayingMedia()
-            }
-        }
-    }
-    
-    func skipToNextItem() {
-        DispatchQueue.global(qos: .background).async {
-            PlayerModel.audioPlayer?.skipToNextItem()
             
             DispatchQueue.main.async {
                 self.setNowPlayingMedia()
@@ -143,8 +139,18 @@ final class PlayerModel: ObservableObject {
         }
     }
     
+    func skipToNextItem() {
+        DispatchQueue.global().async {
+            PlayerModel.audioPlayer?.skipToNextItem()
+            
+            DispatchQueue.main.async {
+                self.setNowPlayingMedia()
+            }
+        }
+    }
+        
     func skipToPreviousItem() {
-        DispatchQueue.global(qos: .background).async {
+        DispatchQueue.global().async {
             PlayerModel.audioPlayer?.skipToPreviousItem()
             
             DispatchQueue.main.async {
@@ -159,31 +165,23 @@ final class PlayerModel: ObservableObject {
 private extension PlayerModel {
     
     func initPlayerFromUserDefaults() {
-        DispatchQueue.global(qos: .background).async {
-            switch (UserDefaults.standard.integer(forKey: UserDefaultsKey.repeatDefault)) {
-                case 0:
-                    PlayerModel.audioPlayer?.repeatMode = .none
-                    DispatchQueue.main.async {
-                        self.playerOption.repeatMode = .noRepeat
-                    }
-                case 1:
-                    PlayerModel.audioPlayer?.repeatMode = .all
-                    DispatchQueue.main.async {
-                        self.playerOption.repeatMode = .albumRepeat
-                    }
-                case 2:
-                    PlayerModel.audioPlayer?.repeatMode = .one
-                    DispatchQueue.main.async {
-                        self.playerOption.repeatMode = .oneSongRepeat
-                    }
-                default:
-                    PlayerModel.audioPlayer?.repeatMode = .none
-                    DispatchQueue.main.async {
-                        self.playerOption.repeatMode = .noRepeat
-                    }
-            }
-            
-            if let recentMedia = UserDefaults.standard.array(forKey: UserDefaultsKey.queueDefault) as? [String] {
+        switch (UserDefaults.standard.integer(forKey: UserDefaultsKey.repeatDefault)) {
+            case 0:
+                PlayerModel.audioPlayer?.repeatMode = .none
+                playerOption.repeatMode = .noRepeat
+            case 1:
+                PlayerModel.audioPlayer?.repeatMode = .all
+                playerOption.repeatMode = .albumRepeat
+            case 2:
+                PlayerModel.audioPlayer?.repeatMode = .one
+                playerOption.repeatMode = .oneSongRepeat
+            default:
+                PlayerModel.audioPlayer?.repeatMode = .none
+                playerOption.repeatMode = .noRepeat
+        }
+        
+        if let recentMedia = UserDefaults.standard.array(forKey: UserDefaultsKey.queueDefault) as? [String] {
+            DispatchQueue.global(qos: .background).async {
                 PlayerModel.audioPlayer?.setQueue(with: recentMedia)
                 PlayerModel.audioPlayer?.prepareToPlay()
                 PlayerModel.audioPlayer?.skipToBeginning()
@@ -198,61 +196,61 @@ private extension PlayerModel {
             PlayerModel.audioPlayer?.shuffleMode = MPMusicShuffleMode.songs
         }
     }
-    
-    func setupHasRecentMediaListener() {
-        recentMediaCancellable = $hasRecentMedia.sink { [weak self] in
-            guard let self = self else { return }
-            if $0 || self.isPlaying && self.showPlayerView == false {
-                DispatchQueue.main.async {
-                    self.showPlayerView = true
-                }
+
+func setupHasRecentMediaListener() {
+    recentMediaCancellable = $hasRecentMedia.sink { [weak self] in
+        guard let self = self else { return }
+        if $0 || self.isPlaying && self.showPlayerView == false {
+            DispatchQueue.main.async {
+                self.showPlayerView = true
             }
         }
     }
+}
+
+func setNowPlayingMedia() {
+    guard let media = PlayerModel.audioPlayer?.nowPlayingItem else { return }
     
-    func setNowPlayingMedia() {
-        guard let media = PlayerModel.audioPlayer?.nowPlayingItem else { return }
-        
-        let mediaKind: MediaKind
-        
-        switch media.mediaType {
-            case .music: mediaKind = .song
-            case .podcast: mediaKind = .podcastEpisode
-            case .audioBook: mediaKind = .ebook
-            case .anyAudio: mediaKind = .song
-            case .movie: mediaKind = .featureMovie
-            case .videoPodcast: mediaKind = .podcastEpisode
-            case .tvShow: mediaKind = .tvEpisode
-            case .musicVideo: mediaKind = .musicVideo
-            case .anyAudio: mediaKind = .song
-            case .audioITunesU: mediaKind = .song
-            case .videoITunesU: mediaKind = .musicVideo
-            case .homeVideo: mediaKind = .musicVideo
-            case .anyVideo: mediaKind = .musicVideo
-            case .any: mediaKind = .song
-            default: mediaKind = .song
-        }
-        
-        nowPlayingItem = Media(mediaResponse: MediaResponse(id: media.playbackStoreID, artistId: 0, collectionId: 0, trackId: 0, wrapperType: "track", kind: mediaKind.value, name: media.title, artistName: media.artist, collectionName: media.albumTitle, trackName: media.title, collectionCensoredName: media.albumTitle, artistViewUrl: nil, collectionViewUrl: nil, trackViewUrl: media.assetURL?.absoluteString, previewUrl: nil, artworkUrl100: nil, collectionPrice: nil, collectionHdPrice: 0, trackPrice: 0, collectionExplicitness: nil, trackExplicitness: media.isExplicitItem ? "explicit" : "notExplicit", discCount: 0, discNumber: nil, trackCount: media.albumTrackCount, trackNumber: media.albumTrackNumber, trackTimeMillis: media.playbackDuration, country: nil, currency: nil, primaryGenreName: media.genre, description: nil, longDescription: nil, releaseDate: media.releaseDate?.ISO8601Format(), contentAdvisoryRating: nil, trackRentalPrice: 0, artwork: media.artwork?.image(at: CGSize(width: 1024, height: 1024)), composer: media.composer, isCompilation: media.isCompilation))
-        
-        if PlayerModel.playerType == .video {
-            PlayerModel.playerType = .audio
-            PlayerModel.videoPlayer.toggleIsPlaying()
-        }
-        hasRecentMedia = true
+    let mediaKind: MediaKind
+    
+    switch media.mediaType {
+        case .music: mediaKind = .song
+        case .podcast: mediaKind = .podcastEpisode
+        case .audioBook: mediaKind = .ebook
+        case .anyAudio: mediaKind = .song
+        case .movie: mediaKind = .featureMovie
+        case .videoPodcast: mediaKind = .podcastEpisode
+        case .tvShow: mediaKind = .tvEpisode
+        case .musicVideo: mediaKind = .musicVideo
+        case .anyAudio: mediaKind = .song
+        case .audioITunesU: mediaKind = .song
+        case .videoITunesU: mediaKind = .musicVideo
+        case .homeVideo: mediaKind = .musicVideo
+        case .anyVideo: mediaKind = .musicVideo
+        case .any: mediaKind = .song
+        default: mediaKind = .song
     }
     
-    func setupAudioPlayer() {
+    nowPlayingItem = Media(mediaResponse: MediaResponse(id: media.playbackStoreID, artistId: 0, collectionId: 0, trackId: 0, wrapperType: "track", kind: mediaKind.value, name: media.title, artistName: media.artist, collectionName: media.albumTitle, trackName: media.title, collectionCensoredName: media.albumTitle, artistViewUrl: nil, collectionViewUrl: nil, trackViewUrl: media.assetURL?.absoluteString, previewUrl: nil, artworkUrl100: nil, collectionPrice: nil, collectionHdPrice: 0, trackPrice: 0, collectionExplicitness: nil, trackExplicitness: media.isExplicitItem ? "explicit" : "notExplicit", discCount: 0, discNumber: nil, trackCount: media.albumTrackCount, trackNumber: media.albumTrackNumber, trackTimeMillis: media.playbackDuration, country: nil, currency: nil, primaryGenreName: media.genre, description: nil, longDescription: nil, releaseDate: media.releaseDate?.ISO8601Format(), contentAdvisoryRating: nil, trackRentalPrice: 0, artwork: media.artwork?.image(at: CGSize(width: 1024, height: 1024)), composer: media.composer, isCompilation: media.isCompilation))
+    
+    if PlayerModel.playerType == .video {
         PlayerModel.playerType = .audio
-        if PlayerModel.audioPlayer == nil, PlayerModel.playerType == .audio {
-            PlayerModel.audioPlayer = MPMusicPlayerController.applicationQueuePlayer
-        }
+        PlayerModel.videoPlayer.toggleIsPlaying()
     }
-    
-    static func setShuffleMode(_ value: Bool) {
-        UserDefaults.standard.set(value, forKey: UserDefaultsKey.shuffleDefault)
-        PlayerModel.audioPlayer?.shuffleMode = value ? MPMusicShuffleMode.songs : MPMusicShuffleMode.off
+    hasRecentMedia = true
+}
+
+func setupAudioPlayer() {
+    PlayerModel.playerType = .audio
+    if PlayerModel.audioPlayer == nil, PlayerModel.playerType == .audio {
+        PlayerModel.audioPlayer = MPMusicPlayerController.applicationQueuePlayer
     }
+}
+
+static func setShuffleMode(_ value: Bool) {
+    UserDefaults.standard.set(value, forKey: UserDefaultsKey.shuffleDefault)
+    PlayerModel.audioPlayer?.shuffleMode = value ? MPMusicShuffleMode.songs : MPMusicShuffleMode.off
+}
 }
 
 // MARK: - Types
