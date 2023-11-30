@@ -12,15 +12,16 @@ import Combine
 final class PlayerModel: ObservableObject {
     
     static var audioPlayer: MPMusicPlayerController? = MPMusicPlayerController.applicationQueuePlayer
+    static var playerType: PlayerType = .audio
+    
     @Published var expand: Bool = false
     @Published var hasRecentMedia: Bool = false
     @Published var showPlayerView: Bool = false
-    static var playerType: PlayerType = .audio
     
     // MARK: - Audio Player Properties
     
-    var nowPlayingItem: Media?
     @Published var playbackState: MPMusicPlaybackState? = audioPlayer?.playbackState
+    var nowPlayingItem: Media?
     var playerOption: PlayerOption = PlayerOption()
     var progressRate: Int = 0
     private var recentMediaCancellable: AnyCancellable?
@@ -36,16 +37,7 @@ final class PlayerModel: ObservableObject {
     
     init() {
         initPlayerFromUserDefaults()
-        
-        recentMediaCancellable = $hasRecentMedia.sink { [weak self] in
-            guard let self = self else { return }
-            if $0 || self.isPlaying && self.showPlayerView == false {
-                DispatchQueue.main.async {
-                    self.showPlayerView = true
-                }
-            }
-        }
-
+        setupHasRecentMediaListener()
     }
     
     deinit {
@@ -79,14 +71,19 @@ final class PlayerModel: ObservableObject {
     func playVideo(with videoAssetUrl: URL) {
         showPlayerView = true
         PlayerModel.playerType = .video
-        PlayerModel.audioPlayer?.stop()
-        PlayerModel.audioPlayer?.nowPlayingItem = nil
-        nowPlayingItem = nil
-        PlayerModel.audioPlayer = nil
-        withAnimation {
-            expand = true
+        
+        DispatchQueue.global(qos: .background).async {
+            PlayerModel.audioPlayer?.stop()
+            PlayerModel.audioPlayer?.nowPlayingItem = nil
+            PlayerModel.audioPlayer = nil
+            PlayerModel.videoPlayer.player.replaceCurrentItem(with: AVPlayerItem(asset: AVAsset(url: videoAssetUrl)))
+            DispatchQueue.main.async {
+                withAnimation {
+                    self.expand = true
+                }
+                self.nowPlayingItem = nil
+            }
         }
-        PlayerModel.videoPlayer.player.replaceCurrentItem(with: AVPlayerItem(asset: AVAsset(url: videoAssetUrl)))
     }
     
     func play(_ media: Media, videoAssetUrl: URL? = nil) {
@@ -129,10 +126,10 @@ final class PlayerModel: ObservableObject {
             PlayerModel.setShuffleMode(isShuffle)
             PlayerModel.audioPlayer?.setQueue(with: queue)
             PlayerModel.audioPlayer?.play()
-        }
-        
-        DispatchQueue.main.async {
-            self.setNowPlayingMedia()
+
+            DispatchQueue.main.async {
+                self.setNowPlayingMedia()
+            }
         }
     }
     
@@ -199,6 +196,17 @@ private extension PlayerModel {
         
         if UserDefaults.standard.bool(forKey: UserDefaultsKey.shuffleDefault) {
             PlayerModel.audioPlayer?.shuffleMode = MPMusicShuffleMode.songs
+        }
+    }
+    
+    func setupHasRecentMediaListener() {
+        recentMediaCancellable = $hasRecentMedia.sink { [weak self] in
+            guard let self = self else { return }
+            if $0 || self.isPlaying && self.showPlayerView == false {
+                DispatchQueue.main.async {
+                    self.showPlayerView = true
+                }
+            }
         }
     }
     
